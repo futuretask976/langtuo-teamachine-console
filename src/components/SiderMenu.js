@@ -89,6 +89,46 @@ const SiderMenu = (props) => {
             window.location.href="/admin/input";
         } else if (e.key === 8) {
             window.location.href="/admin/input";
+        } else if (e.key === 9) {
+            window.location.href="/admin/input";
+        } else if (e.key === 10) {
+            window.location.href="/admin/input";
+        } else if (e.key === 11) {
+            window.location.href="/admin/input";
+        } else if (e.key === 12) {
+            window.location.href="/admin/input";
+        } else if (e.key === 13) {
+            window.location.href="/admin/input";
+        } else if (e.key === 14) {
+            window.location.href="/admin/input";
+        } else if (e.key === 15) {
+            window.location.href="/admin/input";
+        } else if (e.key === 16) {
+            window.location.href="/admin/input";
+        } else if (e.key === 17) {
+            window.location.href="/admin/input";
+        } else if (e.key === 18) {
+            window.location.href="/admin/input";
+        } else if (e.key === 19) {
+            window.location.href="/admin/input";
+        } else if (e.key === 20) {
+            window.location.href="/admin/input";
+        } else if (e.key === 21) {
+            window.location.href="/admin/input";
+        } else if (e.key === 22) {
+            window.location.href="/admin/input";
+        } else if (e.key === 23) {
+            window.location.href="/admin/input";
+        } else if (e.key === 24) {
+            window.location.href="/admin/input";
+        } else if (e.key === 25) {
+            window.location.href="/admin/input";
+        } else if (e.key === 26) {
+            window.location.href="/admin/input";
+        } else if (e.key === 27) {
+            window.location.href="/admin/input";
+        } else if (e.key === 28) {
+            window.location.href="/admin/input";
         }
     };
 
