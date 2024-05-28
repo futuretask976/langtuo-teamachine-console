@@ -14,26 +14,25 @@ import LineChart from '../components/LineChart'
 const { Content } = Layout;
 
 const layoutStyle = {
-    borderRadius: 5,
     overflow: 'hidden',
-    width: 'calc(90% - 5px)',
-    maxWidth: 'calc(90% - 5px)',
+    width: 'calc(100% - 5px)',
+    maxWidth: 'calc(100% - 5px)',
     justifyContent: 'center',
     border: '0px solid blue'
 };
 
 export default function IndexPage() {
     const selectedMenu = ['1'];
-    const breadcrumbPath = ['主页', '首页'];
+    const breadcrumbPath = ['控制台', '概况'];
 
     return (
         <Flex gap="middle" justify="center" wrap="wrap">
             <Layout style={layoutStyle}>
                 <HeaderBar />
-                <Layout style={{ borderRadius: 0, border: '0px solid red' }}>
+                <Layout style={{ border: '0px solid red' }}>
                     <SiderMenu selectedMenu={selectedMenu} />
-                    <Layout style={{ borderRadius: 0, border: '0px solid yellow' }}>
-                        <Content style={{ margin: '0px 0px', borderRadius: 0, width: '100%', border: '0px solid green', padding: 5 }}>
+                    <Layout style={{ border: '0px solid yellow' }}>
+                        <Content style={{ width: '100%', paddingLeft: 5, paddingRight: 5 }}>
                             <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
                             <LineChart />
                             &nbsp;

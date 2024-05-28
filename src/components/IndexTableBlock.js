@@ -106,7 +106,7 @@ function IndexTableBlock() {
 
     return (
         <>
-            <div style={{ padding: 24, minHeight: 500, background: colorBgContainer, borderRadius: borderRadiusLG }}>
+            <div style={{ padding: 24, minHeight: 500, background: colorBgContainer }}>
                 <Table columns={columns} dataSource={machineData} />
             </div>
 

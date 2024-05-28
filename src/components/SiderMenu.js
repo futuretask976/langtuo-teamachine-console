@@ -17,15 +17,50 @@ const SiderMenu = (props) => {
     const [collapsed, setCollapsed] = useState(false);
 
     const menuItems = [
-        getItem('主页', '1', <PieChartOutlined />),
-        getItem('输入', '2', <DesktopOutlined />),
-        getItem('配置', 'sub1', <UserOutlined />, [
-            getItem('搜索', '3'),
-            getItem('表单配置', '4'),
-            getItem('场景', '5'),
+        getItem('概况', '1', <PieChartOutlined />),
+        getItem('设备元数据', 'machineMetadataSub', <UserOutlined />, [
+            getItem('设备型号管理', '2'),
         ]),
-        getItem('团队', 'sub2', <TeamOutlined />, [getItem('开发团队', '6'), getItem('运营团队', '7')]),
-        getItem('文件', '8', <FileOutlined />),
+        getItem('用户', 'userSub', <UserOutlined />, [
+            getItem('商户管理', '3'),
+            getItem('权限点管理', '4'),
+            getItem('角色管理', '5'),
+			getItem('管理员管理', '6'),
+        ]),
+        getItem('门店', 'shopSub', <TeamOutlined />, [
+            getItem('门店组管理', '7'),
+            getItem('门店管理', '8'),
+        ]),
+        getItem('设备', 'machineSub', <TeamOutlined />, [
+            getItem('预部署管理', '9'),
+            getItem('设备管理', '10'),
+			getItem('设备详情管理', '11'),
+        ]),
+		getItem('饮品生产', 'teaSub', <TeamOutlined />, [
+            getItem('物料类型管理', '12'),
+            getItem('物料管理', '13'),
+			getItem('规格管理', '14'),
+			getItem('配方类型管理', '15'),
+			getItem('配方管理', '16'),
+			getItem('配方下发管理', '17'),
+			getItem('物料精度模板管理', '18'),
+        ]),
+        getItem('菜单', 'menuSub', <TeamOutlined />, [
+            getItem('菜单管理', '19'),
+            getItem('系列管理', '20'),
+        ]),
+        getItem('食安规则', 'foodSafeSub', <TeamOutlined />, [
+            getItem('营业准备管理', '21'),
+            getItem('打烊准备管理', '22'),
+			getItem('清洗规则管理', '23'),
+			getItem('预警规则管理', '24'),
+        ]),
+        getItem('日常报表', 'statisticsSub', <TeamOutlined />, [
+            getItem('废料记录管理', '25'),
+            getItem('补料记录管理', '26'),
+			getItem('清洗记录管理', '27'),
+			getItem('订单记录管理', '28'),
+        ]),
     ];
 
     const siderStyle = {
