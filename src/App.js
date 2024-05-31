@@ -2,6 +2,7 @@ import React from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 
+import RolePage from './pages/RolePage';
 import IndexPage from './pages/IndexPage';
 import InputPage from './pages/InputPage';
 import SearchPage from './pages/SearchPage';
@@ -61,6 +62,10 @@ const Routes = () => {
                     element: <Navigate to="/index" />,
                 },
                 {
+                    path: "/user/role",
+                    element: <RolePage />,
+                },
+                {
                     path: "/index",
                     element: <IndexPage />,
                 },
@@ -98,7 +103,7 @@ const Routes = () => {
         ...routesForAuthenticatedOnly,
     ],
     {
-        basename: "/gxadmin"
+        basename: "/console"
     });
    
     return <RouterProvider router={router} />;
