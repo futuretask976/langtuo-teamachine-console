@@ -2,7 +2,9 @@ import React from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 
+import ClientPage from './pages/ClientPage';
 import RolePage from './pages/RolePage';
+import AdminPage from './pages/AdminPage';
 import IndexPage from './pages/IndexPage';
 import InputPage from './pages/InputPage';
 import SearchPage from './pages/SearchPage';
@@ -62,10 +64,17 @@ const Routes = () => {
                     element: <Navigate to="/index" />,
                 },
                 {
+                    path: "/user/client",
+                    element: <ClientPage />,
+                },
+                {
                     path: "/user/role",
                     element: <RolePage />,
                 },
                 {
+                    path: "/user/admin",
+                    element: <AdminPage />,
+                },{
                     path: "/index",
                     element: <IndexPage />,
                 },

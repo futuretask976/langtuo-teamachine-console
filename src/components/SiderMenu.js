@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import { ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, GatewayOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { BorderOuterOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, GatewayOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
@@ -21,13 +21,13 @@ const SiderMenu = (props) => {
         getItem('设备元数据', 'machineMetadataSub', <GatewayOutlined />, [
             getItem('设备型号管理', '2'),
         ]),
-        getItem('用户', 'userSub', <UserOutlined />, [
+        getItem('用户', 'userSub', <TeamOutlined />, [
             getItem('商户管理', '3'),
             getItem('权限点管理', '4'),
             getItem('角色管理', '5'),
 			getItem('管理员管理', '6'),
         ]),
-        getItem('门店', 'shopSub', <TeamOutlined />, [
+        getItem('门店', 'shopSub', <BorderOuterOutlined />, [
             getItem('门店组管理', '7'),
             getItem('门店管理', '8'),
         ]),
@@ -79,13 +79,13 @@ const SiderMenu = (props) => {
         } else if (e.key == 2) {
             window.location.href="/admin/input";
         } else if (e.key == 3) {
-            window.location.href="/admin/search";
+            window.location.href="/console/user/client";
         } else if (e.key == 4) {
             window.location.href="/admin/search";
         } else if (e.key == 5) {
             window.location.href="/console/user/role";
         } else if (e.key == 6) {
-            window.location.href="/admin/input";
+            window.location.href="/console/user/admin";
         } else if (e.key == 7) {
             window.location.href="/admin/input";
         } else if (e.key == 8) {
@@ -136,7 +136,7 @@ const SiderMenu = (props) => {
     return (
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle} width="200">
             {/* <div className="demo-logo-vertical" /> */}
-            <Menu theme="light" selectedKeys={props.selectedMenu} mode="inline" items={menuItems} onClick={onMenuItemClick} />
+            <Menu theme="light" defaultOpenKeys={props.openMenu} defaultSelectedKeys={props.selectedMenu} mode="inline" items={menuItems} onClick={onMenuItemClick} />
         </Sider>
     )
 };

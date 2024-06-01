@@ -11,8 +11,9 @@ import FooterBar from '../components/FooterBar'
 const { Content } = Layout;
 
 const RolePage = () => {
+    const openMenu = ['userSub'];
     const selectedMenu = ['5'];
-    const breadcrumbPath = ['控制台', '用户', '角色'];
+    const breadcrumbPath = ['控制台', '用户', '角色管理'];
     const layoutStyle = {
         height: 1000,
         overflow: 'hidden',
@@ -108,7 +109,7 @@ const RolePage = () => {
                 <Layout style={layoutStyle}>
                     <HeaderBar />
                     <Layout>
-                        <SiderMenu selectedMenu={selectedMenu} />
+                        <SiderMenu openMenu={openMenu} selectedMenu={selectedMenu} />
                         <Layout>
                             <Content style={{ margin: '0px 5px 0px 5px' }}>
                                 <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
@@ -167,12 +168,12 @@ const RolePage = () => {
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 60, width: '100%'}}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={2}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', justifyContent: 'flex-end'}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
                                     <span>角色名称：</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={6}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
                                     <Input placeholder="角色名称" />&nbsp;&nbsp;
                                 </div>
                             </Col>

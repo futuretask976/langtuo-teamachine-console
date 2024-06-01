@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Image } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-import loginHeader from '../images/login.png'
 import logo from '../images/logo512.png'
 
 
@@ -59,7 +59,7 @@ const HeaderBar = () => {
             </div>
             <div id='loginHeader' style={{display: 'flex', alignItems: 'center', justifyContent: 'right', width: '20%'}}>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <Image height={40} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} src={loginHeader} />
+                    <UserOutlined style={{fontSize: '20px'}} />
                 </div>
                 <div>&nbsp;&nbsp;</div>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
