@@ -23,7 +23,7 @@ const SiderMenu = (props) => {
         ]),
         getItem('用户', 'userSub', <TeamOutlined />, [
             getItem('商户管理', '3'),
-            getItem('权限点管理', '4'),
+            getItem('组织架构管理', '4'),
             getItem('角色管理', '5'),
 			getItem('管理员管理', '6'),
         ]),
@@ -81,7 +81,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 3) {
             window.location.href="/console/user/client";
         } else if (e.key == 4) {
-            window.location.href="/admin/search";
+            window.location.href="/console/user/org/struc";
         } else if (e.key == 5) {
             window.location.href="/console/user/role";
         } else if (e.key == 6) {
@@ -105,7 +105,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 15) {
             window.location.href="/admin/input";
         } else if (e.key == 16) {
-            window.location.href="/admin/input";
+            window.location.href="/console/tea/topping";
         } else if (e.key == 17) {
             window.location.href="/admin/input";
         } else if (e.key == 18) {
