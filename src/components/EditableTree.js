@@ -66,31 +66,28 @@ const EditableTree = () => {
     };
  
   return (
-    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '100%'}}>
-        <Tree
-            showIcon
-            defaultExpandedKeys={['0']}
-            treeData={treeData}
-            draggable
-            blockNode
-            onSelect={(curNodeKey) => {
-                console.log("curNodeKey =" + curNodeKey);
-            }}
-            titleRender={(node) => {
-                return (
-                    <div>
-                        <Space size={10}>
-                            <span>{node.key}</span>
-                            <PlusOutlined onClick={() => addNode(node.key)} style={{color: '#1677ff'}}/>
-                            <EditOutlined style={{color: '#1677ff'}}/>
-                            <DeleteOutlined onClick={() => removeNode(node.key)} style={{color: '#ff4d4f'}}/>
-                        </Space>
-                    </div>
-                );
-            }}
-        />
-    </div>
-    
+    <Tree
+        showIcon
+        defaultExpandedKeys={['0']}
+        treeData={treeData}
+        draggable
+        blockNode
+        onSelect={(curNodeKey) => {
+            console.log("curNodeKey =" + curNodeKey);
+        }}
+        titleRender={(node) => {
+            return (
+                <div>
+                    <Space size={10}>
+                        <span>{node.key}</span>
+                        <PlusOutlined onClick={() => addNode(node.key)} style={{color: '#1677ff'}}/>
+                        <EditOutlined style={{color: '#1677ff'}}/>
+                        <DeleteOutlined onClick={() => removeNode(node.key)} style={{color: '#ff4d4f'}}/>
+                    </Space>
+                </div>
+            );
+        }}
+    />
   );
 };
  

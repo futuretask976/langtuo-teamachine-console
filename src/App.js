@@ -7,6 +7,7 @@ import OrgStrucPage from './pages/OrgStrucPage';
 import RolePage from './pages/RolePage';
 import AdminPage from './pages/AdminPage';
 import ToppingPage from './pages/ToppingPage';
+import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
 import InputPage from './pages/InputPage';
 import SearchPage from './pages/SearchPage';
@@ -84,6 +85,10 @@ const Routes = () => {
                 {
                     path: "/tea/topping",
                     element: <ToppingPage />,
+                },
+                {
+                    path: "/rule/clean",
+                    element: <CleanRulePage />,
                 },{
                     path: "/index",
                     element: <IndexPage />,

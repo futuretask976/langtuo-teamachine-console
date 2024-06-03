@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Steps, Table, Col, Row, message, theme } from 'antd';
+import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table, Col, Row, message, theme } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import HeaderBar from '../components/HeaderBar'
@@ -9,6 +9,7 @@ import ToppingListBlock from '../components/ToppingListBlock'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
+const { TextArea } = Input;
 
 const ToppingPage = () => {
     const openMenu = ['teaSub'];
@@ -26,6 +27,66 @@ const ToppingPage = () => {
     const [loading, setLoading] = useState(false);
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
+    const [toppingGroupVal, setToppingGroupVal] = useState();
+    const [toppingStatVal, setToppingStatVal] = useState(1);
+    const [toppingProduceStepListData, setToppingProduceStepListData] = useState([
+        {
+            key: '1',
+            step: '1',
+            toppingSelectedList: [],
+            actions: ['编辑', '删除'],
+        },
+        {
+            key: '2',
+            step: '1',
+            toppingSelectedList: [],
+            actions: ['编辑', '删除'],
+        }
+    ]);
+    const [teaSubSpecData, setTeaSubSpecData] = useState([
+        {
+            value: '1',
+            label: '杯型',
+            subSpecs: [
+                {
+                    value: '11',
+                    label: '大杯',
+                },
+                {
+                    value: '12',
+                    label: '中杯',
+                },
+                {
+                    value: '13',
+                    label: '小杯',
+                }
+            ]
+        },
+        {
+            value: '2',
+            label: '温度',
+            subSpecs: [
+                {
+                    value: '21',
+                    label: '高温',
+                },
+                {
+                    value: '22',
+                    label: '中温',
+                },
+                {
+                    value: '23',
+                    label: '低温',
+                }
+            ]
+        }
+    ]);
+    const [testNum, setTestNum] = useState(0);
+  
+    const onToppingStatChange = (e) => {
+        console.log('radio checked', e.target.value);
+        setToppingStatVal(e.target.value);
+    };
 
     const onSearch = () => {
         alert("onSearch");
@@ -95,7 +156,128 @@ const ToppingPage = () => {
         borderRadius: token.borderRadiusLG,
         border: `1px dashed ${token.colorBorder}`,
         marginTop: 16,
+        height: '100%',
+        width: '100%'
     };
+
+    const onToppingGroupChange = (newToppingGroupVal) => {
+        setToppingGroupVal(newToppingGroupVal);
+    };
+
+    let toppingGroupData = [
+        {
+            value: 'GROUP_SELF_DEVELOP',
+            label: '自研'
+        },
+        {
+            value: 'GROUP_BUY',
+            label: '外部采购'
+        }
+    ];
+
+    const onSelectedToppingChange = (newToppingGroupVal) => {
+        addSubSpec();
+    };
+
+    let selectedToppingData = [
+        {
+            value: '1',
+            label: '牛奶'
+        },
+        {
+            value: '2',
+            label: '葡萄果酱'
+        },
+        {
+            value: '3',
+            label: '橙汁'
+        },
+        {
+            value: '4',
+            label: '咖啡'
+        },
+        {
+            value: '5',
+            label: '茉莉花茶'
+        },
+        {
+            value: '6',
+            label: '绿茶'
+        }
+    ];
+
+    let toppingProduceStepListColumns = [
+        {
+            title: '步骤',
+            dataIndex: 'step',
+            key: 'step',
+        },
+        {
+            title: '物料',
+            dataIndex: 'toppingSelectedList',
+            key: 'toppingSelectedList',
+            render: (_, { toppingSelectedList }) => (
+                <Select
+                    mode="multiple"
+                    placeholder="Please select"
+                    size="middle"
+                    defaultValue={toppingSelectedList}
+                    style={{width: '100%'}}
+                    onChange={onSelectedToppingChange}
+                    options={selectedToppingData}
+                />
+            ),
+        },
+        {
+            title: '操作',
+            key: 'actions',
+            render: (_, { actions }) => (
+                <Space size="middle">
+                {actions.map((action) => {
+                    return (
+                        <a>{action}</a>
+                    );
+                })}
+                </Space>
+            ),
+        },
+    ];
+
+    let teaSpecData = [
+        {
+            value: '1',
+            label: '杯型'
+        },
+        {
+            value: '2',
+            label: '温度'
+        }
+    ];
+
+    const addSubSpec = () => {
+        teaSubSpecData.push({
+            value: '3',
+            label: '糖度',
+            subSpecs: [
+                {
+                    value: '31',
+                    label: '高糖',
+                },
+                {
+                    value: '32',
+                    label: '中糖',
+                },
+                {
+                    value: '33',
+                    label: '低糖',
+                }
+            ]
+        });
+        alert("aaaa");
+        setTeaSubSpecData(teaSubSpecData);
+        setCurrent(current);
+        setTestNum(testNum + 1);
+    }
 
     return (
         <>
@@ -152,16 +334,133 @@ const ToppingPage = () => {
                 width={1000}
                 style={{border: '0px solid red'}}
                 footer={[
-                    <Button key="back" onClick={handleCancel}>取消</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                        提交
-                    </Button>,
                 ]}
             >
-                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: 400, width: '100%', border: '1px solid red'}}>
+                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: 450, width: '100%'}}>
                     <Steps current={current} items={items} />
                     <div style={contentStyle}>
-                        {steps[current].content}
+                        {current == 0 && (
+                            <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: '100%', width: '100%'}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <span>配方编码：</span>
+                                    </div>
+                                    <div style={{height: '100%', width: '10%'}}></div>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <span>配方名称：</span>
+                                    </div>
+                                </div>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <Input placeholder="配方编码" />
+                                    </div>
+                                    <div style={{height: '100%', width: '10%'}}></div>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <Input placeholder="配方名称" />
+                                    </div>
+                                </div>
+
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <span>外部配方编码：</span>
+                                    </div>
+                                    <div style={{height: '100%', width: '10%'}}></div>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <span>配方分类：</span>
+                                    </div>
+                                </div>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <Input placeholder="外部配方编码" />
+                                    </div>
+                                    <div style={{height: '100%', width: '10%'}}></div>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <Select
+                                            defaultValue={toppingGroupVal}
+                                            style={{width: '100%'}}
+                                            onChange={onToppingGroupChange}
+                                            options={toppingGroupData}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '100%'}}>
+                                        <span>配方状态：</span>
+                                    </div>
+                                </div>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <Radio.Group onChange={onToppingStatChange} value={toppingStatVal}>
+                                            <Radio value={1}>启用</Radio>
+                                            <Radio value={2}>禁用</Radio>
+                                        </Radio.Group>
+                                    </div>
+                                </div>
+
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '100%'}}>
+                                        <span>备注：</span>
+                                    </div>
+                                </div>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 70, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '100%'}}>
+                                        <TextArea rows={2} placeholder="备注" maxLength={200} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {current == 1 && (
+                            <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: '100%', width: '100%'}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '100%'}}>
+                                        <Button key="back" type="primary" style={{margin: '0 8px'}}>新增</Button>
+                                    </div>
+                                </div>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: '100%', width: '100%'}}>
+                                    <Table columns={toppingProduceStepListColumns} dataSource={toppingProduceStepListData} size='small' style={{width: '100%'}} />
+                                </div>
+                            </div>
+                        )}
+                        {current == 2 && (
+                            <div style={contentStyle}>This is 2</div>
+                        )}
+                        {testNum >= 0 && current == 3 && (
+                            <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: '100%', width: '100%'}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'row', height: 35, width: '100%'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <span>可选规格：</span>
+                                    </div>
+                                    <div style={{height: '100%', width: '10%'}}></div>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%', width: '45%'}}>
+                                        <Select
+                                            mode="multiple"
+                                            placeholder="Please select"
+                                            size="middle"
+                                            defaultValue={teaSpecData}
+                                            style={{width: '100%'}}
+                                            onChange={onSelectedToppingChange}
+                                            options={selectedToppingData}
+                                        />
+                                    </div>
+                                </div>
+                                {teaSubSpecData.map((spec) => (
+                                    <div id="appendTestDiv" style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: 100, width: '100%'}}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: 30, width: '100%'}}>
+                                            <span>{spec.label}</span>
+                                        </div>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', height: 50, width: '100%'}}>
+                                            {spec.subSpecs.map((subSpec) => (
+                                                <Button key="back" onClick={handleCancel}>{subSpec.label}</Button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        {current == 4 && (
+                            <div style={contentStyle}>This is 4</div>
+                        )}
                     </div>
                     <div style={{marginTop: 24}}>
                         {current > 0 && (
@@ -184,6 +483,10 @@ const ToppingPage = () => {
                                 完成
                             </Button>
                         )}
+                        <Button key="back" onClick={handleCancel} style={{margin: '0 8px'}}>取消</Button>
+                        <Button key="submit" type="primary" loading={loading} onClick={handleOk} style={{margin: '0 8px'}}>
+                            提交
+                        </Button>
                     </div>
                 </div>
             </Modal>

@@ -49,7 +49,7 @@ const SiderMenu = (props) => {
             getItem('菜单管理', '19'),
             getItem('系列管理', '20'),
         ]),
-        getItem('食安规则', 'foodSafeSub', <MonitorOutlined />, [
+        getItem('食安规则', 'ruleSub', <MonitorOutlined />, [
             getItem('营业准备管理', '21'),
             getItem('打烊准备管理', '22'),
 			getItem('清洗规则管理', '23'),
@@ -119,7 +119,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 22) {
             window.location.href="/admin/input";
         } else if (e.key == 23) {
-            window.location.href="/admin/input";
+            window.location.href="/console/rule/clean";
         } else if (e.key == 24) {
             window.location.href="/admin/input";
         } else if (e.key == 25) {
