@@ -26,14 +26,14 @@ const CleanRulePage = (props) => {
         border: '0px solid red',
     };
 
-    const [showNewRuleModal, setShowNewRuleModal] = useState(false);
+    const [openNewRuleModal, setOpenNewRuleModal] = useState(false);
 
     const onCreateRule = () => {
-        setShowNewRuleModal(true);
+        setOpenNewRuleModal(true);
     };
 
     const onCloseNewRuleModal = () => {
-        setShowNewRuleModal(false);
+        setOpenNewRuleModal(false);
     }
 
     return (
@@ -111,7 +111,7 @@ const CleanRulePage = (props) => {
                 </Layout>
             </Flex>
 
-            {showNewRuleModal && (
+            {openNewRuleModal && (
                 <CleanRuleNewModal modalTitle="新建规则" onClose={onCloseNewRuleModal} />
             )}
         </>

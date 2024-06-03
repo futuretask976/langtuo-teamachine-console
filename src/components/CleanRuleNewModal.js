@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table, Col, Row, message, theme } from 'antd';
+import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table, Tabs, Col, Row, message, theme } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../css/common.css';
@@ -8,7 +8,6 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 const CleanRuleNewModal = (props, onClose) => {
-    console.log("CleanRuleNewModal#entering open=" + props.open + ", onClose=" + onClose + ", onClose2=" + props.onClose);
     const [open, setOpen] = useState(true);
     const [loading, setLoading] = useState(false);
 
