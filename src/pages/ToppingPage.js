@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Table, Col, Row } from 'antd';
+import { Button, Checkbox, Flex, Input, Layout, Modal, Steps, Table, Col, Row, message, theme } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
-import RoleListBlock from '../components/RoleListBlock'
+import ToppingListBlock from '../components/ToppingListBlock'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
@@ -24,6 +24,8 @@ const ToppingPage = () => {
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { token } = theme.useToken();
+    const [current, setCurrent] = useState(0);
 
     const onSearch = () => {
         alert("onSearch");
@@ -49,59 +51,51 @@ const ToppingPage = () => {
         setOpen(false);
     };
 
-    let tableData = [
+    const steps = [
         {
-            opePermGroup: '用户',
-            opePermPoints: ['商户管理', '权限点管理', '角色管理', '组织架构管理', '管理员管理']
+            title: '基本信息',
+            content: '这里是基本信息',
         },
         {
-            opePermGroup: '门店',
-            opePermPoints: ['门店组管理', '门店管理']
+            title: '操作步骤',
+            content: '这里是操作步骤',
         },
         {
-            opePermGroup: '设备',
-            opePermPoints: ['预部署管理', '设备管理', '设备详情管理']
+            title: '标准配方',
+            content: '这里是标准配方',
         },
         {
-            opePermGroup: '饮品生产',
-            opePermPoints: ['物料类型管理', '物料管理', '规格管理', '配方类型管理', '配方管理']
+            title: '选项配置',
+            content: '这里是选项配置',
         },
         {
-            opePermGroup: '菜单',
-            opePermPoints: ['菜单管理', '系列管理', '菜单下发管理']
+            title: '变动规则',
+            content: '这里是变动规则',
         },
-        {
-            opePermGroup: '食安规则',
-            opePermPoints: ['营业准备管理', '打烊准备管理', '清洗规则管理', '预警规则管理']
-        },
-        {
-            opePermGroup: '日常报表',
-            opePermPoints: ['废料记录管理', '补料记录管理', '清洗记录管理', '订单记录管理']
-        }
-    ]
-
-    let tableCol = [
-        {
-            title: '权限分组',
-            dataIndex: 'opePermGroup',
-            key: 'opePermGroup',
-            render: (_, record) => (
-                <Checkbox>{record.opePermGroup}</Checkbox>
-            ),
-        },
-        {
-            title: '权限点',
-            dataIndex: 'opePerm',
-            key: 'opePerm',
-            render: (_, record) => (
-                record.opePermPoints.map((opePermPoint) => {
-                    return (
-                        <Checkbox>{opePermPoint}</Checkbox>
-                    );
-                })
-            ),
-        }
     ];
+
+    const next = () => {
+        setCurrent(current + 1);
+    };
+    
+    const prev = () => {
+        setCurrent(current - 1);
+    };
+
+    const items = steps.map((item) => ({
+        key: item.title,
+        title: item.title,
+    }));
+    
+    const contentStyle = {
+        lineHeight: '260px',
+        textAlign: 'center',
+        color: token.colorTextTertiary,
+        backgroundColor: token.colorFillAlter,
+        borderRadius: token.borderRadiusLG,
+        border: `1px dashed ${token.colorBorder}`,
+        marginTop: 16,
+    };
 
     return (
         <>
@@ -141,7 +135,7 @@ const ToppingPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <RoleListBlock />
+                                <ToppingListBlock />
                             </Content>
                         </Layout>
                     </Layout>
@@ -152,7 +146,7 @@ const ToppingPage = () => {
             <Modal
                 centered
                 open={open}
-                title="新建角色"
+                title="新建配方"
                 onOk={handleOk}
                 onCancel={handleCancel}
                 width={1000}
@@ -164,23 +158,32 @@ const ToppingPage = () => {
                     </Button>,
                 ]}
             >
-                <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 410, width: '100%'}}>
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 60, width: '100%'}}>
-                        <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={2}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <span>角色名称：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={6}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <Input placeholder="角色名称" />&nbsp;&nbsp;
-                                </div>
-                            </Col>
-                        </Row>
+                <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: 400, width: '100%', border: '1px solid red'}}>
+                    <Steps current={current} items={items} />
+                    <div style={contentStyle}>
+                        {steps[current].content}
                     </div>
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 350, width: '100%'}}>
-                        <Table columns={tableCol} dataSource={tableData} pagination={false} size={'small'} style={{width: '100%'}} />
+                    <div style={{marginTop: 24}}>
+                        {current > 0 && (
+                            <Button
+                                style={{
+                                margin: '0 8px',
+                                }}
+                                onClick={() => prev()}
+                            >
+                                上一步
+                            </Button>
+                        )}
+                        {current < steps.length - 1 && (
+                            <Button type="primary" onClick={() => next()}>
+                                下一步
+                            </Button>
+                        )}
+                        {current === steps.length - 1 && (
+                            <Button type="primary" onClick={() => message.success('操作完成！')}>
+                                完成
+                            </Button>
+                        )}
                     </div>
                 </div>
             </Modal>

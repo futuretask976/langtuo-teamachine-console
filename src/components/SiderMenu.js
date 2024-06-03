@@ -75,9 +75,9 @@ const SiderMenu = (props) => {
 
     const onMenuItemClick = (e) => {
         if (e.key == 1) {
-            window.location.href="/admin/index";
+            window.location.href="/console/index";
         } else if (e.key == 2) {
-            window.location.href="/admin/input";
+            window.location.href="/console/input";
         } else if (e.key == 3) {
             window.location.href="/console/user/client";
         } else if (e.key == 4) {
