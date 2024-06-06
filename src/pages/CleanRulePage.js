@@ -9,15 +9,13 @@ import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
 import ToppingListBlock from '../components/ToppingListBlock'
 import FooterBar from '../components/FooterBar'
+import CleanRuleListBlock from '../components/CleanRuleListBlock'
 import CleanRuleNewModal from '../components/CleanRuleNewModal'
 
 const { Content } = Layout;
 const { TextArea } = Input;
 
 const CleanRulePage = (props) => {
-    const openMenu = ['teaSub'];
-    const selectedMenu = ['16'];
-    const breadcrumbPath = ['控制台', '食安规则', '清洗规则管理'];
     const layoutStyle = {
         height: 1000,
         overflow: 'hidden',
@@ -28,7 +26,13 @@ const CleanRulePage = (props) => {
 
     const [openNewRuleModal, setOpenNewRuleModal] = useState(false);
 
+    let openMenu = ['teaSub'];
+    let selectedMenu = ['16'];
+    let breadcrumbPath = ['控制台', '食安规则', '清洗规则管理'];
+    let newRuleModalTitle = '新建规则';
+
     const onCreateRule = () => {
+        newRuleModalTitle = '新建规则';
         setOpenNewRuleModal(true);
     };
 
@@ -103,7 +107,7 @@ const CleanRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ToppingListBlock />
+                                <CleanRuleListBlock />
                             </Content>
                         </Layout>
                     </Layout>
@@ -112,7 +116,7 @@ const CleanRulePage = (props) => {
             </Flex>
 
             {openNewRuleModal && (
-                <CleanRuleNewModal modalTitle="新建规则" onClose={onCloseNewRuleModal} />
+                <CleanRuleNewModal modalTitle={newRuleModalTitle} onClose={onCloseNewRuleModal} />
             )}
         </>
     )
