@@ -66,7 +66,7 @@ const ToppingNewModalSpecPane = (props) => {
     };
 
     return (
-        <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 345, width: '100%', border: '0px solid red'}}>
+        <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 340, width: '100%', border: '0px solid red'}}>
             <div class="flex-row-cont" style={{height: 45, width: '98%', border: '0px solid green'}}>
                 <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '10%'}}>
                     可选规格：
@@ -83,24 +83,25 @@ const ToppingNewModalSpecPane = (props) => {
                     />
                 </div>
             </div>
-            <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 300, width: '98%', overflow: 'auto', border: '0px solid blue'}}>
-                {toppingSubSpec.map((spec) => (
-                    <div class="flex-row-cont" style={{height: 85, width: '100%', border: '0px solid yellow'}}>
+            <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 295, width: '98%', overflow: 'auto'}}>
+                <Space direction="vertical" size="small" style={{width: '100%'}}>
+                    {toppingSubSpec.map((spec) => (
                         <div class="flex-col-cont" style={{height: 85, width: '100%'}}>
-                            <div class="flex-col-cont" style={{height: 75, width: '100%', background: 'white', boxShadow: '3px 3px 1px grey'}}>
-                                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%'}}>
+                            <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#E6F4FF', borderRadius: 5}}>
+                                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
                                     <span>{spec.label}：</span>
                                 </div>
                                 <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
-                                    {spec.subSpecs.map((subSpec) => (
-                                        <Button size='middle'>{subSpec.label}</Button>
-                                    ))}
+                                    <Space size="small">
+                                        {spec.subSpecs.map((subSpec) => (
+                                            <Button size='middle'>{subSpec.label}</Button>
+                                        ))}
+                                    </Space>
                                 </div>
                             </div>
-                            <div style={{height: 10, width: '100%'}}>&nbsp;</div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </Space>
             </div>
         </div>
     );
