@@ -10,10 +10,7 @@ const { TextArea } = Input;
 const ToppingNewModalSpecRulePane = (props) => {
     // 规格组合相关
     const onMatchRuleChange = (e) => {
-        alert(e);
-        console.log(e);
-        e.target.style.background = 'red';
-        e.target.style.color = 'white';
+        e.target.style.background = '#E6F4FF';
     }
 
     // 标准配方相关
@@ -125,27 +122,27 @@ const ToppingNewModalSpecRulePane = (props) => {
             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '90%', width: '100%'}}>
                 <div class="flex-col-cont" style={{height: '100%', width: '29%', border: '0px solid green'}}>
                     <Space direction='vertical' size='small'>
-                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray'}} onClick={onMatchRuleChange}>
+                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray', borderRadius: 5}} onClick={onMatchRuleChange}>
                             <span class="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                 中杯-冷藏-普通糖-0卡糖-高温-高热-超导-低舔-加水果
                             </span>
                         </div>
-                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray'}} onClick={onMatchRuleChange}>
+                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray', borderRadius: 5}} onClick={onMatchRuleChange}>
                             <span class="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                 中杯-冷藏-普通糖-0卡糖-高温-高热-超导-低舔-加水果
                             </span>
                         </div>
-                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray'}} onClick={onMatchRuleChange}>
+                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray', borderRadius: 5}} onClick={onMatchRuleChange}>
                             <span class="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                 中杯-冷藏-普通糖-0卡糖-高温-高热-超导-低舔-加水果
                             </span>
                         </div>
-                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray'}} onClick={onMatchRuleChange}>
+                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray', borderRadius: 5}} onClick={onMatchRuleChange}>
                             <span class="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                 中杯-冷藏-普通糖-0卡糖-高温-高热-超导-低舔-加水果
                             </span>
                         </div>
-                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray'}} onClick={onMatchRuleChange}>
+                        <div class="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 50, width: '99%', border: '1px dashed gray', borderRadius: 5}} onClick={onMatchRuleChange}>
                             <span class="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                 中杯-冷藏-普通糖-0卡糖-高温-高热-超导-低舔-加水果
                             </span>

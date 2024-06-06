@@ -86,18 +86,16 @@ const ToppingNewModalSpecPane = (props) => {
             <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 295, width: '98%', overflow: 'auto'}}>
                 <Space direction="vertical" size="small" style={{width: '100%'}}>
                     {toppingSubSpec.map((spec) => (
-                        <div class="flex-col-cont" style={{height: 85, width: '100%'}}>
-                            <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#E6F4FF', borderRadius: 5}}>
-                                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
-                                    <span>{spec.label}：</span>
-                                </div>
-                                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
-                                    <Space size="small">
-                                        {spec.subSpecs.map((subSpec) => (
-                                            <Button size='middle'>{subSpec.label}</Button>
-                                        ))}
-                                    </Space>
-                                </div>
+                        <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#FFFFFF', borderRadius: 5}}>
+                            <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
+                                <span>{spec.label}：</span>
+                            </div>
+                            <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
+                                <Space size="small">
+                                    {spec.subSpecs.map((subSpec) => (
+                                        <Button size='middle'>{subSpec.label}</Button>
+                                    ))}
+                                </Space>
                             </div>
                         </div>
                     ))}
