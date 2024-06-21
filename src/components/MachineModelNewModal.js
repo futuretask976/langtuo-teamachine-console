@@ -59,12 +59,6 @@ const MachineModelNewModal = (props) => {
             content: '这里是变动规则',
         },
     ];
-    const nextStep = () => {
-        setCurStep(curStep + 1);
-    };
-    const prevStep = () => {
-        setCurStep(curStep - 1);
-    };
  
     return (
         <Modal

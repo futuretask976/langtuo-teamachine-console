@@ -13,8 +13,9 @@ const MachineModelListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    useEffect(() => {
-        let url = 'http://localhost:8080/teamachine/machine/model/list?pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchData = () => {
+        let url = 'http://localhost:8080/teamachine/machine/model/search?modelCode=' + props.modelCode + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        console.log('$$$$$ MachineModelListBlock#let url=' + url);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -36,7 +37,10 @@ const MachineModelListBlock = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }, [pageNum]);
+    }
+    useEffect(() => {
+        fetchData();
+    }, [props.modelCode, pageNum]);
 
     // 表格展示数据相关
     const columns = [

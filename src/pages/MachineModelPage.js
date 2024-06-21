@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../css/common.css';
 
@@ -22,7 +21,7 @@ const MachineModelPage = () => {
 
     // 页面样式相关
     const layoutStyle = {
-        height: 900,
+        height: 880,
         overflow: 'hidden',
         width: 'calc(100% - 5px)',
         maxWidth: 'calc(100% - 5px)',
@@ -36,6 +35,16 @@ const MachineModelPage = () => {
     };
     const onCloseNewModelModal = () => {
         setOpenNewModelModal(false);
+    }
+
+    // 搜索相关
+    var modelCodeTmp = '';
+    const [modelCode, setModelCode] = useState('');
+    const onChangeModelCode = (e) => {
+        modelCodeTmp = e.target.value;
+    }
+    const onSearch = () => {
+        setModelCode(modelCodeTmp);
     }
 
     return (
@@ -57,12 +66,12 @@ const MachineModelPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="型号编码" />&nbsp;&nbsp;
+                                            <Input placeholder="型号编码" onChange={onChangeModelCode} />&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onCreateNewModelModal}>开始搜索</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onSearch}>开始搜索</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -76,7 +85,7 @@ const MachineModelPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineModelListBlock />
+                                <MachineModelListBlock modelCode={modelCode} />
                             </Content>
                         </Layout>
                     </Layout>
