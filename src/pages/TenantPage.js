@@ -11,7 +11,7 @@ import FooterBar from '../components/FooterBar'
 const { Content } = Layout;
 const { TextArea } = Input;
 
-const ClientPage = () => {
+const TenantPage = () => {
     const openMenu = ['userSub'];
     const selectedMenu = ['3'];
     const breadcrumbPath = ['控制台', '用户', '商户管理'];
@@ -227,4 +227,4 @@ const ClientPage = () => {
     )
 };
 
-export default ClientPage;
+export default TenantPage;

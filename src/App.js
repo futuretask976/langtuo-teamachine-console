@@ -2,7 +2,8 @@ import React from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 
-import ClientPage from './pages/ClientPage';
+import MachineModelPage from './pages/MachineModelPage';
+import TenantPage from './pages/TenantPage';
 import OrgStrucPage from './pages/OrgStrucPage';
 import RolePage from './pages/RolePage';
 import AdminPage from './pages/AdminPage';
@@ -67,8 +68,12 @@ const Routes = () => {
                     element: <Navigate to="/index" />,
                 },
                 {
-                    path: "/user/client",
-                    element: <ClientPage />,
+                    path: "/machine/model",
+                    element: <MachineModelPage />,
+                },
+                {
+                    path: "/user/tenant",
+                    element: <TenantPage />,
                 },
                 {
                     path: "/user/org/struc",

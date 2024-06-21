@@ -77,9 +77,9 @@ const SiderMenu = (props) => {
         if (e.key == 1) {
             window.location.href="/console/index";
         } else if (e.key == 2) {
-            window.location.href="/console/input";
+            window.location.href="/console/machine/model";
         } else if (e.key == 3) {
-            window.location.href="/console/user/client";
+            window.location.href="/console/user/tenant";
         } else if (e.key == 4) {
             window.location.href="/console/user/org/struc";
         } else if (e.key == 5) {
