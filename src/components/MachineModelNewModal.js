@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Switch, Col, Row } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -9,7 +9,7 @@ const MachineModelNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
-    const handleOk = () => {
+    const onClickOK = () => {
         setLoading(true);
         alert(modelCode)
         let url = 'http://localhost:8080/teamachine/machine/model/put';
@@ -46,17 +46,50 @@ const MachineModelNewModal = (props) => {
             setOpen(false);
         }, 3000);
     };
-    const handleCancel = () => {
+    const onClickCancel = () => {
         props.onClose();
         setOpen(false);
     };
 
+    // 数据初始化相关
+    const [modelCode, setModelCode] = useState(props.editModelCode == undefined || props.editModelCode == null ? '' : props.editModelCode);
+    const [enableFlowAll, setEnableFlowAll] = useState(1);
+    const fetchMachineModelData = () => {
+        alert('$$$$$ MachineModelNewModal#fetchMachineModelData props.editModelCode=' + props.editModelCode);
+        if (props.editModelCode == undefined || props.editModelCode == null || props.editModelCode == '') {
+            return;
+        }
+
+        let url = 'http://localhost:8080/teamachine/machine/model/' + props.editModelCode + '/get';
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setModelCode(response.data.model.modelCode);
+                setEnableFlowAll(response.data.model.enableFlowAll);
+                setPipelineList((prev => {
+                    return response.data.model.pipelineList;
+                }));
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }
+    useEffect(() => {
+        fetchMachineModelData();
+    }, [props.modelCode]);
+
     // 输入相关
-    const [modelCode, setModelCode] = useState('');
     const onChangeModelCode = (e) => {
         setModelCode(e.target.value);
     }
-    const [enableFlowAll, setEnableFlowAll] = useState(1);
     const onChangeEnableFlowAll = (value) => {
         setEnableFlowAll(value);
     }
@@ -89,7 +122,7 @@ const MachineModelNewModal = (props) => {
             return tmp;
         }));
     }
-    const handleChangeFreeze = (value, pipeline) => {
+    const onChangeFreeze = (value, pipeline) => {
         setPipelineList((prev => {
             let tmp = [];
             prev.map((ite, index) => {
@@ -103,7 +136,7 @@ const MachineModelNewModal = (props) => {
 
         pipeline.enableFreeze = value ? 1 : 0;
     }
-    const handleChangeWarm = (value, pipeline) => {
+    const onChangeWarm = (value, pipeline) => {
         setPipelineList((prev => {
             let tmp = [];
             prev.map((ite, index) => {
@@ -123,13 +156,13 @@ const MachineModelNewModal = (props) => {
             centered
             open={open}
             title="新建型号"
-            onOk={handleOk}
-            onCancel={handleCancel}
+            onOk={onClickOK}
+            onCancel={onClickCancel}
             width={1000}
             style={{border: '0px solid red'}}
             footer={[
-                <Button key="back" onClick={handleCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+                <Button key="back" onClick={onClickCancel}>取消</Button>,
+                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
                     提交
                 </Button>,
             ]}
@@ -144,7 +177,7 @@ const MachineModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" onChange={onChangeModelCode} />
+                                <Input placeholder="型号编码" value={modelCode} disabled={props.editModelCode == undefined || props.editModelCode == null || props.editModelCode == '' ? false : true} onChange={onChangeModelCode} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={2}>
@@ -194,7 +227,7 @@ const MachineModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze == 1 ? true : false} onChange={(value) => handleChangeFreeze(value, pipeline)} />
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze == 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={2}>
@@ -204,7 +237,7 @@ const MachineModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm == 1 ? true : false} onChange={(value) => handleChangeWarm(value, pipeline)} />
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm == 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
                                 </div>
                             </Col>
                         </Row>

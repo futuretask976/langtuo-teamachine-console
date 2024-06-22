@@ -13,7 +13,7 @@ const MachineModelListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchData = () => {
+    const fetchMachineModelListData = () => {
         let url = 'http://localhost:8080/teamachine/machine/model/search?modelCode=' + props.modelCode + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
@@ -38,7 +38,7 @@ const MachineModelListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchData();
+        fetchMachineModelListData();
     }, [props.modelCode, pageNum]);
 
     // 表格展示数据相关
@@ -68,12 +68,12 @@ const MachineModelListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + modelCode} onClick={(e) => handleEditModel(e, modelCode)}>编辑</a>
+                            <a id={action + '_' + modelCode} onClick={(e) => onEditModel(e, modelCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + modelCode} onClick={(e) => handleDeleteModel(e, modelCode)}>删除</a>
+                            <a id={action + '_' + modelCode} onClick={(e) => onDeleteModel(e, modelCode)}>删除</a>
                         );
                     }
                 })}
@@ -91,11 +91,10 @@ const MachineModelListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const handleEditModel = (e, modelCode) => {
-        alert("$$$$$ MachineModelListBlock#handleEditModel modelCode=" + modelCode)
+    const onEditModel = (e, modelCode) => {
+        props.onEditMachineModel(modelCode);
     }
-    const handleDeleteModel = (e, modelCode) => {
-        alert("$$$$$ MachineModelListBlock#handleDeleteModel modelCode=" + modelCode);
+    const onDeleteModel = (e, modelCode) => {
         let url = 'http://localhost:8080/teamachine/machine/model/' + modelCode + '/delete';
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies

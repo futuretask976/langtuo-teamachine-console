@@ -35,6 +35,7 @@ const MachineModelPage = () => {
     };
     const onCloseNewModelModal = () => {
         setOpenNewModelModal(false);
+        setEditModelCode('');
     }
 
     // 搜索相关
@@ -45,6 +46,13 @@ const MachineModelPage = () => {
     }
     const onSearch = () => {
         setModelCode(modelCodeTmp);
+    }
+
+    // 表格操作相关
+    const [editModelCode, setEditModelCode] = useState('');
+    const onEditMachineModel = (selectedModelCode)=> {
+        setEditModelCode(selectedModelCode);
+        setOpenNewModelModal(true);
     }
 
     return (
@@ -85,7 +93,7 @@ const MachineModelPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineModelListBlock modelCode={modelCode} />
+                                <MachineModelListBlock modelCode={modelCode} onEditMachineModel={onEditMachineModel} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -94,7 +102,7 @@ const MachineModelPage = () => {
             </Flex>
 
             {openNewModelModal && (
-                <MachineModelNewModal onClose={onCloseNewModelModal} />
+                <MachineModelNewModal onClose={onCloseNewModelModal} editModelCode={editModelCode} onEditModelCode={onEditMachineModel} />
             )}
         </>
     )
