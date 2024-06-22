@@ -15,7 +15,6 @@ const MachineModelListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchData = () => {
         let url = 'http://localhost:8080/teamachine/machine/model/search?modelCode=' + props.modelCode + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
-        console.log('$$$$$ MachineModelListBlock#let url=' + url);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -69,12 +68,12 @@ const MachineModelListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action}>编辑</a>
+                            <a id={action + '_' + modelCode} onClick={(e) => handleEditModel(e, modelCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action}>删除</a>
+                            <a id={action + '_' + modelCode} onClick={(e) => handleDeleteModel(e, modelCode)}>删除</a>
                         );
                     }
                 })}
@@ -92,11 +91,33 @@ const MachineModelListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onEditRecord = (modelCode) => {
-        alert("$$$$$ MachineModelListBlock#onEditRecord modelCode=" + modelCode)
+    const handleEditModel = (e, modelCode) => {
+        alert("$$$$$ MachineModelListBlock#handleEditModel modelCode=" + modelCode)
     }
-    const onDeleteRecord = (modelCode) => {
-        alert("$$$$$ MachineModelListBlock#onDeleteRecord modelCode=" + modelCode)
+    const handleDeleteModel = (e, modelCode) => {
+        alert("$$$$$ MachineModelListBlock#handleDeleteModel modelCode=" + modelCode);
+        let url = 'http://localhost:8080/teamachine/machine/model/' + modelCode + '/delete';
+        axios.delete(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setPageNum(response.data.model.pageNum);
+                setPageSize(response.data.model.pageSize);
+                setTotal(response.data.model.total);
+                setList((prev => {
+                    return response.data.model.list
+                }));
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
     }
 
     return (

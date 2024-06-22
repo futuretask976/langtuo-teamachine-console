@@ -1,21 +1,48 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Switch, Table, Tabs, Col, Row, message, theme } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Button, Input, InputNumber, Modal, Switch, Col, Row } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 import '../css/common.css';
-
-const { Content } = Layout;
-const { TextArea } = Input;
 
 const MachineModelNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
-    const { token } = theme.useToken();
     const handleOk = () => {
         setLoading(true);
+        alert(modelCode)
+        let url = 'http://localhost:8080/teamachine/machine/model/put';
+        axios.put(url, {
+            withCredentials: true, // 这会让axios在请求中携带cookies
+            modelCode: modelCode,
+            enableFlowAll: enableFlowAll,
+            pipelineList: pipelineList,
+            extraInfo: {
+                testA: 'valueA',
+                testB: 'valueB'
+            }
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                alert("here is success")
+            } else {
+                alert("here is wrong")
+            }
+        })
+        .catch(error => {
+            alert("here is error")
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+
         setTimeout(() => {
             setLoading(false);
+            props.onClose();
             setOpen(false);
         }, 3000);
     };
@@ -23,42 +50,73 @@ const MachineModelNewModal = (props) => {
         props.onClose();
         setOpen(false);
     };
-    const contentStyle = {
-        lineHeight: '260px',
-        textAlign: 'center',
-        color: token.colorTextTertiary,
-        backgroundColor: token.colorFillAlter,
-        borderRadius: token.borderRadiusLG,
-        border: `1px dashed ${token.colorBorder}`,
-        marginTop: 16,
-        height: '100%',
-        width: '100%'
-    };
 
-    // 步骤相关
-    const [curStep, setCurStep] = useState(0);
-    const steps = [
-        {
-            title: '基本信息',
-            content: '这里是基本信息',
-        },
-        {
-            title: '操作步骤',
-            content: '这里是操作步骤',
-        },
-        {
-            title: '标准配方',
-            content: '这里是标准配方',
-        },
-        {
-            title: '选项配置',
-            content: '这里是选项配置',
-        },
-        {
-            title: '变动规则',
-            content: '这里是变动规则',
-        },
-    ];
+    // 输入相关
+    const [modelCode, setModelCode] = useState('');
+    const onChangeModelCode = (e) => {
+        setModelCode(e.target.value);
+    }
+    const [enableFlowAll, setEnableFlowAll] = useState(1);
+    const onChangeEnableFlowAll = (value) => {
+        setEnableFlowAll(value);
+    }
+    const [pipelineList, setPipelineList] = useState([]);
+    const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
+    const onClickAddPipeline = (e) => {
+        setPipelineList((prev => {
+            let tmp = [];
+            prev.map((pipeline, index) => (
+                tmp.push(pipeline)
+            ));
+            tmp.push({
+                pipelineNum: pipelineNumIdx,
+                enableFreeze: 0,
+                enableWarm: 0,
+            });
+            setPipelineNumIdx(pipelineNumIdx + 1);
+            return tmp;
+        }));
+    }
+    const onClickDeletePipeline = (e) => {
+        setPipelineList((prev => {
+            let tmp = [];
+            let last;
+            prev.map((ite, index) => {
+                tmp.push(ite)
+            });
+            tmp.pop();
+            setPipelineNumIdx(pipelineNumIdx - 1);
+            return tmp;
+        }));
+    }
+    const handleChangeFreeze = (value, pipeline) => {
+        setPipelineList((prev => {
+            let tmp = [];
+            prev.map((ite, index) => {
+                if (ite.pipelineNum == pipeline.pipelineNum) {
+                    ite.enableFreeze = value ? 1 : 0;
+                }
+                tmp.push(ite);
+            });
+            return tmp;
+        }));
+
+        pipeline.enableFreeze = value ? 1 : 0;
+    }
+    const handleChangeWarm = (value, pipeline) => {
+        setPipelineList((prev => {
+            let tmp = [];
+            prev.map((ite, index) => {
+                if (ite.pipelineNum == pipeline.pipelineNum) {
+                    ite.enableWarm = value ? 1 : 0;
+                }
+                tmp.push(ite);
+            });
+            return tmp;
+        }));
+
+        pipeline.enableWarm = value ? 1 : 0;
+    }
  
     return (
         <Modal
@@ -76,20 +134,81 @@ const MachineModelNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 410, width: '100%'}}>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 60, width: '100%'}}>
-                    <Row style={{width: '100%'}}>
+            <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
+                <div className="flex-col-cont" style={{height: 45, width: '100%'}}>
+                    <Row style={{height: 45, width: '100%'}}>
                         <Col className="gutter-row" span={2}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
                                 <span>型号编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={6}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="型号编码" />&nbsp;&nbsp;
+                        <Col className="gutter-row" span={5}>
+                            <div className="flex-row-cont" style={{height: '100%'}}>
+                                <Input placeholder="型号编码" onChange={onChangeModelCode} />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={2}>
+                            &nbsp;
+                        </Col>
+                        <Col className="gutter-row" span={2}>
+                            <div className="flex-row-cont" style={{height: '100%'}}>
+                                <span>同时出料：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" defaultChecked onChange={onChangeEnableFlowAll} />
                             </div>
                         </Col>
                     </Row>
+                </div>
+                <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 365, width: '100%', overflowY: 'scroll'}}>
+                    <Row style={{height: 45, width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 40}}>
+                                <span><Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>添加管道</Button></span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 40}}>
+                                <span><Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>删除管道</Button></span>
+                            </div>
+                        </Col>
+                    </Row>
+                    {pipelineList.map((pipeline, index) => (
+                        <Row id={index} style={{width: '100%'}}>
+                            <Col className="gutter-row" span={2}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                    <span>管道号码：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                    <InputNumber disabled="true" min={1} max={99} defaultValue={pipeline.pipelineNum} size="small" />
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={2}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                    <span>支持冷藏：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze == 1 ? true : false} onChange={(value) => handleChangeFreeze(value, pipeline)} />
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={2}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                    <span>支持加热：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm == 1 ? true : false} onChange={(value) => handleChangeWarm(value, pipeline)} />
+                                </div>
+                            </Col>
+                        </Row>
+                    ))}
                 </div>
             </div>
         </Modal>
