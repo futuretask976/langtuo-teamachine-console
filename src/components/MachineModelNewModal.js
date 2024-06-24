@@ -88,7 +88,7 @@ const MachineModelNewModal = (props) => {
         setModelCode(e.target.value);
     }
     const onChangeEnableFlowAll = (value) => {
-        setEnableFlowAll(value);
+        setEnableFlowAll(value ? 1 : 0);
     }
     const [pipelineList, setPipelineList] = useState([]);
     const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
@@ -186,7 +186,7 @@ const MachineModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" defaultChecked onChange={onChangeEnableFlowAll} />
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={enableFlowAll === 1 ? true : false} onChange={onChangeEnableFlowAll} />
                             </div>
                         </Col>
                     </Row>
