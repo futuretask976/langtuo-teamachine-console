@@ -52,10 +52,10 @@ const MachineModelNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [modelCode, setModelCode] = useState(props.editModelCode == undefined || props.editModelCode == null ? '' : props.editModelCode);
+    const [modelCode, setModelCode] = useState(props.editModelCode === undefined || props.editModelCode === null ? '' : props.editModelCode);
     const [enableFlowAll, setEnableFlowAll] = useState(1);
-    const fetchMachineModelData = () => {
-        if (props.editModelCode == undefined || props.editModelCode == null || props.editModelCode == '') {
+    useEffect(() => {
+        if (props.editModelCode === undefined || props.editModelCode === null || props.editModelCode === '') {
             return;
         }
 
@@ -68,7 +68,8 @@ const MachineModelNewModal = (props) => {
                 setModelCode(response.data.model.modelCode);
                 setEnableFlowAll(response.data.model.enableFlowAll);
                 setPipelineList((prev => {
-                    return response.data.model.pipelineList;
+                    console.log("$$$$$ MachineModelNewModal#fetchMachineModelData pipelineList", response.data.model.pipelineList);
+                    return response.data.model.pipelineList === undefined || response.data.model.pipelineList === null ? [] : response.data.model.pipelineList;
                 }));
             }
         })
@@ -80,10 +81,7 @@ const MachineModelNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }
-    useEffect(() => {
-        fetchMachineModelData();
-    }, [props.modelCode]);
+    }, [props.editModelCode]);
 
     // 输入相关
     const onChangeModelCode = (e) => {
@@ -97,7 +95,7 @@ const MachineModelNewModal = (props) => {
     const onClickAddPipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
-            prev.map((pipeline, index) => (
+            prev.forEach((pipeline, index) => (
                 tmp.push(pipeline)
             ));
             tmp.push({
@@ -112,7 +110,7 @@ const MachineModelNewModal = (props) => {
     const onClickDeletePipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
-            prev.map((ite, index) => {
+            prev.forEach((ite, index) => {
                 tmp.push(ite)
             });
             tmp.pop();
@@ -123,8 +121,8 @@ const MachineModelNewModal = (props) => {
     const onChangeFreeze = (value, pipeline) => {
         setPipelineList((prev => {
             let tmp = [];
-            prev.map((ite, index) => {
-                if (ite.pipelineNum == pipeline.pipelineNum) {
+            prev.forEach((ite, index) => {
+                if (ite.pipelineNum === pipeline.pipelineNum) {
                     ite.enableFreeze = value ? 1 : 0;
                 }
                 tmp.push(ite);
@@ -137,8 +135,8 @@ const MachineModelNewModal = (props) => {
     const onChangeWarm = (value, pipeline) => {
         setPipelineList((prev => {
             let tmp = [];
-            prev.map((ite, index) => {
-                if (ite.pipelineNum == pipeline.pipelineNum) {
+            prev.forEach((ite, index) => {
+                if (ite.pipelineNum === pipeline.pipelineNum) {
                     ite.enableWarm = value ? 1 : 0;
                 }
                 tmp.push(ite);
@@ -175,7 +173,7 @@ const MachineModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" value={modelCode} disabled={props.editModelCode == undefined || props.editModelCode == null || props.editModelCode == '' ? false : true} onChange={onChangeModelCode} />
+                                <Input placeholder="型号编码" value={modelCode} disabled={props.editModelCode === undefined || props.editModelCode === null || props.editModelCode === '' ? false : true} onChange={onChangeModelCode} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={2}>
@@ -225,7 +223,7 @@ const MachineModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze == 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={2}>
@@ -235,7 +233,7 @@ const MachineModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm == 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
                                 </div>
                             </Col>
                         </Row>
