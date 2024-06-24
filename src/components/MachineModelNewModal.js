@@ -55,7 +55,6 @@ const MachineModelNewModal = (props) => {
     const [modelCode, setModelCode] = useState(props.editModelCode == undefined || props.editModelCode == null ? '' : props.editModelCode);
     const [enableFlowAll, setEnableFlowAll] = useState(1);
     const fetchMachineModelData = () => {
-        alert('$$$$$ MachineModelNewModal#fetchMachineModelData props.editModelCode=' + props.editModelCode);
         if (props.editModelCode == undefined || props.editModelCode == null || props.editModelCode == '') {
             return;
         }
@@ -113,7 +112,6 @@ const MachineModelNewModal = (props) => {
     const onClickDeletePipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
-            let last;
             prev.map((ite, index) => {
                 tmp.push(ite)
             });
