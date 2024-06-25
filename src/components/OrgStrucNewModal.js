@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Switch, Col, Row } from 'antd';
-import { FormOutlined } from '@ant-design/icons';
+import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
@@ -78,7 +77,7 @@ const OrgStrucNewModal = (props) => {
     }, [props.orgName4Edit]);
 
     const [parentOrgName, setParentOrgName] = useState('总公司');
-    const [parentOrgNameList, setParentOrgNameList] = useState('');
+    const [parentOrgNameOpts, setParentOrgNameOpts] = useState([]);
     useEffect(() => {
         let url = 'http://localhost:8080/teamachine/orgstruc/list?tenantCode=tenant_002';
         axios.get(url, {
@@ -86,8 +85,16 @@ const OrgStrucNewModal = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setParentOrgNameList(prev => {
-                    return response.data.model;
+                setParentOrgNameOpts(prev => {
+                    let tmpOpts = [];
+
+                    response.data.model.forEach(ite => {
+                        tmpOpts.push({
+                            label: ite.orgName,
+                            value: ite.orgName
+                        });
+                    });
+                    return tmpOpts;
                 });
             }
         })
@@ -105,8 +112,8 @@ const OrgStrucNewModal = (props) => {
     const onChangeOrgName = (e) => {
         setOrgName(e.target.value);
     }
-    const onChangeParentOrgName = (e) => {
-        setOrgName(e.target.value);
+    const onChangeParentOrgName = (value) => {
+        setParentOrgName(value);
     }
  
     return (
@@ -152,7 +159,13 @@ const OrgStrucNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="父组织名称" value={parentOrgName} onChange={onChangeParentOrgName} />
+                                <Select
+                                    style={{
+                                        width: '100%',
+                                    }}
+                                    onChange={onChangeParentOrgName}
+                                    options={parentOrgNameOpts}
+                                />
                             </div>
                         </Col>
                     </Row>
