@@ -57,18 +57,18 @@ const TenantNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [tenantCode, setTenantCode] = useState(props.editTenantCode === undefined || props.editTenantCode === null ? '' : props.editTenantCode);
+    const [tenantCode, setTenantCode] = useState(props.tenantCode4Edit === undefined || props.tenantCode4Edit === null ? '' : props.tenantCode4Edit);
     const [tenantName, setTenantName] = useState('');
     const [contactPerson, setContactPerson] = useState('');
     const [contactPhone, setContactPhone] = useState('');
     const [imgLink, setImgLink] = useState('');
     const [comment, setComment] = useState('');
     useEffect(() => {
-        if (props.editTenantCode === undefined || props.editTenantCode === null || props.editTenantCode === '') {
+        if (props.tenantCode4Edit === undefined || props.tenantCode4Edit === null || props.tenantCode4Edit === '') {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/tenant/' + props.editTenantCode + '/get';
+        let url = 'http://localhost:8080/teamachine/tenant/' + props.tenantCode4Edit + '/get';
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -90,7 +90,7 @@ const TenantNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }, [props.editTenantCode]);
+    }, [props.tenantCode4Edit]);
 
     // 输入相关
     const onChangeTenantCode = (e) => {
@@ -138,7 +138,7 @@ const TenantNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={12}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="商户编码" value={tenantCode} onChange={onChangeTenantCode} disabled={props.editTenantCode === undefined || props.editTenantCode === null || props.editTenantCode === '' ? false : true} />
+                                <Input placeholder="商户编码" value={tenantCode} onChange={onChangeTenantCode} disabled={props.tenantCode4Edit === undefined || props.tenantCode4Edit === null || props.tenantCode4Edit === '' ? false : true} />
                             </div>
                         </Col>
                     </Row>

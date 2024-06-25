@@ -14,7 +14,7 @@ const TenantListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchMachineModelListData = () => {
-        let url = 'http://localhost:8080/teamachine/tenant/search?tenantName=' + props.tenantName + '&contactPerson=' + props.contactPerson + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        let url = 'http://localhost:8080/teamachine/tenant/search?tenantName=' + props.tenantName4Search + '&contactPerson=' + props.contactPerson4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -39,7 +39,7 @@ const TenantListBlock = (props) => {
     }
     useEffect(() => {
         fetchMachineModelListData();
-    }, [props.tenantName, props.contactPerson, pageNum]);
+    }, [props.tenantName4Search, props.contactPerson4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [
@@ -73,12 +73,12 @@ const TenantListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + tenantCode} onClick={(e) => onEditTenant(e, tenantCode)}>编辑</a>
+                            <a id={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + tenantCode} onClick={(e) => onDeleteTenant(e, tenantCode)}>删除</a>
+                            <a id={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>删除</a>
                         );
                     }
                 })}
@@ -96,10 +96,10 @@ const TenantListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onEditTenant = (e, tenantCode) => {
-        props.onEditTenant(tenantCode);
+    const onClickEdit = (e, tenantCode) => {
+        props.onClickEdit(tenantCode);
     }
-    const onDeleteTenant = (e, tenantCode) => {
+    const onClickDelete = (e, tenantCode) => {
         let url = 'http://localhost:8080/teamachine/tenant/' + tenantCode + '/delete';
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies

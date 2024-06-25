@@ -28,36 +28,36 @@ const TenantPage = () => {
     };
     
     // 新建型号对话框相关
-    const [openNewTenantModal, setOpenNewTenantModal] = useState(false);
-    const onCreateNewTenantModal = () => {
-        setOpenNewTenantModal(true);
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const onClickNew = () => {
+        setOpenNewModal(true);
     };
-    const onCloseNewTenantModal = () => {
-        setOpenNewTenantModal(false);
-        setEditTenantCode('');
+    const onCloseNewModal = () => {
+        setOpenNewModal(false);
+        setTenantCode4Edit('');
     }
     
     // 搜索相关
     var tenantNameTmp = '';
-    const [tenantName, setTenantName] = useState('');
-    const onChangeTenantName = (e) => {
+    const [tenantName4Search, setTenantName4Search] = useState('');
+    const onChangeTenantName4Search = (e) => {
         tenantNameTmp = e.target.value;
     }
     var contactPersonTmp = '';
-    const [contactPerson, setContactPerson] = useState('');
-    const onChangeContactPerson = (e) => {
+    const [contactPerson4Search, setContactPerson4Search] = useState('');
+    const onChangeContactPerson4Search = (e) => {
         contactPersonTmp = e.target.value;
     }
     const onSearch = () => {
-        setTenantName(tenantNameTmp);
-        setContactPerson(contactPersonTmp);
+        setTenantName4Search(tenantNameTmp);
+        setContactPerson4Search(contactPersonTmp);
     }
 
     // 表格操作相关
-    const [editTenantCode, setEditTenantCode] = useState('');
-    const onEditTenant = (selectedTenantCode)=> {
-        setEditTenantCode(selectedTenantCode);
-        setOpenNewTenantModal(true);
+    const [tenantCode4Edit, setTenantCode4Edit] = useState('');
+    const onClickEdit = (selectedTenantCode)=> {
+        setTenantCode4Edit(selectedTenantCode);
+        setOpenNewModal(true);
     }
 
     return (
@@ -79,7 +79,7 @@ const TenantPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="商户名称" onChange={onChangeTenantName} />&nbsp;&nbsp;
+                                            <Input placeholder="商户名称" onChange={onChangeTenantName4Search} />&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -89,7 +89,7 @@ const TenantPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="联系人名称" onChange={onChangeContactPerson} />&nbsp;&nbsp;
+                                            <Input placeholder="联系人名称" onChange={onChangeContactPerson4Search} />&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -99,7 +99,7 @@ const TenantPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewTenantModal}>新建商户</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew}>新建商户</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={6}>
@@ -108,7 +108,7 @@ const TenantPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <TenantListBlock tenantName={tenantName} contactPerson={contactPerson} onEditTenant={onEditTenant} />
+                                <TenantListBlock tenantName4Search={tenantName4Search} contactPerson4Search={contactPerson4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -116,8 +116,8 @@ const TenantPage = () => {
                 </Layout>
             </Flex>
 
-            {openNewTenantModal && (
-                <TenantNewModal onClose={onCloseNewTenantModal} editTenantCode={editTenantCode} onEditTenant={onEditTenant} />
+            {openNewModal && (
+                <TenantNewModal onClose={onCloseNewModal} tenantCode4Edit={tenantCode4Edit} />
             )}
         </>
     )
