@@ -5,7 +5,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
-import ClientListBlock from '../components/ClientListBlock'
+import TenantListBlock from '../components/TenantListBlock'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
@@ -152,7 +152,7 @@ const AdminPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ClientListBlock />
+                                <TenantListBlock />
                             </Content>
                         </Layout>
                     </Layout>

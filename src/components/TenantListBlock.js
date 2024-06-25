@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
-const MachineModelListBlock = (props) => {
+const TenantListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -13,8 +13,8 @@ const MachineModelListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchTenantListData = () => {
-        let url = 'http://localhost:8080/teamachine/machine/model/search?modelCode=' + props.modelCode + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchMachineModelListData = () => {
+        let url = 'http://localhost:8080/teamachine/tenant/search?tenantName=' + props.tenantName + '&contactPerson=' + props.contactPerson + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -38,15 +38,15 @@ const MachineModelListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchTenantListData();
-    }, [props.tenantCode, pageNum]);
+        fetchMachineModelListData();
+    }, [props.tenantName, props.contactPerson, pageNum]);
 
     // 表格展示数据相关
     const columns = [
         {
-            title: '型号名称',
-            dataIndex: 'modelCode',
-            key: 'modelCode',
+            title: '商户名称',
+            dataIndex: 'tenantName',
+            key: 'tenantName',
             render: (text) => <a>{text}</a>,
         },
         {
@@ -56,24 +56,29 @@ const MachineModelListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '是否支持同时出料',
-            dataIndex: 'enableFlowAll',
-            key: 'enableFlowAll',
+            title: '联系人名称',
+            dataIndex: 'contactPerson',
+            key: 'contactPerson',
+        },
+        {
+            title: '联系人电话',
+            dataIndex: 'contactPhone',
+            key: 'contactPhone',
         },
         {
             title: '操作',
             key: 'actions',
-            render: (_, { modelCode, actions }) => (
+            render: (_, { tenantCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + modelCode} onClick={(e) => onEditModel(e, modelCode)}>编辑</a>
+                            <a id={action + '_' + tenantCode} onClick={(e) => onEditTenant(e, tenantCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + modelCode} onClick={(e) => onDeleteModel(e, modelCode)}>删除</a>
+                            <a id={action + '_' + tenantCode} onClick={(e) => onDeleteTenant(e, tenantCode)}>删除</a>
                         );
                     }
                 })}
@@ -86,16 +91,16 @@ const MachineModelListBlock = (props) => {
         ite.key = ite.modelCode;
         ite.actions = ["edit", "delete"];
     });
-
+    
     // 表格操作数据相关
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onEditModel = (e, modelCode) => {
-        props.onEditMachineModel(modelCode);
+    const onEditTenant = (e, tenantCode) => {
+        props.onEditTenant(tenantCode);
     }
-    const onDeleteModel = (e, modelCode) => {
-        let url = 'http://localhost:8080/teamachine/machine/model/' + modelCode + '/delete';
+    const onDeleteTenant = (e, tenantCode) => {
+        let url = 'http://localhost:8080/teamachine/tenant/' + tenantCode + '/delete';
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -135,5 +140,5 @@ const MachineModelListBlock = (props) => {
     )
 };
 
-export default MachineModelListBlock;
+export default TenantListBlock;
 
