@@ -56,7 +56,7 @@ const OrgStrucNewModal = (props) => {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/orgstruc/' + props.orgName4Edit + '/get';
+        let url = 'http://localhost:8080/teamachine/orgstruc/tenant_001/' + props.orgName4Edit + '/get';
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -163,6 +163,7 @@ const OrgStrucNewModal = (props) => {
                                     style={{
                                         width: '100%',
                                     }}
+                                    value={parentOrgName}
                                     onChange={onChangeParentOrgName}
                                     options={parentOrgNameOpts}
                                 />
