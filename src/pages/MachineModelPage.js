@@ -29,30 +29,30 @@ const MachineModelPage = () => {
     };
 
     // 新建型号对话框相关
-    const [openNewModelModal, setOpenNewModelModal] = useState(false);
+    const [openNewModal, setOpenNewModal] = useState(false);
     const onCreateNewModelModal = () => {
-        setOpenNewModelModal(true);
+        setOpenNewModal(true);
     };
     const onCloseNewModelModal = () => {
-        setOpenNewModelModal(false);
-        setEditModelCode('');
+        setOpenNewModal(false);
+        setModelCode4Edit('');
     }
 
     // 搜索相关
-    var modelCodeTmp = '';
-    const [modelCode, setModelCode] = useState('');
-    const onChangeModelCode = (e) => {
-        modelCodeTmp = e.target.value;
+    var modelCode4SearchTmp = '';
+    const [modelCode4Search, setModelCode4Search] = useState('');
+    const onChangemodelCode4Search = (e) => {
+        modelCode4SearchTmp = e.target.value;
     }
     const onSearch = () => {
-        setModelCode(modelCodeTmp);
+        setModelCode4Search(modelCode4SearchTmp);
     }
 
     // 表格操作相关
-    const [editModelCode, setEditModelCode] = useState('');
-    const onEditMachineModel = (selectedModelCode)=> {
-        setEditModelCode(selectedModelCode);
-        setOpenNewModelModal(true);
+    const [modelCode4Edit, setModelCode4Edit] = useState('');
+    const onClickEdit = (selectedModelCode)=> {
+        setModelCode4Edit(selectedModelCode);
+        setOpenNewModal(true);
     }
 
     return (
@@ -74,7 +74,7 @@ const MachineModelPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="型号编码" onChange={onChangeModelCode} />&nbsp;&nbsp;
+                                            <Input placeholder="型号编码" onChange={onChangemodelCode4Search} />&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -93,7 +93,7 @@ const MachineModelPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineModelListBlock modelCode={modelCode} onEditMachineModel={onEditMachineModel} />
+                                <MachineModelListBlock modelCode4Search={modelCode4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -101,8 +101,8 @@ const MachineModelPage = () => {
                 </Layout>
             </Flex>
 
-            {openNewModelModal && (
-                <MachineModelNewModal onClose={onCloseNewModelModal} editModelCode={editModelCode} onEditModelCode={onEditMachineModel} />
+            {openNewModal && (
+                <MachineModelNewModal onClose={onCloseNewModelModal} modelCode4Edit={modelCode4Edit} />
             )}
         </>
     )

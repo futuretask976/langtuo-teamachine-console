@@ -52,14 +52,14 @@ const MachineModelNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [modelCode, setModelCode] = useState(props.editModelCode === undefined || props.editModelCode === null ? '' : props.editModelCode);
+    const [modelCode, setModelCode] = useState(props.modelCode4Edit === undefined || props.modelCode4Edit === null ? '' : props.modelCode4Edit);
     const [enableFlowAll, setEnableFlowAll] = useState(1);
     useEffect(() => {
-        if (props.editModelCode === undefined || props.editModelCode === null || props.editModelCode === '') {
+        if (props.modelCode4Edit === undefined || props.modelCode4Edit === null || props.modelCode4Edit === '') {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/machine/model/' + props.editModelCode + '/get';
+        let url = 'http://localhost:8080/teamachine/machine/model/' + props.modelCode4Edit + '/get';
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -81,7 +81,7 @@ const MachineModelNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }, [props.editModelCode]);
+    }, [props.modelCode4Edit]);
 
     // 输入相关
     const onChangeModelCode = (e) => {
@@ -173,7 +173,7 @@ const MachineModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" value={modelCode} disabled={props.editModelCode === undefined || props.editModelCode === null || props.editModelCode === '' ? false : true} onChange={onChangeModelCode} />
+                                <Input placeholder="型号编码" value={modelCode} disabled={props.modelCode4Edit === undefined || props.modelCode4Edit === null || props.modelCode4Edit === '' ? false : true} onChange={onChangeModelCode} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={2}>

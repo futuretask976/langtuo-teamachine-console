@@ -111,7 +111,7 @@ const OrgStrucPage = () => {
             </Flex>
 
             {openNewModal && (
-                <OrgStrucNewModal onClose={onCloseNewModal} />
+                <OrgStrucNewModal orgName4Edit={orgName4Edit} onClose={onCloseNewModal} />
             )}
 
             {openViewModal && (
