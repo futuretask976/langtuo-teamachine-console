@@ -15,7 +15,7 @@ const OrgStrucNewModal = (props) => {
             withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: 'tenant_001',
             orgName: orgName,
-            parentOrgName: orgName,
+            parentOrgName: parentOrgName,
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
