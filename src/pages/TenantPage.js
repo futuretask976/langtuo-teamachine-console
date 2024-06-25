@@ -48,7 +48,7 @@ const TenantPage = () => {
     const onChangeContactPerson4Search = (e) => {
         contactPersonTmp = e.target.value;
     }
-    const onSearch = () => {
+    const onClickSearch = () => {
         setTenantName4Search(tenantNameTmp);
         setContactPerson4Search(contactPersonTmp);
     }
@@ -94,7 +94,7 @@ const TenantPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onSearch}>开始搜索</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

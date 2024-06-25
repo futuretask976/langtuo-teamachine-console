@@ -5,19 +5,18 @@ import axios from 'axios';
 
 import '../css/common.css';
 
-const MachineModelNewModal = (props) => {
+const OrgStrucNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        alert(modelCode)
-        let url = 'http://localhost:8080/teamachine/machine/model/put';
+        let url = 'http://localhost:8080/teamachine/orgstruc/put';
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
-            modelCode: modelCode,
-            enableFlowAll: enableFlowAll,
-            pipelineList: pipelineList,
+            tenantCode: 'tenant_001',
+            orgName: orgName,
+            parentOrgName: orgName,
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
@@ -52,25 +51,20 @@ const MachineModelNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [modelCode, setModelCode] = useState(props.editModelCode === undefined || props.editModelCode === null ? '' : props.editModelCode);
-    const [enableFlowAll, setEnableFlowAll] = useState(1);
+    const [orgName, setOrgName] = useState(props.orgName4Edit === undefined || props.orgName4Edit === null ? '' : props.orgName4Edit);
     useEffect(() => {
-        if (props.editModelCode === undefined || props.editModelCode === null || props.editModelCode === '') {
+        if (props.orgName4Edit === undefined || props.orgName4Edit === null || props.orgName4Edit === '') {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/machine/model/' + props.editModelCode + '/get';
+        let url = 'http://localhost:8080/teamachine/orgstruc/' + props.orgName4Edit + '/get';
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setModelCode(response.data.model.modelCode);
-                setEnableFlowAll(response.data.model.enableFlowAll);
-                setPipelineList((prev => {
-                    console.log("$$$$$ MachineModelNewModal#fetchMachineModelData pipelineList", response.data.model.pipelineList);
-                    return response.data.model.pipelineList === undefined || response.data.model.pipelineList === null ? [] : response.data.model.pipelineList;
-                }));
+                setOrgName(response.data.model.orgName);
+                setParentOrgName(response.data.model.parentOrgName);
             }
         })
         .catch(error => {
@@ -81,80 +75,48 @@ const MachineModelNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }, [props.editModelCode]);
+    }, [props.orgName4Edit]);
+
+    const [parentOrgName, setParentOrgName] = useState('总公司');
+    const [parentOrgNameList, setParentOrgNameList] = useState('');
+    useEffect(() => {
+        let url = 'http://localhost:8080/teamachine/orgstruc/list?tenantCode=tenant_002';
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setParentOrgNameList(prev => {
+                    return response.data.model;
+                });
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }, []);
 
     // 输入相关
-    const onChangeModelCode = (e) => {
-        setModelCode(e.target.value);
+    const onChangeOrgName = (e) => {
+        setOrgName(e.target.value);
     }
-    const onChangeEnableFlowAll = (value) => {
-        setEnableFlowAll(value ? 1 : 0);
-    }
-    const [pipelineList, setPipelineList] = useState([]);
-    const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
-    const onClickAddPipeline = (e) => {
-        setPipelineList((prev => {
-            let tmp = [];
-            prev.forEach((pipeline, index) => (
-                tmp.push(pipeline)
-            ));
-            tmp.push({
-                pipelineNum: pipelineNumIdx,
-                enableFreeze: 0,
-                enableWarm: 0,
-            });
-            setPipelineNumIdx(pipelineNumIdx + 1);
-            return tmp;
-        }));
-    }
-    const onClickDeletePipeline = (e) => {
-        setPipelineList((prev => {
-            let tmp = [];
-            prev.forEach((ite, index) => {
-                tmp.push(ite)
-            });
-            tmp.pop();
-            setPipelineNumIdx(pipelineNumIdx - 1);
-            return tmp;
-        }));
-    }
-    const onChangeFreeze = (value, pipeline) => {
-        setPipelineList((prev => {
-            let tmp = [];
-            prev.forEach((ite, index) => {
-                if (ite.pipelineNum === pipeline.pipelineNum) {
-                    ite.enableFreeze = value ? 1 : 0;
-                }
-                tmp.push(ite);
-            });
-            return tmp;
-        }));
-
-        pipeline.enableFreeze = value ? 1 : 0;
-    }
-    const onChangeWarm = (value, pipeline) => {
-        setPipelineList((prev => {
-            let tmp = [];
-            prev.forEach((ite, index) => {
-                if (ite.pipelineNum === pipeline.pipelineNum) {
-                    ite.enableWarm = value ? 1 : 0;
-                }
-                tmp.push(ite);
-            });
-            return tmp;
-        }));
-
-        pipeline.enableWarm = value ? 1 : 0;
+    const onChangeParentOrgName = (e) => {
+        setOrgName(e.target.value);
     }
  
     return (
         <Modal
             centered
             open={open}
-            title="新建型号"
+            title="新建租户"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={1000}
+            width={400}
             style={{border: '0px solid red'}}
             footer={[
                 <Button key="back" onClick={onClickCancel}>取消</Button>,
@@ -163,85 +125,41 @@ const MachineModelNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
-                <div className="flex-col-cont" style={{height: 45, width: '100%'}}>
-                    <Row style={{height: 45, width: '100%'}}>
-                        <Col className="gutter-row" span={2}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <span>型号编码：</span>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 100, width: '100%'}}>
+                <div style={{height: 410, width: '100%'}}>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                                <span>组织名称：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" value={modelCode} disabled={props.editModelCode === undefined || props.editModelCode === null || props.editModelCode === '' ? false : true} onChange={onChangeModelCode} />
+                        <Col className="gutter-row" span={18}>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                                <Input placeholder="组织名称" value={orgName} onChange={onChangeOrgName} disabled={props.orgName4Edit === undefined || props.orgName4Edit === null || props.orgName4Edit === '' ? false : true} />
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={2}>
+                    </Row>
+                    <Row style={{height: 15, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
                             &nbsp;
                         </Col>
-                        <Col className="gutter-row" span={2}>
-                            <div className="flex-row-cont" style={{height: '100%'}}>
-                                <span>同时出料：</span>
+                    </Row> 
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                                <span>父组织名称：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={enableFlowAll === 1 ? true : false} onChange={onChangeEnableFlowAll} />
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
-                <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 365, width: '100%', overflowY: 'scroll'}}>
-                    <Row style={{height: 45, width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 40}}>
-                                <span><Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>添加管道</Button></span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 40}}>
-                                <span><Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>删除管道</Button></span>
+                        <Col className="gutter-row" span={18}>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                                <Input placeholder="父组织名称" value={parentOrgName} onChange={onChangeParentOrgName} />
                             </div>
                         </Col>
                     </Row>
-                    {pipelineList.map((pipeline, index) => (
-                        <Row id={index} style={{width: '100%'}}>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <span>管道号码：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={3}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <InputNumber disabled="true" min={1} max={99} defaultValue={pipeline.pipelineNum} size="small" />
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <span>支持冷藏：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={3}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <span>支持加热：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={3}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
-                                </div>
-                            </Col>
-                        </Row>
-                    ))}
                 </div>
             </div>
         </Modal>
     );
 };
  
-export default MachineModelNewModal;
+export default OrgStrucNewModal;

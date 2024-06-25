@@ -48,9 +48,14 @@ const OrgStrucPage = () => {
 
     // 搜索相关
     const [orgName4Search, setOrgName4Search] = useState('');
+    let orgName4SearchTmp = '';
     const onChangeOrgName4Search = (e) => {
-        setOrgName4Search(e.target.value);
+        orgName4SearchTmp = e.target.value;
     }
+    const onClickSearch = () => {
+        setOrgName4Search(orgName4SearchTmp);
+    }
+
 
     // 表格操作相关
     const [orgName4Edit, setOrgName4Edit] = useState('');
@@ -83,7 +88,7 @@ const OrgStrucPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />}>开始搜索</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

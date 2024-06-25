@@ -44,7 +44,7 @@ const MachineModelPage = () => {
     const onChangemodelCode4Search = (e) => {
         modelCode4SearchTmp = e.target.value;
     }
-    const onSearch = () => {
+    const onClickSearch = () => {
         setModelCode4Search(modelCode4SearchTmp);
     }
 
@@ -79,7 +79,7 @@ const MachineModelPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onSearch}>开始搜索</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
