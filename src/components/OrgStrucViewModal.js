@@ -21,14 +21,19 @@ const OrgStrucViewModal = (props) => {
     };
 
     // 数据初始化相关
+    const [orgStrucTree, setOrgStrucTree] = useState([]);
     useEffect(() => {
-        let url = 'http://localhost:8080/teamachine/orgstruc/list';
+        let url = 'http://localhost:8080/teamachine/orgstruc/listbydepth?tenantCode=tenant_001';
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                console.log("$$$$$ MachineModelNewModal#fetchMachineModelData pipelineList", response.data.model.pipelineList);
+                setOrgStrucTree(prev => {
+                    let orgStrucTreeTmp = [];
+                    orgStrucTreeTmp.push(convertOrgNode(response.data.model));
+                    return orgStrucTreeTmp;
+                })
             }
         })
         .catch(error => {
@@ -40,6 +45,25 @@ const OrgStrucViewModal = (props) => {
             }
         });
     }, []);
+
+    const convertOrgNode = (orgNode) => {
+        // console.log("$$$$$ OrgStrucViewModal#convertOrgNode orgNode", orgNode);
+        let childrenTmp = [];
+        if (orgNode.childOrgNameList != undefined && orgNode.childOrgNameList != null) {
+            orgNode.childOrgNameList.forEach(item => {
+                childrenTmp.push(convertOrgNode(item));
+            })
+        }
+
+        let treeNode = {
+            key: orgNode.orgName,
+            parentKey: orgNode.parentOrgName,
+            isEditable: false,
+            children: childrenTmp
+        };
+        // console.log("$$$$$ OrgStrucViewModal#convertOrgNode treeNode", treeNode);
+        return treeNode;
+    }
  
     return (
         <Modal
@@ -55,7 +79,7 @@ const OrgStrucViewModal = (props) => {
             ]}
         >
             <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 400, width: '100%'}}>
-                <EditableTree />
+                <EditableTree orgStrucTree={orgStrucTree} />
             </div>
         </Modal>
     );
