@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
@@ -28,7 +28,7 @@ const MachineModelPage = () => {
         border: '0px solid red',
     };
 
-    // 新建型号对话框相关
+    // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
     const onCreateNewModelModal = () => {
         setOpenNewModal(true);
@@ -41,7 +41,7 @@ const MachineModelPage = () => {
     // 搜索相关
     var modelCode4SearchTmp = '';
     const [modelCode4Search, setModelCode4Search] = useState('');
-    const onChangemodelCode4Search = (e) => {
+    const onChangeModelCode4Search = (e) => {
         modelCode4SearchTmp = e.target.value;
     }
     const onClickSearch = () => {
@@ -74,7 +74,7 @@ const MachineModelPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="型号编码" onChange={onChangemodelCode4Search} />&nbsp;&nbsp;
+                                            <Input placeholder="型号编码" onChange={onChangeModelCode4Search} />&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
