@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Input, InputNumber, Modal, Table, Col, Row } from 'antd';
-import { FormOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Input, Modal, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
