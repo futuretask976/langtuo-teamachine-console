@@ -105,12 +105,7 @@ const RoleListBlock = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                setList((prev => {
-                    return response.data.model.list
-                }));
+                alert("删除成功")
             }
         })
         .catch(error => {
