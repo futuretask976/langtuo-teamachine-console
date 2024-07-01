@@ -7,6 +7,8 @@ import TenantPage from './pages/TenantPage';
 import OrgStrucPage from './pages/OrgStrucPage';
 import RolePage from './pages/RolePage';
 import AdminPage from './pages/AdminPage';
+import ShopGroupPage from './pages/ShopGroupPage';
+import ShopPage from './pages/ShopPage';
 import ToppingPage from './pages/ToppingPage';
 import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
@@ -86,6 +88,14 @@ const Routes = () => {
                 {
                     path: "/user/admin",
                     element: <AdminPage />,
+                },
+                {
+                    path: "/store/group",
+                    element: <ShopGroupPage />,
+                },
+                {
+                    path: "/store/shop",
+                    element: <ShopPage />,
                 },
                 {
                     path: "/tea/topping",

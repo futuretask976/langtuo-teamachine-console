@@ -87,9 +87,9 @@ const SiderMenu = (props) => {
         } else if (e.key == 6) {
             window.location.href="/console/user/admin";
         } else if (e.key == 7) {
-            window.location.href="/admin/input";
+            window.location.href="/console/store/group";
         } else if (e.key == 8) {
-            window.location.href="/admin/input";
+            window.location.href="/console/store/shop";
         } else if (e.key == 9) {
             window.location.href="/admin/input";
         } else if (e.key == 10) {
