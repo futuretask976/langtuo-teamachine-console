@@ -6,19 +6,18 @@ import '../css/common.css';
 
 const { TextArea } = Input;
 
-const AdminNewModal = (props) => {
+const ShopNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/teamachine/admin/put';
+        let url = 'http://localhost:8080/teamachine/shop/put';
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
-            loginName: loginName,
-            loginPass: loginPass,
-            roleCode: roleCode,
-            orgName: orgName,
+            shopCode: shopCode,
+            shopName: shopName,
+            shopGroupCode: shopGroupCode,
             comment: comment,
             tenantCode: 'tenant_001',
             extraInfo: {
@@ -55,26 +54,26 @@ const AdminNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [loginName, setLoginName] = useState(props.loginName4Edit === undefined || props.loginName4Edit === null ? '' : props.loginName4Edit);
-    const [loginPass, setLoginPass] = useState('');
-    const [roleCode, setRoleCode] = useState('');
-    const [orgName, setOrgName] = useState('');
+    const [shopCode, setShopCode] = useState(props.shopCode4Edit === undefined || props.shopCode4Edit === null ? '' : props.shopCode4Edit);
+    const [shopName, setShopName] = useState('');
+    const [shopGroupCode, setShopGroupCode] = useState('');
+    const [shopGroupName, setShopGroupName] = useState('');
     const [comment, setComment] = useState('');
     useEffect(() => {
-        if (props.loginName4Edit === undefined || props.loginName4Edit === null || props.loginName4Edit === '') {
+        if (props.shopCode4Edit === undefined || props.shopCode4Edit === null || props.shopCode4Edit === '') {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/admin/tenant_001/' + props.loginName4Edit + '/get';
+        let url = 'http://localhost:8080/teamachine/shop/tenant_001/' + props.shopCode4Edit + '/get';
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setLoginName(response.data.model.loginName);
-                setLoginPass(response.data.model.loginPass);
-                setRoleCode(response.data.model.roleCode);
-                setOrgName(response.data.model.orgName);
+                setShopCode(response.data.model.shopCode);
+                setShopName(response.data.model.shopName);
+                setShopGroupCode(response.data.model.shopGroupCode);
+                setShopGroupName(response.data.model.shopGroupName);
                 setComment(response.data.model.comment);
             }
         })
@@ -86,52 +85,24 @@ const AdminNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }, [props.loginName4Edit]);
-    const [orgStrucList, setOrgStrucList] = useState([]);
-    const [roleList, setRoleList] = useState([]);
+    }, [props.shopCode4Edit]);
+    const [shopGroupList, setShopGroupList] = useState([]);
     useEffect(() => {
-        let url4OrgStruc = 'http://localhost:8080/teamachine/orgstruc/list?tenantCode=tenant_001';
-        axios.get(url4OrgStruc, {
+        let url4ShopGroup = 'http://localhost:8080/teamachine/shop/group/list?tenantCode=tenant_001';
+        axios.get(url4ShopGroup, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setOrgStrucList((prev => {
-                    let orgStrucListTmp = [];
+                setShopGroupList((prev => {
+                    let shopGroupListTmp = [];
                     response.data.model.forEach(item => {
-                        orgStrucListTmp.push({
-                            label: item.orgName,
-                            value: item.orgName
+                        shopGroupListTmp.push({
+                            label: item.shopGroupName,
+                            value: item.shopGroupCode
                         });
                     })
-                    return orgStrucListTmp;
-                }));
-            }
-        })
-        .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
-        });
-
-        let url4Role = 'http://localhost:8080/teamachine/admin/role/list?tenantCode=tenant_001';
-        axios.get(url4Role, {
-            withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            if (response && response.data && response.data.success) {
-                setRoleList((prev => {
-                    let roleListTmp = [];
-                    response.data.model.forEach(item => {
-                        roleListTmp.push({
-                            label: item.roleName,
-                            value: item.roleCode
-                        });
-                    })
-                    return roleListTmp;
+                    return shopGroupListTmp;
                 }));
             }
         })
@@ -146,17 +117,14 @@ const AdminNewModal = (props) => {
     }, []);
 
     // 输入相关
-    const onChangeLoginName = (e) => {
-        setLoginName(e.target.value);
+    const onChangeShopCode = (e) => {
+        setShopCode(e.target.value);
     }
-    const onChangeLoginPass = (e) => {
-        setLoginPass(e.target.value);
+    const onChangeShopName = (e) => {
+        setShopName(e.target.value);
     }
-    const onChangeRoleCode = (e) => {
-        setRoleCode(e);
-    }
-    const onChangeOrgName = (e) => {
-        setOrgName(e);
+    const onChangeShopGroupCode = (e) => {
+        setShopGroupCode(e);
     }
     const onChangeComment = (e) => {
         setComment(e.target.value);
@@ -166,7 +134,7 @@ const AdminNewModal = (props) => {
         <Modal
             centered
             open={open}
-            title="新建管理员"
+            title="新建店铺"
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={500}
@@ -183,12 +151,12 @@ const AdminNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={8}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>管理员登录名称：</span>
+                                <span>店铺编码：</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={14}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="管理员登录名称" value={loginName} onChange={onChangeLoginName}/>
+                                <Input placeholder="店铺编码" value={shopCode} onChange={onChangeShopCode}/>
                             </div>
                         </Col>
                     </Row>
@@ -200,34 +168,12 @@ const AdminNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={8}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>管理员登录密码：</span>
+                                <span>店铺名称：</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={14}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="管理员登录密码" value={loginPass} onChange={onChangeLoginPass}/>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>归属角色：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Select
-                                    value={roleCode}
-                                    style={{width: '100%'}}
-                                    onChange={onChangeRoleCode}
-                                    options={roleList}
-                                />
+                                <Input placeholder="店铺名称" value={shopName} onChange={onChangeShopName}/>
                             </div>
                         </Col>
                     </Row>
@@ -239,16 +185,16 @@ const AdminNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={8}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>归属组织架构：</span>
+                                <span>店铺组：</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={14}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
                                 <Select
-                                    value={orgName}
+                                    value={shopGroupCode}
                                     style={{width: '100%'}}
-                                    onChange={onChangeOrgName}
-                                    options={orgStrucList}
+                                    onChange={onChangeShopGroupCode}
+                                    options={shopGroupList}
                                 />
                             </div>
                         </Col>
@@ -276,4 +222,4 @@ const AdminNewModal = (props) => {
     );
 };
  
-export default AdminNewModal;
+export default ShopNewModal;

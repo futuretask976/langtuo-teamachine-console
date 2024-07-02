@@ -27,7 +27,7 @@ const SiderMenu = (props) => {
             getItem('角色管理', '5'),
 			getItem('管理员管理', '6'),
         ]),
-        getItem('门店', 'shopSub', <BorderOuterOutlined />, [
+        getItem('门店', 'storeSub', <BorderOuterOutlined />, [
             getItem('门店组管理', '7'),
             getItem('门店管理', '8'),
         ]),

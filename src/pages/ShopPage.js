@@ -17,9 +17,9 @@ const { TextArea } = Input;
 
 const ShopPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['userSub'];
-    const selectedMenu = ['6'];
-    const breadcrumbPath = ['控制台', '用户', '管理员管理'];
+    const openMenu = ['storeSub'];
+    const selectedMenu = ['8'];
+    const breadcrumbPath = ['控制台', '店铺', '店铺管理'];
 
     // 页面样式相关
     const layoutStyle = {
@@ -52,6 +52,8 @@ const ShopPage = () => {
         shopGroupName4SearchTmp = e.target.value;
     }
     const onClickSearch = () => {
+        alert("shopName4SearchTmp=" + shopName4SearchTmp);
+        alert("shopGroupName4SearchTmp=" + shopGroupName4SearchTmp);
         setShopName4Search(shopName4SearchTmp);
         setShopGroupName4Search(shopGroupName4SearchTmp);
     }

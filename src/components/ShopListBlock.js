@@ -13,8 +13,8 @@ const ShopListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchRoleListData = () => {
-        let url = 'http://localhost:8080/teamachine/shop/search?tenantCode=tenant_001&shopName=' + props.shopNameName4Search + '&shopGroupName=' + props.shopGroupName4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchShopListData = () => {
+        let url = 'http://localhost:8080/teamachine/shop/search?tenantCode=tenant_001&shopName=' + props.shopName4Search + '&shopGroupName=' + props.shopGroupName4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -38,8 +38,8 @@ const ShopListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchRoleListData();
-    }, [props.loginName4Search, props.roleName4Search, pageNum]);
+        fetchShopListData();
+    }, [props.shopName4Search, props.shopGroupName4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [

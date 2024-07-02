@@ -17,9 +17,9 @@ const { TextArea } = Input;
 
 const ShopGroupPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['userSub'];
-    const selectedMenu = ['6'];
-    const breadcrumbPath = ['控制台', '用户', '管理员管理'];
+    const openMenu = ['storeSub'];
+    const selectedMenu = ['7'];
+    const breadcrumbPath = ['控制台', '店铺', '店铺组管理'];
 
     // 页面样式相关
     const layoutStyle = {
