@@ -46,8 +46,14 @@ const ShopPage = () => {
     const onChangeShopName4Search = (e) => {
         shopName4SearchTmp = e.target.value;
     }
+    var shopGroupName4SearchTmp = '';
+    const [shopGroupName4Search, setShopGroupName4Search] = useState('');
+    const onChangeShopGroupName4Search = (e) => {
+        shopGroupName4SearchTmp = e.target.value;
+    }
     const onClickSearch = () => {
         setShopName4Search(shopName4SearchTmp);
+        setShopGroupName4Search(shopGroupName4SearchTmp);
     }
 
     // 表格操作相关
@@ -79,6 +85,16 @@ const ShopPage = () => {
                                             <Input placeholder="店铺名称" onChange={onChangeShopName4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
+                                    <Col className="gutter-row" span={2}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                            <span>店铺组名称：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                            <Input placeholder="店铺组名称" onChange={onChangeShopGroupName4Search}/>&nbsp;&nbsp;
+                                        </div>
+                                    </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
                                             <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
@@ -95,7 +111,7 @@ const ShopPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ShopListBlock shopName4Search={shopName4Search} onClickEdit={onClickEdit} />
+                                <ShopListBlock shopName4Search={shopName4Search} shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
