@@ -45,8 +45,8 @@ const MachineDeployListBlock = (props) => {
     const columns = [
         {
             title: '部署码',
-            dataIndex: 'modelCode',
-            key: 'modelCode',
+            dataIndex: 'deployCode',
+            key: 'deployCode',
             render: (text) => <a>{text}</a>,
         },
         {
