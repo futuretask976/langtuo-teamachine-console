@@ -9,11 +9,10 @@ import RolePage from './pages/RolePage';
 import AdminPage from './pages/AdminPage';
 import ShopGroupPage from './pages/ShopGroupPage';
 import ShopPage from './pages/ShopPage';
+import MachineDeployPage from './pages/MachineDeployPage';
 import ToppingPage from './pages/ToppingPage';
 import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
-import InputPage from './pages/InputPage';
-import SearchPage from './pages/SearchPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 
@@ -70,51 +69,48 @@ const Routes = () => {
                     element: <Navigate to="/index" />,
                 },
                 {
-                    path: "/machine/model",
-                    element: <MachineModelPage />,
-                },
-                {
-                    path: "/user/tenant",
-                    element: <TenantPage />,
-                },
-                {
-                    path: "/user/org/struc",
-                    element: <OrgStrucPage />,
-                },
-                {
-                    path: "/user/role",
-                    element: <RolePage />,
-                },
-                {
-                    path: "/user/admin",
-                    element: <AdminPage />,
-                },
-                {
-                    path: "/store/group",
-                    element: <ShopGroupPage />,
-                },
-                {
-                    path: "/store/shop",
-                    element: <ShopPage />,
-                },
-                {
-                    path: "/tea/topping",
-                    element: <ToppingPage />,
-                },
-                {
-                    path: "/rule/clean",
-                    element: <CleanRulePage />,
-                },{
                     path: "/index",
                     element: <IndexPage />,
                 },
                 {
-                    path: "/input",
-                    element: <InputPage />,
+                    path: "/metadataset/model",
+                    element: <MachineModelPage />,
                 },
                 {
-                    path: "/search",
-                    element: <SearchPage />,
+                    path: "/userset/tenant",
+                    element: <TenantPage />,
+                },
+                {
+                    path: "/userset/org/struc",
+                    element: <OrgStrucPage />,
+                },
+                {
+                    path: "/userset/role",
+                    element: <RolePage />,
+                },
+                {
+                    path: "/userset/admin",
+                    element: <AdminPage />,
+                },
+                {
+                    path: "/shopset/group",
+                    element: <ShopGroupPage />,
+                },
+                {
+                    path: "/deviceset/deploy",
+                    element: <MachineDeployPage />,
+                },
+                {
+                    path: "/shopset/shop",
+                    element: <ShopPage />,
+                },
+                {
+                    path: "/drinkset/topping",
+                    element: <ToppingPage />,
+                },
+                {
+                    path: "/ruleset/clean",
+                    element: <CleanRulePage />,
                 },
                 {
                     path: "/login",

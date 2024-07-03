@@ -16,7 +16,7 @@ const { Content } = Layout;
 
 const OrgStrucPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['userSub'];
+    const openMenu = ['userSet'];
     const selectedMenu = ['4'];
     const breadcrumbPath = ['控制台', '用户', '组织架构管理'];
 

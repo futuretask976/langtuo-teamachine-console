@@ -8,18 +8,18 @@ import '../css/common.css';
 import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
-import AdminListBlock from '../components/AdminListBlock'
-import AdminNewModal from '../components/AdminNewModal'
+import MachineDeployListBlock from '../components/MachineDeployListBlock'
+import MachineDeployNewModal from '../components/MachineDeployNewModal'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
 const { TextArea } = Input;
 
-const AdminPage = () => {
+const MachineDeployPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['userSet'];
-    const selectedMenu = ['6'];
-    const breadcrumbPath = ['控制台', '用户', '管理员管理'];
+    const openMenu = ['deviceSet'];
+    const selectedMenu = ['9'];
+    const breadcrumbPath = ['控制台', '设备', '预部署管理'];
 
     // 页面样式相关
     const layoutStyle = {
@@ -37,31 +37,35 @@ const AdminPage = () => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setLoginName4Edit('');
+        setDeployCode4Edit('');
     }
 
     // 搜索相关
-    var roleName4SearchTmp = '';
-    const [roleName4Search, setRoleName4Search] = useState('');
-    const onChangeRoleName4Search = (e) => {
-        roleName4SearchTmp = e.target.value;
+    var deployCode4SearchTmp = '';
+    const [deployCode4Search, setDeployCode4Search] = useState('');
+    const onChangeDeployCode4Search = (e) => {
+        deployCode4SearchTmp = e.target.value;
     }
-    var loginName4SearchTmp = '';
-    const [loginName4Search, setLoginName4Search] = useState('');
-    const onChangeLoginName4Search = (e) => {
-        loginName4SearchTmp = e.target.value;
+    var shopName4SearchTmp = '';
+    const [shopName4Search, setShopName4Search] = useState('');
+    const onChangeShopName4Search = (e) => {
+        shopName4SearchTmp = e.target.value;
+    }
+    var state4SearchTmp = '';
+    const [state4Search, setState4Search] = useState('');
+    const onChangeState4Search = (e) => {
+        state4SearchTmp = e.target.value;
     }
     const onClickSearch = () => {
-        alert("roleName4SearchTmp=" + roleName4SearchTmp);
-        alert("loginName4SearchTmp=" + loginName4SearchTmp);
-        setRoleName4Search(roleName4SearchTmp);
-        setLoginName4Search(loginName4SearchTmp);
+        setDeployCode4Search(deployCode4SearchTmp);
+        setShopName4Search(shopName4SearchTmp);
+        setState4Search(state4SearchTmp);
     }
 
     // 表格操作相关
-    const [loginName4Edit, setLoginName4Edit] = useState('');
-    const onClickEdit = (selectedLoginName)=> {
-        setLoginName4Edit(selectedLoginName);
+    const [deployCode4Edit, setDeployCode4Edit] = useState('');
+    const onClickEdit = (selectedDeployCode)=> {
+        setDeployCode4Edit(selectedDeployCode);
         setOpenNewModal(true);
     }
 
@@ -79,22 +83,32 @@ const AdminPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
-                                            <span>登录名称：</span>
+                                            <span>部署编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="登录名称" onChange={onChangeLoginName4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="部署编码" onChange={onChangeDeployCode4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
-                                            <span>角色名称：</span>
+                                            <span>店铺名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="角色名称" onChange={onChangeRoleName4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="店铺名称" onChange={onChangeShopName4Search}/>&nbsp;&nbsp;
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={2}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                            <span>部署状态：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                            <Input placeholder="部署状态" onChange={onChangeState4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -104,16 +118,13 @@ const AdminPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal}>新建管理员</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal}>新建部署码</Button>&nbsp;&nbsp;
                                         </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={6}>
-                                        &nbsp;
                                     </Col>
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <AdminListBlock loginName4Search={loginName4Search} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
+                                <MachineDeployListBlock deployCode4Search={deployCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -122,10 +133,10 @@ const AdminPage = () => {
             </Flex>
 
             {openNewModal && (
-                <AdminNewModal onClose={onCloseNewModal} loginName4Edit={loginName4Edit} />
+                <MachineDeployNewModal onClose={onCloseNewModal} deployCode4Edit={deployCode4Edit} />
             )}
         </>
     )
 };
 
-export default AdminPage;
+export default MachineDeployPage;

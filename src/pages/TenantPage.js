@@ -14,7 +14,7 @@ const { TextArea } = Input;
 
 const TenantPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['userSub'];
+    const openMenu = ['userSet'];
     const selectedMenu = ['3'];
     const breadcrumbPath = ['控制台', '用户', '商户管理'];
 

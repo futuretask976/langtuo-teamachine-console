@@ -17,7 +17,7 @@ const { TextArea } = Input;
 
 const ShopPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['storeSub'];
+    const openMenu = ['shopSet'];
     const selectedMenu = ['8'];
     const breadcrumbPath = ['控制台', '店铺', '店铺管理'];
 

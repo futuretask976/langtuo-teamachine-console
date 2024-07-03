@@ -13,7 +13,7 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 const ToppingPage = () => {
-    const openMenu = ['teaSub'];
+    const openMenu = ['drinkSet'];
     const selectedMenu = ['16'];
     const breadcrumbPath = ['控制台', '饮品生产', '配方管理'];
     const layoutStyle = {
