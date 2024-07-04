@@ -183,7 +183,7 @@ const MachineModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" value={modelCode} disabled={props.modelCode4Edit === undefined || props.modelCode4Edit === null || props.modelCode4Edit === '' ? false : true} onChange={onChangeModelCode} />
+                                <Input placeholder="型号编码" value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={onChangeModelCode} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={2}>

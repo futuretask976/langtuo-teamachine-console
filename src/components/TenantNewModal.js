@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Layout, Modal, Switch, Col, Row } from 'antd';
-import { FormOutlined } from '@ant-design/icons';
+import { Button, Input, Modal, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
-const { Content } = Layout;
 const { TextArea } = Input;
 
 const TenantNewModal = (props) => {
@@ -14,7 +13,7 @@ const TenantNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/teamachine/tenant/put';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/tenant/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: tenantCode,
@@ -49,7 +48,7 @@ const TenantNewModal = (props) => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -57,18 +56,21 @@ const TenantNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [tenantCode, setTenantCode] = useState(props.tenantCode4Edit === undefined || props.tenantCode4Edit === null ? '' : props.tenantCode4Edit);
+    const [tenantCode, setTenantCode] = useState(isBlankStr(props.tenantCode4Edit) ? '' : props.tenantCode4Edit);
     const [tenantName, setTenantName] = useState('');
     const [contactPerson, setContactPerson] = useState('');
     const [contactPhone, setContactPhone] = useState('');
     const [imgLink, setImgLink] = useState('');
     const [comment, setComment] = useState('');
     useEffect(() => {
-        if (props.tenantCode4Edit === undefined || props.tenantCode4Edit === null || props.tenantCode4Edit === '') {
+        if (isBlankStr(props.tenantCode4Edit)) {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/tenant/' + props.tenantCode4Edit + '/get';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/tenant', [
+            props.tenantCode4Edit,
+            'get'
+        ]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -128,123 +130,87 @@ const TenantNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 410, width: '100%'}}>
-                <div style={{height: 410, width: '100%'}}>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>商户编码：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="商户编码" value={tenantCode} onChange={onChangeTenantCode} disabled={props.tenantCode4Edit === undefined || props.tenantCode4Edit === null || props.tenantCode4Edit === '' ? false : true} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>商户名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="商户名称" value={tenantName} onChange={onChangeTenantName} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>联系人名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="联系人名称" value={contactPerson} onChange={onChangeContactPerson} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>联系人电话：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="联系人电话" value={contactPhone} onChange={onChangeContactPhone} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>商户超级管理员登录名：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="商户超级管理员登录名" />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>商户超级管理员登录密码：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="商户超级管理员登录密码" />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={10}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={12}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <TextArea rows={4} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} />
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
+            <div style={{height: 320, width: '100%'}}>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>商户编码：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="商户编码" value={tenantCode} onChange={onChangeTenantCode} disabled={isBlankStr(props.tenantCode4Edit) ? false : true} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>商户名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="商户名称" value={tenantName} onChange={onChangeTenantName} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>联系人名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="联系人名称" value={contactPerson} onChange={onChangeContactPerson} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>联系人电话：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="联系人电话" value={contactPhone} onChange={onChangeContactPhone} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>备注：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <TextArea rows={4} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </Modal>
     );
