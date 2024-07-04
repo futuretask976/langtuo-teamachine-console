@@ -58,43 +58,51 @@ const MachineListBlock = (props) => {
             title: '机器编码',
             dataIndex: 'machineCode',
             key: 'machineCode',
+            width: '15%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '机器名称',
             dataIndex: 'machineName',
             key: 'machineName',
+            width: '15%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '屏幕编码',
             dataIndex: 'screenCode',
             key: 'screenCode',
+            width: '15%'
         },
         {
             title: '电控板编码',
             dataIndex: 'elecBoardCode',
             key: 'elecBoardCode',
+            width: '15%'
         },
         {
             title: '设备型号',
             dataIndex: 'modelCode',
-            key: 'modelCode'
+            key: 'modelCode',
+            width: '10%'
         },
         {
             title: '店铺名称',
             dataIndex: 'shopName',
-            key: 'shopName'
+            key: 'shopName',
+            width: '10%'
         },
         {
             title: '设备状态',
             dataIndex: 'state',
             key: 'state',
+            width: '10%',
             render: (state) => state == 0 ? '禁用' : '启用'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '10%',
             render: (_, { machineCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
