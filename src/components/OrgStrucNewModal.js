@@ -3,6 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const OrgStrucNewModal = (props) => {
     // 对话框相关
@@ -10,7 +11,7 @@ const OrgStrucNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/teamachine/orgstruc/put';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/orgstruc/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: 'tenant_001',
@@ -42,7 +43,7 @@ const OrgStrucNewModal = (props) => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -50,13 +51,17 @@ const OrgStrucNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [orgName, setOrgName] = useState(props.orgName4Edit === undefined || props.orgName4Edit === null ? '' : props.orgName4Edit);
+    const [orgName, setOrgName] = useState(isBlankStr(props.orgName4Edit) ? '' : props.orgName4Edit);
     useEffect(() => {
-        if (props.orgName4Edit === undefined || props.orgName4Edit === null || props.orgName4Edit === '') {
+        if (isBlankStr(props.orgName4Edit)) {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/orgstruc/tenant_001/' + props.orgName4Edit + '/get';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/orgstruc', [
+            'tenant_001',
+            props.orgName4Edit,
+            'get'
+        ]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -79,7 +84,9 @@ const OrgStrucNewModal = (props) => {
     const [parentOrgName, setParentOrgName] = useState('总公司');
     const [parentOrgNameOpts, setParentOrgNameOpts] = useState([]);
     useEffect(() => {
-        let url = 'http://localhost:8080/teamachine/orgstruc/list?tenantCode=tenant_002';
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/orgstruc/list', {
+            tenantCode: 'tenant_001'
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -132,45 +139,41 @@ const OrgStrucNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 100, width: '100%'}}>
-                <div style={{height: 410, width: '100%'}}>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>组织名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={18}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="组织名称" value={orgName} onChange={onChangeOrgName} disabled={props.orgName4Edit === undefined || props.orgName4Edit === null || props.orgName4Edit === '' ? false : true} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 15, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>父组织名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={18}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Select
-                                    style={{
-                                        width: '100%',
-                                    }}
-                                    value={parentOrgName}
-                                    onChange={onChangeParentOrgName}
-                                    options={parentOrgNameOpts}
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
+            <div style={{height: 100, width: '100%'}}>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>组织名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="组织名称" value={orgName} onChange={onChangeOrgName} disabled={isBlankStr(props.orgName4Edit) ? false : true} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 15, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>父组织名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Select
+                                style={{width: '90%'}}
+                                value={parentOrgName}
+                                onChange={onChangeParentOrgName}
+                                options={parentOrgNameOpts}
+                            />
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </Modal>
     );

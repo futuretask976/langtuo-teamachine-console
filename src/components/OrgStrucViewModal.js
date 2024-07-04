@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams } from '../js/common.js';
 
 import EditableTree from '../components/EditableTree'
 
@@ -23,7 +24,9 @@ const OrgStrucViewModal = (props) => {
     // 数据初始化相关
     const [orgStrucTree, setOrgStrucTree] = useState([]);
     useEffect(() => {
-        let url = 'http://localhost:8080/teamachine/orgstruc/listbydepth?tenantCode=tenant_001';
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/orgstruc/listbydepth', {
+            tenantCode: 'tenant_001'
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -47,7 +50,6 @@ const OrgStrucViewModal = (props) => {
     }, []);
 
     const convertOrgNode = (orgNode) => {
-        // console.log("$$$$$ OrgStrucViewModal#convertOrgNode orgNode", orgNode);
         let childrenTmp = [];
         if (orgNode.childOrgNameList != undefined && orgNode.childOrgNameList != null) {
             orgNode.childOrgNameList.forEach(item => {
@@ -61,7 +63,6 @@ const OrgStrucViewModal = (props) => {
             isEditable: false,
             children: childrenTmp
         };
-        // console.log("$$$$$ OrgStrucViewModal#convertOrgNode treeNode", treeNode);
         return treeNode;
     }
  

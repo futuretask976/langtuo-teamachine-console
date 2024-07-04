@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
+
 const OrgStrucListBlock = (props) => {
     // 样式相关
     const {
@@ -13,8 +16,13 @@ const OrgStrucListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchTenantListData = () => {
-        let url = 'http://localhost:8080/teamachine/orgstruc/search?tenantCode=tenant_001&orgName=' + props.orgName4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchListData = () => {
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/orgstruc/search', {
+            tenantCode: 'tenant_001',
+            orgName: props.orgName4Search,
+            pageNum: pageNum,
+            pageSize: pageSize
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -24,7 +32,13 @@ const OrgStrucListBlock = (props) => {
                 setPageSize(response.data.model.pageSize);
                 setTotal(response.data.model.total);
                 setList((prev => {
-                    return response.data.model.list
+                    let tmp = [];
+                    response.data.model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
                 }));
             }
         })
@@ -38,7 +52,7 @@ const OrgStrucListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchTenantListData();
+        fetchListData();
     }, [props.orgName4Search, pageNum]);
 
     // 表格展示数据相关
@@ -47,20 +61,25 @@ const OrgStrucListBlock = (props) => {
             title: '组织架构名称',
             dataIndex: 'orgName',
             key: 'orgName',
+            width: '25%'
         },
         {
             title: '上级节点',
             dataIndex: 'parentOrgName',
             key: 'parentOrgName',
+            width: '25%'
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '25%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
+            width: '25%',
             render: (_, { orgName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -79,11 +98,6 @@ const OrgStrucListBlock = (props) => {
             ),
         },
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.modelCode;
-        ite.actions = ["edit", "delete"];
-    });
 
     // 表格操作数据相关
     const onChangePage = (page) => {
@@ -93,18 +107,17 @@ const OrgStrucListBlock = (props) => {
         props.onClickEdit(orgName);
     }
     const onClickDelete = (e, orgName) => {
-        let url = 'http://localhost:8080/teamachine/orgstruc/tenant_001/' + orgName + '/delete';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/orgstruc', [
+            'tenant_001',
+            orgName,
+            'delete'
+        ]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                setList((prev => {
-                    return response.data.model.list
-                }));
+                fetchListData();
             }
         })
         .catch(error => {
@@ -127,7 +140,7 @@ const OrgStrucListBlock = (props) => {
                     onChange: (page)=>onChangePage(page),
                 }}
                 columns={columns} 
-                dataSource={data}
+                dataSource={list}
                 rowKey={record=>record.id} />
         </div>
     )

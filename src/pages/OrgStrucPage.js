@@ -56,7 +56,6 @@ const OrgStrucPage = () => {
         setOrgName4Search(orgName4SearchTmp);
     }
 
-
     // 表格操作相关
     const [orgName4Edit, setOrgName4Edit] = useState('');
     const onClickEdit = (selectedOrgName)=> {
@@ -77,31 +76,31 @@ const OrgStrucPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>组织名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                        <Input placeholder="组织名称" onChange={onChangeOrgName4Search} />&nbsp;&nbsp;
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                            <Input placeholder="组织名称" onChange={onChangeOrgName4Search} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickView}>查看架构</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickView} style={{width: '80%'}}>查看架构</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew}>新增架构</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '80%'}}>新增架构</Button>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={12}>
+                                    <Col className="gutter-row" span={9}>
                                         &nbsp;
                                     </Col>
                                 </Row>
