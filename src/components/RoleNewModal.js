@@ -175,7 +175,6 @@ const RoleNewModal = (props) => {
             ),
         }
     ];
-
  
     return (
         <Modal
