@@ -3,6 +3,7 @@ import { Button, Checkbox, Input, Modal, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const RoleNewModal = (props) => {
     // 对话框相关
@@ -10,7 +11,7 @@ const RoleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/teamachine/admin/role/put';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/admin/role/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             roleCode: roleCode,
@@ -44,7 +45,7 @@ const RoleNewModal = (props) => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -52,16 +53,20 @@ const RoleNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [roleCode, setRoleCode] = useState(props.roleCode4Edit === undefined || props.roleCode4Edit === null ? '' : props.roleCode4Edit);
+    const [roleCode, setRoleCode] = useState(isBlankStr(props.roleCode4Edit) ? '' : props.roleCode4Edit);
     const [roleName, setRoleName] = useState('');
     const [comment, setComment] = useState('');
     const [permitActCodeList, setPermitActCodeList] = useState([]);
     useEffect(() => {
-        if (props.roleCode4Edit === undefined || props.roleCode4Edit === null || props.roleCode4Edit === '') {
+        if (isBlankStr(props.roleCode4Edit)) {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/admin/role/tenant_001/' + props.roleCode4Edit + '/get';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/admin/role', [
+            'tenant_001',
+            props.roleCode4Edit,
+            'get'
+        ]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -71,8 +76,7 @@ const RoleNewModal = (props) => {
                 setRoleName(response.data.model.roleName);
                 setComment(response.data.model.comment);
                 setPermitActCodeList((prev => {
-                    console.log("$$$$$ MachineModelNewModal#fetchMachineModelData permitActCodeList", response.data.model.permitActCodeList);
-                    return response.data.model.permitActCodeList === undefined || response.data.model.permitActCodeList === null ? [] : response.data.model.permitActCodeList;
+                    return isArray(response.data.model.permitActCodeList) ? response.data.model.permitActCodeList : [];
                 }));
             }
         })
@@ -87,7 +91,7 @@ const RoleNewModal = (props) => {
     }, [props.roleCode4Edit]);
     const [permitActGroupList, setPermitActGroupList] = useState([]);
     useEffect(() => {
-        let url = 'http://localhost:8080/teamachine/permitact/list';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/permitact/list');
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -189,42 +193,42 @@ const RoleNewModal = (props) => {
                     </Button>,
                 ]}
             >
-                <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 410, width: '100%'}}>
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 60, width: '100%'}}>
+                <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
+                    <div className="flex-row-cont" style={{height: 60, width: '100%'}}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={2}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>角色编码：</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={6}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <Input placeholder="角色编码" disabled={props.roleCode4Edit == undefined || props.roleCode4Edit == null || props.roleCode4Edit == '' ? false : true} value={roleCode} onChange={onChangeRoleCode}/>&nbsp;&nbsp;
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <Input placeholder="角色编码" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={onChangeRoleCode} style={{width: '90%'}}/>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={2}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>角色名称：</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={6}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <Input placeholder="角色名称" value={roleName} onChange={onChangeRoleName}/>&nbsp;&nbsp;
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <Input placeholder="角色名称" value={roleName} onChange={onChangeRoleName} style={{width: '90%'}} />
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={2}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>备注：</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={6}>
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <Input placeholder="备注" value={comment} onChange={onChangeComment}/>&nbsp;&nbsp;
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <Input placeholder="备注" value={comment} onChange={onChangeComment} style={{width: '90%'}} />
                                 </div>
                             </Col>
                         </Row>
                     </div>
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 350, width: '100%'}}>
+                    <div className="flex-row-cont" style={{height: 350, width: '100%'}}>
                         <Table columns={permitActTableCol} dataSource={permitActGroupList} pagination={false} size={'small'} style={{width: '100%'}} />
                     </div>
                 </div>
