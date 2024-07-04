@@ -4,6 +4,7 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const MachineModelNewModal = (props) => {
     // 对话框相关
@@ -11,8 +12,7 @@ const MachineModelNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        alert(modelCode)
-        let url = 'http://localhost:8080/teamachine/machine/model/put';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/machine/model/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             modelCode: modelCode,
@@ -44,7 +44,7 @@ const MachineModelNewModal = (props) => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -52,14 +52,17 @@ const MachineModelNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [modelCode, setModelCode] = useState(props.modelCode4Edit === undefined || props.modelCode4Edit === null ? '' : props.modelCode4Edit);
+    const [modelCode, setModelCode] = useState(isBlankStr(props.modelCode4Edit) ? '' : props.modelCode4Edit);
     const [enableFlowAll, setEnableFlowAll] = useState(1);
     useEffect(() => {
-        if (props.modelCode4Edit === undefined || props.modelCode4Edit === null || props.modelCode4Edit === '') {
+        if (isBlankStr(props.modelCode4Edit)) {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/machine/model/' + props.modelCode4Edit + '/get';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine/model', [
+            props.modelCode4Edit,
+            'get'
+        ]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -68,8 +71,15 @@ const MachineModelNewModal = (props) => {
                 setModelCode(response.data.model.modelCode);
                 setEnableFlowAll(response.data.model.enableFlowAll);
                 setPipelineList((prev => {
-                    console.log("$$$$$ MachineModelNewModal#fetchMachineModelData pipelineList", response.data.model.pipelineList);
-                    return response.data.model.pipelineList === undefined || response.data.model.pipelineList === null ? [] : response.data.model.pipelineList;
+                    let tmp = [];
+                    if (isArray(response.data.model.pipelineList)) {
+                        response.data.model.pipelineList.forEach(function(ite) {
+                            ite.key = ite.id;
+                            tmp.push(ite);
+                        });
+                        
+                    }
+                    return tmp;
                 }));
             }
         })

@@ -9,6 +9,14 @@ export const isBlankStr = (str) => {
     }
 };
 
+export const isArray = (arr) => {
+    if (arr == undefined || arr == null || !arr instanceof Array) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
 export const genGetUrlByParams = (urlPrefix, urlPath, params) => {
     let url = urlPrefix + urlPath;
     let paramStr = '';

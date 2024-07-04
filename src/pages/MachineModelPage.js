@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
@@ -68,23 +68,23 @@ const MachineModelPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'center', height: '100%'}}>
                                             <span>型号编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="型号编码" onChange={onChangeModelCode4Search} />&nbsp;&nbsp;
+                                            <Input placeholder="型号编码" onChange={onChangeModelCode4Search} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewModelModal}>新建型号</Button>&nbsp;&nbsp;
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewModelModal} style={{width: '80%'}}>新建型号</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={12}>
