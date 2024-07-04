@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, TreeSelect, Col, Row } from 'antd';
+import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,7 +13,7 @@ const ShopNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/teamachine/shop/put';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/shop/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             shopCode: shopCode,
@@ -46,7 +47,7 @@ const ShopNewModal = (props) => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -54,17 +55,17 @@ const ShopNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [shopCode, setShopCode] = useState(props.shopCode4Edit === undefined || props.shopCode4Edit === null ? '' : props.shopCode4Edit);
+    const [shopCode, setShopCode] = useState(isBlankStr(props.shopCode4Edit) ? '' : props.shopCode4Edit);
     const [shopName, setShopName] = useState('');
     const [shopGroupCode, setShopGroupCode] = useState('');
     const [shopGroupName, setShopGroupName] = useState('');
     const [comment, setComment] = useState('');
     useEffect(() => {
-        if (props.shopCode4Edit === undefined || props.shopCode4Edit === null || props.shopCode4Edit === '') {
+        if (isBlankStr(props.shopCode4Edit)) {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/shop/tenant_001/' + props.shopCode4Edit + '/get';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/shop', ['tenant_001', props.shopCode4Edit, 'get']);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -88,8 +89,10 @@ const ShopNewModal = (props) => {
     }, [props.shopCode4Edit]);
     const [shopGroupList, setShopGroupList] = useState([]);
     useEffect(() => {
-        let url4ShopGroup = 'http://localhost:8080/teamachine/shop/group/list?tenantCode=tenant_001';
-        axios.get(url4ShopGroup, {
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/group/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
@@ -146,77 +149,75 @@ const ShopNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 360, width: '100%'}}>
-                <div style={{height: 410, width: '100%'}}>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺编码：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="店铺编码" value={shopCode} onChange={onChangeShopCode}/>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="店铺名称" value={shopName} onChange={onChangeShopName}/>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Select
-                                    value={shopGroupCode}
-                                    style={{width: '100%'}}
-                                    onChange={onChangeShopGroupCode}
-                                    options={shopGroupList}
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment}/>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
+            <div style={{height: 300, width: '100%'}}>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>店铺编码：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="店铺编码" value={shopCode} onChange={onChangeShopCode} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>店铺名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="店铺名称" value={shopName} onChange={onChangeShopName} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>店铺组：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Select
+                                value={shopGroupCode}
+                                style={{width: '90%'}}
+                                onChange={onChangeShopGroupCode}
+                                options={shopGroupList}
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>备注：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} style={{width: '90%'}} />
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </Modal>
     );

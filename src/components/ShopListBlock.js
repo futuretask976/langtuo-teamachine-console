@@ -16,7 +16,7 @@ const ShopListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchShopListData = () => {
+    const fetchListData = () => {
         let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/search', {
             tenantCode: 'tenant_001',
             shopName: props.shopName4Search,
@@ -53,7 +53,7 @@ const ShopListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchShopListData();
+        fetchListData();
     }, [props.shopName4Search, props.shopGroupName4Search, pageNum]);
 
     // 表格展示数据相关
@@ -116,13 +116,13 @@ const ShopListBlock = (props) => {
         props.onClickEdit(shopCode);
     }
     const onClickDelete = (e, shopCode) => {
-        let url4Delete = 'http://localhost:8080/teamachine/shop/tenant_001/' + shopCode + '/delete';
-        axios.delete(url4Delete, {
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/shop', ['tenant_001', shopCode, 'delete']);
+        axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                alert("删除成功")
+                fetchListData();
             }
         })
         .catch(error => {

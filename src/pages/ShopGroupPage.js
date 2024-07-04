@@ -74,7 +74,7 @@ const ShopGroupPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="店铺组名称" onChange={onChangeShopGroupName4Search} />
+                                            <Input placeholder="店铺组名称" onChange={onChangeShopGroupName4Search} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

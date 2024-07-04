@@ -183,7 +183,7 @@ const AdminNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{height: 410, width: '100%'}}>
+            <div style={{height: 350, width: '100%'}}>
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
