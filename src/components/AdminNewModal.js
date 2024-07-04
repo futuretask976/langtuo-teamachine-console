@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, TreeSelect, Col, Row } from 'antd';
+import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,7 +13,7 @@ const AdminNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = 'http://localhost:8080/teamachine/admin/put';
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/admin/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             loginName: loginName,
@@ -55,17 +56,17 @@ const AdminNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [loginName, setLoginName] = useState(props.loginName4Edit === undefined || props.loginName4Edit === null ? '' : props.loginName4Edit);
+    const [loginName, setLoginName] = useState(isBlankStr(props.loginName4Edit) ? '' : props.loginName4Edit);
     const [loginPass, setLoginPass] = useState('');
     const [roleCode, setRoleCode] = useState('');
     const [orgName, setOrgName] = useState('');
     const [comment, setComment] = useState('');
     useEffect(() => {
-        if (props.loginName4Edit === undefined || props.loginName4Edit === null || props.loginName4Edit === '') {
+        if (isBlankStr(props.loginName4Edit)) {
             return;
         }
 
-        let url = 'http://localhost:8080/teamachine/admin/tenant_001/' + props.loginName4Edit + '/get';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/admin', ['tenant_001', props.loginName4Edit, 'get']);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -117,8 +118,10 @@ const AdminNewModal = (props) => {
             }
         });
 
-        let url4Role = 'http://localhost:8080/teamachine/admin/role/list?tenantCode=tenant_001';
-        axios.get(url4Role, {
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/admin/role/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
@@ -178,99 +181,97 @@ const AdminNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 360, width: '100%'}}>
-                <div style={{height: 410, width: '100%'}}>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>管理员登录名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="管理员登录名称" value={loginName} onChange={onChangeLoginName}/>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>管理员登录密码：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="管理员登录密码" value={loginPass} onChange={onChangeLoginPass}/>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>归属角色：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Select
-                                    value={roleCode}
-                                    style={{width: '100%'}}
-                                    onChange={onChangeRoleCode}
-                                    options={roleList}
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>归属组织架构：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Select
-                                    value={orgName}
-                                    style={{width: '100%'}}
-                                    onChange={onChangeOrgName}
-                                    options={orgStrucList}
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment}/>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
+            <div style={{height: 410, width: '100%'}}>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>管理员登录名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="管理员登录名称" value={loginName} onChange={onChangeLoginName}/>
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>管理员登录密码：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="管理员登录密码" value={loginPass} onChange={onChangeLoginPass}/>
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>归属角色：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Select
+                                value={roleCode}
+                                style={{width: '100%'}}
+                                onChange={onChangeRoleCode}
+                                options={roleList}
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>归属组织架构：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Select
+                                value={orgName}
+                                style={{width: '100%'}}
+                                onChange={onChangeOrgName}
+                                options={orgStrucList}
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>备注：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment}/>
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </Modal>
     );

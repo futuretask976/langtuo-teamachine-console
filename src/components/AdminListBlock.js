@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { theme, Space, Table, Tag } from 'antd';
+import { theme, Space, Table } from 'antd';
 import axios from 'axios';
+
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
 const RoleListBlock = (props) => {
     // 样式相关
@@ -13,8 +16,14 @@ const RoleListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchRoleListData = () => {
-        let url = 'http://localhost:8080/teamachine/admin/search?tenantCode=tenant_001&loginName=' + props.loginName4Search + '&roleName=' + props.roleName4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchListData = () => {
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/admin/search', {
+            tenantCode: 'tenant_001',
+            loginName: props.loginName4Search,
+            roleName: props.roleName4Search,
+            pageNum: pageNum,
+            pageSize: pageSize
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -24,7 +33,13 @@ const RoleListBlock = (props) => {
                 setPageSize(response.data.model.pageSize);
                 setTotal(response.data.model.total);
                 setList((prev => {
-                    return response.data.model.list
+                    let tmp = [];
+                    response.data.model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
                 }));
             }
         })
@@ -38,7 +53,7 @@ const RoleListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchRoleListData();
+        fetchListData();
     }, [props.loginName4Search, props.roleName4Search, pageNum]);
 
     // 表格展示数据相关
@@ -47,26 +62,32 @@ const RoleListBlock = (props) => {
             title: '登录名称',
             dataIndex: 'loginName',
             key: 'loginName',
+            width: '20%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '20%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '角色',
             dataIndex: 'roleName',
             key: 'roleName',
+            width: '20%'
         },
         {
             title: '组织名称',
             dataIndex: 'orgName',
             key: 'orgName',
+            width: '20%'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '20%',
             render: (_, { loginName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -99,13 +120,17 @@ const RoleListBlock = (props) => {
         props.onClickEdit(loginName);
     }
     const onClickDelete = (e, loginName) => {
-        let url4Delete = 'http://localhost:8080/teamachine/admin/tenant_001/' + loginName + '/delete';
-        axios.delete(url4Delete, {
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/admin', [
+            'tenant_001',
+            loginName,
+            'delete'
+        ]);
+        axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                alert("删除成功")
+                fetchListData();
             }
         })
         .catch(error => {
