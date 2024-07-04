@@ -190,7 +190,7 @@ const AdminNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="管理员登录名称" value={loginName} onChange={onChangeLoginName}/>
+                            <Input placeholder="管理员登录名称" disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={onChangeLoginName} />
                         </div>
                     </Col>
                 </Row>
