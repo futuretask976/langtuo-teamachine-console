@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Table, Col, Row } from 'antd';
+import React, { useState } from 'react';
+import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../css/common.css';
 
@@ -69,23 +68,23 @@ const RolePage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>角色名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="角色名称" onChange={onChangeRoleName4Search}/>&nbsp;&nbsp;
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                            <Input placeholder="角色名称" onChange={onChangeRoleName4Search} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal}>新建角色</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建角色</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={12}>
