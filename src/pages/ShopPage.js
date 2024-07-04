@@ -50,8 +50,6 @@ const ShopPage = () => {
         shopGroupName4SearchTmp = e.target.value;
     }
     const onClickSearch = () => {
-        alert("shopName4SearchTmp=" + shopName4SearchTmp);
-        alert("shopGroupName4SearchTmp=" + shopGroupName4SearchTmp);
         setShopName4Search(shopName4SearchTmp);
         setShopGroupName4Search(shopGroupName4SearchTmp);
     }
@@ -91,7 +89,7 @@ const ShopPage = () => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="店铺组名称" onChange={onChangeShopGroupName4Search} style={{width: '95%'}} />
                                         </div>
                                     </Col>

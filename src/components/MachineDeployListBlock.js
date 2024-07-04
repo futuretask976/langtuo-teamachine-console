@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
+
 const MachineDeployListBlock = (props) => {
     // 样式相关
     const {
@@ -14,7 +17,15 @@ const MachineDeployListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = 'http://localhost:8080/teamachine/machine/deploy/search?tenantCode=tenant_001&deployCode=' + props.deployCode4Search + '&machineCode=' + props.machineCode4Search + '&shopName=' + props.shopName4Search + '&state=' + props.state4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/machine/deploy/search', {
+            deployCode: props.deployCode4Search,
+            machineCode: props.machineCode4Search,
+            shopName: props.shopName4Search,
+            state: props.state4Search,
+            tenantCode: 'tenant_001',
+            pageNum: pageNum,
+            pageSize: pageSize
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -24,7 +35,13 @@ const MachineDeployListBlock = (props) => {
                 setPageSize(response.data.model.pageSize);
                 setTotal(response.data.model.total);
                 setList((prev => {
-                    return response.data.model.list
+                    let tmp = [];
+                    response.data.model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
                 }));
             }
         })
@@ -47,32 +64,39 @@ const MachineDeployListBlock = (props) => {
             title: '部署码',
             dataIndex: 'deployCode',
             key: 'deployCode',
+            width: '25%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '归属门店',
             dataIndex: 'shopName',
             key: 'shopName',
+            width: '15%'
         },
         {
             title: '设备型号',
             dataIndex: 'modelCode',
             key: 'modelCode',
+            width: '15%'
         },
         {
             title: '部署状态',
             dataIndex: 'state',
             key: 'state',
+            width: '10%',
             render: (state) => state == 0 ? '未部署' : '已部署'
         },
         {
             title: '生成时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '15%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
+            width: '20%',
             render: (_, { deployCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -91,11 +115,6 @@ const MachineDeployListBlock = (props) => {
             ),
         },
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.modelCode;
-        ite.actions = ["edit", "delete"];
-    });
 
     // 表格操作数据相关
     const onChangePage = (page) => {
@@ -105,7 +124,7 @@ const MachineDeployListBlock = (props) => {
         props.onClickEdit(deployCode);
     }
     const onClickDelete = (e, deployCode) => {
-        let url = 'http://localhost:8080/teamachine/machine/deploy/tenant_001/' + deployCode + '/delete';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine/deploy', ['tenant_001', deployCode, 'delete']);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -134,7 +153,7 @@ const MachineDeployListBlock = (props) => {
                     onChange: (page)=>onChangePage(page),
                 }}
                 columns={columns} 
-                dataSource={data}
+                dataSource={list}
                 rowKey={record=>record.id} />
         </div>
     )

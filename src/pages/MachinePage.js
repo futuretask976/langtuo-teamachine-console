@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Select, Space, Table, TreeSelect, Col, Row } from 'antd';
+import React, { useState } from 'react';
+import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../css/common.css';
 import '../js/common.js';
@@ -14,7 +13,6 @@ import MachineNewModal from '../components/MachineNewModal'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
-const { TextArea } = Input;
 
 const MachinePage = () => {
     // 导航菜单 + 面包屑相关
@@ -63,7 +61,6 @@ const MachinePage = () => {
         shopName4SearchTmp = e.target.value;
     }
     const onClickSearch = () => {
-        alert("screen_001222=" + screenCode4SearchTmp);
         setScreenCode4Search(screenCode4SearchTmp);
         setElecBoardCode4Search(elecBoardCode4SearchTmp);
         setModelCode4Search(modelCode4SearchTmp);
@@ -90,54 +87,60 @@ const MachinePage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>屏幕编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="屏幕编码" onChange={onChangeScreenCode4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>控制板编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="控制板编码" onChange={onChangeElecBoardCode4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>机器型号：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="机器型号" onChange={onChangeModelCode4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
+                                    <Col className="gutter-row" span={3}>
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={3}>
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建部署码</Button>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+                                <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>店铺名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="店铺名称" onChange={onChangeShopName4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal}>新建部署码</Button>&nbsp;&nbsp;
-                                        </div>
+                                    <Col className="gutter-row" span={18}>
+                                        &nbsp;
                                     </Col>
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
