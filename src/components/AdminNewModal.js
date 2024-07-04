@@ -91,7 +91,9 @@ const AdminNewModal = (props) => {
     const [orgStrucList, setOrgStrucList] = useState([]);
     const [roleList, setRoleList] = useState([]);
     useEffect(() => {
-        let url4OrgStruc = 'http://localhost:8080/teamachine/orgstruc/list?tenantCode=tenant_001';
+        let url4OrgStruc = genGetUrlByParams(TEAMACHINE_HOST_URL, '/orgstruc/list', {
+            tenantCode: 'tenant_001'
+        });
         axios.get(url4OrgStruc, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -118,10 +120,10 @@ const AdminNewModal = (props) => {
             }
         });
 
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/admin/role/list', {
+        let url4Role = genGetUrlByParams(TEAMACHINE_HOST_URL, '/admin/role/list', {
             tenantCode: 'tenant_001'
         });
-        axios.get(url, {
+        axios.get(url4Role, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
