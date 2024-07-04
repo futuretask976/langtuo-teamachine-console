@@ -192,7 +192,7 @@ const AdminNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="管理员登录名称" disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={onChangeLoginName} />
+                            <Input placeholder="管理员登录名称" disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={onChangeLoginName} style={{width: '90%'}} />
                         </div>
                     </Col>
                 </Row>
@@ -209,7 +209,7 @@ const AdminNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="管理员登录密码" value={loginPass} onChange={onChangeLoginPass}/>
+                            <Input placeholder="管理员登录密码" value={loginPass} onChange={onChangeLoginPass} style={{width: '90%'}} />
                         </div>
                     </Col>
                 </Row>
@@ -228,7 +228,7 @@ const AdminNewModal = (props) => {
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                             <Select
                                 value={roleCode}
-                                style={{width: '100%'}}
+                                style={{width: '90%'}}
                                 onChange={onChangeRoleCode}
                                 options={roleList}
                             />
@@ -250,7 +250,7 @@ const AdminNewModal = (props) => {
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                             <Select
                                 value={orgName}
-                                style={{width: '100%'}}
+                                style={{width: '90%'}}
                                 onChange={onChangeOrgName}
                                 options={orgStrucList}
                             />
@@ -270,7 +270,7 @@ const AdminNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment}/>
+                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} style={{width: '90%'}} />
                         </div>
                     </Col>
                 </Row>

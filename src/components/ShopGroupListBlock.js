@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { theme, Space, Table, Tag } from 'antd';
+import { theme, Space, Table } from 'antd';
 import axios from 'axios';
+
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
 const ShopGroupListBlock = (props) => {
     // 样式相关
@@ -13,8 +16,13 @@ const ShopGroupListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchShopGroupListData = () => {
-        let url = 'http://localhost:8080/teamachine/shop/group/search?tenantCode=tenant_001&shopGroupName=' + props.shopGroupName4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchListData = () => {
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/group/search', {
+            tenantCode: 'tenant_001',
+            shopGroupName: props.shopGroupName4Search,
+            pageNum: pageNum,
+            pageSize: pageSize
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -24,7 +32,13 @@ const ShopGroupListBlock = (props) => {
                 setPageSize(response.data.model.pageSize);
                 setTotal(response.data.model.total);
                 setList((prev => {
-                    return response.data.model.list
+                    let tmp = [];
+                    response.data.model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
                 }));
             }
         })
@@ -38,7 +52,7 @@ const ShopGroupListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchShopGroupListData();
+        fetchListData();
     }, [props.shopGroupName4Search, pageNum]);
 
     // 表格展示数据相关
@@ -47,27 +61,33 @@ const ShopGroupListBlock = (props) => {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
+            width: '20%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '店铺组编码',
             dataIndex: 'shopGroupCode',
             key: 'shopGroupCode',
+            width: '20%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '20%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '店铺数量',
             dataIndex: 'shopCnt',
             key: 'shopCnt',
+            width: '20%'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '20%',
             render: (_, { shopGroupCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -86,11 +106,6 @@ const ShopGroupListBlock = (props) => {
             ),
         },
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.shopGroupCode;
-        ite.actions = ["edit", "delete"];
-    });
 
     // 表格操作数据相关
     const onChangePage = (page) => {
@@ -100,13 +115,13 @@ const ShopGroupListBlock = (props) => {
         props.onClickEdit(shopGroupCode);
     }
     const onClickDelete = (e, shopGroupCode) => {
-        let url4Delete = 'http://localhost:8080/teamachine/shop/group/tenant_001/' + shopGroupCode + '/delete';
-        axios.delete(url4Delete, {
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/shop/group', ['tenant_001', shopGroupCode, 'delete']);
+        axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                alert("删除成功")
+                fetchListData();
             }
         })
         .catch(error => {
@@ -129,7 +144,7 @@ const ShopGroupListBlock = (props) => {
                     onChange: (page)=>onChangePage(page),
                 }}
                 columns={columns} 
-                dataSource={data}
+                dataSource={list}
                 rowKey={record=>record.id} />
         </div>
     )

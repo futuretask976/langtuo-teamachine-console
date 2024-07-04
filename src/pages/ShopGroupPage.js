@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Select, Space, Table, TreeSelect, Col, Row } from 'antd';
+import React, { useState } from 'react';
+import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../css/common.css';
 
@@ -13,7 +12,6 @@ import ShopGroupNewModal from '../components/ShopGroupNewModal'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
-const { TextArea } = Input;
 
 const ShopGroupPage = () => {
     // 导航菜单 + 面包屑相关
@@ -70,26 +68,26 @@ const ShopGroupPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>店铺组名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="店铺组名称" onChange={onChangeShopGroupName4Search}/>&nbsp;&nbsp;
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                            <Input placeholder="店铺组名称" onChange={onChangeShopGroupName4Search} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch}>开始搜索</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal}>新建管理员</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建门店组</Button>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={6}>
+                                    <Col className="gutter-row" span={12}>
                                         &nbsp;
                                     </Col>
                                 </Row>

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { theme, Space, Table, Tag } from 'antd';
+import { theme, Space, Table } from 'antd';
 import axios from 'axios';
+
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
 const ShopListBlock = (props) => {
     // 样式相关
@@ -14,7 +17,13 @@ const ShopListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchShopListData = () => {
-        let url = 'http://localhost:8080/teamachine/shop/search?tenantCode=tenant_001&shopName=' + props.shopName4Search + '&shopGroupName=' + props.shopGroupName4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/search', {
+            tenantCode: 'tenant_001',
+            shopName: props.shopName4Search,
+            shopGroupName: props.shopGroupName4Search,
+            pageNum: pageNum,
+            pageSize: pageSize
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -24,7 +33,13 @@ const ShopListBlock = (props) => {
                 setPageSize(response.data.model.pageSize);
                 setTotal(response.data.model.total);
                 setList((prev => {
-                    return response.data.model.list
+                    let tmp = [];
+                    response.data.model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
                 }));
             }
         })
@@ -47,27 +62,33 @@ const ShopListBlock = (props) => {
             title: '店铺编码',
             dataIndex: 'shopCode',
             key: 'shopCode',
+            width: '20%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '店铺名称',
             dataIndex: 'shopName',
             key: 'shopName',
+            width: '20%',
             render: (text) => <a>{text}</a>,
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '20%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
+            width: '20%'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '20%',
             render: (_, { shopCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -86,11 +107,6 @@ const ShopListBlock = (props) => {
             ),
         },
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.shopCode;
-        ite.actions = ["edit", "delete"];
-    });
 
     // 表格操作数据相关
     const onChangePage = (page) => {
@@ -129,7 +145,7 @@ const ShopListBlock = (props) => {
                     onChange: (page)=>onChangePage(page),
                 }}
                 columns={columns} 
-                dataSource={data}
+                dataSource={list}
                 rowKey={record=>record.id} />
         </div>
     )
