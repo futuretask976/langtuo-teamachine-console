@@ -61,7 +61,7 @@ const MachineModelListBlock = (props) => {
             dataIndex: 'modelCode',
             key: 'modelCode',
             width: '25%',
-            render: (text) => <a>{text}</a>,
+            render: (text) => <a>{text}</a>
         },
         {
             title: '创建时间',

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
+
 const TenantListBlock = (props) => {
     // 样式相关
     const {
@@ -13,8 +16,13 @@ const TenantListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchMachineModelListData = () => {
-        let url = 'http://localhost:8080/teamachine/tenant/search?tenantName=' + props.tenantName4Search + '&contactPerson=' + props.contactPerson4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+    const fetchListData = () => {
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/tenant/search', {
+            tenantName: props.tenantName4Search,
+            contactPerson: props.contactPerson4Search,
+            pageNum: pageNum,
+            pageSize: pageSize
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -24,7 +32,13 @@ const TenantListBlock = (props) => {
                 setPageSize(response.data.model.pageSize);
                 setTotal(response.data.model.total);
                 setList((prev => {
-                    return response.data.model.list
+                    let tmp = [];
+                    response.data.model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
                 }));
             }
         })
@@ -38,36 +52,48 @@ const TenantListBlock = (props) => {
         });
     }
     useEffect(() => {
-        fetchMachineModelListData();
+        fetchListData();
     }, [props.tenantName4Search, props.contactPerson4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [
         {
+            title: '商户编码',
+            dataIndex: 'tenantCode',
+            key: 'tenantCode',
+            width: '15%',
+            render: (text) => <a>{text}</a>
+        },
+        {
             title: '商户名称',
             dataIndex: 'tenantName',
             key: 'tenantName',
-            render: (text) => <a>{text}</a>,
+            width: '15%',
+            render: (text) => <a>{text}</a>
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '20%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '联系人名称',
             dataIndex: 'contactPerson',
             key: 'contactPerson',
+            width: '20%',
         },
         {
             title: '联系人电话',
             dataIndex: 'contactPhone',
             key: 'contactPhone',
+            width: '20%'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '10%',
             render: (_, { tenantCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -84,13 +110,8 @@ const TenantListBlock = (props) => {
                 })}
                 </Space>
             ),
-        },
+        }
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.modelCode;
-        ite.actions = ["edit", "delete"];
-    });
     
     // 表格操作数据相关
     const onChangePage = (page) => {
@@ -100,18 +121,16 @@ const TenantListBlock = (props) => {
         props.onClickEdit(tenantCode);
     }
     const onClickDelete = (e, tenantCode) => {
-        let url = 'http://localhost:8080/teamachine/tenant/' + tenantCode + '/delete';
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/tenant', [
+            tenantCode,
+            'delete'
+        ]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                setList((prev => {
-                    return response.data.model.list
-                }));
+                fetchListData();
             }
         })
         .catch(error => {
@@ -134,7 +153,7 @@ const TenantListBlock = (props) => {
                     onChange: (page)=>onChangePage(page),
                 }}
                 columns={columns} 
-                dataSource={data}
+                dataSource={list}
                 rowKey={record=>record.id} />
         </div>
     )

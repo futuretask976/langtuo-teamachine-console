@@ -68,13 +68,13 @@ const MachineModelPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'center', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>型号编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div className="flex-row-cont">
-                                            <Input placeholder="型号编码" onChange={onChangeModelCode4Search} />
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                            <Input placeholder="型号编码" onChange={onChangeModelCode4Search} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
