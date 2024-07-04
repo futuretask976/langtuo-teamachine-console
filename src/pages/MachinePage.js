@@ -91,7 +91,7 @@ const MachinePage = () => {
                                             <span>屏幕编码：</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={4}>
+                                    <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="屏幕编码" onChange={onChangeScreenCode4Search}/>&nbsp;&nbsp;
                                         </div>
@@ -101,7 +101,7 @@ const MachinePage = () => {
                                             <span>控制板编码：</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={4}>
+                                    <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="控制板编码" onChange={onChangeElecBoardCode4Search}/>&nbsp;&nbsp;
                                         </div>
@@ -111,7 +111,7 @@ const MachinePage = () => {
                                             <span>机器型号：</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={4}>
+                                    <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="机器型号" onChange={onChangeModelCode4Search}/>&nbsp;&nbsp;
                                         </div>
@@ -119,11 +119,6 @@ const MachinePage = () => {
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
                                             <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建部署码</Button>
                                         </div>
                                     </Col>
                                 </Row>
@@ -134,12 +129,12 @@ const MachinePage = () => {
                                             <span>店铺名称：</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={4}>
+                                    <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                             <Input placeholder="店铺名称" onChange={onChangeShopName4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={18}>
+                                    <Col className="gutter-row" span={17}>
                                         &nbsp;
                                     </Col>
                                 </Row>

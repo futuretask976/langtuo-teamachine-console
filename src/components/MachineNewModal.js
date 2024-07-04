@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Switch, Col, Row } from 'antd';
+import { Button, DatePicker, Input, Modal, Switch, Col, Row } from 'antd';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { TEAMACHINE_HOST_URL, dateToYMDHMS, genGetUrlBySegs, genPostUrl, isBlankStr } from '../js/common.js';
+
+dayjs.locale('zh-cn');
 
 const MachineDeployNewModal = (props) => {
     // 对话框相关
@@ -11,7 +14,7 @@ const MachineDeployNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/machine/put');
+        let url = genPostUrl(TEAMACHINE_HOST_URL, '/machine/update');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             machineCode: machineCode,
@@ -19,8 +22,8 @@ const MachineDeployNewModal = (props) => {
             screenCode: screenCode,
             elecBoardCode: elecBoardCode,
             state: state,
-            validUntil: validUntil,
-            maintainUntil: maintainUntil,
+            validUntil: new Date(validUntil),
+            maintainUntil: new Date(maintainUntil),
             tenantCode: 'tenant_001',
             extraInfo: {
                 testA: 'valueA',
@@ -61,18 +64,14 @@ const MachineDeployNewModal = (props) => {
     const [screenCode, setScreenCode] = useState('');
     const [elecBoardCode, setElecBoardCode] = useState('');
     const [state, setState] = useState(0);
-    const [validUntil, setValidUntil] = useState();
-    const [maintainUntil, setMaintainUntil] = useState();
+    const [validUntil, setValidUntil] = useState('');
+    const [maintainUntil, setMaintainUntil] = useState('');
     useEffect(() => {
         if (isBlankStr(props.machineCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine', [
-            'tenant_001',
-            props.machineCode4Edit,
-            'get'
-        ]);
+        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine', ['tenant_001', props.machineCode4Edit, 'get']);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -83,8 +82,8 @@ const MachineDeployNewModal = (props) => {
                 setScreenCode(response.data.model.screenCode);
                 setElecBoardCode(response.data.model.elecBoardCode);
                 setState(response.data.model.state);
-                setValidUntil(response.data.model.validUntil);
-                setMaintainUntil(response.data.model.maintainUntil);
+                setValidUntil(dateToYMDHMS(new Date(response.data.model.validUntil)));
+                setMaintainUntil(dateToYMDHMS(new Date(response.data.model.maintainUntil)));
             }
         })
         .catch(error => {
@@ -98,9 +97,6 @@ const MachineDeployNewModal = (props) => {
     }, [props.machineCodeCode4Edit]);
 
     // 输入相关
-    const onChangeMachineCode = (e) => {
-        setMachineCode(e.target.value);
-    }
     const onChangeMachineName = (e) => {
         setMachineName(e.target.value);
     }
@@ -111,13 +107,13 @@ const MachineDeployNewModal = (props) => {
         setElecBoardCode(e.target.value);
     }
     const onChangeState = (e) => {
-        setState(e.target.value);
+        setState(e ? 1 : 0);
     }
-    const onChangeValidUntil = (e) => {
-        setValidUntil(e);
+    const onChangeValidUntil = (date, dateString) => {
+        setValidUntil(dateString);
     }
-    const onChangeMaintainUntil = (e) => {
-        setMaintainUntil(e);
+    const onChangeMaintainUntil = (date, dateString) => {
+        setMaintainUntil(dateString);
     }
  
     return (
@@ -127,7 +123,7 @@ const MachineDeployNewModal = (props) => {
             title="更新机器信息"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={1000}
+            width={500}
             style={{border: '0px solid red'}}
             footer={[
                 <Button key="back" onClick={onClickCancel}>取消</Button>,
@@ -139,102 +135,131 @@ const MachineDeployNewModal = (props) => {
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 410, width: '100%'}}>
                 <div style={{height: 410, width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>机器编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                <Input placeholder="机器编码" value={machineCode} onChange={onChangeMachineCode}/>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="机器编码" value={machineCode} disabled={true} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
+                        <Col className="gutter-row" span={24}>
                             &nbsp;
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>机器名称：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="机器名称" value={machineName} onChange={onChangeMachineName}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
+                        <Col className="gutter-row" span={24}>
                             &nbsp;
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>屏幕编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="机器编码" value={screenCode} onChange={onChangeScreenCode}/>
                             </div>
                         </Col>
                     </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>电控板编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="电控板编码" value={elecBoardCode} onChange={onChangeElecBoardCode}/>
                             </div>
                         </Col>
                     </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>状态：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                状态
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>保修期：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                保修期
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>有效期：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={14}>
-                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                有效期
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={22}>
+                        <Col className="gutter-row" span={24}>
                             &nbsp;
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>保修期：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <DatePicker
+                                    format={{
+                                        format: 'YYYY-MM-DD HH:mm:ss',
+                                        type: 'mask',
+                                    }}
+                                    onChange={onChangeMaintainUntil}
+                                    value={dayjs(maintainUntil, 'YYYY-MM-DD HH:mm:ss')}
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>有效期：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <DatePicker
+                                    format={{
+                                        format: 'YYYY-MM-DD HH:mm:ss',
+                                        type: 'mask',
+                                    }}
+                                    onChange={onChangeValidUntil}
+                                    value={dayjs(validUntil, 'YYYY-MM-DD HH:mm:ss')}
+                                />
+                            </div>
                         </Col>
                     </Row>
                 </div>

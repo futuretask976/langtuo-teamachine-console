@@ -1,21 +1,23 @@
 export const TEAMACHINE_HOST_URL = 'http://localhost:8080/teamachine';
 
-
-export const isBlankStr = (str) => {
-    if (str == undefined || str == null || str == '') {
-        return true;
-    } else {
-        return false;
+export const dateToYMDHMS = (date) => {
+    function pad(number) {
+      if (number < 10) {
+        return '0' + number;
+      }
+      return number;
     }
-};
-
-export const isArray = (arr) => {
-    if (arr == undefined || arr == null || !arr instanceof Array) {
-        return false;
-    } else {
-        return true;
-    }
-};
+   
+    date = new Date(date);
+    return (
+        date.getFullYear() + '-' +
+        pad(date.getMonth() + 1) + '-' +
+        pad(date.getDate()) + ' ' +
+        pad(date.getHours()) + ':' +
+        pad(date.getMinutes()) + ':' +
+        pad(date.getSeconds())
+    );
+}
 
 export const genGetUrlByParams = (urlPrefix, urlPath, params) => {
     let url = urlPrefix + urlPath;
@@ -44,4 +46,22 @@ export const genPostUrl = (urlPrefix, urlPath) => {
     let url = urlPrefix + urlPath;
     return url;
 }
+
+export const isArray = (arr) => {
+    if (arr == undefined || arr == null || !arr instanceof Array) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+export const isBlankStr = (str) => {
+    if (str == undefined || str == null || str == '') {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+
 
