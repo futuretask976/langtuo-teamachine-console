@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
-const MachineDeployListBlock = (props) => {
+import '../css/common.css';
+import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+
+const MachineListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -14,7 +17,15 @@ const MachineDeployListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = 'http://localhost:8080/teamachine/machine/deploy/search?tenantCode=tenant_001&deployCode=' + props.deployCode4Search + '&machineCode=' + props.machineCode4Search + '&shopName=' + props.shopName4Search + '&state=' + props.state4Search + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/machine/search', {
+            screenCode: props.screenCode4Search,
+            elecBoardCode: props.elecBoardCode4Search,
+            modelCode: props.modelCode4Search,
+            shopName: props.shopName4Search,
+            pageNum: pageNum,
+            pageSize: pageSize,
+            tenantCode: 'tenant_001'
+        });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -39,57 +50,68 @@ const MachineDeployListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.deployCode4Search, props.shopName4Search, props.state4Search, pageNum]);
+    }, [props.screenCode4Search, props.elecBoardCode4Search, props.modelCode4Search, props.shopName4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [
         {
-            title: '部署码',
-            dataIndex: 'deployCode',
-            key: 'deployCode',
+            title: '机器编码',
+            dataIndex: 'machineCode',
+            key: 'machineCode',
             render: (text) => <a>{text}</a>,
         },
         {
-            title: '归属门店',
-            dataIndex: 'shopName',
-            key: 'shopName',
+            title: '机器名称',
+            dataIndex: 'machineName',
+            key: 'machineName',
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: '屏幕编码',
+            dataIndex: 'screenCode',
+            key: 'screenCode',
+        },
+        {
+            title: '电控板编码',
+            dataIndex: 'elecBoardCode',
+            key: 'elecBoardCode',
         },
         {
             title: '设备型号',
             dataIndex: 'modelCode',
-            key: 'modelCode',
+            key: 'modelCode'
         },
         {
-            title: '部署状态',
+            title: '店铺名称',
+            dataIndex: 'shopName',
+            key: 'shopName'
+        },
+        {
+            title: '设备状态',
             dataIndex: 'state',
             key: 'state',
-            render: (state) => state == 0 ? '未部署' : '已部署'
-        },
-        {
-            title: '生成时间',
-            dataIndex: 'gmtCreated',
-            key: 'gmtCreated',
+            render: (state) => state == 0 ? '禁用' : '启用'
         },
         {
             title: '操作',
             key: 'actions',
-            render: (_, { deployCode, actions }) => (
+            render: (_, { machineCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>编辑</a>
+                            <a id={action + '_' + machineCode} onClick={(e) => onClickEdit(e, machineCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>删除</a>
+                            <a id={action + '_' + machineCode} onClick={(e) => onClickDelete(e, machineCode)}>删除</a>
                         );
                     }
                 })}
                 </Space>
             ),
-        },
+        }
     ];
     let data = list;
     data.forEach(function(ite) {
@@ -105,7 +127,7 @@ const MachineDeployListBlock = (props) => {
         props.onClickEdit(deployCode);
     }
     const onClickDelete = (e, deployCode) => {
-        let url = 'http://localhost:8080/teamachine/machine/deploy/tenant_001/' + deployCode + '/delete';
+        let url = 'http://localhost:8080/teamachine/machine/tenant_001/' + deployCode + '/delete';
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -140,5 +162,5 @@ const MachineDeployListBlock = (props) => {
     )
 };
 
-export default MachineDeployListBlock;
+export default MachineListBlock;
 

@@ -4,22 +4,23 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../css/common.css';
+import '../js/common.js';
 
 import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
-import MachineDeployListBlock from '../components/MachineDeployListBlock'
-import MachineDeployNewModal from '../components/MachineDeployNewModal'
+import MachineListBlock from '../components/MachineListBlock'
+import MachineNewModal from '../components/MachineNewModal'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
 const { TextArea } = Input;
 
-const MachineDeployPage = () => {
+const MachinePage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['deviceSet'];
-    const selectedMenu = ['9'];
-    const breadcrumbPath = ['控制台', '设备', '预部署管理'];
+    const selectedMenu = ['10'];
+    const breadcrumbPath = ['控制台', '设备', '机器管理'];
 
     // 页面样式相关
     const layoutStyle = {
@@ -37,41 +38,42 @@ const MachineDeployPage = () => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setDeployCode4Edit('');
+        setMachineCode4Edit('');
     }
 
     // 搜索相关
-    var deployCode4SearchTmp = '';
-    const [deployCode4Search, setDeployCode4Search] = useState('');
-    const onChangeDeployCode4Search = (e) => {
-        deployCode4SearchTmp = e.target.value;
+    var screenCode4SearchTmp = '';
+    const [screenCode4Search, setScreenCode4Search] = useState('');
+    const onChangeScreenCode4Search = (e) => {
+        screenCode4SearchTmp = e.target.value;
     }
-    var machineCode4SearchTmp = '';
-    const [machineCode4Search, setMachineCode4Search] = useState('');
-    const onChangeMachineCode4Search = (e) => {
-        machineCode4SearchTmp = e.target.value;
+    var elecBoardCode4SearchTmp = '';
+    const [elecBoardCode4Search, setElecBoardCode4Search] = useState('');
+    const onChangeElecBoardCode4Search = (e) => {
+        elecBoardCode4SearchTmp = e.target.value;
+    }
+    var modelCode4SearchTmp = '';
+    const [modelCode4Search, setModelCode4Search] = useState('');
+    const onChangeModelCode4Search = (e) => {
+        modelCode4SearchTmp = e.target.value;
     }
     var shopName4SearchTmp = '';
     const [shopName4Search, setShopName4Search] = useState('');
     const onChangeShopName4Search = (e) => {
         shopName4SearchTmp = e.target.value;
     }
-    var state4SearchTmp = '';
-    const [state4Search, setState4Search] = useState('');
-    const onChangeState4Search = (e) => {
-        state4SearchTmp = e.target.value;
-    }
     const onClickSearch = () => {
-        setDeployCode4Search(deployCode4SearchTmp);
+        alert("screen_001222=" + screenCode4SearchTmp);
+        setScreenCode4Search(screenCode4SearchTmp);
+        setElecBoardCode4Search(elecBoardCode4SearchTmp);
+        setModelCode4Search(modelCode4SearchTmp);
         setShopName4Search(shopName4SearchTmp);
-        setState4Search(state4SearchTmp);
-        setMachineCode4Search(machineCode4SearchTmp);
     }
 
     // 表格操作相关
-    const [deployCode4Edit, setDeployCode4Edit] = useState('');
-    const onClickEdit = (selectedDeployCode)=> {
-        setDeployCode4Edit(selectedDeployCode);
+    const [machineCode4Edit, setMachineCode4Edit] = useState('');
+    const onClickEdit = (selectedMachineCode)=> {
+        setMachineCode4Edit(selectedMachineCode);
         setOpenNewModal(true);
     }
 
@@ -89,12 +91,32 @@ const MachineDeployPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
-                                            <span>部署编码：</span>
+                                            <span>屏幕编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="部署编码" onChange={onChangeDeployCode4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="屏幕编码" onChange={onChangeScreenCode4Search}/>&nbsp;&nbsp;
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={2}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                            <span>控制板编码：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                            <Input placeholder="控制板编码" onChange={onChangeElecBoardCode4Search}/>&nbsp;&nbsp;
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={2}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                            <span>机器型号：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                            <Input placeholder="机器型号" onChange={onChangeModelCode4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -105,16 +127,6 @@ const MachineDeployPage = () => {
                                     <Col className="gutter-row" span={4}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
                                             <Input placeholder="店铺名称" onChange={onChangeShopName4Search}/>&nbsp;&nbsp;
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
-                                            <span>部署状态：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="部署状态" onChange={onChangeState4Search}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -130,7 +142,7 @@ const MachineDeployPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineDeployListBlock deployCode4Search={deployCode4Search} machineCode4Search={machineCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+                                <MachineListBlock screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} modelCode4Search={modelCode4Search} shopName4Search={shopName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -139,10 +151,10 @@ const MachineDeployPage = () => {
             </Flex>
 
             {openNewModal && (
-                <MachineDeployNewModal onClose={onCloseNewModal} deployCode4Edit={deployCode4Edit} />
+                <MachineNewModal onClose={onCloseNewModal} machineCode4Edit={machineCode4Edit} />
             )}
         </>
     )
 };
 
-export default MachineDeployPage;
+export default MachinePage;

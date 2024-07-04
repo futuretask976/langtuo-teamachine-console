@@ -34,7 +34,7 @@ const SiderMenu = (props) => {
         getItem('设备', 'deviceSet', <OneToOneOutlined />, [
             getItem('预部署管理', '9'),
             getItem('设备管理', '10'),
-			getItem('设备详情管理', '11'),
+			// getItem('设备详情管理', '11'),
         ]),
 		getItem('饮品生产', 'drinkSet', <ExperimentOutlined />, [
             getItem('物料类型管理', '12'),
@@ -93,7 +93,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 9) {
             window.location.href="/console/deviceset/deploy";
         } else if (e.key == 10) {
-            window.location.href="/admin/input";
+            window.location.href="/console/deviceset/machine";
         } else if (e.key == 11) {
             window.location.href="/admin/input";
         } else if (e.key == 12) {

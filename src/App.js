@@ -10,6 +10,7 @@ import AdminPage from './pages/AdminPage';
 import ShopGroupPage from './pages/ShopGroupPage';
 import ShopPage from './pages/ShopPage';
 import MachineDeployPage from './pages/MachineDeployPage';
+import MachinePage from './pages/MachinePage';
 import ToppingPage from './pages/ToppingPage';
 import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
@@ -99,6 +100,10 @@ const Routes = () => {
                 {
                     path: "/deviceset/deploy",
                     element: <MachineDeployPage />,
+                },
+                {
+                    path: "/deviceset/machine",
+                    element: <MachinePage />,
                 },
                 {
                     path: "/shopset/shop",
