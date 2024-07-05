@@ -99,7 +99,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 12) {
             window.location.href="/console/drinkset/topping/type";
         } else if (e.key == 13) {
-            window.location.href="/admin/input";
+            window.location.href="/console/drinkset/topping";
         } else if (e.key == 14) {
             window.location.href="/admin/input";
         } else if (e.key == 15) {

@@ -147,22 +147,22 @@ const ToppingTypeNewModal = (props) => {
                     </Col>
                 </Row>
                 <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>状态：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={18}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
-                            </div>
-                        </Col>
-                    </Row>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={6}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>状态：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={18}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
+                        </div>
+                    </Col>
+                </Row>
                 <Row style={{height: 20, width: '100%'}}>
                     <Col className="gutter-row" span={24}>
                         &nbsp;

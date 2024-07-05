@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table, Col, Row, message, theme } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
+import '../css/common.css';
+
 import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
@@ -10,12 +12,14 @@ import ToppingNewModal from '../components/ToppingNewModal'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
-const { TextArea } = Input;
 
 const ToppingPage = () => {
+    // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
-    const selectedMenu = ['16'];
-    const breadcrumbPath = ['控制台', '饮品生产', '配方管理'];
+    const selectedMenu = ['13'];
+    const breadcrumbPath = ['控制台', '饮品', '物料管理'];
+
+    // 页面样式相关
     const layoutStyle = {
         height: 1000,
         overflow: 'hidden',
@@ -24,24 +28,37 @@ const ToppingPage = () => {
         border: '0px solid red',
     };
 
-    
-    
-    const [current, setCurrent] = useState(0);
-    
-    
-
-    
-
-    
-
-    
-    // 新建配方对话框相关
-    const [openNewToppingModal, setOpenNewToppingModal] = useState(false);
-    const onCreateNewToppingModal = () => {
-        setOpenNewToppingModal(true);
+    // 新建对话框相关
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const onOpenNewModal = () => {
+        setOpenNewModal(true);
     };
-    const onCloseNewToppingModal = () => {
-        setOpenNewToppingModal(false);
+    const onCloseNewModal = () => {
+        setOpenNewModal(false);
+        setToppingCode4Edit('');
+    }
+
+    // 搜索相关
+    var toppingCode4SearchTmp = '';
+    const [toppingCode4Search, setToppingCode4Search] = useState('');
+    const onChangeToppingCode4Search = (e) => {
+        toppingCode4SearchTmp = e.target.value;
+    }
+    var toppingName4SearchTmp = '';
+    const [toppingName4Search, setToppingName4Search] = useState('');
+    const onChangeToppingName4Search = (e) => {
+        toppingName4SearchTmp = e.target.value;
+    }
+    const onClickSearch = () => {
+        setToppingCode4Search(toppingCode4SearchTmp);
+        setToppingName4Search(toppingName4SearchTmp);
+    }
+
+    // 表格操作相关
+    const [toppingCode4Edit, setToppingCode4Edit] = useState('');
+    const onClickEdit = (selectedToppingCode)=> {
+        setToppingCode4Edit(selectedToppingCode);
+        setOpenNewModal(true);
     }
 
     return (
@@ -57,23 +74,33 @@ const ToppingPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
-                                            <span>配方名称：</span>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                            <span>物料编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="配方名称" />&nbsp;&nbsp;
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                            <Input placeholder="物料编码" onClick={onChangeToppingCode4Search} />
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={2}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                            <span>物料名称：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                            <Input placeholder="物料名称" onClick={onChangeToppingName4Search} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont">
                                             <Button type="primary" icon={<SearchOutlined />}>开始搜索</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewToppingModal}>新建配方</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal}>新建物料</Button>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={12}>
@@ -82,7 +109,7 @@ const ToppingPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ToppingListBlock />
+                                <ToppingListBlock toppingCode4Search={toppingCode4Search} toppingName4Search={toppingName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -90,8 +117,8 @@ const ToppingPage = () => {
                 </Layout>
             </Flex>
 
-            {openNewToppingModal && (
-                <ToppingNewModal onClose={onCloseNewToppingModal} />
+            {openNewModal && (
+                <ToppingNewModal onClose={onCloseNewModal} toppingCode4Edit={toppingCode4Edit} />
             )}
         </>
     )

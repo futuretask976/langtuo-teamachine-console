@@ -1,128 +1,345 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Switch, Table, Tabs, Col, Row, message, theme } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
-
-import ToppingNewModalBasicInfoPane from './ToppingNewModalBasicInfoPane'
-import ToppingNewModalActStepPane from './ToppingNewModalActStepPane'
-import ToppingNewModalCommonPane from './ToppingNewModalCommonPane'
-import ToppingNewModalSpecPane from './ToppingNewModalSpecPane'
-import ToppingNewModalSpecRulePane from './ToppingNewModalSpecRulePane'
+import React, { useEffect, useState } from 'react';
+import { Button, Input, InputNumber, Modal, Radio, Select, Space, Switch, Col, Row } from 'antd';
+import axios from 'axios';
 
 import '../css/common.css';
+import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
-const { Content } = Layout;
 const { TextArea } = Input;
 
 const ToppingNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
-    const { token } = theme.useToken();
-    const handleOk = () => {
+    const onClickOK = () => {
         setLoading(true);
+        let url = genPostUrl('/drinkset/topping/put');
+        axios.put(url, {
+            withCredentials: true, // 这会让axios在请求中携带cookies
+            toppingCode: toppingCode,
+            toppingName: toppingName,
+            toppingTypeCode: toppingTypeCode,
+            measureUnit: measureUnit,
+            state: state,
+            validHourPeriod: validHourPeriod,
+            cleanHourPeriod: cleanHourPeriod,
+            convertCoefficient: convertCoefficient,
+            flowSpeed: flowSpeed,
+            comment: comment,
+            tenantCode: 'tenant_001',
+            extraInfo: {
+                testA: 'valueA',
+                testB: 'valueB'
+            },
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                alert("here is success")
+            } else {
+                alert("here is wrong")
+            }
+        })
+        .catch(error => {
+            alert("here is error")
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+
         setTimeout(() => {
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
-    const handleCancel = () => {
+    const onClickCancel = () => {
         props.onClose();
         setOpen(false);
     };
-    const contentStyle = {
-        lineHeight: '260px',
-        textAlign: 'center',
-        color: token.colorTextTertiary,
-        backgroundColor: token.colorFillAlter,
-        borderRadius: token.borderRadiusLG,
-        border: `1px dashed ${token.colorBorder}`,
-        marginTop: 16,
-        height: '100%',
-        width: '100%'
-    };
 
-    // 步骤相关
-    const [curStep, setCurStep] = useState(0);
-    const steps = [
-        {
-            title: '基本信息',
-            content: '这里是基本信息',
-        },
-        {
-            title: '操作步骤',
-            content: '这里是操作步骤',
-        },
-        {
-            title: '标准配方',
-            content: '这里是标准配方',
-        },
-        {
-            title: '选项配置',
-            content: '这里是选项配置',
-        },
-        {
-            title: '变动规则',
-            content: '这里是变动规则',
-        },
-    ];
-    const nextStep = () => {
-        setCurStep(curStep + 1);
-    };
-    const prevStep = () => {
-        setCurStep(curStep - 1);
-    };
+    // 数据初始化相关
+    const [toppingCode, setToppingCode] = useState(isBlankStr(props.toppingCode4Edit) ? '' : props.toppingCode4Edit);
+    const [toppingName, setToppingName] = useState('');
+    const [toppingTypeCode, setToppingTypeCode] = useState('');
+    const [measureUnit, setMeasureUnit] = useState(0);
+    const [state, setState] = useState(1);
+    const [validHourPeriod, setValidHourPeriod] = useState(0);
+    const [cleanHourPeriod, setCleanHourPeriod] = useState(0);
+    const [convertCoefficient, setConvertCoefficient] = useState(0.0);
+    const [flowSpeed, setFlowSpeed] = useState(1);
+    const [comment, setComment] = useState('');
+    useEffect(() => {
+        if (isBlankStr(props.toppingCode4Edit)) {
+            return;
+        }
+
+        let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/get', ['tenant_001', props.toppingCode4Edit]);
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setToppingCode(response.data.model.toppingCode);
+                setToppingName(response.data.model.toppingName);
+                setToppingTypeCode(response.data.model.toppingTypeCode);
+                setMeasureUnit(response.data.model.measureUnit);
+                setState(response.data.model.state);
+                setValidHourPeriod(response.data.model.validHourPeriod);
+                setCleanHourPeriod(response.data.model.cleanHourPeriod);
+                setConvertCoefficient(response.data.model.convertCoefficient);
+                setFlowSpeed(response.data.model.flowSpeed);
+                setComment(response.data.model.comment);
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }, [props.toppingTypeCode4Edit]);
+    const [toppingTypeList, setToppingTypeList] = useState([]);
+    const fetchToppingTypeListData = () => {
+        let url = genGetUrlByParams('/drinkset/topping/type/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setToppingTypeList((prev => {
+                    let tmp = [];
+                    response.data.model.forEach(function(item) {
+                        tmp.push({
+                            label: item.toppingTypeName,
+                            value: item.toppingTypeCode
+                        });
+                    });
+                    return tmp;
+                }));
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }
+    useEffect(() => {
+        fetchToppingTypeListData();
+    }, []);
+    
+
+    // 输入相关
+    const onChangeToppingCode = (e) => {
+        setToppingCode(e.target.value);
+    }
+    const onChangeToppingName = (e) => {
+        setToppingName(e.target.value);
+    }
+    const onChangeMeasureUnit = (e) => {
+        setMeasureUnit(e.target.value);
+    }
+    const onChangeState = (e) => {
+        setState(e == true ? 1 : 0);
+    }
+    const onChangeValidHourPeriod = (e) => {
+        setValidHourPeriod(e);
+    }
+    const onChangeCleanHourPeriod = (e) => {
+        setCleanHourPeriod(e);
+    }
+    const onChangeConvertCoefficient = (e) => {
+        setConvertCoefficient(e);
+    }
+    const onChangeFlowSpeed = (e) => {
+        setFlowSpeed(e);
+    }
+    const onChangeComment = (e) => {
+        setComment(e.target.value);
+    }
+    const onChangeToppingTypeCode = (e) => {
+        setToppingTypeCode(e);
+    }
  
     return (
         <Modal
             centered
             open={open}
-            title="新建配方"
-            onOk={handleOk}
-            onCancel={handleCancel}
-            width={1000}
+            title="新建物料"
+            onOk={onClickOK}
+            onCancel={onClickCancel}
+            width={550}
             style={{border: '0px solid red'}}
-            footer={[]}
+            footer={[
+                <Button key="back" onClick={onClickCancel}>取消</Button>,
+                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
+                    提交
+                </Button>,
+            ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', justifyItems: 'center', flexDirection: 'column', height: 450, width: '100%'}}>
-                <Steps current={curStep} items={steps} />
-                <div style={contentStyle}>
-                    {curStep == 0 && (
-                        <ToppingNewModalBasicInfoPane />
-                    )}
-                    {curStep == 1 && (
-                        <ToppingNewModalActStepPane />
-                    )}
-                    {curStep == 2 && (
-                        <ToppingNewModalCommonPane />
-                    )}
-                    {curStep == 3 && (
-                        <ToppingNewModalSpecPane />
-                    )}
-                    {curStep == 4 && (
-                        <ToppingNewModalSpecRulePane />
-                    )}
-                </div>
-                <div style={{marginTop: 24}}>
-                    {curStep > 0 && (
-                        <Button style={{margin: '0 8px'}} onClick={() => prevStep()}>
-                            上一步
-                        </Button>
-                    )}
-                    {curStep < steps.length - 1 && (
-                        <Button type="primary" onClick={() => nextStep()}>
-                            下一步
-                        </Button>
-                    )}
-                    {curStep === steps.length - 1 && (
-                        <Button type="primary" onClick={() => message.success('操作完成！')}>
-                            完成
-                        </Button>
-                    )}
-                    <Button key="back" onClick={handleCancel} style={{margin: '0 8px'}}>取消</Button>
-                    <Button key="submit" type="primary" loading={loading} onClick={handleOk} style={{margin: '0 8px'}}>
-                        提交
-                    </Button>
-                </div>
+            <div style={{height: 380, width: '100%'}}>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>物料编码：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={20}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="物料编码" value={toppingCode} onChange={onChangeToppingCode} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>物料名称：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={20}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Input placeholder="物料名称" value={toppingName} onChange={onChangeToppingName} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>物料类型：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={20}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Select
+                                value={toppingTypeCode}
+                                style={{width: '100%'}}
+                                onChange={onChangeToppingTypeCode}
+                                options={toppingTypeList}
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>计量单位：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Radio.Group onChange={onChangeMeasureUnit} value={measureUnit}>
+                                <Radio value={0}>克</Radio>
+                                <Radio value={1}>毫升</Radio>
+                            </Radio.Group>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>状态：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>维保期：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Space><InputNumber min={1} max={99999999} value={validHourPeriod} onChange={onChangeValidHourPeriod} /><span>小时</span></Space>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>清洗期：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Space><InputNumber min={1} max={99999999} value={cleanHourPeriod} onChange={onChangeCleanHourPeriod} /><span>小时</span></Space>
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>转换系数：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <InputNumber min={0} max={99999999} step={0.01} value={convertCoefficient} onChange={onChangeConvertCoefficient} />
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>转速：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Space><InputNumber min={0} max={99} value={flowSpeed} onChange={onChangeFlowSpeed} /><span>档</span></Space>
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row>
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
+                            <span>备注：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={20}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} />
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </Modal>
     );
