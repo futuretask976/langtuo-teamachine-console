@@ -3,7 +3,7 @@ import { Button, Input, Modal, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const { TextArea } = Input;
 
@@ -13,7 +13,7 @@ const TenantNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/tenant/put');
+        let url = genPostUrl('/tenant/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: tenantCode,
@@ -67,10 +67,7 @@ const TenantNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/tenant', [
-            props.tenantCode4Edit,
-            'get'
-        ]);
+        let url = genGetUrlBySegs('/tenant/{segment}/get', [props.tenantCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

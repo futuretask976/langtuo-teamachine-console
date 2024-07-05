@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const { TextArea } = Input;
 
@@ -13,7 +13,7 @@ const ShopNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/shop/put');
+        let url = genPostUrl('/shop/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             shopCode: shopCode,
@@ -65,7 +65,7 @@ const ShopNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/shop', ['tenant_001', props.shopCode4Edit, 'get']);
+        let url = genGetUrlBySegs('/shop/{segment}/{segment}/get', ['tenant_001', props.shopCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -89,7 +89,7 @@ const ShopNewModal = (props) => {
     }, [props.shopCode4Edit]);
     const [shopGroupList, setShopGroupList] = useState([]);
     useEffect(() => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/group/list', {
+        let url = genGetUrlByParams('/shop/group/list', {
             tenantCode: 'tenant_001'
         });
         axios.get(url, {

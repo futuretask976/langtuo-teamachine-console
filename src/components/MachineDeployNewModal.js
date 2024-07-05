@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr } from '../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr } from '../js/common.js';
 
 const MachineDeployNewModal = (props) => {
     // 对话框相关
@@ -11,7 +11,7 @@ const MachineDeployNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/machine/deploy/put');
+        let url = genPostUrl('/machine/deploy/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             deployCode: deployCode,
@@ -64,7 +64,7 @@ const MachineDeployNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine/deploy', ['tenant_001', props.deployCode4Edit, 'get']);
+        let url = genGetUrlBySegs('/machine/deploy/{segment}/{segment}/get', ['tenant_001', props.deployCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -87,7 +87,7 @@ const MachineDeployNewModal = (props) => {
     }, [props.deployCode4Edit]);
     const [shopList, setShopList] = useState([]);
     const fetchShopListData = () => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/list', {
+        let url = genGetUrlByParams('/shop/list', {
             tenantCode: 'tenant_001'
         })
         axios.get(url, {
@@ -118,7 +118,7 @@ const MachineDeployNewModal = (props) => {
     }
     const [modelList, setModelList] = useState([]);
     const fetchModelListData = () => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/machine/model/list', {
+        let url = genGetUrlByParams('/machine/model/list', {
             tenantCode: 'tenant_001'
         })
         axios.get(url, {
@@ -166,7 +166,7 @@ const MachineDeployNewModal = (props) => {
         setShopCode(e);
     }
     const onClickDeployCodeGen = (e) => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/machine/deploy/generate', {
+        let url = genGetUrlByParams('/machine/deploy/generate', {
             tenantCode: 'tenant_001'
         })
         axios.get(url, {

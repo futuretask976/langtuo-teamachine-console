@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
 const RoleListBlock = (props) => {
     // 样式相关
@@ -17,7 +17,7 @@ const RoleListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/admin/role/search', {
+        let url = genGetUrlByParams('/admin/role/search', {
             tenantCode: 'tenant_001',
             roleName: props.roleName4Search,
             pageNum: pageNum,
@@ -120,11 +120,7 @@ const RoleListBlock = (props) => {
         props.onClickEdit(roleCode);
     }
     const onClickDelete = (e, roleCode) => {
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/admin/role', [
-            'tenant_001',
-            roleCode,
-            'delete'
-        ]);
+        let url = genGetUrlBySegs('/admin/role/{segment}/{segment}/delete', ['tenant_001', roleCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

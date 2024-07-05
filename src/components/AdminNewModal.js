@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const { TextArea } = Input;
 
@@ -13,7 +13,7 @@ const AdminNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/admin/put');
+        let url = genPostUrl('/admin/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             loginName: loginName,
@@ -66,7 +66,7 @@ const AdminNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/admin', ['tenant_001', props.loginName4Edit, 'get']);
+        let url = genGetUrlBySegs('/admin/{segment}/{segment}/get', ['tenant_001', props.loginName4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -91,7 +91,7 @@ const AdminNewModal = (props) => {
     const [orgStrucList, setOrgStrucList] = useState([]);
     const [roleList, setRoleList] = useState([]);
     useEffect(() => {
-        let url4OrgStruc = genGetUrlByParams(TEAMACHINE_HOST_URL, '/orgstruc/list', {
+        let url4OrgStruc = genGetUrlByParams('/orgstruc/list', {
             tenantCode: 'tenant_001'
         });
         axios.get(url4OrgStruc, {
@@ -120,7 +120,7 @@ const AdminNewModal = (props) => {
             }
         });
 
-        let url4Role = genGetUrlByParams(TEAMACHINE_HOST_URL, '/admin/role/list', {
+        let url4Role = genGetUrlByParams('/admin/role/list', {
             tenantCode: 'tenant_001'
         });
         axios.get(url4Role, {

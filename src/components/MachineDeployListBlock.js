@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
 const MachineDeployListBlock = (props) => {
     // 样式相关
@@ -17,7 +17,7 @@ const MachineDeployListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/machine/deploy/search', {
+        let url = genGetUrlByParams('/machine/deploy/search', {
             deployCode: props.deployCode4Search,
             machineCode: props.machineCode4Search,
             shopName: props.shopName4Search,
@@ -124,7 +124,7 @@ const MachineDeployListBlock = (props) => {
         props.onClickEdit(deployCode);
     }
     const onClickDelete = (e, deployCode) => {
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine/deploy', ['tenant_001', deployCode, 'delete']);
+        let url = genGetUrlBySegs('/machine/deploy/{segment}/{segment}/delete', ['tenant_001', deployCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

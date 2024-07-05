@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
 const ShopGroupListBlock = (props) => {
     // 样式相关
@@ -17,7 +17,7 @@ const ShopGroupListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/shop/group/search', {
+        let url = genGetUrlByParams('/shop/group/search', {
             tenantCode: 'tenant_001',
             shopGroupName: props.shopGroupName4Search,
             pageNum: pageNum,
@@ -115,7 +115,7 @@ const ShopGroupListBlock = (props) => {
         props.onClickEdit(shopGroupCode);
     }
     const onClickDelete = (e, shopGroupCode) => {
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/shop/group', ['tenant_001', shopGroupCode, 'delete']);
+        let url = genGetUrlBySegs('/shop/group/{segment}/{segment}/delete', ['tenant_001', shopGroupCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

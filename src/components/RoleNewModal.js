@@ -3,7 +3,7 @@ import { Button, Checkbox, Input, Modal, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const RoleNewModal = (props) => {
     // 对话框相关
@@ -11,7 +11,7 @@ const RoleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/admin/role/put');
+        let url = genPostUrl('/admin/role/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             roleCode: roleCode,
@@ -62,11 +62,7 @@ const RoleNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/admin/role', [
-            'tenant_001',
-            props.roleCode4Edit,
-            'get'
-        ]);
+        let url = genGetUrlBySegs('/admin/role/{segment}/{segment}/get', ['tenant_001', props.roleCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -91,7 +87,7 @@ const RoleNewModal = (props) => {
     }, [props.roleCode4Edit]);
     const [permitActGroupList, setPermitActGroupList] = useState([]);
     useEffect(() => {
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/permitact/list');
+        let url = genPostUrl('/permitact/list');
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

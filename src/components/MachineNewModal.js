@@ -4,7 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, dateToYMDHMS, genGetUrlBySegs, genPostUrl, isBlankStr } from '../js/common.js';
+import { dateToYMDHMS, genGetUrlBySegs, genPostUrl, isBlankStr } from '../js/common.js';
 
 dayjs.locale('zh-cn');
 
@@ -14,7 +14,7 @@ const MachineDeployNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/machine/update');
+        let url = genPostUrl('/machine/update');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             machineCode: machineCode,
@@ -71,7 +71,7 @@ const MachineDeployNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine', ['tenant_001', props.machineCode4Edit, 'get']);
+        let url = genGetUrlBySegs('/machine/{segment}/{segment}/get', ['tenant_001', props.machineCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

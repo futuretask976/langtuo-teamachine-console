@@ -19,8 +19,8 @@ export const dateToYMDHMS = (date) => {
     );
 }
 
-export const genGetUrlByParams = (urlPrefix, urlPath, params) => {
-    let url = urlPrefix + urlPath;
+export const genGetUrlByParams = (path, params) => {
+    let url = TEAMACHINE_HOST_URL + path;
     let paramStr = '';
     for (let key in params) {
         if (params.hasOwnProperty(key)) {
@@ -34,16 +34,16 @@ export const genGetUrlByParams = (urlPrefix, urlPath, params) => {
     }
 }
 
-export const genGetUrlBySegs = (urlPrefix, urlPath, segments) => {
-    let url = urlPrefix + urlPath;
+export const genGetUrlBySegs = (path, segments) => {
+    let url = TEAMACHINE_HOST_URL + path;
     segments.forEach(ele => {
-        url = url + "/" + ele;
+        url = url.replace('{segment}', ele);
     })
     return url;
 }
 
-export const genPostUrl = (urlPrefix, urlPath) => {
-    let url = urlPrefix + urlPath;
+export const genPostUrl = (path) => {
+    let url = TEAMACHINE_HOST_URL + path;
     return url;
 }
 

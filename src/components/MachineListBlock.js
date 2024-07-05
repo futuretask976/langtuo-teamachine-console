@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { genGetUrlByParams } from '../js/common.js';
 
 const MachineListBlock = (props) => {
     // 样式相关
@@ -17,7 +17,7 @@ const MachineListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/machine/search', {
+        let url = genGetUrlByParams('/machine/search', {
             screenCode: props.screenCode4Search,
             elecBoardCode: props.elecBoardCode4Search,
             modelCode: props.modelCode4Search,

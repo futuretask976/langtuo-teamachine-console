@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, genGetUrlByParams } from '../js/common.js';
+import { genGetUrlByParams } from '../js/common.js';
 
 import EditableTree from '../components/EditableTree'
 
@@ -24,7 +24,7 @@ const OrgStrucViewModal = (props) => {
     // 数据初始化相关
     const [orgStrucTree, setOrgStrucTree] = useState([]);
     useEffect(() => {
-        let url = genGetUrlByParams(TEAMACHINE_HOST_URL, '/orgstruc/listbydepth', {
+        let url = genGetUrlByParams('/orgstruc/listbydepth', {
             tenantCode: 'tenant_001'
         });
         axios.get(url, {

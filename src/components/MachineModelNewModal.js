@@ -4,7 +4,7 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../css/common.css';
-import { TEAMACHINE_HOST_URL, isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 const MachineModelNewModal = (props) => {
     // 对话框相关
@@ -12,7 +12,7 @@ const MachineModelNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl(TEAMACHINE_HOST_URL, '/machine/model/put');
+        let url = genPostUrl('/machine/model/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             modelCode: modelCode,
@@ -59,10 +59,7 @@ const MachineModelNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs(TEAMACHINE_HOST_URL, '/machine/model', [
-            props.modelCode4Edit,
-            'get'
-        ]);
+        let url = genGetUrlBySegs('/machine/model/{segment}/get', [props.modelCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
