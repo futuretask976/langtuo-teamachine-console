@@ -11,6 +11,7 @@ import ShopGroupPage from './pages/ShopGroupPage';
 import ShopPage from './pages/ShopPage';
 import MachineDeployPage from './pages/MachineDeployPage';
 import MachinePage from './pages/MachinePage';
+import ToppingTypePage from './pages/ToppingTypePage';
 import ToppingPage from './pages/ToppingPage';
 import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
@@ -108,6 +109,10 @@ const Routes = () => {
                 {
                     path: "/shopset/shop",
                     element: <ShopPage />,
+                },
+                {
+                    path: "/drinkset/topping/type",
+                    element: <ToppingTypePage />,
                 },
                 {
                     path: "/drinkset/topping",
