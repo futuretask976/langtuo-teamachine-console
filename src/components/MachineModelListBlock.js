@@ -64,18 +64,18 @@ const MachineModelListBlock = (props) => {
             render: (text) => <a>{text}</a>
         },
         {
-            title: '创建时间',
-            dataIndex: 'gmtCreated',
-            key: 'gmtCreated',
-            width: '25%',
-            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
-        },
-        {
             title: '是否支持同时出料',
             dataIndex: 'enableFlowAll',
             key: 'enableFlowAll',
             width: '25%',
             render: (enableFlowAll) => enableFlowAll == 1 ? '支持' : '不支持'
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'gmtCreated',
+            key: 'gmtCreated',
+            width: '25%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

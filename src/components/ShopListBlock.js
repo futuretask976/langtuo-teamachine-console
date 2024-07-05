@@ -73,17 +73,17 @@ const ShopListBlock = (props) => {
             render: (text) => <a>{text}</a>,
         },
         {
+            title: '店铺组名称',
+            dataIndex: 'shopGroupName',
+            key: 'shopGroupName',
+            width: '20%'
+        },
+        {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
-        },
-        {
-            title: '店铺组名称',
-            dataIndex: 'shopGroupName',
-            key: 'shopGroupName',
-            width: '20%'
         },
         {
             title: '操作',

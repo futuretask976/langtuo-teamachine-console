@@ -58,13 +58,6 @@ const ShopGroupListBlock = (props) => {
     // 表格展示数据相关
     const columns = [
         {
-            title: '店铺组名称',
-            dataIndex: 'shopGroupName',
-            key: 'shopGroupName',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
-        },
-        {
             title: '店铺组编码',
             dataIndex: 'shopGroupCode',
             key: 'shopGroupCode',
@@ -72,17 +65,24 @@ const ShopGroupListBlock = (props) => {
             render: (text) => <a>{text}</a>,
         },
         {
-            title: '创建时间',
-            dataIndex: 'gmtCreated',
-            key: 'gmtCreated',
+            title: '店铺组名称',
+            dataIndex: 'shopGroupName',
+            key: 'shopGroupName',
             width: '20%',
-            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
+            render: (text) => <a>{text}</a>,
         },
         {
             title: '店铺数量',
             dataIndex: 'shopCnt',
             key: 'shopCnt',
             width: '20%'
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'gmtCreated',
+            key: 'gmtCreated',
+            width: '20%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

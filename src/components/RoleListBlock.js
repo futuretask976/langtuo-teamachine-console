@@ -71,13 +71,6 @@ const RoleListBlock = (props) => {
             render: (text) => <a>{text}</a>,
         },
         {
-            title: '创建时间',
-            dataIndex: 'gmtCreated',
-            key: 'gmtCreated',
-            width: '20%',
-            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
-        },
-        {
             title: '用户数',
             dataIndex: 'adminUserCnt',
             key: 'adminUserCnt',
@@ -88,6 +81,13 @@ const RoleListBlock = (props) => {
             dataIndex: 'isReserved',
             key: 'isReserved',
             width: '10%'
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'gmtCreated',
+            key: 'gmtCreated',
+            width: '20%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

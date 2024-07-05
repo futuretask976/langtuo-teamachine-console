@@ -72,13 +72,6 @@ const TenantListBlock = (props) => {
             render: (text) => <a>{text}</a>
         },
         {
-            title: '创建时间',
-            dataIndex: 'gmtCreated',
-            key: 'gmtCreated',
-            width: '20%',
-            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
-        },
-        {
             title: '联系人名称',
             dataIndex: 'contactPerson',
             key: 'contactPerson',
@@ -89,6 +82,13 @@ const TenantListBlock = (props) => {
             dataIndex: 'contactPhone',
             key: 'contactPhone',
             width: '20%'
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'gmtCreated',
+            key: 'gmtCreated',
+            width: '20%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
