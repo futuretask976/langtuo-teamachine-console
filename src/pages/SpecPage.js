@@ -7,13 +7,13 @@ import '../css/common.css';
 import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
-import ToppingListBlock from '../components/ToppingListBlock'
-import ToppingNewModal from '../components/ToppingNewModal'
+import SpecListBlock from '../components/SpecListBlock'
+import SpecNewModal from '../components/SpecNewModal'
 import FooterBar from '../components/FooterBar'
 
 const { Content } = Layout;
 
-const ToppingPage = () => {
+const SpecPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
     const selectedMenu = ['13'];
@@ -35,29 +35,29 @@ const ToppingPage = () => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setToppingCode4Edit('');
+        setSpecCode4Edit('');
     }
 
     // 搜索相关
-    var toppingCode4SearchTmp = '';
-    const [toppingCode4Search, setToppingCode4Search] = useState('');
-    const onChangeToppingCode4Search = (e) => {
-        toppingCode4SearchTmp = e.target.value;
+    var specCode4SearchTmp = '';
+    const [specCode4Search, setSpecCode4Search] = useState('');
+    const onChangeSpecCode4Search = (e) => {
+        specCode4SearchTmp = e.target.value;
     }
-    var toppingName4SearchTmp = '';
-    const [toppingName4Search, setToppingName4Search] = useState('');
-    const onChangeToppingName4Search = (e) => {
-        toppingName4SearchTmp = e.target.value;
+    var specName4SearchTmp = '';
+    const [specName4Search, setSpecName4Search] = useState('');
+    const onChangeSpecName4Search = (e) => {
+        specName4SearchTmp = e.target.value;
     }
     const onClickSearch = () => {
-        setToppingCode4Search(toppingCode4SearchTmp);
-        setToppingName4Search(toppingName4SearchTmp);
+        setSpecCode4Search(specCode4SearchTmp);
+        setSpecName4Search(specName4SearchTmp);
     }
 
     // 表格操作相关
-    const [toppingCode4Edit, setToppingCode4Edit] = useState('');
-    const onClickEdit = (selectedToppingCode)=> {
-        setToppingCode4Edit(selectedToppingCode);
+    const [specCode4Edit, setSpecCode4Edit] = useState('');
+    const onClickEdit = (selectedSpecCode)=> {
+        setSpecCode4Edit(selectedSpecCode);
         setOpenNewModal(true);
     }
 
@@ -75,22 +75,22 @@ const ToppingPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>物料编码：</span>
+                                            <span>规格编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="物料编码" onClick={onChangeToppingCode4Search} style={{width: '95%'}}/>
+                                            <Input placeholder="规格编码" onClick={onChangeSpecCode4Search} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>物料名称：</span>
+                                            <span>规格名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="物料名称" onClick={onChangeToppingName4Search} style={{width: '95%'}}/>
+                                            <Input placeholder="规格名称" onClick={onChangeSpecName4Search} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -109,7 +109,7 @@ const ToppingPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ToppingListBlock toppingCode4Search={toppingCode4Search} toppingName4Search={toppingName4Search} onClickEdit={onClickEdit} />
+                                <SpecListBlock specCode4Search={specCode4Search} specName4Search={specName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -118,10 +118,10 @@ const ToppingPage = () => {
             </Flex>
 
             {openNewModal && (
-                <ToppingNewModal onClose={onCloseNewModal} toppingCode4Edit={toppingCode4Edit} />
+                <SpecNewModal onClose={onCloseNewModal} specCode4Edit={specCode4Edit} />
             )}
         </>
     )
 };
 
-export default ToppingPage;
+export default SpecPage;
