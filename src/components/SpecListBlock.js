@@ -122,7 +122,7 @@ const SpecListBlock = (props) => {
         props.onClickEdit(specCode);
     }
     const onClickDelete = (e, specCode) => {
-        let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/delete', ['tenant_001', specCode]);
+        let url = genGetUrlBySegs('/drinkset/spec/{segment}/{segment}/delete', ['tenant_001', specCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

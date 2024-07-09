@@ -16,8 +16,8 @@ const { Content } = Layout;
 const SpecPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
-    const selectedMenu = ['13'];
-    const breadcrumbPath = ['控制台', '饮品', '物料管理'];
+    const selectedMenu = ['14'];
+    const breadcrumbPath = ['控制台', '饮品', '规格管理'];
 
     // 页面样式相关
     const layoutStyle = {
@@ -100,7 +100,7 @@ const SpecPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建物料</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建规格</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={12}>

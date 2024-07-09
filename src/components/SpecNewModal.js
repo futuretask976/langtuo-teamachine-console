@@ -5,6 +5,8 @@ import axios from 'axios';
 import '../css/common.css';
 import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
+import SpecSubNewModal from '../components/SpecSubNewModal'
+
 const { TextArea } = Input;
 
 const SpecNewModal = (props) => {
@@ -25,6 +27,7 @@ const SpecNewModal = (props) => {
                 testA: 'valueA',
                 testB: 'valueB'
             },
+            specSubList: specSubList
         })
         .then(response => {
             if (response && response.data && response.data.success) {
@@ -115,6 +118,22 @@ const SpecNewModal = (props) => {
     }
 
     // 子规格相关
+    const [specSubCode4Edit, setSpecSubCode4Edit] = useState('');
+    const [specSubName4Edit, setSpecSubName4Edit] = useState('');
+    const [outerSpecSubCode4Edit, setOuterSpecSubCode4Edit] = useState('');
+    const [openSpecSubModalNew, setOpenSpecSubModalNew] = useState(false);
+    const onOpenSpecSubSubNewModal = (specSubCode4Edit, specSubName4Edit, outerSpecSubCode4Edit) => {
+        setSpecSubCode4Edit(specSubCode4Edit);
+        setSpecSubName4Edit(specSubName4Edit);
+        setOuterSpecSubCode4Edit(outerSpecSubCode4Edit);
+        setOpenSpecSubModalNew(true);
+    };
+    const onCloseNewSubModal = () => {
+        setOpenSpecSubModalNew(false);
+        setSpecSubCode4Edit('');
+        setSpecSubName4Edit('');
+        setOuterSpecSubCode4Edit('');
+    }
     const specSubCols = [
         {
             title: '子项编码',
@@ -131,20 +150,20 @@ const SpecNewModal = (props) => {
         },
         {
             title: '子项名称',
-            dataIndex: 'specSubCode',
-            key: 'specSubCode',
+            dataIndex: 'specSubName',
+            key: 'specSubName',
             width: '30%'
         },
         {
             title: '操作',
             key: 'actions',
             width: '20%',
-            render: (_, { specSubCode, actions }) => (
+            render: (_, { specSubCode, specSubName, outerSpecSubCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + specSubCode} onClick={(e) => onClickDeleteSpecSub(e, specSubCode)}>编辑</a>
+                            <a id={action + '_' + specSubCode} onClick={(e) => onOpenSpecSubSubNewModal(specSubCode, specSubName, outerSpecSubCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
@@ -157,9 +176,6 @@ const SpecNewModal = (props) => {
             ),
         },
     ];
-    const onClickEdit = (e, specSubCode) => {
-        
-    }
     const onClickDeleteSpecSub = (e, specSubCode) => {
         setSpecSubList(prev => {
             let tmp = [];
@@ -171,140 +187,160 @@ const SpecNewModal = (props) => {
             return tmp;
         });
     }
-
-    const onClickAddSpecSub = () => {
+    const onClickSubmitSpecSub = (specSubCode, specSubName, outerSpecSubCode) => {
         setSpecSubList(prev => {
             let tmp = [];
+            let matched = false;
             prev.forEach(item => {
-                tmp.push(item);
+                if (item.specSubCode == specSubCode) {
+                    matched = true;
+                    tmp.push({
+                        key: specSubCode,
+                        specSubCode: specSubCode,
+                        specSubName: specSubName,
+                        outerSpecSubCode: outerSpecSubCode,
+                        actions: ['edit', 'delete']
+                    });
+                } else {
+                    tmp.push(item);
+                }
             });
-            tmp.push({
-                key: '1111',
-                specSubCode: '22222',
-                specSubName: '33333',
-                outerSpecSubCode: '44444',
-                actions: ['edit', 'delete']
-            });
+            if (!matched) {
+                tmp.push({
+                    key: specSubCode,
+                    specSubCode: specSubCode,
+                    specSubName: specSubName,
+                    outerSpecSubCode: outerSpecSubCode,
+                    actions: ['edit', 'delete']
+                });
+            }
             return tmp;
         });
+        setOpenSpecSubModalNew(false);
     }
  
     return (
-        <Modal
-            centered
-            open={open}
-            title="新建规格"
-            onOk={onClickOK}
-            onCancel={onClickCancel}
-            width={800}
-            style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
-        >
-            <div style={{height: 500, width: '100%'}}>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={3}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>规格编码：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={21}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="规格编码" value={specCode} onChange={onChangeSpecCode} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={3}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>规格名称：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={21}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="规格名称" value={specName} onChange={onChangeSpecName} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row> 
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={3}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>状态：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={21}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row> 
-                <Row style={{height: 220, width: '100%'}}>
-                    <Col className="gutter-row" span={3}>
-                        <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                            <span>规格子项：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={21}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Table
-                            columns={specSubCols} 
-                            dataSource={specSubList}
-                            pagination={false}
-                            rowKey={record=>record.id}
-                            scroll={{ y: 170 }} // 设置垂直滚动高度为300px
-                            size='small'
-                            style={{width: '100%'}} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={3}>
-                        &nbsp;
-                    </Col>
-                    <Col className="gutter-row" span={21}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Button onClick={onClickAddSpecSub} type='primary'>新增规格</Button>
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row> 
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={3}>
-                        <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                            <span>备注：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={21}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} />
-                        </div>
-                    </Col>
-                </Row>
-            </div>
-        </Modal>
+        <>
+            <Modal
+                centered
+                open={open}
+                title="新建规格"
+                onOk={onClickOK}
+                onCancel={onClickCancel}
+                width={800}
+                style={{border: '0px solid red'}}
+                footer={[
+                    <Button key="back" onClick={onClickCancel}>取消</Button>,
+                    <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
+                        提交
+                    </Button>,
+                ]}
+            >
+                <div style={{height: 500, width: '100%'}}>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>规格编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={21}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="规格编码" disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={onChangeSpecCode} />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>规格名称：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={21}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="规格名称" value={specName} onChange={onChangeSpecName} />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row> 
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>状态：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={21}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row> 
+                    <Row style={{height: 220, width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
+                                <span>规格子项：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={21}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <Table
+                                columns={specSubCols} 
+                                dataSource={specSubList}
+                                pagination={false}
+                                rowKey={record=>record.id}
+                                scroll={{ y: 170 }} // 设置垂直滚动高度为300px
+                                size='small'
+                                style={{width: '100%'}} />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            &nbsp;
+                        </Col>
+                        <Col className="gutter-row" span={21}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Button onClick={(e) => onOpenSpecSubSubNewModal('', '', '')} type='primary'>新增规格</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 20, width: '100%'}}>
+                        <Col className="gutter-row" span={24}>
+                            &nbsp;
+                        </Col>
+                    </Row> 
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
+                                <span>备注：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={21}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} />
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            </Modal>
+
+            {openSpecSubModalNew && (
+                <SpecSubNewModal onClose={onCloseNewSubModal} specSubCode4Edit={specSubCode4Edit} specSubName4Edit={specSubName4Edit} outerSpecSubCode4Edit={outerSpecSubCode4Edit} onClickSubmitSpecSub={onClickSubmitSpecSub}/>
+            )}
+        </>
     );
 };
  
