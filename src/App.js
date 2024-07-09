@@ -14,6 +14,7 @@ import MachinePage from './pages/MachinePage';
 import ToppingTypePage from './pages/ToppingTypePage';
 import ToppingPage from './pages/ToppingPage';
 import SpecPage from './pages/SpecPage';
+import TeaTypePage from './pages/TeaTypePage';
 import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
@@ -122,6 +123,10 @@ const Routes = () => {
                 {
                     path: "/drinkset/spec",
                     element: <SpecPage />,
+                },
+                {
+                    path: "/drinkset/tea/type",
+                    element: <TeaTypePage />,
                 },
                 {
                     path: "/ruleset/clean",
