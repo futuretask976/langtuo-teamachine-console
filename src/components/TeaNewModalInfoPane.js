@@ -8,7 +8,7 @@ import { isBlankObj, isBlankStr, genGetUrlByParams } from '../js/common.js';
 const { TextArea } = Input;
 
 const TeaNewModalInfoPane = (props) => {
-    // 状态变量初始化
+    // 状态变量初始化相关
     const [teaCode, setTeaCode] = useState(isBlankStr(props.teaCode4Edit) ? '' : props.teaCode4Edit);
     const [teaName, setTeaName] = useState(isBlankStr(props.teaName4Edit) ? '' : props.teaName4Edit);
     const [outerTeaCode, setOuterTeaCode] = useState(isBlankStr(props.outerTeaCode4Edit) ? '' : props.outerTeaCode4Edit);

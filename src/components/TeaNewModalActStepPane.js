@@ -3,12 +3,28 @@ import { Button, Select, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { genGetUrlByParams } from '../js/common.js';
+import { isArray, genGetUrlByParams } from '../js/common.js';
 
 const TeaNewModalActStepPane = (props) => {
-    // 数据初始化相关
+    // 状态变量初始化相关
+    const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : []);
+    const [stepIdx, setStepIdx] = useState(() => {
+        let stepIdx = 1;
+        if(isArray(props.actStepList)) {
+            props.actStepList.forEach(item => {
+                if (item.stepIdx > stepIdx) {
+                    stepIdx = item.stepIdx;
+                }
+            });
+        }
+        return stepIdx;
+    });
+
+    // 待选择数据初始化相关
     const [toppingList, setToppingList] = useState([]);
-    useEffect(() => {
+
+    // 赋值初始化相关
+    const fetchToppingList = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
             tenantCode: 'tenant_001'
         });
@@ -38,10 +54,13 @@ const TeaNewModalActStepPane = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
+    }
+    useEffect(() => {
+        fetchToppingList();
     }, []);
 
-    // 步骤表格
-    const actStepCols = [
+    // 物料表格展示相关
+    const actStepListCols = [
         {
             title: '步骤',
             dataIndex: 'stepIdx',
@@ -53,27 +72,35 @@ const TeaNewModalActStepPane = (props) => {
             dataIndex: 'toppingList',
             key: 'toppingList',
             width: '90%',
-            render: (_, {stepIdx}) => (
+            render: (_, {stepIdx, toppingRelList}) => (
                 <Select
                     placeholder="请选择"
+                    mode="multiple"
                     onChange={(e) => onChangeToppingCode(e, stepIdx)}
                     options={toppingList}
-                    mode="multiple"
                     size="middle"
                     style={{width: '100%'}}
-                    
+                    value={convertToppingRelList(toppingRelList)}
                 />
             ),
         }
     ];
+    const convertToppingRelList = (toppingRelList) => {
+        let tmp = [];
+        if (!isArray(toppingRelList)) {
+            return tmp;
+        }
+        toppingRelList.forEach(item => {
+            tmp.push(item.toppingCode);
+        })
+        return tmp;
+    }
 
-    // 表格操作相关
-    const [actStepList, setActStepList] = useState([]);
-    const [stepIdx, setStepIdx] = useState(1);
+    // 输入相关
     const onClickAddStep = (e) => {
         setActStepList((prev => {
             let tmp = [];
-            prev.forEach((actStep, idx) => (
+            prev.forEach((actStep) => (
                 tmp.push(actStep)
             ));
             tmp.push({
@@ -87,7 +114,7 @@ const TeaNewModalActStepPane = (props) => {
     const onClickDeleteStep = (e) => {
         setActStepList((prev => {
             let tmp = [];
-            prev.forEach((actStep, idx) => {
+            prev.forEach((actStep) => {
                 tmp.push(actStep)
             });
             tmp.pop();
@@ -98,13 +125,15 @@ const TeaNewModalActStepPane = (props) => {
     const onChangeToppingCode = (e, stepIdx) => {
         setActStepList((prev => {
             let tmp = [];
-            prev.forEach((actStep, idx) => {
+            prev.forEach((actStep) => {
                 if (actStep.stepIdx == stepIdx) {
+                    let toppingRelList = [];
                     e.forEach(item => {
-                        actStep.toppingRelList.push({
+                        toppingRelList.push({
                             toppingCode: item
                         });
                     })
+                    actStep.toppingRelList = toppingRelList;
                     tmp.push(actStep)
                 } else {
                     tmp.push(actStep)
@@ -113,6 +142,9 @@ const TeaNewModalActStepPane = (props) => {
             return tmp;
         }));
     }
+    useEffect(() => {
+        props.updateActStepList(actStepList);
+    }, [actStepList]);
 
     return (
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
@@ -124,13 +156,13 @@ const TeaNewModalActStepPane = (props) => {
             </div>
             <div className="flex-row-cont" style={{alignItems: 'flex-start', height: '85%', width: '98%'}}>
                 <Table 
-                    columns={actStepCols} 
+                    columns={actStepListCols} 
                     dataSource={actStepList} 
                     pagination={false} 
                     scroll={{ y: 250 }} 
                     size='small' 
                     style={{height: '100%', width: '100%'}} 
-                    rowKey='id'/>
+                    rowKey='stepIdx'/>
             </div>
         </div>
     );

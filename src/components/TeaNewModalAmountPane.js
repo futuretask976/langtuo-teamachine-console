@@ -4,7 +4,7 @@ import { InputNumber, Table } from 'antd';
 import '../css/common.css';
 import { isArray } from '../js/common.js';
 
-const TeaNewModalCommonPane = (props) => {
+const TeaNewModalAmountPane = (props) => {
     // 数据初始化相关
     const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : [
         {
@@ -73,7 +73,7 @@ const TeaNewModalCommonPane = (props) => {
             key: 'measureUnit',
             width: '20%',
             render: (_, { measureUnit }) => (
-                <text>{measureUnit == 0 ? '克' : '毫升'}</text>
+                <span>{measureUnit == 0 ? '克' : '毫升'}</span>
             ),
         }
     ];
@@ -91,12 +91,19 @@ const TeaNewModalCommonPane = (props) => {
     };
 
     return (
-        <div class="flex-col-cont" style={{height: '100%', width: '100%'}}>
-            <div class="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '98%'}}>
-                <Table columns={toppingConfigCols} dataSource={convertToDataSource(actStepList)} pagination={false} scroll={{ y: 350 }} size='small' style={{width: '100%'}}/>
+        <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
+            <div className="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '98%'}}>
+                <Table 
+                    columns={toppingConfigCols} 
+                    dataSource={convertToDataSource(actStepList)} 
+                    pagination={false} 
+                    scroll={{ y: 350 }} 
+                    size='small' 
+                    style={{width: '100%'}}
+                    rowKey='toppingCode'/>
             </div>
         </div>
     );
 };
 
-export default TeaNewModalCommonPane;
+export default TeaNewModalAmountPane;

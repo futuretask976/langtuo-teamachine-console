@@ -7,7 +7,7 @@ import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 import TeaNewModalInfoPane from '../components/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../components/TeaNewModalActStepPane'
-import TeaNewModalCommonPane from '../components/TeaNewModalCommonPane'
+import TeaNewModalAmountPane from '../components/TeaNewModalAmountPane'
 import TeaNewModalSpecPane from '../components/TeaNewModalSpecPane'
 import TeaNewModalSpecRulePane from '../components/TeaNewModalSpecRulePane'
 
@@ -132,6 +132,13 @@ const TeaNewModal = (props) => {
             return tmp;
         });
     };
+    const updateActStepList = (actStepList) => {
+        setTea(prev => {
+            let tmp = {...prev};
+            tmp.actStepList = actStepList;
+            return tmp;
+        });
+    };
  
     return (
         <Modal
@@ -150,10 +157,10 @@ const TeaNewModal = (props) => {
                         <TeaNewModalInfoPane teaCode4Edit={tea.teaCode} teaName4Edit={tea.teaName} outerTeaCode4Edit={tea.outerTeaCode} teaTypeCode4Edit={tea.teaTypeCode} state4Edit={tea.state} comment4Edit={tea.comment} updateInfo={updateInfo} />
                     )}
                     {curStep == 1 && (
-                        <TeaNewModalActStepPane tea4Edit={tea} setTea={setTea} />
+                        <TeaNewModalActStepPane actStepList={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 2 && (
-                        <TeaNewModalCommonPane tea4Edit={tea} setTea={setTea} />
+                        <TeaNewModalAmountPane tea4Edit={tea} setTea={setTea} />
                     )}
                     {curStep == 3 && (
                         <TeaNewModalSpecPane tea4Edit={tea} setTea={setTea} />
