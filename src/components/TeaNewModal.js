@@ -7,7 +7,7 @@ import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 import TeaNewModalInfoPane from '../components/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../components/TeaNewModalActStepPane'
-import TeaNewModalAmountPane from '../components/TeaNewModalAmountPane'
+import TeaNewModalAmtPane from '../components/TeaNewModalAmtPane'
 import TeaNewModalSpecPane from '../components/TeaNewModalSpecPane'
 import TeaNewModalSpecRulePane from '../components/TeaNewModalSpecRulePane'
 
@@ -160,7 +160,7 @@ const TeaNewModal = (props) => {
                         <TeaNewModalActStepPane actStepList={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 2 && (
-                        <TeaNewModalAmountPane tea4Edit={tea} setTea={setTea} />
+                        <TeaNewModalAmtPane actStepList={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 3 && (
                         <TeaNewModalSpecPane tea4Edit={tea} setTea={setTea} />

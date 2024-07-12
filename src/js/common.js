@@ -71,6 +71,10 @@ export const isBlankStr = (str) => {
     }
 };
 
+export const isNumber = (value) => {
+    return /^-?\d+(\.\d+)?$/.test(value);
+};
+
 
 
 

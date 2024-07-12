@@ -9,7 +9,7 @@ const TeaNewModalActStepPane = (props) => {
     // 状态变量初始化相关
     const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : []);
     const [stepIdx, setStepIdx] = useState(() => {
-        let stepIdx = 1;
+        let stepIdx = 0;
         if(isArray(props.actStepList)) {
             props.actStepList.forEach(item => {
                 if (item.stepIdx > stepIdx) {
@@ -17,7 +17,7 @@ const TeaNewModalActStepPane = (props) => {
                 }
             });
         }
-        return stepIdx;
+        return stepIdx + 1;
     });
 
     // 待选择数据初始化相关

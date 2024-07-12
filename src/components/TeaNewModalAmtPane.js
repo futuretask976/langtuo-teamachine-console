@@ -1,33 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputNumber, Table } from 'antd';
 
 import '../css/common.css';
-import { isArray } from '../js/common.js';
+import { isArray, isNumber } from '../js/common.js';
 
-const TeaNewModalAmountPane = (props) => {
+const TeaNewModalAmtPane = (props) => {
     // 数据初始化相关
-    const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : [
-        {
-            stepIdx: 1,
-            toppingRelList: [
-                {
-                    toppingCode: 123,
-                    toppingName: '芒果酱',
-                    measureUnit: 0
-                },
-                {
-                    toppingCode: 456,
-                    toppingName: '草莓酱',
-                    measureUnit: 1
-                },
-                {
-                    toppingCode: 789,
-                    toppingName: '西瓜酱',
-                    measureUnit: 0
-                }
-            ]
-        }
-    ]);
+    const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : []);
     const convertToDataSource = () => {
         let dataSource = [];
         actStepList.forEach(stepItem => {
@@ -36,7 +15,8 @@ const TeaNewModalAmountPane = (props) => {
                     stepIdx: stepItem.stepIdx,
                     toppingName: toppingItem.toppingName,
                     toppingCode: toppingItem.toppingCode,
-                    measureUnit: toppingItem.measureUnit
+                    measureUnit: toppingItem.measureUnit,
+                    amount: isNumber(toppingItem.amount) ? toppingItem.amount : 0
                 });
             })
         });
@@ -63,8 +43,8 @@ const TeaNewModalAmountPane = (props) => {
             dataIndex: 'amount',
             key: 'amount',
             width: '30%',
-            render: (_, { toppingCode, amount }) => (
-                <InputNumber min={1} max={9999} onChange={(e) => onChangeAmount(e, toppingCode)} size="small" value={amount}/>
+            render: (_, { stepIdx, toppingCode, amount }) => (
+                <InputNumber min={1} max={9999} onChange={(e) => onChangeAmount(stepIdx, toppingCode, e)} size="small" value={amount}/>
             ),
         },
         {
@@ -77,18 +57,24 @@ const TeaNewModalAmountPane = (props) => {
             ),
         }
     ];
-    const onChangeAmount = (e, toppingCode) => {
+    const onChangeAmount = (stepIdx, toppingCode, e) => {
         setActStepList(prev => {
-            let tmp = [];
-            prev.forEach(item => {
-                if (item.toppingCode == toppingCode) {
-                    item.amount = e;
+            let tmp = [...prev];
+            tmp.forEach(actStep => {
+                if (actStep.stepIdx == stepIdx) {
+                    actStep.toppingRelList.forEach(toppingRel => {
+                        if (toppingRel.toppingCode == toppingCode) {
+                            toppingRel.amount = e;
+                        }
+                    })
                 }
-                tmp.push(item);
             });
             return tmp;
         });
     };
+    useEffect(() => {
+        props.updateActStepList(actStepList);
+    }, [actStepList]);
 
     return (
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
@@ -106,4 +92,4 @@ const TeaNewModalAmountPane = (props) => {
     );
 };
 
-export default TeaNewModalAmountPane;
+export default TeaNewModalAmtPane;
