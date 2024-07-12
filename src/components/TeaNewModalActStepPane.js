@@ -7,7 +7,7 @@ import { isArray, genGetUrlByParams } from '../js/common.js';
 
 const TeaNewModalActStepPane = (props) => {
     // 状态变量初始化相关
-    const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : []);
+    const [actStepList, setActStepList] = useState(isArray(props.actStepList4Edit) ? props.actStepList4Edit : []);
     const [stepIdx, setStepIdx] = useState(() => {
         let stepIdx = 0;
         if(isArray(props.actStepList)) {

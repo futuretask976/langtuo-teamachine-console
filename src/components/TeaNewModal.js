@@ -9,7 +9,7 @@ import TeaNewModalInfoPane from '../components/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../components/TeaNewModalActStepPane'
 import TeaNewModalAmtPane from '../components/TeaNewModalAmtPane'
 import TeaNewModalSpecPane from '../components/TeaNewModalSpecPane'
-import TeaNewModalSpecRulePane from '../components/TeaNewModalSpecRulePane'
+import TeaNewModalAdjustPane from '../components/TeaNewModalAdjustPane'
 
 const TeaNewModal = (props) => {
     // 样式相关
@@ -139,6 +139,13 @@ const TeaNewModal = (props) => {
             return tmp;
         });
     };
+    const updateSpecList = (specList) => {
+        setTea(prev => {
+            let tmp = {...prev};
+            tmp.specList = specList;
+            return tmp;
+        });
+    };
  
     return (
         <Modal
@@ -157,16 +164,16 @@ const TeaNewModal = (props) => {
                         <TeaNewModalInfoPane teaCode4Edit={tea.teaCode} teaName4Edit={tea.teaName} outerTeaCode4Edit={tea.outerTeaCode} teaTypeCode4Edit={tea.teaTypeCode} state4Edit={tea.state} comment4Edit={tea.comment} updateInfo={updateInfo} />
                     )}
                     {curStep == 1 && (
-                        <TeaNewModalActStepPane actStepList={tea.actStepList} updateActStepList={updateActStepList} />
+                        <TeaNewModalActStepPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 2 && (
-                        <TeaNewModalAmtPane actStepList={tea.actStepList} updateActStepList={updateActStepList} />
+                        <TeaNewModalAmtPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 3 && (
-                        <TeaNewModalSpecPane tea4Edit={tea} setTea={setTea} />
+                        <TeaNewModalSpecPane specList4Edit={tea.specList} updateSpecList={updateSpecList} />
                     )}
                     {curStep == 4 && (
-                        <TeaNewModalSpecRulePane tea4Edit={tea} setTea={setTea} />
+                        <TeaNewModalAdjustPane tea4Edit={tea} setTea={setTea} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>

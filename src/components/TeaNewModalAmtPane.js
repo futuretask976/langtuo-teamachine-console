@@ -6,7 +6,7 @@ import { isArray, isNumber } from '../js/common.js';
 
 const TeaNewModalAmtPane = (props) => {
     // 数据初始化相关
-    const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : []);
+    const [actStepList, setActStepList] = useState(isArray(props.actStepList4Edit) ? props.actStepList4Edit : []);
     const convertToDataSource = () => {
         let dataSource = [];
         actStepList.forEach(stepItem => {

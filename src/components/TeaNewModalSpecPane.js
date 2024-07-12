@@ -6,10 +6,14 @@ import '../css/common.css';
 import { genGetUrlByParams, isArray } from '../js/common';
 
 const TeaNewModalSpecPane = (props) => {
-    // 数据初始化
-    const [specList, setSpecList] = useState([]);
-    const [selectedSpecList, setSelectedSpecList] = useState([]);
-    const fetchSpecList = () => {
+    // 状态变量初始化相关
+    const [specList, setSpecList] = useState(isArray(props.specList4Edit) ? props.specList4Edit : []);
+
+    // 待选择数据初始化相关
+    const [specList4Select, setSpecList4Select] = useState([]);
+
+    // 赋值初始化相关
+    const fetchSpecList4Select = () => {
         let url = genGetUrlByParams('/drinkset/spec/list', {
             tenantCode: 'tenant_001'
         });
@@ -18,13 +22,15 @@ const TeaNewModalSpecPane = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setSpecList((prev => {
+                setSpecList4Select((prev => {
                     let tmp = [];
                     response.data.model.forEach(item => {
                         let specTmp = {
                             key: item.specCode,
                             specName: item.specName,
-                            specCode: item.specCode
+                            specCode: item.specCode,
+                            label: item.specName,
+                            value: item.specCode
                         };
                         let specSubListTmp = [];
                         if (isArray(item.specSubList)) {
@@ -52,19 +58,14 @@ const TeaNewModalSpecPane = (props) => {
         });
     }
     useEffect(() => {
-        fetchSpecList();
+        fetchSpecList4Select();
     }, []);
 
-    // 下拉框相关
-    const [selectedSpecCodeList, setSelectedSpecCodeList] = useState([]);
+    // 表格操作相关
     const onChangeSpec = (e) => {
-        setSelectedSpecCodeList(prev => {
-            return e;
-        });
-
-        setSelectedSpecList(prev => {
+        setSpecList(prev => {
             let tmp = [];
-            specList.forEach(spec => {
+            specList4Select.forEach(spec => {
                 e.forEach(selectedSpecCode => {
                     if (spec.specCode == selectedSpecCode) {
                         tmp.push(spec);
@@ -74,16 +75,30 @@ const TeaNewModalSpecPane = (props) => {
             return tmp;
         });
     }
-    const convertToSpecOptionList = () => {
+    const convertToSelectedSpecCode = () => {
         let tmp = [];
         specList.forEach(item => {
-            tmp.push({
-                label: item.specName,
-                value: item.specCode
-            })
+            tmp.push(item.specCode);
         });
-        return tmp;
     }
+    const onClickSpecSub = (specCode, specSubCode) => {
+        setSpecList(prev => {
+            let tmp = [...prev];
+            tmp.forEach(spec => {
+                if (spec.specCode == specCode) {
+                    spec.specSubList.forEach(specSub => {
+                        if (specSub.specSubCode == specSubCode) {
+                            specSub.selected = 1 == specSub.selected ? 0 : 1;
+                        }
+                    })
+                }
+            });
+            return tmp;
+        });
+    }
+    useEffect(() => {
+        props.updateSpecList(specList);
+    }, [specList]);
 
     return (
         <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
@@ -96,16 +111,16 @@ const TeaNewModalSpecPane = (props) => {
                         mode="multiple"
                         placeholder="请选择"
                         size="middle"
-                        value={selectedSpecCodeList}
+                        value={convertToSelectedSpecCode()}
                         style={{width: '100%'}}
                         onChange={onChangeSpec}
-                        options={convertToSpecOptionList()}
+                        options={specList4Select}
                     />
                 </div>
             </div>
             <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '85%', width: '98%', overflow: 'auto'}}>
                 <Space direction="vertical" size="small" style={{width: '100%'}}>
-                    {selectedSpecList.map((spec) => (
+                    {specList.map((spec) => (
                         <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#FFFFFF', borderRadius: 5}}>
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
                                 <span>{spec.specName}：</span>
@@ -113,7 +128,7 @@ const TeaNewModalSpecPane = (props) => {
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
                                     {spec.specSubList.map((specSub) => (
-                                        <Button size='middle'>{specSub.specSubName}</Button>
+                                        <Button onClick={(e) => onClickSpecSub(spec.specCode, specSub.specSubCode)} size='middle' style={{ backgroundColor: 1 == specSub.selected ? 'red' : 'white', color: 1 == specSub.selected ? 'white' : 'black' }}>{specSub.specSubName}</Button>
                                     ))}
                                 </Space>
                             </div>

@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../css/common.css';
 import { genGetUrlByParams, isArray } from '../js/common';
 
-const TeaNewModalSpecRulePane = (props) => {
+const TeaNewModalAdjustPane = (props) => {
     // 变量初始化
     const [selectedSpecList, setSelectedSpecList] = useState([]);
     const [teaSKUList, setTeaSKUList] = useState([]);
@@ -306,4 +306,4 @@ const TeaNewModalSpecRulePane = (props) => {
     );
 };
 
-export default TeaNewModalSpecRulePane;
+export default TeaNewModalAdjustPane;
