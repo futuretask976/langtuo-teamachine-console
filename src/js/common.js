@@ -55,6 +55,14 @@ export const isArray = (arr) => {
     }
 };
 
+export const isBlankObj = (obj) => {
+    if (obj == undefined || obj == null) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 export const isBlankStr = (str) => {
     if (str == undefined || str == null || str == '') {
         return true;
@@ -62,6 +70,8 @@ export const isBlankStr = (str) => {
         return false;
     }
 };
+
+
 
 
 

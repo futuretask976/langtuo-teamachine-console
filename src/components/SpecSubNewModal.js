@@ -5,7 +5,6 @@ import '../css/common.css';
 import { isBlankStr } from '../js/common.js';
 
 const SpecSubNewModal = (props) => {
-    console.log('$$$$$ SpecSubNewModal#entering props.specSubCode4Edit=', props.specSubCode4Edit);
     // 对话框相关
     const [open, setOpen] = useState(true);
     const onClickOK = () => {

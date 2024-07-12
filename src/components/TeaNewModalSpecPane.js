@@ -1,73 +1,93 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Switch, Table, Tabs, Col, Row, message, theme } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Button, Select, Space } from 'antd';
+import axios from 'axios';
 
 import '../css/common.css';
+import { genGetUrlByParams, isArray } from '../js/common';
 
-const { Content } = Layout;
-const { TextArea } = Input;
+const TeaNewModalSpecPane = (props) => {
+    // 数据初始化
+    const [specList, setSpecList] = useState([]);
+    const [selectedSpecList, setSelectedSpecList] = useState([]);
+    const fetchSpecList = () => {
+        let url = genGetUrlByParams('/drinkset/spec/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setSpecList((prev => {
+                    let tmp = [];
+                    response.data.model.forEach(item => {
+                        let specTmp = {
+                            key: item.specCode,
+                            specName: item.specName,
+                            specCode: item.specCode
+                        };
+                        let specSubListTmp = [];
+                        if (isArray(item.specSubList)) {
+                            item.specSubList.forEach(subItem => {
+                                specSubListTmp.push({
+                                    specSubCode: subItem.specSubCode,
+                                    specSubName: subItem.specSubName
+                                });
+                            });
+                        }
+                        specTmp.specSubList = specSubListTmp;
+                        tmp.push(specTmp);
+                    })
+                    return tmp;
+                }));
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }
+    useEffect(() => {
+        fetchSpecList();
+    }, []);
 
-const ToppingNewModalSpecPane = (props) => {
-    // 规格相关
-    const [toppingSpec, setToppingSpec] = useState([
-        {
-            value: '1',
-            label: '杯型',
-        },
-        {
-            value: '2',
-            label: '温度',
-        }
-    ]);
-    const [selectedToppingSpec, setSelectedToppingSpec] = useState([]);
-    const onSelectedToppingSpecChange = () => {
+    // 下拉框相关
+    const [selectedSpecCodeList, setSelectedSpecCodeList] = useState([]);
+    const onChangeSpec = (e) => {
+        setSelectedSpecCodeList(prev => {
+            return e;
+        });
+
+        setSelectedSpecList(prev => {
+            let tmp = [];
+            specList.forEach(spec => {
+                e.forEach(selectedSpecCode => {
+                    if (spec.specCode == selectedSpecCode) {
+                        tmp.push(spec);
+                    }
+                });
+            });
+            return tmp;
+        });
+    }
+    const convertToSpecOptionList = () => {
+        let tmp = [];
+        specList.forEach(item => {
+            tmp.push({
+                label: item.specName,
+                value: item.specCode
+            })
+        });
+        return tmp;
     }
 
-    // 子规格相关
-    const [toppingSubSpec, setToppingSubSpec] = useState([
-        {
-            value: '1',
-            label: '杯型',
-            subSpecs: [
-                {
-                    value: '11',
-                    label: '大杯',
-                },
-                {
-                    value: '12',
-                    label: '中杯',
-                },
-                {
-                    value: '13',
-                    label: '小杯',
-                }
-            ]
-        },
-        {
-            value: '2',
-            label: '温度',
-            subSpecs: [
-                {
-                    value: '21',
-                    label: '高温',
-                },
-                {
-                    value: '22',
-                    label: '中温',
-                },
-                {
-                    value: '23',
-                    label: '低温',
-                }
-            ]
-        }
-    ]);
-    const onSelectedMaterialChange = (selectedMaterial) => {
-    };
-
     return (
-        <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 340, width: '100%', border: '0px solid red'}}>
-            <div class="flex-row-cont" style={{height: 45, width: '98%', border: '0px solid green'}}>
+        <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
+            <div class="flex-row-cont" style={{height: '15%', width: '98%', border: '0px solid green'}}>
                 <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '10%'}}>
                     可选规格：
                 </div>
@@ -76,24 +96,24 @@ const ToppingNewModalSpecPane = (props) => {
                         mode="multiple"
                         placeholder="请选择"
                         size="middle"
-                        defaultValue={selectedToppingSpec}
+                        value={selectedSpecCodeList}
                         style={{width: '100%'}}
-                        onChange={onSelectedToppingSpecChange}
-                        options={toppingSpec}
+                        onChange={onChangeSpec}
+                        options={convertToSpecOptionList()}
                     />
                 </div>
             </div>
-            <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: 295, width: '98%', overflow: 'auto'}}>
+            <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '85%', width: '98%', overflow: 'auto'}}>
                 <Space direction="vertical" size="small" style={{width: '100%'}}>
-                    {toppingSubSpec.map((spec) => (
+                    {selectedSpecList.map((spec) => (
                         <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#FFFFFF', borderRadius: 5}}>
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
-                                <span>{spec.label}：</span>
+                                <span>{spec.specName}：</span>
                             </div>
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
-                                    {spec.subSpecs.map((subSpec) => (
-                                        <Button size='middle'>{subSpec.label}</Button>
+                                    {spec.specSubList.map((specSub) => (
+                                        <Button size='middle'>{specSub.specSubName}</Button>
                                     ))}
                                 </Space>
                             </div>
@@ -105,4 +125,4 @@ const ToppingNewModalSpecPane = (props) => {
     );
 };
 
-export default ToppingNewModalSpecPane;
+export default TeaNewModalSpecPane;

@@ -1,109 +1,139 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Switch, Table, Tabs, Col, Row, message, theme } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Button, Select, Space, Table } from 'antd';
+import axios from 'axios';
 
 import '../css/common.css';
+import { genGetUrlByParams } from '../js/common.js';
 
-const { Content } = Layout;
-const { TextArea } = Input;
+const TeaNewModalActStepPane = (props) => {
+    // 数据初始化相关
+    const [toppingList, setToppingList] = useState([]);
+    useEffect(() => {
+        let url = genGetUrlByParams('/drinkset/topping/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setToppingList((prev => {
+                    let teaTypeListTmp = [];
+                    response.data.model.forEach(item => {
+                        teaTypeListTmp.push({
+                            key: item.toppingCode,
+                            label: item.toppingName,
+                            value: item.toppingCode
+                        });
+                    })
+                    return teaTypeListTmp;
+                }));
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }, []);
 
-const CleanRuleNewModalActStepPane = (props) => {
     // 步骤表格
-    const [toppingActStepTableData, setToppingActTableData] = useState([
-        {
-            key: '1',
-            step: '1',
-            toppingSelectedList: [],
-            actions: ['编辑', '删除'],
-        },
-        {
-            key: '2',
-            step: '1',
-            toppingSelectedList: [],
-            actions: ['编辑', '删除'],
-        }
-    ]);
-    const toppingActStepTableColumns = [
+    const actStepCols = [
         {
             title: '步骤',
-            dataIndex: 'step',
-            key: 'step',
+            dataIndex: 'stepIdx',
+            key: 'stepIdx',
+            width: '10%'
         },
         {
             title: '物料',
-            dataIndex: 'materialSelectedList',
-            key: 'materialSelectedList',
-            render: (_, { materialSelectedList }) => (
+            dataIndex: 'toppingList',
+            key: 'toppingList',
+            width: '90%',
+            render: (_, {stepIdx}) => (
                 <Select
-                    mode="multiple"
                     placeholder="请选择"
+                    onChange={(e) => onChangeToppingCode(e, stepIdx)}
+                    options={toppingList}
+                    mode="multiple"
                     size="middle"
-                    defaultValue={materialSelectedList}
                     style={{width: '100%'}}
-                    onChange={onSelectedMaterialChange}
-                    options={materialData}
+                    
                 />
             ),
-        },
-        {
-            title: '操作',
-            key: 'actions',
-            render: (_, { actions }) => (
-                <Space size="middle">
-                {actions.map((action) => {
-                    return (
-                        <a>{action}</a>
-                    );
-                })}
-                </Space>
-            ),
-        },
-    ];
-
-    // 物料相关
-    const materialData = [
-        {
-            value: '1',
-            label: '牛奶'
-        },
-        {
-            value: '2',
-            label: '葡萄果酱'
-        },
-        {
-            value: '3',
-            label: '橙汁'
-        },
-        {
-            value: '4',
-            label: '咖啡'
-        },
-        {
-            value: '5',
-            label: '茉莉花茶'
-        },
-        {
-            value: '6',
-            label: '绿茶'
         }
     ];
-    const onSelectedMaterialChange = (selectedMaterial) => {
-    };
+
+    // 表格操作相关
+    const [actStepList, setActStepList] = useState([]);
+    const [stepIdx, setStepIdx] = useState(1);
+    const onClickAddStep = (e) => {
+        setActStepList((prev => {
+            let tmp = [];
+            prev.forEach((actStep, idx) => (
+                tmp.push(actStep)
+            ));
+            tmp.push({
+                stepIdx: stepIdx,
+                toppingRelList: []
+            });
+            setStepIdx(stepIdx + 1);
+            return tmp;
+        }));
+    }
+    const onClickDeleteStep = (e) => {
+        setActStepList((prev => {
+            let tmp = [];
+            prev.forEach((actStep, idx) => {
+                tmp.push(actStep)
+            });
+            tmp.pop();
+            setStepIdx(stepIdx - 1);
+            return tmp;
+        }));
+    }
+    const onChangeToppingCode = (e, stepIdx) => {
+        setActStepList((prev => {
+            let tmp = [];
+            prev.forEach((actStep, idx) => {
+                if (actStep.stepIdx == stepIdx) {
+                    e.forEach(item => {
+                        actStep.toppingRelList.push({
+                            toppingCode: item
+                        });
+                    })
+                    tmp.push(actStep)
+                } else {
+                    tmp.push(actStep)
+                }
+            });
+            return tmp;
+        }));
+    }
 
     return (
-        <div class="flex-col-cont" style={{height: '100%', width: '100%'}}>
-            <div class="flex-row-cont" style={{height: 50, width: '98%'}}>
-                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
-                    <Button key="back" type="primary" style={{height: 35, width: 80}}>新增</Button>
-                </div>
+        <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
+            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '15%', width: '98%'}}>
+                <Space>
+                    <Button key="addStep" onClick={onClickAddStep} type="primary" style={{height: 35, width: 100}}>新增步骤</Button>
+                    <Button key="reduceStep" onClick={onClickDeleteStep} type="primary" style={{height: 35, width: 100}}>删减步骤</Button>
+                </Space>
             </div>
-            <div class="flex-row-cont" style={{height: '100%', width: '98%'}}>
-                <div class="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '100%'}}>
-                    <Table columns={toppingActStepTableColumns} dataSource={toppingActStepTableData} size='small' style={{width: '100%'}} />
-                </div>
+            <div className="flex-row-cont" style={{alignItems: 'flex-start', height: '85%', width: '98%'}}>
+                <Table 
+                    columns={actStepCols} 
+                    dataSource={actStepList} 
+                    pagination={false} 
+                    scroll={{ y: 250 }} 
+                    size='small' 
+                    style={{height: '100%', width: '100%'}} 
+                    rowKey='id'/>
             </div>
         </div>
     );
 };
 
-export default CleanRuleNewModalActStepPane;
+export default TeaNewModalActStepPane;

@@ -301,7 +301,7 @@ const SpecNewModal = (props) => {
                                 dataSource={specSubList}
                                 pagination={false}
                                 rowKey={record=>record.id}
-                                scroll={{ y: 170 }} // 设置垂直滚动高度为300px
+                                scroll={{ y: 170 }}
                                 size='small'
                                 style={{width: '100%'}} />
                             </div>

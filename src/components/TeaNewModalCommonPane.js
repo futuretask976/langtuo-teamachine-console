@@ -1,107 +1,102 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Checkbox, Flex, Input, InputNumber, Layout, Modal, Radio, Select, Slider, Space, Steps, Switch, Table, Tabs, Col, Row, message, theme } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { InputNumber, Table } from 'antd';
 
 import '../css/common.css';
+import { isArray } from '../js/common.js';
 
-const { Content } = Layout;
-const { TextArea } = Input;
-
-const ToppingNewModalCommonPane = (props) => {
-    // 标准配方表格
-    const tempeMarks = {
-        0: '0°C',
-        10: '10°C',
-        20: '20°C',
-        30: {
-            style: {
-                color: '#f50',
-            },
-            label: <strong>30°C</strong>,
-        },
-    };
-    const onCommonWeightChange = (newCommonWeight) => {
-    };
-    const onKeepTempeChange = (newKeepTempe) => {
-    };
-    const [commonToppingTableData, setCommonToppingTableData] = useState([
+const TeaNewModalCommonPane = (props) => {
+    // 数据初始化相关
+    const [actStepList, setActStepList] = useState(isArray(props.actStepList) ? props.actStepList : [
         {
-            key: '1',
-            step: '1',
-            materialName: '牛奶',
-            commonWeight: 20,
-            unit: '克',
-            keepTempe: false,
-            tempeScope: [10, 20],
-        },
-        {
-            key: '2',
-            step: '1',
-            materialName: '绿茶',
-            commonWeight: 30,
-            unit: '克',
-            keepTempe: false,
-            tempeScope: [15, 25],
+            stepIdx: 1,
+            toppingRelList: [
+                {
+                    toppingCode: 123,
+                    toppingName: '芒果酱',
+                    measureUnit: 0
+                },
+                {
+                    toppingCode: 456,
+                    toppingName: '草莓酱',
+                    measureUnit: 1
+                },
+                {
+                    toppingCode: 789,
+                    toppingName: '西瓜酱',
+                    measureUnit: 0
+                }
+            ]
         }
     ]);
-    const commonToppingTableColumns = [
+    const convertToDataSource = () => {
+        let dataSource = [];
+        actStepList.forEach(stepItem => {
+            stepItem.toppingRelList.forEach(toppingItem => {
+                dataSource.push({
+                    stepIdx: stepItem.stepIdx,
+                    toppingName: toppingItem.toppingName,
+                    toppingCode: toppingItem.toppingCode,
+                    measureUnit: toppingItem.measureUnit
+                });
+            })
+        });
+        return dataSource;
+    }
+
+
+    // 表格操作相关
+    const toppingConfigCols = [
         {
             title: '步骤',
-            dataIndex: 'step',
-            key: 'step',
+            dataIndex: 'stepIdx',
+            key: 'stepIdx',
+            width: '10%'
         },
         {
             title: '物料',
-            dataIndex: 'materialName',
-            key: 'materialName',
+            dataIndex: 'toppingName',
+            key: 'toppingName',
+            width: '40%'
         },
         {
             title: '标准量',
-            dataIndex: 'commonWeight',
-            key: 'commonWeight',
-            render: (_, { commonWeight }) => (
-                <InputNumber min={1} max={10000} defaultValue={commonWeight} onChange={onCommonWeightChange} size="small" />
+            dataIndex: 'amount',
+            key: 'amount',
+            width: '30%',
+            render: (_, { toppingCode, amount }) => (
+                <InputNumber min={1} max={9999} onChange={(e) => onChangeAmount(e, toppingCode)} size="small" value={amount}/>
             ),
         },
         {
             title: '单位',
-            dataIndex: 'unit',
-            key: 'unit',
-        },
-        {
-            title: '是否需要温度',
-            dataIndex: 'keepTempe',
-            key: 'keepTempe',
-            render: (_, { keepTempe }) => (
-                <Checkbox defaultValue={keepTempe} onChange={onKeepTempeChange} size="small">Checkbox</Checkbox>
-            ),
-        },
-        {
-            title: '温度范围',
-            dataIndex: 'tempeScope',
-            key: 'tempeScope',
-            render: (_, { tempeScope }) => (
-                // <Slider range marks={tempeMarks} defaultValue={tempeScope} size="small" />
-                <><InputNumber min={1} max={10000} defaultValue={1} onChange={onCommonWeightChange} size="small" /> - <InputNumber min={1} max={10000} defaultValue={1} onChange={onCommonWeightChange} size="small" /></>
-                
+            dataIndex: 'measureUnit',
+            key: 'measureUnit',
+            width: '20%',
+            render: (_, { measureUnit }) => (
+                <text>{measureUnit == 0 ? '克' : '毫升'}</text>
             ),
         }
     ];
+    const onChangeAmount = (e, toppingCode) => {
+        setActStepList(prev => {
+            let tmp = [];
+            prev.forEach(item => {
+                if (item.toppingCode == toppingCode) {
+                    item.amount = e;
+                }
+                tmp.push(item);
+            });
+            return tmp;
+        });
+    };
 
     return (
-        <div class="flex-col-cont" style={{height: '100%', width: '100%', border: '0px solid red'}}>
-            <div class="flex-row-cont" style={{height: 50, width: '98%'}}>
-                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
-                    <Button key="back" type="primary" style={{height: 35, width: 80}}>新增</Button>
-                </div>
-            </div>
-            <div class="flex-row-cont" style={{height: '100%', width: '98%'}}>
-                <div class="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '100%'}}>
-                    <Table columns={commonToppingTableColumns} dataSource={commonToppingTableData} size='small' style={{width: '100%'}} />
-                </div>
+        <div class="flex-col-cont" style={{height: '100%', width: '100%'}}>
+            <div class="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '98%'}}>
+                <Table columns={toppingConfigCols} dataSource={convertToDataSource(actStepList)} pagination={false} scroll={{ y: 350 }} size='small' style={{width: '100%'}}/>
             </div>
         </div>
     );
 };
 
-export default ToppingNewModalCommonPane;
+export default TeaNewModalCommonPane;
