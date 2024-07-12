@@ -34,15 +34,15 @@ const TeaNewModalActStepPane = (props) => {
         .then(response => {
             if (response && response.data && response.data.success) {
                 setToppingList((prev => {
-                    let teaTypeListTmp = [];
+                    let toppingListTmp = [];
                     response.data.model.forEach(item => {
-                        teaTypeListTmp.push({
-                            key: item.toppingCode,
-                            label: item.toppingName,
-                            value: item.toppingCode
-                        });
+                        let toppingTmp = {...item};
+                        toppingTmp.key = item.toppingCode;
+                        toppingTmp.label = item.toppingName;
+                        toppingTmp.value = item.toppingCode;
+                        toppingListTmp.push(toppingTmp);
                     })
-                    return teaTypeListTmp;
+                    return toppingListTmp;
                 }));
             }
         })
@@ -128,10 +128,9 @@ const TeaNewModalActStepPane = (props) => {
             prev.forEach((actStep) => {
                 if (actStep.stepIdx == stepIdx) {
                     let toppingRelList = [];
-                    e.forEach(item => {
-                        toppingRelList.push({
-                            toppingCode: item
-                        });
+                    e.forEach(toppingCode => {
+                        let toppingTmp = findToppingByCode(toppingCode);
+                        toppingRelList.push(toppingTmp);
                     })
                     actStep.toppingRelList = toppingRelList;
                     tmp.push(actStep)
@@ -141,6 +140,15 @@ const TeaNewModalActStepPane = (props) => {
             });
             return tmp;
         }));
+    }
+    const findToppingByCode = (toppingCode) => {
+        let found = null;
+        toppingList.forEach(item => {
+            if (item.toppingCode == toppingCode) {
+                found = item;
+            }
+        });
+        return found;
     }
     useEffect(() => {
         props.updateActStepList(actStepList);
