@@ -4,11 +4,11 @@ import { Button, Input, Modal, Col, Row } from 'antd';
 import '../css/common.css';
 import { isBlankStr } from '../js/common.js';
 
-const SpecSubNewModal = (props) => {
+const SpecItemNewModal = (props) => {
     // 对话框相关
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
-        props.onClickSubmitSpecSub(specSubCode, specSubName, outerSpecSubCode);
+        props.onClickSubmitSpecItem(specItemCode, specItemName, outerSpecItemCode);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -16,19 +16,19 @@ const SpecSubNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [specSubCode, setSpecSubCode] = useState(isBlankStr(props.specSubCode4Edit) ? '' : props.specSubCode4Edit);
-    const [specSubName, setSpecSubName] = useState(isBlankStr(props.specSubName4Edit) ? '' : props.specSubName4Edit);
-    const [outerSpecSubCode, setOuterSpecSubCode] = useState(isBlankStr(props.outerSpecSubCode4Edit) ? '' : props.outerSpecSubCode4Edit);
+    const [specItemCode, setSpecItemCode] = useState(isBlankStr(props.specItemCode4Edit) ? '' : props.specItemCode4Edit);
+    const [specItemName, setSpecItemName] = useState(isBlankStr(props.specItemName4Edit) ? '' : props.specItemName4Edit);
+    const [outerSpecItemCode, setOuterSpecItemCode] = useState(isBlankStr(props.outerSpecItemCode4Edit) ? '' : props.outerSpecItemCode4Edit);
 
     // 输入相关
-    const onChangeSpecSubCode = (e) => {
-        setSpecSubCode(e.target.value);
+    const onChangeSpecItemCode = (e) => {
+        setSpecItemCode(e.target.value);
     }
-    const onChangeSpecSubName = (e) => {
-        setSpecSubName(e.target.value);
+    const onChangeSpecItemName = (e) => {
+        setSpecItemName(e.target.value);
     }
-    const onChangeOuterSpecSubCode = (e) => {
-        setOuterSpecSubCode(e.target.value);
+    const onChangeOuterSpecItemCode = (e) => {
+        setOuterSpecItemCode(e.target.value);
     }
  
     return (
@@ -51,12 +51,12 @@ const SpecSubNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>子项编码：</span>
+                            <span>规格项编码：</span>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="子项编码" disabled={isBlankStr(props.specSubCode4Edit) ? false : true} value={specSubCode} onChange={onChangeSpecSubCode}/>
+                            <Input placeholder="规格项编码" disabled={isBlankStr(props.specItemCode4Edit) ? false : true} value={specItemCode} onChange={onChangeSpecItemCode}/>
                         </div>
                     </Col>
                 </Row>
@@ -68,12 +68,12 @@ const SpecSubNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>子项名称：</span>
+                            <span>规格项名称：</span>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="子项名称" value={specSubName} onChange={onChangeSpecSubName}/>
+                            <Input placeholder="规格项名称" value={specItemName} onChange={onChangeSpecItemName}/>
                         </div>
                     </Col>
                 </Row>
@@ -85,12 +85,12 @@ const SpecSubNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>外部子项名称：</span>
+                            <span>外部规格项名称：</span>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="外部子项名称" value={outerSpecSubCode} onChange={onChangeOuterSpecSubCode}/>
+                            <Input placeholder="外部规格项名称" value={outerSpecItemCode} onChange={onChangeOuterSpecItemCode}/>
                         </div>
                     </Col>
                 </Row>
@@ -99,4 +99,4 @@ const SpecSubNewModal = (props) => {
     );
 };
  
-export default SpecSubNewModal;
+export default SpecItemNewModal;

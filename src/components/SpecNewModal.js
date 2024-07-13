@@ -3,9 +3,9 @@ import { Button, Input, Modal, Space, Switch, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
-import SpecSubNewModal from '../components/SpecSubNewModal'
+import SpecItemNewModal from '../components/SpecItemNewModal'
 
 const { TextArea } = Input;
 
@@ -27,7 +27,7 @@ const SpecNewModal = (props) => {
                 testA: 'valueA',
                 testB: 'valueB'
             },
-            specSubList: specSubList
+            specItemList: specItemList
         })
         .then(response => {
             if (response && response.data && response.data.success) {
@@ -62,7 +62,7 @@ const SpecNewModal = (props) => {
     const [specName, setSpecName] = useState('');
     const [state, setState] = useState(0);
     const [comment, setComment] = useState('');
-    const [specSubList, setSpecSubList] = useState([]);
+    const [specItemList, setSpecItemList] = useState([]);
     useEffect(() => {
         if (isBlankStr(props.specCode4Edit)) {
             return;
@@ -78,14 +78,14 @@ const SpecNewModal = (props) => {
                 setSpecName(response.data.model.specName);
                 setState(response.data.model.state);
                 setComment(response.data.model.comment);
-                setSpecSubList(prev => {
+                setSpecItemList(prev => {
                     let tmp = [];
-                    response.data.model.specSubList.forEach(item => {
+                    response.data.model.specItemList.forEach(item => {
                         tmp.push({
                             key: item.id,
-                            specSubCode: item.specSubCode,
-                            specSubName: item.specSubName,
-                            outerSpecSubCode: item.outerSpecSubCode,
+                            specItemCode: item.specItemCode,
+                            specItemName: item.specItemName,
+                            outerSpecItemCode: item.outerSpecItemCode,
                             actions: ['edit', 'delete']
                         });
                     });
@@ -118,57 +118,57 @@ const SpecNewModal = (props) => {
     }
 
     // 子规格相关
-    const [specSubCode4Edit, setSpecSubCode4Edit] = useState('');
-    const [specSubName4Edit, setSpecSubName4Edit] = useState('');
-    const [outerSpecSubCode4Edit, setOuterSpecSubCode4Edit] = useState('');
-    const [openSpecSubModalNew, setOpenSpecSubModalNew] = useState(false);
-    const onOpenSpecSubSubNewModal = (specSubCode4Edit, specSubName4Edit, outerSpecSubCode4Edit) => {
-        setSpecSubCode4Edit(specSubCode4Edit);
-        setSpecSubName4Edit(specSubName4Edit);
-        setOuterSpecSubCode4Edit(outerSpecSubCode4Edit);
-        setOpenSpecSubModalNew(true);
+    const [specItemCode4Edit, setSpecItemCode4Edit] = useState('');
+    const [specItemName4Edit, setSpecItemName4Edit] = useState('');
+    const [outerSpecItemCode4Edit, setOuterSpecItemCode4Edit] = useState('');
+    const [openSpecItemModalNew, setOpenSpecItemModalNew] = useState(false);
+    const onOpenSpecItemNewModal = (specItemCode4Edit, specItemName4Edit, outerSpecItemCode4Edit) => {
+        setSpecItemCode4Edit(specItemCode4Edit);
+        setSpecItemName4Edit(specItemName4Edit);
+        setOuterSpecItemCode4Edit(outerSpecItemCode4Edit);
+        setOpenSpecItemModalNew(true);
     };
     const onCloseNewSubModal = () => {
-        setOpenSpecSubModalNew(false);
-        setSpecSubCode4Edit('');
-        setSpecSubName4Edit('');
-        setOuterSpecSubCode4Edit('');
+        setOpenSpecItemModalNew(false);
+        setSpecItemCode4Edit('');
+        setSpecItemName4Edit('');
+        setOuterSpecItemCode4Edit('');
     }
-    const specSubCols = [
+    const specItemCols = [
         {
-            title: '子项编码',
-            dataIndex: 'specSubCode',
-            key: 'specSubCode',
+            title: '规格项编码',
+            dataIndex: 'specItemCode',
+            key: 'specItemCode',
             width: '25%',
             render: (text) => <a>{text}</a>
         },
         {
             title: '外部编码',
-            dataIndex: 'outerSpecSubCode',
-            key: 'outerSpecSubCode',
+            dataIndex: 'outerSpecItemCode',
+            key: 'outerSpecItemCode',
             width: '25%'
         },
         {
-            title: '子项名称',
-            dataIndex: 'specSubName',
-            key: 'specSubName',
+            title: '规格项名称',
+            dataIndex: 'specItemName',
+            key: 'specItemName',
             width: '30%'
         },
         {
             title: '操作',
             key: 'actions',
             width: '20%',
-            render: (_, { specSubCode, specSubName, outerSpecSubCode, actions }) => (
+            render: (_, { specItemCode, specItemName, outerSpecItemCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + specSubCode} onClick={(e) => onOpenSpecSubSubNewModal(specSubCode, specSubName, outerSpecSubCode)}>编辑</a>
+                            <a id={action + '_' + specItemCode} onClick={(e) => onOpenSpecItemNewModal(specItemCode, specItemName, outerSpecItemCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + specSubCode} onClick={(e) => onClickDeleteSpecSub(e, specSubCode)}>删除</a>
+                            <a id={action + '_' + specItemCode} onClick={(e) => onClickDeleteSpecItem(e, specItemCode)}>删除</a>
                         );
                     }
                 })}
@@ -176,29 +176,29 @@ const SpecNewModal = (props) => {
             ),
         },
     ];
-    const onClickDeleteSpecSub = (e, specSubCode) => {
-        setSpecSubList(prev => {
+    const onClickDeleteSpecItem = (e, specItemCode) => {
+        setSpecItemList(prev => {
             let tmp = [];
             prev.forEach(item => {
-                if (item.specSubCode != specSubCode) {
+                if (item.specItemCode != specItemCode) {
                     tmp.push(item);
                 }
             });
             return tmp;
         });
     }
-    const onClickSubmitSpecSub = (specSubCode, specSubName, outerSpecSubCode) => {
-        setSpecSubList(prev => {
+    const onClickSubmitSpecItem = (specItemCode, specItemName, outerSpecItemCode) => {
+        setSpecItemList(prev => {
             let tmp = [];
             let matched = false;
             prev.forEach(item => {
-                if (item.specSubCode == specSubCode) {
+                if (item.specItemCode == specItemCode) {
                     matched = true;
                     tmp.push({
-                        key: specSubCode,
-                        specSubCode: specSubCode,
-                        specSubName: specSubName,
-                        outerSpecSubCode: outerSpecSubCode,
+                        key: specItemCode,
+                        specItemCode: specItemCode,
+                        specItemName: specItemName,
+                        outerSpecItemCode: outerSpecItemCode,
                         actions: ['edit', 'delete']
                     });
                 } else {
@@ -207,16 +207,16 @@ const SpecNewModal = (props) => {
             });
             if (!matched) {
                 tmp.push({
-                    key: specSubCode,
-                    specSubCode: specSubCode,
-                    specSubName: specSubName,
-                    outerSpecSubCode: outerSpecSubCode,
+                    key: specItemCode,
+                    specItemCode: specItemCode,
+                    specItemName: specItemName,
+                    outerSpecItemCode: outerSpecItemCode,
                     actions: ['edit', 'delete']
                 });
             }
             return tmp;
         });
-        setOpenSpecSubModalNew(false);
+        setOpenSpecItemModalNew(false);
     }
  
     return (
@@ -291,14 +291,14 @@ const SpecNewModal = (props) => {
                     <Row style={{height: 220, width: '100%'}}>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规格子项：</span>
+                                <span>规格项列表：</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={21}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                             <Table
-                                columns={specSubCols} 
-                                dataSource={specSubList}
+                                columns={specItemCols} 
+                                dataSource={specItemList}
                                 pagination={false}
                                 rowKey={record=>record.id}
                                 scroll={{ y: 170 }}
@@ -313,7 +313,7 @@ const SpecNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={21}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Button onClick={(e) => onOpenSpecSubSubNewModal('', '', '')} type='primary'>新增规格</Button>
+                                <Button onClick={(e) => onOpenSpecItemNewModal('', '', '')} type='primary'>新增规格</Button>
                             </div>
                         </Col>
                     </Row>
@@ -337,8 +337,8 @@ const SpecNewModal = (props) => {
                 </div>
             </Modal>
 
-            {openSpecSubModalNew && (
-                <SpecSubNewModal onClose={onCloseNewSubModal} specSubCode4Edit={specSubCode4Edit} specSubName4Edit={specSubName4Edit} outerSpecSubCode4Edit={outerSpecSubCode4Edit} onClickSubmitSpecSub={onClickSubmitSpecSub}/>
+            {openSpecItemModalNew && (
+                <SpecItemNewModal onClose={onCloseNewSubModal} specItemCode4Edit={specItemCode4Edit} specItemName4Edit={specItemName4Edit} outerSpecItemCode4Edit={outerSpecItemCode4Edit} onClickSubmitSpecItem={onClickSubmitSpecItem}/>
             )}
         </>
     );
