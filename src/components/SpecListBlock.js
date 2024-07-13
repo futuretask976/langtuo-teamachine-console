@@ -80,13 +80,13 @@ const SpecListBlock = (props) => {
         },
         {
             title: '子规格',
-            dataIndex: 'specSubList',
-            key: 'specSubList',
+            dataIndex: 'specItemList',
+            key: 'specItemList',
             width: '40%',
-            render: (specSubList) => (
+            render: (specItemList) => (
                 <Space size="middle">
-                {specSubList.map((item) => {
-                    return (<span>{item.specSubName}</span>);
+                {specItemList.map((specItem) => {
+                    return (<span>{specItem.specItemName}</span>);
                 })}
                 </Space>
             )
