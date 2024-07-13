@@ -32,16 +32,16 @@ const TeaNewModalSpecPane = (props) => {
                             label: item.specName,
                             value: item.specCode
                         };
-                        let specSubListTmp = [];
-                        if (isArray(item.specSubList)) {
-                            item.specSubList.forEach(subItem => {
-                                specSubListTmp.push({
-                                    specSubCode: subItem.specSubCode,
-                                    specSubName: subItem.specSubName
+                        let specItemListTmp = [];
+                        if (isArray(item.specItemList)) {
+                            item.specItemList.forEach(specItem => {
+                                specItemListTmp.push({
+                                    specItemCode: specItem.specItemCode,
+                                    specItemName: specItem.specItemName
                                 });
                             });
                         }
-                        specTmp.specSubList = specSubListTmp;
+                        specTmp.specItemList = specItemListTmp;
                         tmp.push(specTmp);
                     })
                     return tmp;
@@ -80,15 +80,16 @@ const TeaNewModalSpecPane = (props) => {
         specList.forEach(item => {
             tmp.push(item.specCode);
         });
+        return tmp;
     }
-    const onClickSpecSub = (specCode, specSubCode) => {
+    const onClickSpecItem = (specCode, specItemCode) => {
         setSpecList(prev => {
             let tmp = [...prev];
             tmp.forEach(spec => {
                 if (spec.specCode == specCode) {
-                    spec.specSubList.forEach(specSub => {
-                        if (specSub.specSubCode == specSubCode) {
-                            specSub.selected = 1 == specSub.selected ? 0 : 1;
+                    spec.specItemList.forEach(specItem => {
+                        if (specItem.specItemCode == specItemCode) {
+                            specItem.selected = (specItem.selected == 1 ? 0 : 1);
                         }
                     })
                 }
@@ -127,8 +128,8 @@ const TeaNewModalSpecPane = (props) => {
                             </div>
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
-                                    {spec.specSubList.map((specSub) => (
-                                        <Button onClick={(e) => onClickSpecSub(spec.specCode, specSub.specSubCode)} size='middle' style={{ backgroundColor: 1 == specSub.selected ? 'red' : 'white', color: 1 == specSub.selected ? 'white' : 'black' }}>{specSub.specSubName}</Button>
+                                    {spec.specItemList.map((specItem) => (
+                                        <Button onClick={(e) => onClickSpecItem(spec.specCode, specItem.specItemCode)} size='middle' style={{ backgroundColor: 1 == specItem.selected ? '#145CFE' : 'white', color: 1 == specItem.selected ? 'white' : 'black' }}>{specItem.specItemName}</Button>
                                     ))}
                                 </Space>
                             </div>

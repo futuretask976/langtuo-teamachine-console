@@ -9,7 +9,7 @@ import TeaNewModalInfoPane from '../components/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../components/TeaNewModalActStepPane'
 import TeaNewModalAmtPane from '../components/TeaNewModalAmtPane'
 import TeaNewModalSpecPane from '../components/TeaNewModalSpecPane'
-import TeaNewModalAdjustPane from '../components/TeaNewModalAdjustPane'
+import TeaNewModalUnitPane from '../components/TeaNewModalUnitPane'
 
 const TeaNewModal = (props) => {
     // 样式相关
@@ -173,7 +173,7 @@ const TeaNewModal = (props) => {
                         <TeaNewModalSpecPane specList4Edit={tea.specList} updateSpecList={updateSpecList} />
                     )}
                     {curStep == 4 && (
-                        <TeaNewModalAdjustPane tea4Edit={tea} setTea={setTea} />
+                        <TeaNewModalUnitPane specList4Edit={tea.specList} actStepList4Edit={tea.actStepList} setTea={setTea} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>
