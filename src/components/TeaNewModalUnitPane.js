@@ -7,25 +7,42 @@ import { isBlankObj, isBlankStr, isNumber } from '../js/common.js';
 const TeaNewModalUnitPane = (props) => {
     // 状态变量初始化相关
     const [teaUnitList, setTeaUnitList] = useState([]);
-    const [toppingAdjustList, setToppingAdjustList] = useState([]);
+    const [curTeaUnitCode, setCurTeaUnitCode] = useState('');
+    const [curToppingAdjustList, setCurToppingAdjustList] = useState([]);
 
     // 规格项组合初始化相关
+    const genToppingAdjustList = () => {
+        let adjustList = [];
+        props.actStepList4Edit.forEach(actStep => {
+            actStep.toppingRelList.forEach(toppingRel => {
+                adjustList.push({
+                    stepIdx: actStep.stepIdx,
+                    toppingName: toppingRel.toppingName,
+                    toppingCode: toppingRel.toppingCode,
+                    measureUnit: toppingRel.measureUnit,
+                    amount: toppingRel.amount,
+                    actualAmount: toppingRel.amount,
+                });
+            })
+        });
+        return adjustList;
+    }
     const doGenTeaUnitList = (specItemLists, index, combo, resultList) => {
         if (combo == null || combo == undefined) {
             combo = [];
         }
         if (index == specItemLists.length) {
             let specItemListTmp = [];
-            let unitCode = '';
-            let unitName = '';
+            let teaUnitCode = '';
+            let teaUnitName = '';
             combo.forEach(f => {
                 specItemListTmp.push(f);
-                unitCode = unitCode + '-' + f.specItemCode;
-                unitName = unitName + '-' + f.specItemName;
+                teaUnitCode = teaUnitCode + '-' + f.specItemCode;
+                teaUnitName = teaUnitName + '-' + f.specItemName;
             })
             resultList.push({
-                teaUnitCode: unitCode.slice(1),
-                teaUnitName: unitName.slice(1),
+                teaUnitCode: teaUnitCode.slice(1),
+                teaUnitName: teaUnitName.slice(1),
                 specItemList: specItemListTmp,
                 backgroundColor: 'white'
             });
@@ -52,57 +69,47 @@ const TeaNewModalUnitPane = (props) => {
         });
         let teaUnitListTmp = [];
         doGenTeaUnitList(specItemLists, 0, null, teaUnitListTmp);
+        
+        teaUnitListTmp.forEach(teaUnit => {
+            teaUnit.toppingAdjustList = genToppingAdjustList();
+        })
+        
         setTeaUnitList(prev => {
             return teaUnitListTmp;
         });
     }
     useEffect(() => {
         genTeaUnitList();
-    }, [props.specList4Edit]);
-
-    // 物料调整初始化相关
-    const genToppingAdjustList = () => {
-        let adjustList = [];
-        props.actStepList4Edit.forEach(actStep => {
-            actStep.toppingRelList.forEach(toppingRel => {
-                adjustList.push({
-                    stepIdx: actStep.stepIdx,
-                    toppingName: toppingRel.toppingName,
-                    toppingCode: toppingRel.toppingCode,
-                    measureUnit: toppingRel.measureUnit,
-                    amount: toppingRel.amount,
-                    actualAmount: toppingRel.amount,
-                });
-            })
-        });
-        setToppingAdjustList(prev => {
-            return adjustList;
-        });
-    }
-    useEffect(() => {
-        genToppingAdjustList();
-    }, [props.actStepList4Edit]);
+    }, [props.specList4Edit, props.actStepList4Edit]);
     
 
     // TeaUnit 操作
     const onClickTeaUnit = (e, teaUnitCode) => {
         setTeaUnitList(prev => {
             let tmp = [];
-            teaUnitList.forEach(item => {
-                if (item.teaUnitCode == teaUnitCode) {
-                    item.backgroundColor = '#145CFE';
-                    item.textColor = 'white';
-                    item.selected = 1;
+            teaUnitList.forEach(teaUnit => {
+                if (teaUnit.teaUnitCode == teaUnitCode) {
+                    teaUnit.backgroundColor = '#145CFE';
+                    teaUnit.textColor = 'white';
+                    teaUnit.selected = 1;
+                    setCurTeaUnitCode(teaUnit.teaUnitCode);
+                    setCurToppingAdjustList(prev => {
+                        return teaUnit.toppingAdjustList;
+                    })
                 } else {
-                    item.backgroundColor = 'white';
-                    item.textColor = '#818181';
-                    item.selected = 0;
+                    teaUnit.backgroundColor = 'white';
+                    teaUnit.textColor = '#818181';
+                    teaUnit.selected = 0;
                 }
-                tmp.push(item);
+                tmp.push(teaUnit);
             });
             return tmp;
         })
     }
+    useEffect(() => {
+        console.log('$$$$$ TeaNewModalUnitPane#useEffect4TeaUnitList teaUnitList=', teaUnitList);
+        props.updateTeaUnitList(teaUnitList);
+    }, [teaUnitList]);
 
     // 物料调整表格相关
     const toppingAdjustCols = [
@@ -123,7 +130,7 @@ const TeaNewModalUnitPane = (props) => {
             dataIndex: 'adjustMode',
             key: 'adjustMode',
             width: '15%',
-            render: (_, { toppingCode }) => (
+            render: (_, { adjustMode, toppingCode }) => (
                 <Select
                     size="small"
                     style={{width: '100%'}}
@@ -138,6 +145,7 @@ const TeaNewModalUnitPane = (props) => {
                             value: 'reduce'
                         }
                     ]}
+                    value={isBlankStr(adjustMode) ? '' : adjustMode}
                 />
             ),
         },
@@ -146,7 +154,7 @@ const TeaNewModalUnitPane = (props) => {
             dataIndex: 'adjustUnit',
             key: 'adjustUnit',
             width: '15%',
-            render: (_, { toppingCode }) => (
+            render: (_, { adjustUnit, toppingCode }) => (
                 <Select
                     size="small"
                     style={{width: '100%'}}
@@ -161,6 +169,7 @@ const TeaNewModalUnitPane = (props) => {
                             value: 'per'
                         }
                     ]}
+                    value={isBlankStr(adjustUnit) ? '' : adjustUnit}
                 />
             ),
         },
@@ -169,8 +178,8 @@ const TeaNewModalUnitPane = (props) => {
             dataIndex: 'adjustAmount',
             key: 'adjustAmount',
             width: '20%',
-            render: (_, { toppingCode }) => (
-                <InputNumber min={1} max={10000} defaultValue={0} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" />
+            render: (_, { adjustAmount, toppingCode }) => (
+                <InputNumber min={1} max={10000} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" value={adjustAmount}/>
             ),
         },
         {
@@ -184,8 +193,7 @@ const TeaNewModalUnitPane = (props) => {
         }
     ]
     const onChangeAdjustMode = (e, toppingCode) => {
-        console.log('$$$$$ TeaNewModalUnitPane#onChangeAdjustMode e=' + e + ", toppingCode=" + toppingCode);
-        setToppingAdjustList(prev => {
+        setCurToppingAdjustList(prev => {
             let tmp = [...prev];
             tmp.forEach(item => {
                 if (item.toppingCode == toppingCode) {
@@ -197,8 +205,7 @@ const TeaNewModalUnitPane = (props) => {
         });
     }
     const onChangeAdjustUnit = (e, toppingCode) => {
-        console.log('$$$$$ TeaNewModalUnitPane#onChangeAdjustUnit e=' + e + ", toppingCode=" + toppingCode);
-        setToppingAdjustList(prev => {
+        setCurToppingAdjustList(prev => {
             let tmp = [...prev];
             tmp.forEach(item => {
                 if (item.toppingCode == toppingCode) {
@@ -210,8 +217,7 @@ const TeaNewModalUnitPane = (props) => {
         });
     }
     const onChangeAdjustAmount = (e, toppingCode) => {
-        console.log('$$$$$ TeaNewModalUnitPane#onChangeAdjustAmount e=' + e + ", toppingCode=" + toppingCode);
-        setToppingAdjustList(prev => {
+        setCurToppingAdjustList(prev => {
             let tmp = [...prev];
             tmp.forEach(item => {
                 if (item.toppingCode == toppingCode) {
@@ -246,6 +252,20 @@ const TeaNewModalUnitPane = (props) => {
         }
         return actualAmount < 0 ? 0 : actualAmount;
     }
+    const updateTeaUnitList = () => {
+        setTeaUnitList(prev => {
+            let tmp = [...prev];
+            tmp.forEach(teaUnit => {
+                if (teaUnit.teaUnitcode == curTeaUnitCode) {
+                    tmp.toppingAdjustList = curToppingAdjustList;
+                }
+            });
+            return tmp;
+        });
+    }
+    useEffect(() => {
+        updateTeaUnitList();
+    }, [curToppingAdjustList]);
 
     return (
         <div class="flex-col-cont" style={{height: 340, width: '100%'}}>
@@ -270,7 +290,7 @@ const TeaNewModalUnitPane = (props) => {
                 <div class="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: '100%', width: '69%'}}>
                     <Table 
                         columns={toppingAdjustCols} 
-                        dataSource={toppingAdjustList} 
+                        dataSource={curToppingAdjustList} 
                         size='small' 
                         style={{width: '100%'}} 
                         rowKey='toppingCode'/>

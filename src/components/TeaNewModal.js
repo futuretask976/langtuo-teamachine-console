@@ -146,6 +146,13 @@ const TeaNewModal = (props) => {
             return tmp;
         });
     };
+    const updateTeaUnitList = (teaUnitList) => {
+        setTea(prev => {
+            let tmp = {...prev};
+            tmp.teaUnitList = teaUnitList;
+            return tmp;
+        });
+    };
  
     return (
         <Modal
@@ -173,7 +180,7 @@ const TeaNewModal = (props) => {
                         <TeaNewModalSpecPane specList4Edit={tea.specList} updateSpecList={updateSpecList} />
                     )}
                     {curStep == 4 && (
-                        <TeaNewModalUnitPane specList4Edit={tea.specList} actStepList4Edit={tea.actStepList} setTea={setTea} />
+                        <TeaNewModalUnitPane specList4Edit={tea.specList} actStepList4Edit={tea.actStepList} updateTeaUnitList={updateTeaUnitList} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>
