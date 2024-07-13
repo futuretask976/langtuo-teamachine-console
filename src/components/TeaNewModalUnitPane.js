@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Select, Space, Table } from 'antd';
 
 import '../css/common.css';
+import { isBlankObj, isBlankStr, isNumber } from '../js/common.js';
 
 const TeaNewModalUnitPane = (props) => {
     // 状态变量初始化相关
@@ -69,7 +70,8 @@ const TeaNewModalUnitPane = (props) => {
                     toppingName: toppingRel.toppingName,
                     toppingCode: toppingRel.toppingCode,
                     measureUnit: toppingRel.measureUnit,
-                    amount: toppingRel.amount
+                    amount: toppingRel.amount,
+                    actualAmount: toppingRel.amount,
                 });
             })
         });
@@ -118,13 +120,14 @@ const TeaNewModalUnitPane = (props) => {
         },
         {
             title: '修改',
-            dataIndex: 'adjustMethod',
+            dataIndex: 'adjustMode',
             key: 'adjustMode',
             width: '15%',
-            render: (_, {}) => (
+            render: (_, { toppingCode }) => (
                 <Select
                     size="small"
                     style={{width: '100%'}}
+                    onChange={(e)=>onChangeAdjustMode(e, toppingCode)}
                     options={[
                         {
                             label: '增加',
@@ -143,10 +146,11 @@ const TeaNewModalUnitPane = (props) => {
             dataIndex: 'adjustUnit',
             key: 'adjustUnit',
             width: '15%',
-            render: (_, { }) => (
+            render: (_, { toppingCode }) => (
                 <Select
                     size="small"
                     style={{width: '100%'}}
+                    onChange={(e)=>onChangeAdjustUnit(e, toppingCode)}
                     options={[
                         {
                             label: '固定值',
@@ -166,7 +170,7 @@ const TeaNewModalUnitPane = (props) => {
             key: 'adjustAmount',
             width: '20%',
             render: (_, { toppingCode }) => (
-                <InputNumber min={1} max={10000} defaultValue={0} onChange={(e) => onAdjustNumChange(e, toppingCode)} size="small" />
+                <InputNumber min={1} max={10000} defaultValue={0} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" />
             ),
         },
         {
@@ -174,13 +178,73 @@ const TeaNewModalUnitPane = (props) => {
             dataIndex: 'actualAmount',
             key: 'actualAmount',
             width: '15%',
-            render: (_, { amount }) => (
-                <span>{amount}</span>
+            render: (_, { actualAmount }) => (
+                <span>{actualAmount}</span>
             ),
         }
     ]
-    const onAdjustNumChange = (e, toppingCode) => {
-        console.log('$$$$$ TeaNewModalUnitPane#onAdjustNumChange e=' + e + ", toppingCode=" + toppingCode);
+    const onChangeAdjustMode = (e, toppingCode) => {
+        console.log('$$$$$ TeaNewModalUnitPane#onChangeAdjustMode e=' + e + ", toppingCode=" + toppingCode);
+        setToppingAdjustList(prev => {
+            let tmp = [...prev];
+            tmp.forEach(item => {
+                if (item.toppingCode == toppingCode) {
+                    item.adjustMode = e;
+                    item.actualAmount = calcActualAmount(item);
+                }
+            })
+            return tmp;
+        });
+    }
+    const onChangeAdjustUnit = (e, toppingCode) => {
+        console.log('$$$$$ TeaNewModalUnitPane#onChangeAdjustUnit e=' + e + ", toppingCode=" + toppingCode);
+        setToppingAdjustList(prev => {
+            let tmp = [...prev];
+            tmp.forEach(item => {
+                if (item.toppingCode == toppingCode) {
+                    item.adjustUnit = e;
+                    item.actualAmount = calcActualAmount(item);
+                }
+            })
+            return tmp;
+        });
+    }
+    const onChangeAdjustAmount = (e, toppingCode) => {
+        console.log('$$$$$ TeaNewModalUnitPane#onChangeAdjustAmount e=' + e + ", toppingCode=" + toppingCode);
+        setToppingAdjustList(prev => {
+            let tmp = [...prev];
+            tmp.forEach(item => {
+                if (item.toppingCode == toppingCode) {
+                    item.adjustAmount = e;
+                    item.actualAmount = calcActualAmount(item);
+                }
+            })
+            return tmp;
+        });
+    }
+    const calcActualAmount = (adjustTopping) => {
+        if (isBlankObj(adjustTopping) 
+                || isBlankStr(adjustTopping.adjustMode)
+                || isBlankStr(adjustTopping.adjustUnit)
+                || !isNumber(adjustTopping.adjustAmount)) {
+            return adjustTopping.amount;
+        }
+
+        let actualAmount = adjustTopping.amount;
+        if (adjustTopping.adjustMode == 'add') {
+            if (adjustTopping.adjustUnit == 'fix') {
+                actualAmount = actualAmount + adjustTopping.adjustAmount;
+            } else {
+                actualAmount = actualAmount + actualAmount * adjustTopping.adjustAmount;
+            }
+        } else {
+            if (adjustTopping.adjustUnit == 'fix') {
+                actualAmount = actualAmount - adjustTopping.adjustAmount;
+            } else {
+                actualAmount = actualAmount - actualAmount * adjustTopping.adjustAmount;
+            }
+        }
+        return actualAmount < 0 ? 0 : actualAmount;
     }
 
     return (
