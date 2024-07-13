@@ -147,6 +147,7 @@ const TeaNewModal = (props) => {
         });
     };
     const updateTeaUnitList = (teaUnitList) => {
+        console.log('$$$$$ TeaNewModal#updateTeaUnitList teaUnitList=', teaUnitList);
         setTea(prev => {
             let tmp = {...prev};
             tmp.teaUnitList = teaUnitList;

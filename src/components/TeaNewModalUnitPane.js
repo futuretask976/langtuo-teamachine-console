@@ -107,7 +107,6 @@ const TeaNewModalUnitPane = (props) => {
         })
     }
     useEffect(() => {
-        console.log('$$$$$ TeaNewModalUnitPane#useEffect4TeaUnitList teaUnitList=', teaUnitList);
         props.updateTeaUnitList(teaUnitList);
     }, [teaUnitList]);
 
