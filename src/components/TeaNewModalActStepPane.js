@@ -8,23 +8,23 @@ import { isArray, genGetUrlByParams } from '../js/common.js';
 const TeaNewModalActStepPane = (props) => {
     // 状态变量初始化相关
     const [actStepList, setActStepList] = useState(isArray(props.actStepList4Edit) ? props.actStepList4Edit : []);
-    const [stepIdx, setStepIdx] = useState(() => {
-        let stepIdx = 0;
+    const [stepIndex, setStepIndex] = useState(() => {
+        let stepIndex = 0;
         if(isArray(props.actStepList)) {
             props.actStepList.forEach(item => {
-                if (item.stepIdx > stepIdx) {
-                    stepIdx = item.stepIdx;
+                if (item.stepIndex > stepIndex) {
+                    stepIndex = item.stepIndex;
                 }
             });
         }
-        return stepIdx + 1;
+        return stepIndex + 1;
     });
 
     // 待选择数据初始化相关
-    const [toppingList, setToppingList] = useState([]);
+    const [toppingList4Select, setToppingList4Select] = useState([]);
 
     // 赋值初始化相关
-    const fetchToppingList = () => {
+    const fetchToppingList4Select = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
             tenantCode: 'tenant_001'
         });
@@ -33,16 +33,16 @@ const TeaNewModalActStepPane = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setToppingList((prev => {
-                    let toppingListTmp = [];
+                setToppingList4Select((prev => {
+                    let toppingList4SelectTmp = [];
                     response.data.model.forEach(item => {
                         let toppingTmp = {...item};
                         toppingTmp.key = item.toppingCode;
                         toppingTmp.label = item.toppingName;
                         toppingTmp.value = item.toppingCode;
-                        toppingListTmp.push(toppingTmp);
+                        toppingList4SelectTmp.push(toppingTmp);
                     })
-                    return toppingListTmp;
+                    return toppingList4SelectTmp;
                 }));
             }
         })
@@ -56,41 +56,41 @@ const TeaNewModalActStepPane = (props) => {
         });
     }
     useEffect(() => {
-        fetchToppingList();
+        fetchToppingList4Select();
     }, []);
 
     // 物料表格展示相关
     const actStepListCols = [
         {
             title: '步骤',
-            dataIndex: 'stepIdx',
-            key: 'stepIdx',
+            dataIndex: 'stepIndex',
+            key: 'stepIndex',
             width: '10%'
         },
         {
             title: '物料',
-            dataIndex: 'toppingList',
-            key: 'toppingList',
+            dataIndex: 'toppingList4Select',
+            key: 'toppingList4Select',
             width: '90%',
-            render: (_, {stepIdx, toppingRelList}) => (
+            render: (_, {stepIndex, toppingBaseRuleList}) => (
                 <Select
                     placeholder="请选择"
                     mode="multiple"
-                    onChange={(e) => onChangeToppingCode(e, stepIdx)}
-                    options={toppingList}
+                    onChange={(e) => onChangeToppingCode(e, stepIndex)}
+                    options={toppingList4Select}
                     size="middle"
                     style={{width: '100%'}}
-                    value={convertToppingRelList(toppingRelList)}
+                    value={convertToppingRelList(toppingBaseRuleList)}
                 />
             ),
         }
     ];
-    const convertToppingRelList = (toppingRelList) => {
+    const convertToppingRelList = (toppingBaseRuleList) => {
         let tmp = [];
-        if (!isArray(toppingRelList)) {
+        if (!isArray(toppingBaseRuleList)) {
             return tmp;
         }
-        toppingRelList.forEach(item => {
+        toppingBaseRuleList.forEach(item => {
             tmp.push(item.toppingCode);
         })
         return tmp;
@@ -104,10 +104,10 @@ const TeaNewModalActStepPane = (props) => {
                 tmp.push(actStep)
             ));
             tmp.push({
-                stepIdx: stepIdx,
-                toppingRelList: []
+                stepIndex: stepIndex,
+                toppingBaseRuleList: []
             });
-            setStepIdx(stepIdx + 1);
+            setStepIndex(stepIndex + 1);
             return tmp;
         }));
     }
@@ -118,21 +118,21 @@ const TeaNewModalActStepPane = (props) => {
                 tmp.push(actStep)
             });
             tmp.pop();
-            setStepIdx(stepIdx - 1);
+            setStepIndex(stepIndex - 1);
             return tmp;
         }));
     }
-    const onChangeToppingCode = (e, stepIdx) => {
+    const onChangeToppingCode = (e, stepIndex) => {
         setActStepList((prev => {
             let tmp = [];
             prev.forEach((actStep) => {
-                if (actStep.stepIdx == stepIdx) {
-                    let toppingRelList = [];
+                if (actStep.stepIndex == stepIndex) {
+                    let toppingBaseRuleList = [];
                     e.forEach(toppingCode => {
                         let toppingTmp = findToppingByCode(toppingCode);
-                        toppingRelList.push(toppingTmp);
+                        toppingBaseRuleList.push(toppingTmp);
                     })
-                    actStep.toppingRelList = toppingRelList;
+                    actStep.toppingBaseRuleList = toppingBaseRuleList;
                     tmp.push(actStep)
                 } else {
                     tmp.push(actStep)
@@ -143,7 +143,7 @@ const TeaNewModalActStepPane = (props) => {
     }
     const findToppingByCode = (toppingCode) => {
         let found = null;
-        toppingList.forEach(item => {
+        toppingList4Select.forEach(item => {
             if (item.toppingCode == toppingCode) {
                 found = item;
             }
@@ -170,7 +170,7 @@ const TeaNewModalActStepPane = (props) => {
                     scroll={{ y: 250 }} 
                     size='small' 
                     style={{height: '100%', width: '100%'}} 
-                    rowKey='stepIdx'/>
+                    rowKey='stepIndex'/>
             </div>
         </div>
     );

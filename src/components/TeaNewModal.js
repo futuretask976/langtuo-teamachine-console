@@ -7,9 +7,9 @@ import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
 
 import TeaNewModalInfoPane from '../components/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../components/TeaNewModalActStepPane'
-import TeaNewModalAmtPane from '../components/TeaNewModalAmtPane'
+import TeaNewModalBaseRulePane from '../components/TeaNewModalBaseRulePane'
 import TeaNewModalSpecPane from '../components/TeaNewModalSpecPane'
-import TeaNewModalUnitPane from '../components/TeaNewModalUnitPane'
+import TeaNewModalAdjustRulePane from '../components/TeaNewModalAdjustRulePane'
 
 const TeaNewModal = (props) => {
     // 样式相关
@@ -26,16 +26,23 @@ const TeaNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
-    const onClickOK = () => {
+    const onClickSubmit = () => {
         setLoading(true);
         let url = genPostUrl('/drinkset/tea/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
+            teaCode: tea.teaCode,
+            teaName: tea.teaName,
+            outerTeaCode: tea.outerTeaCode,
+            state: tea.state,
+            teaTypeCode: tea.teaTypeCode,
+            comment: tea.comment,
             tenantCode: 'tenant_001',
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
             },
+            teaUnitList: tea.teaUnitList
         })
         .then(response => {
             if (response && response.data && response.data.success) {
@@ -139,10 +146,10 @@ const TeaNewModal = (props) => {
             return tmp;
         });
     };
-    const updateSpecList = (specList) => {
+    const updateSpecRuleList = (specRuleList) => {
         setTea(prev => {
             let tmp = {...prev};
-            tmp.specList = specList;
+            tmp.specRuleList = specRuleList;
             return tmp;
         });
     };
@@ -175,13 +182,13 @@ const TeaNewModal = (props) => {
                         <TeaNewModalActStepPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 2 && (
-                        <TeaNewModalAmtPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
+                        <TeaNewModalBaseRulePane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
                     {curStep == 3 && (
-                        <TeaNewModalSpecPane specList4Edit={tea.specList} updateSpecList={updateSpecList} />
+                        <TeaNewModalSpecPane specRuleList4Edit={tea.specRuleList} updateSpecRuleList={updateSpecRuleList} />
                     )}
                     {curStep == 4 && (
-                        <TeaNewModalUnitPane specList4Edit={tea.specList} actStepList4Edit={tea.actStepList} updateTeaUnitList={updateTeaUnitList} />
+                        <TeaNewModalAdjustRulePane specRuleList4Edit={tea.specRuleList} actStepList4Edit={tea.actStepList} updateTeaUnitList={updateTeaUnitList} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>
@@ -196,7 +203,7 @@ const TeaNewModal = (props) => {
                         </Button>
                     )}
                     {curStep === steps.length - 1 && (
-                        <Button type="primary" loading={loading} onClick={() => message.success('操作完成！')}>提交</Button>
+                        <Button type="primary" loading={loading} onClick={() => onClickSubmit()}>提交</Button>
                     )}
                     <Button key="back" onClick={onClickCancel} style={{margin: '0 8px'}}>取消</Button>
                 </div>

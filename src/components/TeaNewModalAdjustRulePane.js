@@ -4,74 +4,74 @@ import { InputNumber, Select, Space, Table } from 'antd';
 import '../css/common.css';
 import { isBlankObj, isBlankStr, isNumber } from '../js/common.js';
 
-const TeaNewModalUnitPane = (props) => {
+const TeaNewModalAdjustRulePane = (props) => {
     // 状态变量初始化相关
     const [teaUnitList, setTeaUnitList] = useState([]);
     const [curTeaUnitCode, setCurTeaUnitCode] = useState('');
-    const [curToppingAdjustList, setCurToppingAdjustList] = useState([]);
+    const [curToppingAdjustRuleList, setCurToppingAdjustRuleList] = useState([]);
 
     // 规格项组合初始化相关
-    const genToppingAdjustList = () => {
-        let adjustList = [];
+    const genToppingAdjustRuleList = () => {
+        let toppingAdjustRuleList = [];
         props.actStepList4Edit.forEach(actStep => {
-            actStep.toppingRelList.forEach(toppingRel => {
-                adjustList.push({
-                    stepIdx: actStep.stepIdx,
-                    toppingName: toppingRel.toppingName,
-                    toppingCode: toppingRel.toppingCode,
-                    measureUnit: toppingRel.measureUnit,
-                    amount: toppingRel.amount,
-                    actualAmount: toppingRel.amount,
+            actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
+                toppingAdjustRuleList.push({
+                    stepIndex: actStep.stepIndex,
+                    toppingName: toppingBaseRule.toppingName,
+                    toppingCode: toppingBaseRule.toppingCode,
+                    measureUnit: toppingBaseRule.measureUnit,
+                    baseAmount: toppingBaseRule.baseAmount,
+                    actualAmount: toppingBaseRule.baseAmount,
                 });
             })
         });
-        return adjustList;
+        return toppingAdjustRuleList;
     }
-    const doGenTeaUnitList = (specItemLists, index, combo, resultList) => {
+    const doGenTeaUnitList = (specItemRuleLists, index, combo, resultList) => {
         if (combo == null || combo == undefined) {
             combo = [];
         }
-        if (index == specItemLists.length) {
-            let specItemListTmp = [];
+        if (index == specItemRuleLists.length) {
+            let specItemRuleListTmp = [];
             let teaUnitCode = '';
             let teaUnitName = '';
             combo.forEach(f => {
-                specItemListTmp.push(f);
+                specItemRuleListTmp.push(f);
                 teaUnitCode = teaUnitCode + '-' + f.specItemCode;
                 teaUnitName = teaUnitName + '-' + f.specItemName;
             })
             resultList.push({
                 teaUnitCode: teaUnitCode.slice(1),
                 teaUnitName: teaUnitName.slice(1),
-                specItemList: specItemListTmp,
+                specItemRuleList: specItemRuleListTmp,
                 backgroundColor: 'white'
             });
             return;
         }
 
-        let list = specItemLists[index];
+        let list = specItemRuleLists[index];
         list.forEach(s => {
             combo.push(s);
-            doGenTeaUnitList(specItemLists, index + 1, combo, resultList);
+            doGenTeaUnitList(specItemRuleLists, index + 1, combo, resultList);
             combo.pop();
         });
     }
     const genTeaUnitList = () => {
-        let specItemLists = [];
-        props.specList4Edit.forEach(spec => {
-            let specItemListTmp = [];
-            spec.specItemList.forEach(specItem => {
-                if (specItem.selected == 1) {
-                    specItemListTmp.push(specItem);
+        let specItemRuleLists = [];
+        props.specRuleList4Edit.forEach(specRule => {
+            let specItemRuleListTmp = [];
+            specRule.specItemRuleList.forEach(specItemRule => {
+                if (specItemRule.selected == 1) {
+                    specItemRuleListTmp.push(specItemRule);
                 }
             })
-            specItemLists.push(specItemListTmp);
+            specItemRuleLists.push(specItemRuleListTmp);
         });
         let teaUnitListTmp = [];
-        doGenTeaUnitList(specItemLists, 0, null, teaUnitListTmp);
+        doGenTeaUnitList(specItemRuleLists, 0, null, teaUnitListTmp);
         
         teaUnitListTmp.forEach(teaUnit => {
-            teaUnit.toppingAdjustList = genToppingAdjustList();
+            teaUnit.toppingAdjustRuleList = genToppingAdjustRuleList();
         })
         
         setTeaUnitList(prev => {
@@ -80,7 +80,7 @@ const TeaNewModalUnitPane = (props) => {
     }
     useEffect(() => {
         genTeaUnitList();
-    }, [props.specList4Edit, props.actStepList4Edit]);
+    }, [props.specRuleList4Edit, props.actStepList4Edit]);
     
 
     // TeaUnit 操作
@@ -93,8 +93,8 @@ const TeaNewModalUnitPane = (props) => {
                     teaUnit.textColor = 'white';
                     teaUnit.selected = 1;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
-                    setCurToppingAdjustList(prev => {
-                        return teaUnit.toppingAdjustList;
+                    setCurToppingAdjustRuleList(prev => {
+                        return teaUnit.toppingAdjustRuleList;
                     })
                 } else {
                     teaUnit.backgroundColor = 'white';
@@ -111,11 +111,11 @@ const TeaNewModalUnitPane = (props) => {
     }, [teaUnitList]);
 
     // 物料调整表格相关
-    const toppingAdjustCols = [
+    const toppingAdjustRuleCols = [
         {
             title: '步骤',
-            dataIndex: 'stepIdx',
-            key: 'stepIdx',
+            dataIndex: 'stepIndex',
+            key: 'stepIndex',
             width: '10%'
         },
         {
@@ -192,36 +192,36 @@ const TeaNewModalUnitPane = (props) => {
         }
     ]
     const onChangeAdjustMode = (e, toppingCode) => {
-        setCurToppingAdjustList(prev => {
+        setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
-            tmp.forEach(item => {
-                if (item.toppingCode == toppingCode) {
-                    item.adjustMode = e;
-                    item.actualAmount = calcActualAmount(item);
+            tmp.forEach(adjustRule => {
+                if (adjustRule.toppingCode == toppingCode) {
+                    adjustRule.adjustMode = e;
+                    adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
             })
             return tmp;
         });
     }
     const onChangeAdjustUnit = (e, toppingCode) => {
-        setCurToppingAdjustList(prev => {
+        setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
-            tmp.forEach(item => {
-                if (item.toppingCode == toppingCode) {
-                    item.adjustUnit = e;
-                    item.actualAmount = calcActualAmount(item);
+            tmp.forEach(adjustRule => {
+                if (adjustRule.toppingCode == toppingCode) {
+                    adjustRule.adjustUnit = e;
+                    adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
             })
             return tmp;
         });
     }
     const onChangeAdjustAmount = (e, toppingCode) => {
-        setCurToppingAdjustList(prev => {
+        setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
-            tmp.forEach(item => {
-                if (item.toppingCode == toppingCode) {
-                    item.adjustAmount = e;
-                    item.actualAmount = calcActualAmount(item);
+            tmp.forEach(adjustRule => {
+                if (adjustRule.toppingCode == toppingCode) {
+                    adjustRule.adjustAmount = e;
+                    adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
             })
             return tmp;
@@ -232,10 +232,10 @@ const TeaNewModalUnitPane = (props) => {
                 || isBlankStr(adjustTopping.adjustMode)
                 || isBlankStr(adjustTopping.adjustUnit)
                 || !isNumber(adjustTopping.adjustAmount)) {
-            return adjustTopping.amount;
+            return adjustTopping.baseAmount;
         }
 
-        let actualAmount = adjustTopping.amount;
+        let actualAmount = adjustTopping.baseAmount;
         if (adjustTopping.adjustMode == 'add') {
             if (adjustTopping.adjustUnit == 'fix') {
                 actualAmount = actualAmount + adjustTopping.adjustAmount;
@@ -256,7 +256,7 @@ const TeaNewModalUnitPane = (props) => {
             let tmp = [...prev];
             tmp.forEach(teaUnit => {
                 if (teaUnit.teaUnitcode == curTeaUnitCode) {
-                    tmp.toppingAdjustList = curToppingAdjustList;
+                    tmp.toppingAdjustRuleList = curToppingAdjustRuleList;
                 }
             });
             return tmp;
@@ -264,7 +264,7 @@ const TeaNewModalUnitPane = (props) => {
     }
     useEffect(() => {
         updateTeaUnitList();
-    }, [curToppingAdjustList]);
+    }, [curToppingAdjustRuleList]);
 
     return (
         <div class="flex-col-cont" style={{height: 340, width: '100%'}}>
@@ -288,8 +288,8 @@ const TeaNewModalUnitPane = (props) => {
                 <div style={{height: '100%', width: '2%'}}>&nbsp;</div>
                 <div class="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: '100%', width: '69%'}}>
                     <Table 
-                        columns={toppingAdjustCols} 
-                        dataSource={curToppingAdjustList} 
+                        columns={toppingAdjustRuleCols} 
+                        dataSource={curToppingAdjustRuleList} 
                         size='small' 
                         style={{width: '100%'}} 
                         rowKey='toppingCode'/>
@@ -299,4 +299,4 @@ const TeaNewModalUnitPane = (props) => {
     );
 };
 
-export default TeaNewModalUnitPane;
+export default TeaNewModalAdjustRulePane;

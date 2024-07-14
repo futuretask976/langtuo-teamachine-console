@@ -4,19 +4,19 @@ import { InputNumber, Table } from 'antd';
 import '../css/common.css';
 import { isArray, isNumber } from '../js/common.js';
 
-const TeaNewModalAmtPane = (props) => {
+const TeaNewModalBaseRulePane = (props) => {
     // 数据初始化相关
     const [actStepList, setActStepList] = useState(isArray(props.actStepList4Edit) ? props.actStepList4Edit : []);
     const convertToDataSource = () => {
         let dataSource = [];
         actStepList.forEach(stepItem => {
-            stepItem.toppingRelList.forEach(toppingItem => {
+            stepItem.toppingBaseRuleList.forEach(toppingItem => {
                 dataSource.push({
-                    stepIdx: stepItem.stepIdx,
+                    stepIndex: stepItem.stepIndex,
                     toppingName: toppingItem.toppingName,
                     toppingCode: toppingItem.toppingCode,
                     measureUnit: toppingItem.measureUnit,
-                    amount: isNumber(toppingItem.amount) ? toppingItem.amount : 0
+                    baseAmount: isNumber(toppingItem.baseAmount) ? toppingItem.baseAmount : 0
                 });
             })
         });
@@ -28,8 +28,8 @@ const TeaNewModalAmtPane = (props) => {
     const toppingConfigCols = [
         {
             title: '步骤',
-            dataIndex: 'stepIdx',
-            key: 'stepIdx',
+            dataIndex: 'stepIndex',
+            key: 'stepIndex',
             width: '10%'
         },
         {
@@ -40,11 +40,11 @@ const TeaNewModalAmtPane = (props) => {
         },
         {
             title: '标准量',
-            dataIndex: 'amount',
-            key: 'amount',
+            dataIndex: 'baseAmount',
+            key: 'baseAmount',
             width: '30%',
-            render: (_, { stepIdx, toppingCode, amount }) => (
-                <InputNumber min={1} max={9999} onChange={(e) => onChangeAmount(stepIdx, toppingCode, e)} size="small" value={amount}/>
+            render: (_, { stepIndex, toppingCode, baseAmount }) => (
+                <InputNumber min={1} max={9999} onChange={(e) => onChangeBaseAmount(stepIndex, toppingCode, e)} size="small" value={baseAmount}/>
             ),
         },
         {
@@ -57,14 +57,14 @@ const TeaNewModalAmtPane = (props) => {
             ),
         }
     ];
-    const onChangeAmount = (stepIdx, toppingCode, e) => {
+    const onChangeBaseAmount = (stepIndex, toppingCode, e) => {
         setActStepList(prev => {
             let tmp = [...prev];
             tmp.forEach(actStep => {
-                if (actStep.stepIdx == stepIdx) {
-                    actStep.toppingRelList.forEach(toppingRel => {
-                        if (toppingRel.toppingCode == toppingCode) {
-                            toppingRel.amount = e;
+                if (actStep.stepIndex == stepIndex) {
+                    actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
+                        if (toppingBaseRule.toppingCode == toppingCode) {
+                            toppingBaseRule.baseAmount = e;
                         }
                     })
                 }
@@ -81,7 +81,7 @@ const TeaNewModalAmtPane = (props) => {
             <div className="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '98%'}}>
                 <Table 
                     columns={toppingConfigCols} 
-                    dataSource={convertToDataSource(actStepList)} 
+                    dataSource={convertToDataSource()} 
                     pagination={false} 
                     scroll={{ y: 350 }} 
                     size='small' 
@@ -92,4 +92,4 @@ const TeaNewModalAmtPane = (props) => {
     );
 };
 
-export default TeaNewModalAmtPane;
+export default TeaNewModalBaseRulePane;

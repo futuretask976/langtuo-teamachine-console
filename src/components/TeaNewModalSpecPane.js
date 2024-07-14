@@ -7,7 +7,7 @@ import { genGetUrlByParams, isArray } from '../js/common';
 
 const TeaNewModalSpecPane = (props) => {
     // 状态变量初始化相关
-    const [specList, setSpecList] = useState(isArray(props.specList4Edit) ? props.specList4Edit : []);
+    const [specRuleList, setSpecRuleList] = useState(isArray(props.specRuleList4Edit) ? props.specRuleList4Edit : []);
 
     // 待选择数据初始化相关
     const [specList4Select, setSpecList4Select] = useState([]);
@@ -37,7 +37,8 @@ const TeaNewModalSpecPane = (props) => {
                             item.specItemList.forEach(specItem => {
                                 specItemListTmp.push({
                                     specItemCode: specItem.specItemCode,
-                                    specItemName: specItem.specItemName
+                                    specItemName: specItem.specItemName,
+                                    outerSpecItemCode: specItem.outerSpecItemCode
                                 });
                             });
                         }
@@ -63,33 +64,35 @@ const TeaNewModalSpecPane = (props) => {
 
     // 表格操作相关
     const onChangeSpec = (e) => {
-        setSpecList(prev => {
-            let tmp = [];
+        setSpecRuleList(prev => {
+            let specRuleListTmp = [];
             specList4Select.forEach(spec => {
                 e.forEach(selectedSpecCode => {
                     if (spec.specCode == selectedSpecCode) {
-                        tmp.push(spec);
+                        let specRuleTmp = {...spec};
+                        specRuleTmp.specItemRuleList = [...spec.specItemList];
+                        specRuleListTmp.push(specRuleTmp);
                     }
                 });
             });
-            return tmp;
+            return specRuleListTmp;
         });
     }
     const convertToSelectedSpecCode = () => {
         let tmp = [];
-        specList.forEach(item => {
-            tmp.push(item.specCode);
+        specRuleList.forEach(specRule => {
+            tmp.push(specRule.specCode);
         });
         return tmp;
     }
-    const onClickSpecItem = (specCode, specItemCode) => {
-        setSpecList(prev => {
+    const onClickSpecItem = (specCode, selectedSpecItemCode) => {
+        setSpecRuleList(prev => {
             let tmp = [...prev];
-            tmp.forEach(spec => {
-                if (spec.specCode == specCode) {
-                    spec.specItemList.forEach(specItem => {
-                        if (specItem.specItemCode == specItemCode) {
-                            specItem.selected = (specItem.selected == 1 ? 0 : 1);
+            tmp.forEach(specRule => {
+                if (specRule.specCode == specCode) {
+                    specRule.specItemRuleList.forEach(specItemRule => {
+                        if (specItemRule.specItemCode == selectedSpecItemCode) {
+                            specItemRule.selected = (specItemRule.selected == 1 ? 0 : 1);
                         }
                     })
                 }
@@ -98,8 +101,8 @@ const TeaNewModalSpecPane = (props) => {
         });
     }
     useEffect(() => {
-        props.updateSpecList(specList);
-    }, [specList]);
+        props.updateSpecRuleList(specRuleList);
+    }, [specRuleList]);
 
     return (
         <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
@@ -121,15 +124,15 @@ const TeaNewModalSpecPane = (props) => {
             </div>
             <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '85%', width: '98%', overflow: 'auto'}}>
                 <Space direction="vertical" size="small" style={{width: '100%'}}>
-                    {specList.map((spec) => (
+                    {specRuleList.map((specRule) => (
                         <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#FFFFFF', borderRadius: 5}}>
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
-                                <span>{spec.specName}：</span>
+                                <span>{specRule.specName}：</span>
                             </div>
                             <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
-                                    {spec.specItemList.map((specItem) => (
-                                        <Button onClick={(e) => onClickSpecItem(spec.specCode, specItem.specItemCode)} size='middle' style={{ backgroundColor: 1 == specItem.selected ? '#145CFE' : 'white', color: 1 == specItem.selected ? 'white' : 'black' }}>{specItem.specItemName}</Button>
+                                    {specRule.specItemRuleList.map((specItemRule) => (
+                                        <Button onClick={(e) => onClickSpecItem(specRule.specCode, specItemRule.specItemCode)} size='middle' style={{ backgroundColor: 1 == specItemRule.selected ? '#145CFE' : 'white', color: 1 == specItemRule.selected ? 'white' : 'black' }}>{specItemRule.specItemName}</Button>
                                     ))}
                                 </Space>
                             </div>
