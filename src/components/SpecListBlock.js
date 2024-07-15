@@ -79,7 +79,7 @@ const SpecListBlock = (props) => {
             render: (state) => state == 0 ? '禁用' : '启用'
         },
         {
-            title: '子规格',
+            title: '规格项',
             dataIndex: 'specItemList',
             key: 'specItemList',
             width: '40%',
