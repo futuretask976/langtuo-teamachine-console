@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Select, Space, Table } from 'antd';
 
 import '../css/common.css';
-import { isBlankObj, isBlankStr, isNumber } from '../js/common.js';
+import { isBlankArray, isBlankObj, isBlankStr, isNumber } from '../js/common.js';
 
 const TeaNewModalAdjustRulePane = (props) => {
     // 状态变量初始化相关
-    const [teaUnitList, setTeaUnitList] = useState([]);
+    const [teaUnitList, setTeaUnitList] = useState(isBlankArray(props.teaUnitList4Edit) ? [] : props.teaUnitList4Edit);
     const [curTeaUnitCode, setCurTeaUnitCode] = useState('');
     const [curToppingAdjustRuleList, setCurToppingAdjustRuleList] = useState([]);
 
@@ -26,6 +26,21 @@ const TeaNewModalAdjustRulePane = (props) => {
             })
         });
         return toppingAdjustRuleList;
+    }
+    const isTeaUnitListEqual = (teaUnitList1, teaUnitList2) => {
+        let length1 = teaUnitList1.length;
+        let length2 = teaUnitList2.length;
+        if (length1 != length2) {
+            return false;
+        }
+        for (let i = 0; i < length1; i++) {
+            let teaUnit1 = teaUnitList1[i];
+            let teaUnit2 = teaUnitList2[i];
+            if (teaUnit1.teaUnitCode != teaUnit2.teaUnitCode) {
+                return false;
+            }
+        }
+        return true;
     }
     const doGenTeaUnitList = (specItemRuleLists, index, combo, resultList) => {
         if (combo == null || combo == undefined) {
@@ -75,7 +90,11 @@ const TeaNewModalAdjustRulePane = (props) => {
         })
         
         setTeaUnitList(prev => {
-            return teaUnitListTmp;
+            if (isTeaUnitListEqual(prev, teaUnitListTmp)) {
+                return prev;
+            } else {
+                return teaUnitListTmp;
+            }
         });
     }
     useEffect(() => {
@@ -88,11 +107,13 @@ const TeaNewModalAdjustRulePane = (props) => {
         setTeaUnitList(prev => {
             let tmp = [];
             teaUnitList.forEach(teaUnit => {
+                console.log('$$$$$ TeaNewModalAdjustRulePane#onClickTeaUnit teaUnit=', teaUnit);
                 if (teaUnit.teaUnitCode == teaUnitCode) {
                     teaUnit.backgroundColor = '#145CFE';
                     teaUnit.textColor = 'white';
                     teaUnit.selected = 1;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
+                    console.log('$$$$$ TeaNewModalAdjustRulePane#onClickTeaUnit teaUnit.toppingAdjustRuleList=', teaUnit.toppingAdjustRuleList);
                     setCurToppingAdjustRuleList(prev => {
                         return teaUnit.toppingAdjustRuleList;
                     })
@@ -116,19 +137,21 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: '步骤',
             dataIndex: 'stepIndex',
             key: 'stepIndex',
-            width: '10%'
         },
         {
             title: '物料名称',
             dataIndex: 'toppingName',
             key: 'toppingName',
-            width: '25%'
+        },
+        {
+            title: '测试',
+            dataIndex: 'adjustMode',
+            key: 'adjustMode',
         },
         {
             title: '修改',
             dataIndex: 'adjustMode',
             key: 'adjustMode',
-            width: '15%',
             render: (_, { adjustMode, toppingCode }) => (
                 <Select
                     size="small"
@@ -176,7 +199,6 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: '数值',
             dataIndex: 'adjustAmount',
             key: 'adjustAmount',
-            width: '20%',
             render: (_, { adjustAmount, toppingCode }) => (
                 <InputNumber min={1} max={10000} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" value={adjustAmount}/>
             ),
@@ -185,7 +207,6 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: '实际用量',
             dataIndex: 'actualAmount',
             key: 'actualAmount',
-            width: '15%',
             render: (_, { actualAmount }) => (
                 <span>{actualAmount}</span>
             ),

@@ -8,6 +8,11 @@ import { isBlankObj, isBlankStr, genGetUrlByParams } from '../js/common.js';
 const { TextArea } = Input;
 
 const TeaNewModalInfoPane = (props) => {
+    // console.log('$$$$$ TeaNewModalInfoPane#entering props.teaCode4Edit=' + props.teaCode4Edit);
+    // console.log('$$$$$ TeaNewModalInfoPane#entering props.teaName4Edit=' + props.teaName4Edit);
+    // console.log('$$$$$ TeaNewModalInfoPane#entering props.outerTeaCode4Edit=' + props.outerTeaCode4Edit);
+    // console.log('$$$$$ TeaNewModalInfoPane#entering props.teaTypeCode4Edit=' + props.teaTypeCode4Edit);
+
     // 状态变量初始化相关
     const [teaCode, setTeaCode] = useState(isBlankStr(props.teaCode4Edit) ? '' : props.teaCode4Edit);
     const [teaName, setTeaName] = useState(isBlankStr(props.teaName4Edit) ? '' : props.teaName4Edit);

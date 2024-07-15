@@ -92,6 +92,7 @@ const TeaNewModalSpecPane = (props) => {
                 if (specRule.specCode == specCode) {
                     specRule.specItemRuleList.forEach(specItemRule => {
                         if (specItemRule.specItemCode == selectedSpecItemCode) {
+                            console.log("$$$$$ selectedSpecItemCode=" + selectedSpecItemCode + ", specItemRule.selected="+ specItemRule.selected)
                             specItemRule.selected = (specItemRule.selected == 1 ? 0 : 1);
                         }
                     })

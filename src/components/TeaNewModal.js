@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Steps, message, theme } from 'antd';
+import { Button, Modal, Steps, theme } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, isBlankObj } from '../js/common.js';
 
 import TeaNewModalInfoPane from '../components/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../components/TeaNewModalActStepPane'
@@ -107,13 +107,16 @@ const TeaNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/topping/type/{segment}/{segment}/get', ['tenant_001', props.teaCode4Edit]);
+        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/get', ['tenant_001', props.teaCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setTea(response.data.model);
+                let teaTmp = {...response.data.model};
+                setTea(prev => {
+                    return teaTmp;
+                });
             }
         })
         .catch(error => {
@@ -125,6 +128,9 @@ const TeaNewModal = (props) => {
             }
         });
     }, [props.teaCode4Edit]);
+    // useEffect(() => {
+    //     console.log('$$$$$ TeaNewModal#useEffect4Tea tea=', tea);
+    // }, [tea]);
 
     // hook 相关
     const updateInfo = (teaCode, teaName, outerTeaCode, teaTypeCode, state, comment) => {
@@ -150,11 +156,11 @@ const TeaNewModal = (props) => {
         setTea(prev => {
             let tmp = {...prev};
             tmp.specRuleList = specRuleList;
+            // delete tmp.teaUnitList;
             return tmp;
         });
     };
     const updateTeaUnitList = (teaUnitList) => {
-        console.log('$$$$$ TeaNewModal#updateTeaUnitList teaUnitList=', teaUnitList);
         setTea(prev => {
             let tmp = {...prev};
             tmp.teaUnitList = teaUnitList;
@@ -188,7 +194,7 @@ const TeaNewModal = (props) => {
                         <TeaNewModalSpecPane specRuleList4Edit={tea.specRuleList} updateSpecRuleList={updateSpecRuleList} />
                     )}
                     {curStep == 4 && (
-                        <TeaNewModalAdjustRulePane specRuleList4Edit={tea.specRuleList} actStepList4Edit={tea.actStepList} updateTeaUnitList={updateTeaUnitList} />
+                        <TeaNewModalAdjustRulePane specRuleList4Edit={tea.specRuleList} actStepList4Edit={tea.actStepList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>
