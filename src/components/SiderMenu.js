@@ -45,8 +45,8 @@ const SiderMenu = (props) => {
 			getItem('物料精度模板管理', '17'),
         ]),
         getItem('菜单', 'menuSet', <FileDoneOutlined />, [
-            getItem('菜单管理', '18'),
-            getItem('系列管理', '19'),
+            getItem('系列管理', '18'),
+            getItem('菜单管理', '19'),
             getItem('菜单下发管理', '20'),
         ]),
         getItem('食安规则', 'ruleSet', <MonitorOutlined />, [
