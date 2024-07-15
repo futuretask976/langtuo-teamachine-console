@@ -42,12 +42,12 @@ const SiderMenu = (props) => {
 			getItem('规格管理', '14'),
 			getItem('茶品类型管理', '15'),
 			getItem('茶品管理', '16'),
-			getItem('茶品下发管理', '17'),
-			getItem('物料精度模板管理', '18'),
+			getItem('物料精度模板管理', '17'),
         ]),
         getItem('菜单', 'menuSet', <FileDoneOutlined />, [
-            getItem('菜单管理', '19'),
-            getItem('系列管理', '20'),
+            getItem('菜单管理', '18'),
+            getItem('系列管理', '19'),
+            getItem('菜单下发管理', '20'),
         ]),
         getItem('食安规则', 'ruleSet', <MonitorOutlined />, [
             getItem('营业准备管理', '21'),
