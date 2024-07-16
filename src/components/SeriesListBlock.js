@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs } from '../js/common.js';
 
-const ToppingListBlock = (props) => {
+const SeriesListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -17,10 +17,10 @@ const ToppingListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/drinkset/topping/search', {
+        let url = genGetUrlByParams('/menuset/series/search', {
             tenantCode: 'tenant_001',
-            toppingCode: props.toppingCode4Search,
-            toppingName: props.toppingName4Search,
+            seriesCode: props.seriesCode4Search,
+            seriesName: props.seriesName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
@@ -54,71 +54,44 @@ const ToppingListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.toppingCode4Search, props.toppingName4Search, pageNum]);
+    }, [props.seriesCode4Search, props.seriesName4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [
         {
-            title: '物料编码',
-            dataIndex: 'toppingCode',
-            key: 'toppingCode',
-            width: '20%',
+            title: '系列编码',
+            dataIndex: 'seriesCode',
+            key: 'seriesCode',
+            width: '25%',
             render: (text) => <a>{text}</a>
         },
         {
-            title: '物料名称',
-            dataIndex: 'toppingName',
-            key: 'toppingName',
-            width: '20%'
+            title: '系列名称',
+            dataIndex: 'seriesName',
+            key: 'seriesName',
+            width: '25%'
         },
         {
-            title: '物料单位',
-            dataIndex: 'measureUnit',
-            key: 'measureUnit',
-            width: '10%',
-            render: (measureUnit) => measureUnit == 0 ? '克' : '毫升'
-        },
-        {
-            title: '转速（档）',
-            dataIndex: 'flowSpeed',
-            key: 'flowSpeed',
-            width: '10%',
-            render: (flowSpeed) => flowSpeed
-        },
-        {
-            title: '保质期',
-            dataIndex: 'validHourPeriod',
-            key: 'validHourPeriod',
-            width: '10%'
-        },
-        {
-            title: '清洗周期',
-            dataIndex: 'cleanHourPeriod',
-            key: 'cleanHourPeriod',
-            width: '10%'
-        },
-        {
-            title: '物料状态',
-            dataIndex: 'state',
-            key: 'state',
-            width: '10%',
-            render: (state) => state == 1 ? '启用' : '禁用'
+            title: '创建时间',
+            dataIndex: 'gmtCreated',
+            key: 'gmtCreated',
+            width: '25%'
         },
         {
             title: '操作',
             key: 'actions',
-            width: '10%',
-            render: (_, { toppingCode, actions }) => (
+            width: '25%',
+            render: (_, { seriesCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>编辑</a>
+                            <a id={action + '_' + seriesCode} onClick={(e) => onClickEdit(e, seriesCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>删除</a>
+                            <a id={action + '_' + seriesCode} onClick={(e) => onClickDelete(e, seriesCode)}>删除</a>
                         );
                     }
                 })}
@@ -131,11 +104,11 @@ const ToppingListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onClickEdit = (e, toppingCode) => {
-        props.onClickEdit(toppingCode);
+    const onClickEdit = (e, seriesCode) => {
+        props.onClickEdit(seriesCode);
     }
-    const onClickDelete = (e, toppingCode) => {
-        let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/delete', ['tenant_001', toppingCode]);
+    const onClickDelete = (e, seriesCode) => {
+        let url = genGetUrlBySegs('/menuset/series/{segment}/{segment}/delete', ['tenant_001', seriesCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -170,5 +143,5 @@ const ToppingListBlock = (props) => {
     )
 };
 
-export default ToppingListBlock;
+export default SeriesListBlock;
 

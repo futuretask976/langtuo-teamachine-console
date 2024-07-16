@@ -17,6 +17,7 @@ import SpecPage from './pages/SpecPage';
 import TeaTypePage from './pages/TeaTypePage';
 import TeaPage from './pages/TeaPage';
 import ToppingAccuracyTemplatePage from './pages/ToppingAccuracyTemplatePage';
+import SeriesPage from './pages/SeriesPage';
 import CleanRulePage from './pages/CleanRulePage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
@@ -137,6 +138,10 @@ const Routes = () => {
                 {
                     path: "/drinkset/topping/accuracy/template",
                     element: <ToppingAccuracyTemplatePage />,
+                },
+                {
+                    path: "/menuset/series",
+                    element: <SeriesPage />,
                 },
                 {
                     path: "/ruleset/clean",
