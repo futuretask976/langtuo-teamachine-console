@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Radio, Select, Space, Switch, Col, Row } from 'antd';
+import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
 import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray } from '../js/common.js';
-import { toBeEmpty } from '@testing-library/jest-dom/dist/matchers';
 
 const { TextArea } = Input;
 
@@ -183,7 +182,7 @@ const SeriesNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{height: 150, width: '100%'}}>
+            <div style={{height: 350, width: '100%'}}>
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -233,6 +232,23 @@ const SeriesNewModal = (props) => {
                                 style={{width: '100%'}}
                                 value={teaCodeList}
                             />
+                        </div>
+                    </Col>
+                </Row>
+                <Row style={{height: 20, width: '100%'}}>
+                    <Col className="gutter-row" span={24}>
+                        &nbsp;
+                    </Col>
+                </Row> 
+                <Row style={{width: '100%'}}>
+                    <Col className="gutter-row" span={4}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <span>备注：</span>
+                        </div>
+                    </Col>
+                    <Col className="gutter-row" span={20}>
+                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment}/>
                         </div>
                     </Col>
                 </Row>
