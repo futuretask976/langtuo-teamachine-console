@@ -86,12 +86,12 @@ const SeriesListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + seriesCode} onClick={(e) => onClickEdit(e, seriesCode)}>编辑</a>
+                            <a key={action + '_' + seriesCode} onClick={(e) => onClickEdit(e, seriesCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + seriesCode} onClick={(e) => onClickDelete(e, seriesCode)}>删除</a>
+                            <a key={action + '_' + seriesCode} onClick={(e) => onClickDelete(e, seriesCode)}>删除</a>
                         );
                     }
                 })}
