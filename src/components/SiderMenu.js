@@ -107,7 +107,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 16) {
             window.location.href="/console/drinkset/tea";
         } else if (e.key == 17) {
-            window.location.href="/admin/input";
+            window.location.href="/console/drinkset/topping/accuracy/template";
         } else if (e.key == 18) {
             window.location.href="/admin/input";
         } else if (e.key == 19) {
