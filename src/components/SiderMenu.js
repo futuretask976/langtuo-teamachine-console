@@ -111,7 +111,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 18) {
             window.location.href="/console/menuset/series";
         } else if (e.key == 19) {
-            window.location.href="/admin/input";
+            window.location.href="/console/menuset/menu";
         } else if (e.key == 20) {
             window.location.href="/admin/input";
         } else if (e.key == 21) {

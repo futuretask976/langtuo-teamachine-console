@@ -65,7 +65,7 @@ const MachineDeployNewModal = (props) => {
     const [elecBoardCode, setElecBoardCode] = useState('');
     const [state, setState] = useState(0);
     const [validUntil, setValidUntil] = useState('');
-    const [maintainUntil, setMaintainUntil] = useState('');
+    const [maintainUntil, setMaintainUntil] = useState(dateToYMDHMS(new Date()));
     useEffect(() => {
         if (isBlankStr(props.machineCode4Edit)) {
             return;
