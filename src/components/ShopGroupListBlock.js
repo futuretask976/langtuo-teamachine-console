@@ -17,7 +17,7 @@ const ShopGroupListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/shop/group/search', {
+        let url = genGetUrlByParams('/shopset/shop/group/search', {
             tenantCode: 'tenant_001',
             shopGroupName: props.shopGroupName4Search,
             pageNum: pageNum,
@@ -115,7 +115,7 @@ const ShopGroupListBlock = (props) => {
         props.onClickEdit(shopGroupCode);
     }
     const onClickDelete = (e, shopGroupCode) => {
-        let url = genGetUrlBySegs('/shop/group/{segment}/{segment}/delete', ['tenant_001', shopGroupCode]);
+        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/delete', ['tenant_001', shopGroupCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

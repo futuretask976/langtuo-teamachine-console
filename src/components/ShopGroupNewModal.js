@@ -13,7 +13,7 @@ const ShopGroupNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/shop/group/put');
+        let url = genPostUrl('/shopset/shop/group/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             shopGroupCode: shopGroupCode,
@@ -62,7 +62,7 @@ const ShopGroupNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/shop/group/{segment}/{segment}/get', ['tenant_001', props.shopGroupCode4Edit]);
+        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/get', ['tenant_001', props.shopGroupCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

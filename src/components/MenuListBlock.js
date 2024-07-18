@@ -36,7 +36,7 @@ const MenuListBlock = (props) => {
                     let tmp = [];
                     response.data.model.list.forEach(function(ite) {
                         ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
+                        ite.actions = ["edit", "delete", "dispatch"];
                         tmp.push(ite);
                     });
                     return tmp;
@@ -94,6 +94,11 @@ const MenuListBlock = (props) => {
                             <a key={action + '_' + menuCode} onClick={(e) => onClickDelete(e, menuCode)}>删除</a>
                         );
                     }
+                    if (action == 'dispatch') {
+                        return (
+                            <a key={action + '_' + menuCode} onClick={(e) => onClickDispatch(e, menuCode)}>分发</a>
+                        );
+                    }
                 })}
                 </Space>
             ),
@@ -106,6 +111,9 @@ const MenuListBlock = (props) => {
     }
     const onClickEdit = (e, menuCode) => {
         props.onClickEdit(menuCode);
+    }
+    const onClickDispatch = (e, menuCode) => {
+        props.onClickDispatch(menuCode);
     }
     const onClickDelete = (e, menuCode) => {
         let url = genGetUrlBySegs('/menuset/menu/{segment}/{segment}/delete', ['tenant_001', menuCode]);
