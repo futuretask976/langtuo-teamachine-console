@@ -59,6 +59,31 @@ const TeaNewModalInfoPane = (props) => {
     useEffect(() => {
         fetchTeaTypeList();
     }, []);
+    useEffect(() => {
+        console.log('$$$$$ useEffect4Tea props.tea=', props.tea4Edit)
+        if (isBlankObj(props.tea4Edit)) {
+            return;
+        }
+
+        if (!isBlankStr(props.tea4Edit.teaCode)) {
+            setTeaCode(props.tea4Edit.teaCode)
+        }
+        if (!isBlankStr(props.tea4Edit.teaName)) {
+            setTeaName(props.tea4Edit.teaName)
+        }
+        if (!isBlankStr(props.tea4Edit.outerTeaCode)) {
+            setOuterTeaCode(props.tea4Edit.outerTeaCode)
+        }
+        if (!isBlankStr(props.tea4Edit.teaTypeCode)) {
+            setTeaTypeCode(props.tea4Edit.teaTypeCode)
+        }
+        if (!isBlankStr(props.tea4Edit.state)) {
+            setState(props.tea4Edit.state)
+        }
+        if (!isBlankStr(props.tea4Edit.comment)) {
+            setComment(props.tea4Edit.comment)
+        }
+    }, [props.tea]);
 
     // 输入相关
     const onChangeTeaCode = (e) => {

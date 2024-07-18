@@ -73,6 +73,7 @@ const TeaNewModal = (props) => {
     };
 
     // 步骤相关
+    const [showStepPane, setShowStepPane] = useState(false);
     const [curStep, setCurStep] = useState(0);
     const onClickNextStep = () => {
         setCurStep(curStep + 1);
@@ -99,11 +100,12 @@ const TeaNewModal = (props) => {
     ];
 
     // 变量初始化相关
-    const [tea, setTea] = useState({});
+    const [tea, setTea] = useState();
 
     // 赋值初始化相关
     useEffect(() => {
         if (isBlankStr(props.teaCode4Edit)) {
+            setTea({});
             return;
         }
 
@@ -128,9 +130,11 @@ const TeaNewModal = (props) => {
             }
         });
     }, [props.teaCode4Edit]);
-    // useEffect(() => {
-    //     console.log('$$$$$ TeaNewModal#useEffect4Tea tea=', tea);
-    // }, [tea]);
+    useEffect(() => {
+        if (!isBlankObj(tea)) {
+            setShowStepPane(true);
+        }
+    }, [tea]);
 
     // hook 相关
     const updateInfo = (teaCode, teaName, outerTeaCode, teaTypeCode, state, comment) => {
@@ -181,19 +185,19 @@ const TeaNewModal = (props) => {
             <div className='flex-row-cont' style={{flexDirection: 'column', height: 450, width: '100%'}}>
                 <Steps current={curStep} items={steps} />
                 <div style={contentStyle}>
-                    {curStep == 0 && (
-                        <TeaNewModalInfoPane teaCode4Edit={tea.teaCode} teaName4Edit={tea.teaName} outerTeaCode4Edit={tea.outerTeaCode} teaTypeCode4Edit={tea.teaTypeCode} state4Edit={tea.state} comment4Edit={tea.comment} updateInfo={updateInfo} />
+                    {showStepPane && curStep == 0 && (
+                        <TeaNewModalInfoPane tea4Edit={tea} updateInfo={updateInfo} />
                     )}
-                    {curStep == 1 && (
+                    {showStepPane && curStep == 1 && (
                         <TeaNewModalActStepPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
-                    {curStep == 2 && (
+                    {showStepPane && curStep == 2 && (
                         <TeaNewModalBaseRulePane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
                     )}
-                    {curStep == 3 && (
+                    {showStepPane && curStep == 3 && (
                         <TeaNewModalSpecPane specRuleList4Edit={tea.specRuleList} updateSpecRuleList={updateSpecRuleList} />
                     )}
-                    {curStep == 4 && (
+                    {showStepPane && curStep == 4 && (
                         <TeaNewModalAdjustRulePane specRuleList4Edit={tea.specRuleList} actStepList4Edit={tea.actStepList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />
                     )}
                 </div>
