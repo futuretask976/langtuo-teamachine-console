@@ -98,8 +98,6 @@ const MenuDispatchModal = (props) => {
                     let tmp = [];
                     response.data.model.forEach(item => {
                         item.key = item.shopGroupCode;
-                        item.title = item.shopGroupName;
-                        item.description = item.shopGroupName;
                         tmp.push(item);
                     })
                     return tmp;
@@ -159,16 +157,16 @@ const MenuDispatchModal = (props) => {
                         <div className="flex-row-cont" style={{justifyContent: 'center', height: '100%'}}>
                             <Transfer
                                 dataSource={shopGroupList4Transfer}
-                                titles={['Source', 'Target']}
+                                titles={['待选择列表', '已选择列表']}
                                 targetKeys={targetKeys}
                                 selectedKeys={selectedKeys}
                                 onChange={handleChange}
                                 onSelectChange={handleSelectChange}
                                 onScroll={handleScroll}
-                                render={(item) => item.title}
+                                render={(item) => item.shopGroupName}
                                 oneWay
                                 style={{
-                                marginBottom: 16,
+                                    marginBottom: 16,
                                 }}
                                 listStyle={{
                                     width: 250,
