@@ -19,6 +19,11 @@ export const dateToYMDHMS = (date) => {
     );
 }
 
+export const genGetUrl = (path) => {
+    let url = TEAMACHINE_HOST_URL + path;
+    return url;
+}
+
 export const genGetUrlByParams = (path, params) => {
     let url = TEAMACHINE_HOST_URL + path;
     let paramStr = '';

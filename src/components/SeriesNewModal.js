@@ -5,7 +5,7 @@ import axios from 'axios';
 import OSS from 'ali-oss';
 
 import '../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray } from '../js/common.js';
+import { isBlankStr, genGetUrl, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray } from '../js/common.js';
 
 const { TextArea } = Input;
 
@@ -63,6 +63,7 @@ const SeriesNewModal = (props) => {
     const [imgLink, setImgLink] = useState('');
     const [comment, setComment] = useState('');
     const [teaCodeList, setTeaCodeList] = useState([]);
+    const [teaList4Select, setTeaList4Select] = useState([]);
     useEffect(() => {
         if (isBlankStr(props.seriesCode4Edit)) {
             return;
@@ -97,7 +98,6 @@ const SeriesNewModal = (props) => {
             }
         });
     }, [props.toppingTypeCode4Edit]);
-    const [teaList4Select, setTeaList4Select] = useState([]);
     useEffect(() => {
         let url = genGetUrlByParams('/drinkset/tea/list', {
             tenantCode: 'tenant_001'
@@ -176,14 +176,61 @@ const SeriesNewModal = (props) => {
     // const changeSrc = props.changeSrc;
     const [show, changeShow] = useState(false);
     const [fileList, setFileList] = useState([]);
- 
-    const ossClient = new OSS({
-        region: "oss-cn-hangzhou", //你的oss服务器所在区域
-        accessKeyId: "LTAI5tRoDh1tQPDtLTof7QZu",
-        accessKeySecret: "SdFJQodAC8Zi6ljLIYlJ9ChP5eRul9",
-        bucket: "miya-bucket2", // oss上你的bucket名称
-    });
-
+    const [accessKeyId, setAccessKeyId] = useState();
+    const [accessKeySecret, setAccessKeySecret] = useState();
+    const [securityToken, setSecurityToken] = useState();
+    const fetchOSSToken = () => {
+        axios.get(genGetUrl('/securityset/oss/token/get'), {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setAccessKeyId(response.data.model.accessKeyId);
+                setAccessKeySecret(response.data.model.accessKeySecret);
+                setSecurityToken(response.data.model.securityToken);
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }
+    useEffect(() => {
+        fetchOSSToken();
+    }, []);
+    useEffect(() => {
+        let url = genGetUrlByParams('/drinkset/tea/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setTeaList4Select(prev => {
+                    let tmp = [];
+                    response.data.model.forEach(item => {
+                        item.label = item.teaName;
+                        item.value = item.teaCode;
+                        tmp.push(item);
+                    })
+                    return tmp;
+                })
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }, []);
     const uploadPath = (path, file) => {
         return `${path}/${file.name.split(".")[0]}-${file.uid}.${
             file.type.split("/")[1]
@@ -194,6 +241,13 @@ const SeriesNewModal = (props) => {
         const { file, onSuccess, onProgress, onError } = option;
         const folder = "teamachine";
         const url = uploadPath(folder, file);
+        const ossClient = new OSS({
+            region: "oss-cn-hangzhou", //你的oss服务器所在区域
+            accessKeyId: accessKeyId,
+            accessKeySecret: accessKeySecret,
+            stsToken: securityToken,
+            bucket: "miya-bucket2", // oss上你的bucket名称
+        });
         let data = null;
         try {
             data = await ossClient.multipartUpload(url, file, {
@@ -225,7 +279,14 @@ const SeriesNewModal = (props) => {
     const getPresignedUrl = (objectName) => { 
         if (isBlankStr(objectName)) {
             return '';
-        }      
+        }
+        const ossClient = new OSS({
+            region: "oss-cn-hangzhou", //你的oss服务器所在区域
+            accessKeyId: accessKeyId,
+            accessKeySecret: accessKeySecret,
+            stsToken: securityToken,
+            bucket: "miya-bucket2", // oss上你的bucket名称
+        });
         try {
           // 生成预签名URL
           const url = ossClient.signatureUrl(objectName, {
