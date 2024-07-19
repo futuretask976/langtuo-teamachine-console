@@ -1,10 +1,4 @@
 export const TEAMACHINE_HOST_URL = 'http://localhost:8080/teamachine';
-export const OSS_CONFIG_BUCKET = 'miya-bucket2';
-export const OSS_CONFIG_REGION = 'oss-cn-hangzhou';
-export const OSS_CONFIG_TEA_FOLDER = 'teamachine/tea';
-export const OSS_CONFIG_SERIES_FOLDER = 'teamachine/series';
-export const OSS_CONFIG_MENU_FOLDER = 'teamachine/folder';
-
 
 export const dateToYMDHMS = (date) => {
     function pad(number) {
@@ -96,6 +90,27 @@ export const isNumber = (value) => {
     return /^-?\d+(\.\d+)?$/.test(value);
 };
 
+// 网路请求
+export const fetchOSSToken = () => {
+    axios.get(genGetUrl('/securityset/oss/token/get'), {
+        withCredentials: true // 这会让axios在请求中携带cookies
+    })
+    .then(response => {
+        if (response && response.data && response.data.success) {
+            setAccessKeyId(response.data.model.accessKeyId);
+            setAccessKeySecret(response.data.model.accessKeySecret);
+            setSecurityToken(response.data.model.securityToken);
+        }
+    })
+    .catch(error => {
+        // console.error('error: ', error);
+        // console.error('error.response: ', error.response);
+        // console.error('error.response.status: ', error.response.status);
+        if (error && error.response && error.response.status === 401) {
+            // window.location.href="/gxadmin/login";
+        }
+    });
+}
 
 
 
