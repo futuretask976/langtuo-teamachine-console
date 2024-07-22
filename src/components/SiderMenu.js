@@ -118,7 +118,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 22) {
             window.location.href="/admin/input";
         } else if (e.key == 23) {
-            window.location.href="/console/rule/clean";
+            window.location.href="/console/ruleset/clean";
         } else if (e.key == 24) {
             window.location.href="/admin/input";
         } else if (e.key == 25) {

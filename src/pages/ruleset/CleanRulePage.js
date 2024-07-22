@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table, Col, Row, message, theme } from 'antd';
+import React, { useState } from 'react';
+import { Button, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table, Col, Row, message, theme } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
-import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import FooterBar from '../../components/FooterBar'
+import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import CleanRuleListBlock from '../../components/ruleset/CleanRuleListBlock'
 import CleanRuleNewModal from '../../components/ruleset/CleanRuleNewModal'
+import CleanRuleDispatchModal from '../../components/ruleset/CleanRuleDispatchModal'
 
 const { Content } = Layout;
-const { TextArea } = Input;
 
 const CleanRulePage = (props) => {
+    // 导航菜单 + 面包屑相关
+    const openMenu = ['ruleSet'];
+    const selectedMenu = ['23'];
+    const breadcrumbPath = ['控制台', '食安规则', '清洗规则管理'];
+
+    // 页面样式相关
     const layoutStyle = {
         height: 1000,
         overflow: 'hidden',
@@ -23,21 +29,54 @@ const CleanRulePage = (props) => {
         border: '0px solid red',
     };
 
-    const [openNewRuleModal, setOpenNewRuleModal] = useState(false);
-
-    let openMenu = ['teaSub'];
-    let selectedMenu = ['16'];
-    let breadcrumbPath = ['控制台', '食安规则', '清洗规则管理'];
-    let newRuleModalTitle = '新建规则';
-
-    const onCreateRule = () => {
-        newRuleModalTitle = '新建规则';
-        setOpenNewRuleModal(true);
+    // 新建对话框相关
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const onOpenNewModal = () => {
+        setOpenNewModal(true);
     };
-
-    const onCloseNewRuleModal = () => {
-        setOpenNewRuleModal(false);
+    const onCloseNewModal = () => {
+        setOpenNewModal(false);
+        setCleanRuleCode4Edit('');
     }
+
+    // 分发对话框相关
+    const [openDispatchModal, setOpenDispatchModal] = useState(false);
+    const onOpenDispatchModal = () => {
+        setOpenNewModal(true);
+    };
+    const onCloseDispatchModal = () => {
+        setOpenDispatchModal(false);
+        setCleanRuleCode4Dispatch('');
+    }
+
+    // 搜索相关
+    var cleanRuleCode4SearchTmp = '';
+    const [cleanRuleCode4Search, setCleanRuleCode4Search] = useState('');
+    const onChangeCleanRuleCode4Search = (e) => {
+        cleanRuleCode4SearchTmp = e.target.value;
+    }
+    var cleanRuleName4SearchTmp = '';
+    const [cleanRuleName4Search, setCleanRuleName4Search] = useState('');
+    const onChangeCleanRuleName4Search = (e) => {
+        cleanRuleName4SearchTmp = e.target.value;
+    }
+    const onClickSearch = () => {
+        setCleanRuleCode4Search(cleanRuleCode4SearchTmp);
+        setCleanRuleName4Search(cleanRuleName4SearchTmp);
+    }
+
+    // 表格操作相关
+    const [cleanCleanRuleCode4Edit, setCleanRuleCode4Edit] = useState('');
+    const onClickEdit = (selectedCleanRuleCode)=> {
+        setCleanRuleCode4Edit(selectedCleanRuleCode);
+        setOpenNewModal(true);
+    }
+    const [cleanRuleCode4Dispatch, setCleanRuleCode4Dispatch] = useState('');
+    const onClickDispatch = (selectedCleanRuleCode)=> {
+        setCleanRuleCode4Dispatch(selectedCleanRuleCode);
+        setOpenDispatchModal(true);
+    }
+
 
     return (
         <>
@@ -52,61 +91,42 @@ const CleanRulePage = (props) => {
                                 <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{ justifyContent: 'flex-end', height: '100%'}}>
                                             <span>规则编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="规则编码" />
+                                        <div className="flex-row-cont">
+                                            <Input placeholder="规则编码" onChange="onChangeCleanRuleCode4Search"/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>规则名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Input placeholder="规则名称" />
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', height: '100%'}}>
-                                            <span>规则状态：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Select
-                                                style={{width: '100%'}}
-                                                options={[
-                                                    {
-                                                        label: '启用',
-                                                        value: 'enable'
-                                                    },
-                                                    {
-                                                        label: '禁用',
-                                                        value: 'disable'
-                                                    }
-                                                ]}
-                                            />
+                                        <div className="flex-row-cont">
+                                            <Input placeholder="规则名称" onChange="onChangeCleanRuleName4Search"/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />}>开始搜索</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont" style={{height: '100%'}}>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateRule}>新建规则</Button>&nbsp;&nbsp;
+                                        <div className="flex-row-cont" style={{height: '100%'}}>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建规则</Button>
                                         </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={6}>
+                                        &nbsp;
                                     </Col>
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <CleanRuleListBlock />
+                                <CleanRuleListBlock cleanRuleCode4Search={cleanRuleCode4Search} cleanRuleName4Search={cleanRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>
@@ -114,8 +134,12 @@ const CleanRulePage = (props) => {
                 </Layout>
             </Flex>
 
-            {openNewRuleModal && (
-                <CleanRuleNewModal modalTitle={newRuleModalTitle} onClose={onCloseNewRuleModal} />
+            {openNewModal && (
+                <CleanRuleNewModal modalTitle='新建规则' onClose={onCloseNewModal} />
+            )}
+
+            {openDispatchModal && (
+                <CleanRuleDispatchModal onClose={onCloseDispatchModal} cleanRuleCode4Dispatch={cleanRuleCode4Dispatch} />
             )}
         </>
     )
