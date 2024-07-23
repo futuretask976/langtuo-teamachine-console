@@ -5,7 +5,7 @@ import axios from 'axios';
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
 
 const CleanRuleNewModal = (props) => {
     // 对话框相关
@@ -21,6 +21,7 @@ const CleanRuleNewModal = (props) => {
             cleanRuleName: cleanRuleName,
             permitRemind: permitRemind,
             permitBatch: permitBatch,
+            exceptToppingCodeList: exceptToppingCodeList,
             cleanRuleStepList: cleanRuleStepList
         })
         .then(response => {
@@ -56,8 +57,44 @@ const CleanRuleNewModal = (props) => {
     const [cleanRuleName, setCleanRuleName] = useState('');
     const [permitRemind, setPermitRemind] = useState(0);
     const [permitBatch, setPermitBatch] = useState(0);
+    const [exceptToppingCodeList, setExceptToppingCodeList] = useState([]);
     const [cleanRuleStepList, setCleanRuleStepList] = useState(new Array(10));
+    const [toppingList4Select, setToppingList4Select] = useState([]);
+    const fetchToppingList4Select = () => {
+        let url = genGetUrlByParams('/drinkset/topping/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            if (response && response.data && response.data.success) {
+                setToppingList4Select((prev => {
+                    let toppingList4SelectTmp = [];
+                    response.data.model.forEach(item => {
+                        let toppingTmp = {...item};
+                        toppingTmp.key = item.toppingCode;
+                        toppingTmp.label = item.toppingName;
+                        toppingTmp.value = item.toppingCode;
+                        toppingList4SelectTmp.push(toppingTmp);
+                    })
+                    return toppingList4SelectTmp;
+                }));
+            }
+        })
+        .catch(error => {
+            // console.error('error: ', error);
+            // console.error('error.response: ', error.response);
+            // console.error('error.response.status: ', error.response.status);
+            if (error && error.response && error.response.status === 401) {
+                // window.location.href="/gxadmin/login";
+            }
+        });
+    }
     useEffect(() => {
+        fetchToppingList4Select();
+    }, []);
+    const fetchCleanRule = () => {
         if (isBlankStr(props.cleanRuleCode4Edit)) {
             return;
         }
@@ -72,6 +109,7 @@ const CleanRuleNewModal = (props) => {
                 setCleanRuleName(response.data.model.cleanRuleName);
                 setPermitRemind(response.data.model.permitRemind);
                 setPermitBatch(response.data.model.permitBatch);
+                setExceptToppingCodeList(response.data.model.exceptToppingCodeList);
                 if (isArray(response.data.model.cleanRuleStepList)) {
                     setCleanRuleStepList(prev => {
                         return response.data.model.cleanRuleStepList;
@@ -102,6 +140,9 @@ const CleanRuleNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
+    }
+    useEffect(() => {
+        fetchCleanRule();
     }, [props.cleanRuleCode4Edit]);
 
 
@@ -118,6 +159,9 @@ const CleanRuleNewModal = (props) => {
     const onChangePermitBatch = (e) => {
         setPermitBatch(e ? 1 : 0);
     };
+    const onChangeExceptToppingCode = (e) => {
+        setExceptToppingCodeList(e);
+    }
     const updateCleanRuleStep = (stepIndex, cleanRuleStep) => {
         setCleanRuleStepList(prev => {
             let tmp = [...prev];
@@ -226,7 +270,17 @@ const CleanRuleNewModal = (props) => {
                 </div>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>不清洗的物料：</div>
-                    <div style={{width: '85%'}}><Select style={{width: '100%'}} placeholder="请选择"/></div>
+                    <div style={{width: '85%'}}>
+                        <Select
+                            placeholder="请选择"
+                            mode="multiple"
+                            onChange={(e) => onChangeExceptToppingCode(e)}
+                            options={toppingList4Select}
+                            size="middle"
+                            style={{width: '100%'}}
+                            value={exceptToppingCodeList}
+                        />
+                    </div>
                 </div>
                 <div className="flex-row-cont" style={{height: '3%', width: '100%'}}>
                     &nbsp;
