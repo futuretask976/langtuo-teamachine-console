@@ -66,7 +66,7 @@ const CleanRulePage = (props) => {
     }
 
     // 表格操作相关
-    const [cleanCleanRuleCode4Edit, setCleanRuleCode4Edit] = useState('');
+    const [cleanRuleCode4Edit, setCleanRuleCode4Edit] = useState('');
     const onClickEdit = (selectedCleanRuleCode)=> {
         setCleanRuleCode4Edit(selectedCleanRuleCode);
         setOpenNewModal(true);
@@ -135,11 +135,11 @@ const CleanRulePage = (props) => {
             </Flex>
 
             {openNewModal && (
-                <CleanRuleNewModal modalTitle='新建规则' onClose={onCloseNewModal} />
+                <CleanRuleNewModal modalTitle='新建规则' cleanRuleCode4Edit={cleanRuleCode4Edit} onClose={onCloseNewModal}/>
             )}
 
             {openDispatchModal && (
-                <CleanRuleDispatchModal onClose={onCloseDispatchModal} cleanRuleCode4Dispatch={cleanRuleCode4Dispatch} />
+                <CleanRuleDispatchModal cleanRuleCode4Dispatch={cleanRuleCode4Dispatch} onClose={onCloseDispatchModal}/>
             )}
         </>
     )

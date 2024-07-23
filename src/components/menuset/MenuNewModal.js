@@ -100,7 +100,7 @@ const MenuNewModal = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }, [props.toppingTypeCode4Edit]);
+    }, [props.menuCode4Edit]);
     const [seriesList4Select, setSeriesList4Select] = useState([]);
     useEffect(() => {
         let url = genGetUrlByParams('/menuset/series/list', {
@@ -292,9 +292,7 @@ const MenuNewModal = (props) => {
             style={{border: '0px solid red'}}
             footer={[
                 <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
+                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>提交</Button>
             ]}
         >
             <div style={{height: 425, width: '100%'}}>
