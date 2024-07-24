@@ -19,6 +19,7 @@ import TeaPage from './pages/drinkset/TeaPage';
 import ToppingAccuracyTemplatePage from './pages/drinkset/ToppingAccuracyTemplatePage';
 import SeriesPage from './pages/menuset/SeriesPage';
 import MenuPage from './pages/menuset/MenuPage';
+import OpenRulePage from './pages/ruleset/OpenRulePage';
 import CleanRulePage from './pages/ruleset/CleanRulePage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
@@ -147,6 +148,10 @@ const Routes = () => {
                 {
                     path: "/menuset/menu",
                     element: <MenuPage />,
+                },
+                {
+                    path: "/ruleset/open",
+                    element: <OpenRulePage />,
                 },
                 {
                     path: "/ruleset/clean",
