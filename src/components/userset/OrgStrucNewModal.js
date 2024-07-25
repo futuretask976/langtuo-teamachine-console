@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Col, Row } from 'antd';
+import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
@@ -110,14 +110,6 @@ const OrgStrucNewModal = (props) => {
             }
         });
     }, []);
-
-    // 输入相关
-    const onChangeOrgName = (e) => {
-        setOrgName(e.target.value);
-    }
-    const onChangeParentOrgName = (value) => {
-        setParentOrgName(value);
-    }
  
     return (
         <Modal
@@ -136,40 +128,33 @@ const OrgStrucNewModal = (props) => {
             ]}
         >
             <div style={{height: 100, width: '100%'}}>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>组织名称：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={18}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="组织名称" value={orgName} onChange={onChangeOrgName} disabled={isBlankStr(props.orgName4Edit) ? false : true} style={{width: '90%'}} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 15, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row> 
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>父组织名称：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={18}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                <Space direction='vertical' size={20} style={{width: '100%'}}>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>组织名称：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <Input placeholder="组织名称" value={orgName} onChange={(e) => setOrgName(e.target.value)} disabled={isBlankStr(props.orgName4Edit) ? false : true}/>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>父组织名称：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
                             <Select
-                                style={{width: '90%'}}
+                                style={{width: '100%'}}
                                 value={parentOrgName}
-                                onChange={onChangeParentOrgName}
+                                onChange={(e) => setParentOrgName(e)}
                                 options={parentOrgNameOpts}
                             />
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
+                </Space>
             </div>
         </Modal>
     );

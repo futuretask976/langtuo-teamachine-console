@@ -185,7 +185,6 @@ const CleanRuleNewModal = (props) => {
         setStepIndex(newActiveKey);
     };
     const remove = (targetKey) => {
-        alert('$$$$$ remove targetKey=' + targetKey + ', stepIndex=' + stepIndex);
         if (targetKey == 0) {
             alert("请保留至少一个步骤");
             return;
