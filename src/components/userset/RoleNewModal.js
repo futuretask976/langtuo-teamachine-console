@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Input, Modal, Table, Col, Row } from 'antd';
+import { Button, Checkbox, Input, Modal, Space, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
@@ -57,6 +57,7 @@ const RoleNewModal = (props) => {
     const [roleName, setRoleName] = useState('');
     const [comment, setComment] = useState('');
     const [permitActCodeList, setPermitActCodeList] = useState([]);
+    const [permitActGroupList, setPermitActGroupList] = useState([]);
     useEffect(() => {
         if (isBlankStr(props.roleCode4Edit)) {
             return;
@@ -85,9 +86,8 @@ const RoleNewModal = (props) => {
             }
         });
     }, [props.roleCode4Edit]);
-    const [permitActGroupList, setPermitActGroupList] = useState([]);
     useEffect(() => {
-        let url = genPostUrl('/permitact/list');
+        let url = genPostUrl('/userset/permitact/list');
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -109,15 +109,6 @@ const RoleNewModal = (props) => {
     }, [props.roleCode4Edit]);
 
     // 输入相关
-    const onChangeRoleCode = (e) => {
-        setRoleCode(e.target.value);
-    }
-    const onChangeRoleName = (e) => {
-        setRoleName(e.target.value);
-    }
-    const onChangeComment = (e) => {
-        setComment(e.target.value);
-    }
     const onChangePermitAct = (permitActCode, e) => {
         setPermitActCodeList(prev => {
             let permitActCodeListTmp = [];
@@ -190,38 +181,34 @@ const RoleNewModal = (props) => {
             >
                 <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
                     <div className="flex-row-cont" style={{height: 60, width: '100%'}}>
-                        <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>角色编码：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={6}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="角色编码" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={onChangeRoleCode} style={{width: '90%'}}/>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>角色名称：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={6}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="角色名称" value={roleName} onChange={onChangeRoleName} style={{width: '90%'}} />
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>备注：</span>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={6}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="备注" value={comment} onChange={onChangeComment} style={{width: '90%'}} />
-                                </div>
-                            </Col>
-                        </Row>
+                        <Space direction='vertical' size={20} style={{width: '100%'}}>
+                            <Row style={{width: '100%'}}>
+                                <Col className="gutter-row" span={2}>
+                                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                        <span>角色编码：</span>
+                                    </div>
+                                </Col>
+                                <Col className="gutter-row" span={6}>
+                                    <Input placeholder="角色编码" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={(e) => setRoleCode(e.target.value)}/>
+                                </Col>
+                                <Col className="gutter-row" span={2}>
+                                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                        <span>角色名称：</span>
+                                    </div>
+                                </Col>
+                                <Col className="gutter-row" span={6}>
+                                    <Input placeholder="角色名称" value={roleName} onChange={(e) => setRoleName(e.target.value)}/>
+                                </Col>
+                                <Col className="gutter-row" span={2}>
+                                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                        <span>备注：</span>
+                                    </div>
+                                </Col>
+                                <Col className="gutter-row" span={6}>
+                                    <Input placeholder="备注" value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                </Col>
+                            </Row>
+                        </Space>
                     </div>
                     <div className="flex-row-cont" style={{height: 350, width: '100%'}}>
                         <Table columns={permitActTableCol} dataSource={permitActGroupList} pagination={false} size={'small'} style={{width: '100%'}} />
