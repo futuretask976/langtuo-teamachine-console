@@ -20,6 +20,7 @@ import ToppingAccuracyTemplatePage from './pages/drinkset/ToppingAccuracyTemplat
 import SeriesPage from './pages/menuset/SeriesPage';
 import MenuPage from './pages/menuset/MenuPage';
 import OpenRulePage from './pages/ruleset/OpenRulePage';
+import CloseRulePage from './pages/ruleset/CloseRulePage';
 import CleanRulePage from './pages/ruleset/CleanRulePage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
@@ -152,6 +153,10 @@ const Routes = () => {
                 {
                     path: "/ruleset/open",
                     element: <OpenRulePage />,
+                },
+                {
+                    path: "/ruleset/close",
+                    element: <CloseRulePage />,
                 },
                 {
                     path: "/ruleset/clean",
