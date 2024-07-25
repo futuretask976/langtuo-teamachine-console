@@ -147,21 +147,6 @@ const CleanRuleNewModal = (props) => {
 
 
     // 输入相关
-    const onChangeCleanRuleCode = (e) => {
-        setCleanRuleCode(e.target.value);
-    };
-    const onChangeCleanRuleName = (e) => {
-        setCleanRuleName(e.target.value);
-    };
-    const onChangePermitRemind = (e) => {
-        setPermitRemind(e ? 1 : 0);
-    };
-    const onChangePermitBatch = (e) => {
-        setPermitBatch(e ? 1 : 0);
-    };
-    const onChangeExceptToppingCode = (e) => {
-        setExceptToppingCodeList(e);
-    }
     const updateCleanRuleStep = (stepIndex, cleanRuleStep) => {
         setCleanRuleStepList(prev => {
             let tmp = [...prev];
@@ -185,9 +170,6 @@ const CleanRuleNewModal = (props) => {
         children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStepList[0]} stepIndex={0} updateCleanRuleStep={updateCleanRuleStep}/>,
         key: stepIndex
     }]);
-    const onChangeActivePane = (newActivekey) => {
-        setActiveKey(newActivekey);
-    };
     const add = () => {
         const newActiveKey = stepIndex + 1;
         setCleanRuleStepPaneList(prev => {
@@ -258,15 +240,23 @@ const CleanRuleNewModal = (props) => {
             <div className="flex-col-cont" style={{height: 450, width: '100%'}}>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>规则编号：</div>
-                    <div style={{width: '35%'}}><Input placeholder="规则编号" onChange={onChangeCleanRuleCode} value={cleanRuleCode} style={{width: '100%'}}/></div>
+                    <div style={{width: '35%'}}>
+                        <Input placeholder="规则编号" onChange={(e) => setCleanRuleCode(e.target.value)} value={cleanRuleCode} style={{width: '100%'}}/>
+                    </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>规则名称：</div>
-                    <div style={{width: '35%'}}><Input placeholder="规则名称" onChange={onChangeCleanRuleName} value={cleanRuleName}/></div>
+                    <div style={{width: '35%'}}>
+                        <Input placeholder="规则名称" onChange={(e) => setCleanRuleName(e.target.value)} value={cleanRuleName}/>
+                    </div>
                 </div>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>提前提醒：</div>
-                    <div style={{width: '35%'}}><Switch checkedChildren="支持" unCheckedChildren="不支持" checked={permitRemind === 1 ? true : false} size="middle" onChange={onChangePermitRemind}/></div>
+                    <div style={{width: '35%'}}>
+                        <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={permitRemind === 1 ? true : false} size="middle" onChange={(e) => setPermitRemind(e ? 1 : 0)}/>
+                    </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>分批清洗：</div>
-                    <div style={{width: '35%'}}><Switch checkedChildren="支持" unCheckedChildren="不支持" checked={permitBatch === 1 ? true : false} size="middle" onChange={onChangePermitBatch}/></div>
+                    <div style={{width: '35%'}}>
+                        <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={permitBatch === 1 ? true : false} size="middle" onChange={(e) => setPermitBatch(e ? 1 : 0)}/>
+                    </div>
                 </div>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>不清洗的物料：</div>
@@ -274,7 +264,7 @@ const CleanRuleNewModal = (props) => {
                         <Select
                             placeholder="请选择"
                             mode="multiple"
-                            onChange={(e) => onChangeExceptToppingCode(e)}
+                            onChange={(e) => setExceptToppingCodeList(e)}
                             options={toppingList4Select}
                             size="middle"
                             style={{width: '100%'}}
@@ -287,7 +277,7 @@ const CleanRuleNewModal = (props) => {
                 </div>
                 <div style={{height: '70%', width: '100%'}}>
                     <Tabs type="editable-card" 
-                        onChange={onChangeActivePane} 
+                        onChange={(e) => setActiveKey(e)} 
                         activeKey={activeKey} 
                         onEdit={onEditCleanStepList} 
                         items={cleanRuleStepPaneList} 

@@ -90,23 +90,6 @@ const OpenRuleNewModal = (props) => {
         });
     }, [props.openRuleCode4Edit]);
 
-    // 输入相关
-    const onChangeOpenRuleCode = (e) => {
-        setOpenRuleCode(e.target.value);
-    };
-    const onChangeOpenRuleName = (e) => {
-        setOpenRuleName(e.target.value);
-    };
-    const onChangeDefaultRule = (e) => {
-        setDefaultRule(e ? 1 : 0);
-    };
-    const onChangeFlushTime = (e) => {
-        setFlushTime(e);
-    };
-    const onChangeFlushWeight = (e) => {
-        setFlushWeight(e);
-    };
-
     // 物料规则相关
     const [toppingList4Select, setToppingList4Select] = useState([]);
     const [toppingCodeList4Selected, setToppingCodeList4Selected] = useState([]);
@@ -263,9 +246,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="规则编码" disabled={isBlankStr(props.openRuleCode4Edit) ? false : true} value={openRuleCode} onChange={onChangeOpenRuleCode} />
-                                </div>
+                                <Input placeholder="规则编码" disabled={isBlankStr(props.openRuleCode4Edit) ? false : true} value={openRuleCode} onChange={(e) => setOpenRuleCode(e.target.value)} />
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -273,9 +254,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="规则名称" value={openRuleName} onChange={onChangeOpenRuleName} />
-                                </div>
+                                <Input placeholder="规则名称" value={openRuleName} onChange={(e) => setOpenRuleName(e.target.value)} />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
@@ -285,9 +264,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={5}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={defaultRule === 1 ? true : false} onChange={onChangeDefaultRule} />
-                                </div>
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={defaultRule === 1 ? true : false} onChange={(e) => setDefaultRule(e ? 1 : 0)} />
                             </Col>
                             <Col className="gutter-row" span={16}>
                                 &nbsp;
@@ -300,17 +277,15 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Select
-                                        placeholder="请选择"
-                                        mode="multiple"
-                                        onChange={(e) => onChangeToppingCode(e)}
-                                        options={toppingList4Select}
-                                        size="middle"
-                                        style={{width: '100%'}}
-                                        value={toppingCodeList4Selected}
-                                    />
-                                </div>
+                                <Select
+                                    placeholder="请选择"
+                                    mode="multiple"
+                                    onChange={(e) => onChangeToppingCode(e)}
+                                    options={toppingList4Select}
+                                    size="middle"
+                                    style={{width: '100%'}}
+                                    value={toppingCodeList4Selected}
+                                />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
@@ -323,7 +298,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
-                                <InputNumber min={0} max={999} onChange={onChangeFlushTime} value={flushTime}/>
+                                <InputNumber min={0} max={999} onChange={(e) => setFlushTime(e)} value={flushTime}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -331,7 +306,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
-                                <InputNumber min={0} max={999} onChange={onChangeFlushWeight} value={flushWeight}/>
+                                <InputNumber min={0} max={999} onChange={(e) => setFlushWeight(e)} value={flushWeight}/>
                             </Col>
                             <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}>
@@ -344,16 +319,14 @@ const OpenRuleNewModal = (props) => {
                                 &nbsp;
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Table
-                                        columns={toppingRuleCols} 
-                                        dataSource={toppingRuleList}
-                                        pagination={false}
-                                        rowKey={record=>record.id}
-                                        scroll={{ y: 170 }}
-                                        size='small'
-                                        style={{width: '100%'}} />
-                                </div>
+                                <Table
+                                    columns={toppingRuleCols} 
+                                    dataSource={toppingRuleList}
+                                    pagination={false}
+                                    rowKey={record=>record.id}
+                                    scroll={{ y: 170 }}
+                                    size='small'
+                                    style={{width: '100%'}} />
                             </Col>
                         </Row>
                     </Space>
