@@ -11,10 +11,10 @@ const CleanRuleStepTabPane = (props) => {
     const [cleanRuleStep, setCleanRuleStep] = useState({
         stepIndex: props.stepIndex,
         cleanContent: 0, 
-        washTime: 0,
-        soakTime: 0,
-        soakWashInterval: 0,
-        soakWashTime: 0
+        washSec: 0,
+        soakMin: 0,
+        flushIntervalMin: 0,
+        flushSec: 0
     });
     useEffect(() => {
         setCleanRuleStep(props.cleanRuleStep);
@@ -41,37 +41,37 @@ const CleanRuleStepTabPane = (props) => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
         }
-        if (isBlankObj(cleanRuleStep.washTime)) {
+        if (isBlankObj(cleanRuleStep.washSec)) {
             return 0;
         }
-        return cleanRuleStep.washTime;
+        return cleanRuleStep.washSec;
     }
     const getSoakTime = () => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
         }
-        if (isBlankObj(cleanRuleStep.washTime)) {
+        if (isBlankObj(cleanRuleStep.washSec)) {
             return 0;
         }
-        return cleanRuleStep.washTime;
+        return cleanRuleStep.washSec;
     }
     const getSoakWashInterval = () => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
         }
-        if (isBlankObj(cleanRuleStep.soakWashInterval)) {
+        if (isBlankObj(cleanRuleStep.flushIntervalMin)) {
             return 0;
         }
-        return cleanRuleStep.soakWashInterval;
+        return cleanRuleStep.flushIntervalMin;
     }
     const getSoakWashTime = () => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
         }
-        if (isBlankObj(cleanRuleStep.soakWashTime)) {
+        if (isBlankObj(cleanRuleStep.flushSec)) {
             return 0;
         }
-        return cleanRuleStep.soakWashTime;
+        return cleanRuleStep.flushSec;
     }
     const getRemindTitle = () => {
         if (isBlankObj(cleanRuleStep)) {
@@ -103,28 +103,28 @@ const CleanRuleStepTabPane = (props) => {
     const onChangeWashTime = (e) => {
         setCleanRuleStep(prev => {
             let tmp = {...prev};
-            tmp.washTime = e;
+            tmp.washSec = e;
             return tmp;
         });
     };
     const onChangeSoakTime = (e) => {
         setCleanRuleStep(prev => {
             let tmp = {...prev};
-            tmp.washTime = e;
+            tmp.washSec = e;
             return tmp;
         });
     };
     const onChangeSoakWashInterval = (e) => {
         setCleanRuleStep(prev => {
             let tmp = {...prev};
-            tmp.soakWashInterval = e;
+            tmp.flushIntervalMin = e;
             return tmp;
         });
     };
     const onChangeSoakWashTime = (e) => {
         setCleanRuleStep(prev => {
             let tmp = {...prev};
-            tmp.soakWashTime = e;
+            tmp.flushSec = e;
             return tmp;
         });
     };
