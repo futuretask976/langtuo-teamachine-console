@@ -13,7 +13,7 @@ const TenantNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/tenant/put');
+        let url = genPostUrl('/userset/tenant/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: tenantCode,
@@ -67,7 +67,7 @@ const TenantNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/tenant/{segment}/get', [props.tenantCode4Edit]);
+        let url = genGetUrlBySegs('/userset/tenant/{segment}/get', [props.tenantCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
