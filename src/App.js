@@ -22,6 +22,7 @@ import MenuPage from './pages/menuset/MenuPage';
 import OpenRulePage from './pages/ruleset/OpenRulePage';
 import CloseRulePage from './pages/ruleset/CloseRulePage';
 import CleanRulePage from './pages/ruleset/CleanRulePage';
+import WarningRulePage from './pages/ruleset/WarningRulePage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
@@ -161,6 +162,10 @@ const Routes = () => {
                 {
                     path: "/ruleset/clean",
                     element: <CleanRulePage />,
+                },
+                {
+                    path: "/ruleset/warning",
+                    element: <WarningRulePage />,
                 },
                 {
                     path: "/login",
