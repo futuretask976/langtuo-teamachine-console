@@ -17,7 +17,7 @@ function LoginPage() {
         })
         .then(response => {
             let model = getRespModel(response);
-            localStorage.setItem('jwtToken', model.token);
+            localStorage.setItem('jwtToken', model.jwtToken);
             window.location.href='/console/index';
         })
         .catch(error => {
