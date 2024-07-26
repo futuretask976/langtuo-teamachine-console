@@ -1,55 +1,55 @@
-import React from 'react';
-import { Button, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import { Button, Image, Input, Space } from 'antd';
 import axios from 'axios';
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-    let postData = 'username=' + values.username + "&password=" + values.password;
-
-    axios.post('/gxsp3demo/login-processing', postData, {
-        withCredentials: true // 这会让axios在请求中携带cookies
-    })
-        .then(response => {
-            console.log('response: ', response);
-            console.log('response.data: ', response.data);
-            console.log('response.data.loginSuccess: ', response.data.loginSuccess);
-            if (response && response.data && response.data.loginSuccess === 'true') {
-                console.log('prepare to locate');
-                window.location.href='/gxadmin/index';
-            } else {
-                alert('登录有问题');
-            }
-        })
-        .catch(error => {
-            console.error('error: ', error);
-            alert('登录失败');
-        });
-};
-
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+import '../css/common.css';
+import { genGetUrl, getModelFromResp, handleErrorResp } from '../js/common.js';
+import logo60 from '../images/logo60.png'
 
 function LoginPage() {
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onClickLogin = () => {
+        let postData = 'username=' + userName + "&password=" + password;
+        axios.post(genGetUrl('/login-processing'), postData, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            let model = getModelFromResp(response);
+            localStorage.setItem('jwtToken', model.token);
+            alert("$$$$$ token=" + model.token);
+        })
+        .catch(error => {
+            handleErrorResp(error);
+        });
+    };
+
     return (
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: 600, width: '100%', border: '0px solid gray'}}>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'gray', height: 30, color: 'white', width: '30%', border: '1px solid gray'}}>
-                用户登录
+        <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: 600, width: '100%'}}>
+            <div className="flex-row-cont" style={{height: 60, width: '30%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
+                <Image className='flex-row-cont' src={logo60} />
             </div>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', height: 205, width: '30%', border: '1px solid gray'}}>
-                <Form name="loginForm" initialValues={{remember: true}} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
-                    <Form.Item label="用户名" style={{width: 300}} name="username" rules={[{required: true, message: '请输入你的用户名'}]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="密&nbsp;&nbsp;&nbsp;&nbsp;码" style={{width: 300}} name="password" rules={[{required: true, message: 'Please input your password!'}]}>
-                        <Input.Password />
-                    </Form.Item>
-                    <Form.Item style={{width: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <Button type="primary" htmlType="submit">
+            <div className="flex-col-cont" style={{height: 175, width: '30%', border: '1px solid #353535'}}>
+                <Space direction='vertical' size={20} style={{width: '90%'}}>
+                    <div className="flex-row-cont">
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>用户名：</span></div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
+                            <Input placeholder='用户名' onChange={(e) => setUserName(e.target.value)} style={{width: '100%'}}/>
+                        </div>
+                    </div>
+                    <div className="flex-row-cont">
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>密码：</span></div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
+                            <Input.Password placeholder='密码' onChange={(e) => setPassword(e.target.value)} style={{width: '100%'}}/>
+                        </div>
+                    </div>
+                    <div className="flex-row-cont">
+                        <Button type="primary" onClick={onClickLogin}>
                             登录
                         </Button>
-                    </Form.Item>
-                </Form>
+                    </div>
+                </Space>
             </div>
         </div>
     )

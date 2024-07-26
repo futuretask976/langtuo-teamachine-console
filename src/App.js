@@ -28,6 +28,7 @@ import WarningRulePage from './pages/ruleset/WarningRulePage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
+import ErrorPage from './pages/ErrorPage';
 
 const AuthContext = createContext();
 
@@ -176,6 +177,10 @@ const Routes = () => {
                 {
                     path: "/logout",
                     element: <LogoutPage />,
+                },
+                {
+                    path: "/error",
+                    element: <ErrorPage />,
                 }
             ]
         }

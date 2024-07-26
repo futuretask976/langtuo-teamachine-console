@@ -5,7 +5,7 @@ export const OSS_CONFIG_TEA_FOLDER = 'teamachine/tea';
 export const OSS_CONFIG_SERIES_FOLDER = 'teamachine/series';
 export const OSS_CONFIG_MENU_FOLDER = 'teamachine/folder';
 
-
+// 通用方法
 export const dateToYMDHMS = (date) => {
     function pad(number) {
       if (number < 10) {
@@ -97,6 +97,31 @@ export const isNumber = (value) => {
 };
 
 
+
+// http response 处理
+export const getModelFromResp = (resp) => {
+    if (isBlankObj(resp) || isBlankObj(resp.data.model) || isBlankObj(resp.data.model)) {
+        alert("网络请求出现异常！");
+        window.location.href='http://localhost:3000/console/error';
+    }
+    let model = resp.data.model;
+    return model;
+};
+
+export const handleErrorResp = (errorResp) => {
+    if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
+        alert("网络请求出现异常！");
+        window.location.href='http://localhost:3000/console/error';
+    }
+    let resp = errorResp.response;
+    if (resp.status == 401) {
+        alert("认证失败，用户名/密码错误！");
+        window.location.href='http://localhost:3000/console/login';
+    } else {
+        alert("出现未知错误！");
+        window.location.href='http://localhost:3000/console/error';
+    }
+};
 
 
 

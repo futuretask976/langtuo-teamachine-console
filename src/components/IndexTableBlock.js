@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Button, Image, Input, Modal, Space, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
-import portrait from '../images/portrait.jpg'
+import portrait from '../images/logo512.png'
 
 const { TextArea } = Input;
 
