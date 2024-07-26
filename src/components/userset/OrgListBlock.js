@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs } from '../../js/common.js';
 
-const OrgStrucListBlock = (props) => {
+const OrgListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -17,7 +17,7 @@ const OrgStrucListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/userset/orgstruc/search', {
+        let url = genGetUrlByParams('/userset/org/search', {
             tenantCode: 'tenant_001',
             orgName: props.orgName4Search,
             pageNum: pageNum,
@@ -107,7 +107,7 @@ const OrgStrucListBlock = (props) => {
         props.onClickEdit(orgName);
     }
     const onClickDelete = (e, orgName) => {
-        let url = genGetUrlBySegs('/userset/orgstruc/{segment}/{segment}/delete', ['tenant_001', orgName]);
+        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/delete', ['tenant_001', orgName]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -142,5 +142,5 @@ const OrgStrucListBlock = (props) => {
     )
 };
 
-export default OrgStrucListBlock;
+export default OrgListBlock;
 

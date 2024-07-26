@@ -5,9 +5,9 @@ import { ConfigProvider } from 'antd';
 
 
 import TenantPage from './pages/userset/TenantPage';
-import OrgStrucPage from './pages/userset/OrgStrucPage';
 import RolePage from './pages/userset/RolePage';
 import AdminPage from './pages/userset/AdminPage';
+import OrgPage from './pages/userset/OrgPage';
 import ShopGroupPage from './pages/shopset/ShopGroupPage';
 import ShopPage from './pages/shopset/ShopPage';
 import ModelPage from './pages/deviceset/ModelPage';
@@ -90,8 +90,8 @@ const Routes = () => {
                     element: <TenantPage />,
                 },
                 {
-                    path: "/userset/org/struc",
-                    element: <OrgStrucPage />,
+                    path: "/userset/org",
+                    element: <OrgPage />,
                 },
                 {
                     path: "/userset/role",

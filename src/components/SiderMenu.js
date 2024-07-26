@@ -20,7 +20,7 @@ const SiderMenu = (props) => {
         getItem('概况', 'indexMgt', <PieChartOutlined />),
         getItem('用户', 'userSet', <TeamOutlined />, [
             getItem('商户管理', 'tenantMgt'),
-            getItem('组织架构管理', 'orgStrucMgt'),
+            getItem('组织架构管理', 'orgMgt'),
             getItem('角色管理', 'roleMgt'),
 			getItem('管理员管理', 'adminMgt'),
         ]),
@@ -75,8 +75,8 @@ const SiderMenu = (props) => {
             window.location.href="/console/index";
         } else if (e.key == 'tenantMgt') {
             window.location.href="/console/userset/tenant";
-        } else if (e.key == 'orgStrucMgt') {
-            window.location.href="/console/userset/org/struc";
+        } else if (e.key == 'orgMgt') {
+            window.location.href="/console/userset/org";
         } else if (e.key == 'roleMgt') {
             window.location.href="/console/userset/role";
         } else if (e.key == 'adminMgt') {
@@ -86,7 +86,7 @@ const SiderMenu = (props) => {
         } else if (e.key == 'shopMgt') {
             window.location.href="/console/shopset/shop";
         } else if (e.key == 'modelMgt') {
-            window.location.href="/console/metadataset/model";
+            window.location.href="/console/deviceset/model";
         } else if (e.key == 'deployMgt') {
             window.location.href="/console/deviceset/deploy";
         } else if (e.key == 'machineMgt') {

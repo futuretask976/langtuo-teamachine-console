@@ -5,13 +5,13 @@ import axios from 'axios';
 import '../../css/common.css';
 import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
 
-const OrgStrucNewModal = (props) => {
+const OrgNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/userset/orgstruc/put');
+        let url = genPostUrl('/userset/org/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: 'tenant_001',
@@ -57,7 +57,7 @@ const OrgStrucNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/orgstruc/{segment}/{segment}/get', ['tenant_001', props.orgName4Edit]);
+        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/get', ['tenant_001', props.orgName4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -80,7 +80,7 @@ const OrgStrucNewModal = (props) => {
     const [parentOrgName, setParentOrgName] = useState('总公司');
     const [parentOrgNameOpts, setParentOrgNameOpts] = useState([]);
     useEffect(() => {
-        let url = genGetUrlByParams('/userset/orgstruc/list', {
+        let url = genGetUrlByParams('/userset/org/list', {
             tenantCode: 'tenant_001'
         });
         axios.get(url, {
@@ -160,4 +160,4 @@ const OrgStrucNewModal = (props) => {
     );
 };
  
-export default OrgStrucNewModal;
+export default OrgNewModal;

@@ -8,13 +8,13 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import OrgStrucListBlock from '../../components/userset/OrgStrucListBlock'
-import OrgStrucViewModal from '../../components/userset/OrgStrucViewModal'
-import OrgStrucNewModal from '../../components/userset/OrgStrucNewModal'
+import OrgListBlock from '../../components/userset/OrgListBlock'
+import OrgViewModal from '../../components/userset/OrgViewModal'
+import OrgNewModal from '../../components/userset/OrgNewModal'
 
 const { Content } = Layout;
 
-const OrgStrucPage = () => {
+const OrgPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['userSet'];
     const selectedMenu = ['4'];
@@ -106,7 +106,7 @@ const OrgStrucPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <OrgStrucListBlock orgName4Search={orgName4Search} onClickEdit={onClickEdit} />
+                                <OrgListBlock orgName4Search={orgName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -115,14 +115,14 @@ const OrgStrucPage = () => {
             </Flex>
 
             {openNewModal && (
-                <OrgStrucNewModal orgName4Edit={orgName4Edit} onClose={onCloseNewModal} />
+                <OrgNewModal orgName4Edit={orgName4Edit} onClose={onCloseNewModal} />
             )}
 
             {openViewModal && (
-                <OrgStrucViewModal onClose={onCloseViewModal} />
+                <OrgViewModal onClose={onCloseViewModal} />
             )}
         </>
     )
 };
 
-export default OrgStrucPage;
+export default OrgPage;

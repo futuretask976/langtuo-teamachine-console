@@ -7,7 +7,7 @@ import { genGetUrlByParams } from '../../js/common.js';
 
 import EditableTree from '../../components/EditableTree'
 
-const OrgStrucViewModal = (props) => {
+const OrgViewModal = (props) => {
     // 对话框相关
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -24,7 +24,7 @@ const OrgStrucViewModal = (props) => {
     // 数据初始化相关
     const [orgStrucTree, setOrgStrucTree] = useState([]);
     useEffect(() => {
-        let url = genGetUrlByParams('/userset/orgstruc/listbydepth', {
+        let url = genGetUrlByParams('/userset/org/listbydepth', {
             tenantCode: 'tenant_001'
         });
         axios.get(url, {
@@ -86,4 +86,4 @@ const OrgStrucViewModal = (props) => {
     );
 };
  
-export default OrgStrucViewModal;
+export default OrgViewModal;
