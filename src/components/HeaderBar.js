@@ -3,6 +3,7 @@ import { Dropdown, Layout, Image, Space } from 'antd';
 import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
+import { genGetUrl, getRespModel, handleErrorResp } from '../js/common.js';
 import logo60 from '../images/logo60.png'
 
 
@@ -11,28 +12,20 @@ const deleteCookie = (name) => {
 }
 
 const doLogout = () => {
-    axios.get('/gxsp3demo/logout', {
+    axios.get(genGetUrl('/logout'), {
         withCredentials: true // 这会让axios在请求中携带cookies
     })
-        .then(response => {
-            // console.log('response: ', response);
-            // console.log('response.data: ', response.data);
-            // console.log('response.data.logoutSuccess: ', response.data.logoutSuccess);
-            if (response && response.data && response.data.logoutSuccess == 'true') {
-                console.log('prepare to locate');
-                // 清除本地存储的认证信息，如token等
-                localStorage.removeItem('JSESSIONID');
-                deleteCookie('JSESSIONID');
-                window.location.reload();
-                // history.go(0);
-            } else {
-                alert('注销有问题');
-            }
-        })
-        .catch(error => {
-            console.error('error: ', error);
-            alert('注销失败');
-        });
+    .then(response => {
+        let model = getRespModel(response);
+        // 清除本地存储的认证信息，如token等
+        localStorage.removeItem('jwtToken');
+        deleteCookie('JSESSIONID');
+        alert('登出成功，重定向到登录页面！');
+        window.location.href='/console/login';
+    })
+    .catch(error => {
+        handleErrorResp(error);
+    });
 }
 
 const HeaderBar = () => {

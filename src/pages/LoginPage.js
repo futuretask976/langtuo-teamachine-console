@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Image, Input, Space } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { genGetUrl, getModelFromResp, handleErrorResp } from '../js/common.js';
+import { genGetUrl, getRespModel, handleErrorResp } from '../js/common.js';
 import logo60 from '../images/logo60.png'
 
 function LoginPage() {
@@ -16,14 +16,18 @@ function LoginPage() {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            let model = getModelFromResp(response);
+            let model = getRespModel(response);
             localStorage.setItem('jwtToken', model.token);
-            alert("$$$$$ token=" + model.token);
+            window.location.href='/console/index';
         })
         .catch(error => {
             handleErrorResp(error);
         });
     };
+
+    useEffect(() => {
+        alert('$$$$$ jwtToken=' + localStorage.getItem('jwtToken'));
+    }, []);
 
     return (
         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: 600, width: '100%'}}>
