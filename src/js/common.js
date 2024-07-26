@@ -115,7 +115,7 @@ export const handleErrorResp = (errorResp) => {
     }
     let resp = errorResp.response;
     if (resp.status == 401) {
-        alert("认证失败，用户名/密码错误！");
+        alert("认证失败，需要重新登录！");
         window.location.href='http://localhost:3000/console/login';
     } else {
         alert("出现未知错误！");
