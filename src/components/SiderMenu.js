@@ -101,7 +101,7 @@ const SiderMenu = (props) => {
             window.location.href="/console/drinkset/tea/type";
         } else if (e.key == 'teaMgt') {
             window.location.href="/console/drinkset/tea";
-        } else if (e.key == 'toppingAccuracyTpl') {
+        } else if (e.key == 'toppingAccuracyTplMgt') {
             window.location.href="/console/drinkset/topping/accuracy/template";
         } else if (e.key == 'seriesMgt') {
             window.location.href="/console/menuset/series";

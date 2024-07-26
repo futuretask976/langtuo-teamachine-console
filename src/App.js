@@ -238,6 +238,9 @@ function App() {
                     Menu: {
                         itemSelectedBg: '#D6D6D6',
                         subMenuItemBg: '#FFFFFF'
+                    },
+                    Select: {
+                        optionSelectedColor: '#FFFFFF'
                     }
                 }
             }}>
