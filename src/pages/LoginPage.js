@@ -3,7 +3,7 @@ import { Button, Image, Input, Space } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { genGetUrl, getRespModel, handleErrorResp } from '../js/common.js';
+import { genPostUrl, getRespModel, handleErrorResp } from '../js/common.js';
 import logo60 from '../images/logo60.png'
 
 function LoginPage() {
