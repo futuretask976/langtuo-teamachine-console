@@ -8,12 +8,12 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import MachineDeployListBlock from '../../components/deviceset/MachineDeployListBlock'
-import MachineDeployNewModal from '../../components/deviceset/MachineDeployNewModal'
+import DeployListBlock from '../../components/deviceset/DeployListBlock'
+import DeployNewModal from '../../components/deviceset/DeployNewModal'
 
 const { Content } = Layout;
 
-const MachineDeployPage = () => {
+const DeployPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['deviceSet'];
     const selectedMenu = ['9'];
@@ -128,7 +128,7 @@ const MachineDeployPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineDeployListBlock deployCode4Search={deployCode4Search} machineCode4Search={machineCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+                                <DeployListBlock deployCode4Search={deployCode4Search} machineCode4Search={machineCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -137,10 +137,10 @@ const MachineDeployPage = () => {
             </Flex>
 
             {openNewModal && (
-                <MachineDeployNewModal onClose={onCloseNewModal} deployCode4Edit={deployCode4Edit} />
+                <DeployNewModal onClose={onCloseNewModal} deployCode4Edit={deployCode4Edit} />
             )}
         </>
     )
 };
 
-export default MachineDeployPage;
+export default DeployPage;

@@ -62,8 +62,7 @@ const RoleListBlock = (props) => {
             title: '登录名称',
             dataIndex: 'loginName',
             key: 'loginName',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '角色',

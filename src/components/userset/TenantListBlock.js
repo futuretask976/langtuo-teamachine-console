@@ -61,15 +61,13 @@ const TenantListBlock = (props) => {
             title: '商户编码',
             dataIndex: 'tenantCode',
             key: 'tenantCode',
-            width: '15%',
-            render: (text) => <a>{text}</a>
+            width: '15%'
         },
         {
             title: '商户名称',
             dataIndex: 'tenantName',
             key: 'tenantName',
-            width: '15%',
-            render: (text) => <a>{text}</a>
+            width: '15%'
         },
         {
             title: '联系人名称',

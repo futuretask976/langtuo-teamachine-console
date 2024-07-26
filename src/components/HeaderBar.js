@@ -1,9 +1,9 @@
 import React from 'react';
-import { Layout, Image } from 'antd';
+import { Layout, Image, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-import logo from '../images/logo512.png'
+import logo from '../images/logo.png'
 
 
 const deleteCookie = (name) => {
@@ -43,8 +43,8 @@ const HeaderBar = () => {
         alignItems: 'center', 
         justifyContent: 'space-between',
         flexDirection: 'row',
-        backgroundColor: '#ffffff',
-        color: '#575757',
+        backgroundColor: '#353535',
+        color: '#FFFFFF',
         height: 50,
         paddingInline: 0,
         border: '0px solid green',
@@ -52,10 +52,11 @@ const HeaderBar = () => {
 
     return (
         <Header style={headerStyle}>
-            <div id='logoHeader' style={{display: 'flex', alignItems: 'center', justifyContent: 'left', width: '20%'}}>
-                <div style={{display: 'flex', alignItems: 'center'}}><Image height={40} style={{display: 'flex', alignItems: 'center'}}  src={logo} /></div>
-                <div>&nbsp;&nbsp;</div>
-                <div style={{display: 'flex', alignItems: 'center', fontSize: 22}}>管理控制台</div>
+            <div id='logoHeader' style={{display: 'flex', alignItems: 'center', justifyContent: 'left', width: '30%'}}>
+                <Space size={5}>
+                    <div style={{display: 'flex', alignItems: 'center'}}><Image height={60} style={{display: 'flex', alignItems: 'center'}}  src={logo} /></div>
+                    <div style={{display: 'flex', alignItems: 'center', fontSize: 20}}>管理控制台</div>
+                </Space>
             </div>
             <div id='loginHeader' style={{display: 'flex', alignItems: 'center', justifyContent: 'right', width: '20%'}}>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

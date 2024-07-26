@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Input, Modal, Switch, Col, Row } from 'antd';
+import { Button, DatePicker, Input, Modal, Space, Switch, Col, Row } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
@@ -132,100 +132,75 @@ const MachineDeployNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 410, width: '100%'}}>
-                <div style={{height: 410, width: '100%'}}>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 350, width: '100%'}}>
+                <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>机器编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="机器编码" value={machineCode} disabled={true} />
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>机器名称：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="机器名称" value={machineName} onChange={onChangeMachineName}/>
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>屏幕编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="机器编码" value={screenCode} onChange={onChangeScreenCode}/>
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>电控板编码：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="电控板编码" value={elecBoardCode} onChange={onChangeElecBoardCode}/>
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>状态：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>保修期：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <DatePicker
                                     format={{
@@ -238,18 +213,13 @@ const MachineDeployNewModal = (props) => {
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>有效期：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <DatePicker
                                     format={{
@@ -262,7 +232,7 @@ const MachineDeployNewModal = (props) => {
                             </div>
                         </Col>
                     </Row>
-                </div>
+                </Space>
             </div>
         </Modal>
     );

@@ -17,42 +17,40 @@ const SiderMenu = (props) => {
     const [collapsed, setCollapsed] = useState(false);
 
     const menuItems = [
-        getItem('概况', '1', <PieChartOutlined />),
-        getItem('设备元数据', 'metadataSet', <GatewayOutlined />, [
-            getItem('设备型号管理', '2'),
-        ]),
+        getItem('概况', 'indexMgt', <PieChartOutlined />),
         getItem('用户', 'userSet', <TeamOutlined />, [
-            getItem('商户管理', '3'),
-            getItem('组织架构管理', '4'),
-            getItem('角色管理', '5'),
-			getItem('管理员管理', '6'),
+            getItem('商户管理', 'tenantMgt'),
+            getItem('组织架构管理', 'orgStrucMgt'),
+            getItem('角色管理', 'roleMgt'),
+			getItem('管理员管理', 'adminMgt'),
         ]),
         getItem('店铺', 'shopSet', <BorderOuterOutlined />, [
-            getItem('店铺组管理', '7'),
-            getItem('店铺管理', '8'),
+            getItem('店铺组管理', 'shopGroupMgt'),
+            getItem('店铺管理', 'shopMgt'),
         ]),
         getItem('设备', 'deviceSet', <OneToOneOutlined />, [
-            getItem('预部署管理', '9'),
-            getItem('设备管理', '10'),
+            getItem('型号管理', 'modelMgt'),
+            getItem('预部署管理', 'deployMgt'),
+            getItem('设备管理', 'machineMgt'),
 			// getItem('设备详情管理', '11'),
         ]),
 		getItem('饮品生产', 'drinkSet', <ExperimentOutlined />, [
-            getItem('物料类型管理', '12'),
-            getItem('物料管理', '13'),
-			getItem('规格管理', '14'),
-			getItem('茶品类型管理', '15'),
-			getItem('茶品管理', '16'),
-			getItem('物料精度模板管理', '17'),
+            getItem('物料类型管理', 'toppingTypeMgt'),
+            getItem('物料管理', 'toppingMgt'),
+			getItem('规格管理', 'specMgt'),
+			getItem('茶品类型管理', 'teaTypeMgt'),
+			getItem('茶品管理', 'teaMgt'),
+			getItem('物料精度模板管理', 'toppingAccuracyTplMgt'),
         ]),
         getItem('菜单', 'menuSet', <FileDoneOutlined />, [
-            getItem('系列管理', '18'),
-            getItem('菜单管理', '19')
+            getItem('系列管理', 'seriesMgt'),
+            getItem('菜单管理', 'menuMgt')
         ]),
         getItem('食安规则', 'ruleSet', <MonitorOutlined />, [
-            getItem('营业准备管理', '21'),
-            getItem('打烊准备管理', '22'),
-			getItem('清洗规则管理', '23'),
-			getItem('预警规则管理', '24'),
+            getItem('营业准备管理', 'openRuleMgt'),
+            getItem('打烊准备管理', 'closeRuleMgt'),
+			getItem('清洗规则管理', 'cleanRuleMgt'),
+			getItem('预警规则管理', 'warningRuleMgt'),
         ]),
         getItem('日常报表', 'reportSet', <FileSearchOutlined />, [
             getItem('废料记录管理', '25'),
@@ -63,7 +61,7 @@ const SiderMenu = (props) => {
     ];
 
     const siderStyle = {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#FFFFFF',
         height: "100%",
         lineHeight: '240px',
         overflow: 'auto',
@@ -73,69 +71,57 @@ const SiderMenu = (props) => {
     };
 
     const onMenuItemClick = (e) => {
-        if (e.key == 1) {
+        if (e.key == 'indexMgt') {
             window.location.href="/console/index";
-        } else if (e.key == 2) {
-            window.location.href="/console/metadataset/model";
-        } else if (e.key == 3) {
+        } else if (e.key == 'tenantMgt') {
             window.location.href="/console/userset/tenant";
-        } else if (e.key == 4) {
+        } else if (e.key == 'orgStrucMgt') {
             window.location.href="/console/userset/org/struc";
-        } else if (e.key == 5) {
+        } else if (e.key == 'roleMgt') {
             window.location.href="/console/userset/role";
-        } else if (e.key == 6) {
+        } else if (e.key == 'adminMgt') {
             window.location.href="/console/userset/admin";
-        } else if (e.key == 7) {
+        } else if (e.key == 'shopGroupMgt') {
             window.location.href="/console/shopset/group";
-        } else if (e.key == 8) {
+        } else if (e.key == 'shopMgt') {
             window.location.href="/console/shopset/shop";
-        } else if (e.key == 9) {
+        } else if (e.key == 'modelMgt') {
+            window.location.href="/console/metadataset/model";
+        } else if (e.key == 'deployMgt') {
             window.location.href="/console/deviceset/deploy";
-        } else if (e.key == 10) {
+        } else if (e.key == 'machineMgt') {
             window.location.href="/console/deviceset/machine";
-        } else if (e.key == 11) {
-            window.location.href="/admin/input";
-        } else if (e.key == 12) {
+        } else if (e.key == 'toppingTypeMgt') {
             window.location.href="/console/drinkset/topping/type";
-        } else if (e.key == 13) {
+        } else if (e.key == 'toppingMgt') {
             window.location.href="/console/drinkset/topping";
-        } else if (e.key == 14) {
+        } else if (e.key == 'specMgt') {
             window.location.href="/console/drinkset/spec";
-        } else if (e.key == 15) {
+        } else if (e.key == 'teaTypeMgt') {
             window.location.href="/console/drinkset/tea/type";
-        } else if (e.key == 16) {
+        } else if (e.key == 'teaMgt') {
             window.location.href="/console/drinkset/tea";
-        } else if (e.key == 17) {
+        } else if (e.key == 'toppingAccuracyTpl') {
             window.location.href="/console/drinkset/topping/accuracy/template";
-        } else if (e.key == 18) {
+        } else if (e.key == 'seriesMgt') {
             window.location.href="/console/menuset/series";
-        } else if (e.key == 19) {
+        } else if (e.key == 'menuMgt') {
             window.location.href="/console/menuset/menu";
-        } else if (e.key == 20) {
-            window.location.href="/admin/input";
-        } else if (e.key == 21) {
+        } else if (e.key == 'openRuleMgt') {
             window.location.href="/console/ruleset/open";
-        } else if (e.key == 22) {
+        } else if (e.key == 'closeRuleMgt') {
             window.location.href="/console/ruleset/close";
-        } else if (e.key == 23) {
+        } else if (e.key == 'cleanRuleMgt') {
             window.location.href="/console/ruleset/clean";
-        } else if (e.key == 24) {
+        } else if (e.key == 'warningRuleMgt') {
             window.location.href="/console/ruleset/warning";
-        } else if (e.key == 25) {
-            window.location.href="/admin/input";
-        } else if (e.key == 26) {
-            window.location.href="/admin/input";
-        } else if (e.key == 27) {
-            window.location.href="/admin/input";
-        } else if (e.key == 28) {
-            window.location.href="/admin/input";
         }
     };
 
     return (
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle} width="200">
             {/* <div className="demo-logo-vertical" /> */}
-            <Menu theme="light" defaultOpenKeys={props.openMenu} defaultSelectedKeys={props.selectedMenu} mode="inline" items={menuItems} onClick={onMenuItemClick} />
+            <Menu theme="light" defaultOpenKeys={props.openMenu} defaultSelectedKeys={props.selectedMenu} mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
         </Sider>
     )
 };

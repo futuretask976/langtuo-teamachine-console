@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Switch, Col, Row } from 'antd';
+import { Button, Input, InputNumber, Modal, Space, Switch, Col, Row } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
 import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
 
-const MachineModelNewModal = (props) => {
+const ModelNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
@@ -161,7 +161,7 @@ const MachineModelNewModal = (props) => {
             title="新建型号"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={1000}
+            width={750}
             style={{border: '0px solid red'}}
             footer={[
                 <Button key="back" onClick={onClickCancel}>取消</Button>,
@@ -173,8 +173,8 @@ const MachineModelNewModal = (props) => {
             <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
                 <div className="flex-col-cont" style={{height: 45, width: '100%'}}>
                     <Row style={{height: 45, width: '100%'}}>
-                        <Col className="gutter-row" span={2}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>型号编码：</span>
                             </div>
                         </Col>
@@ -183,11 +183,8 @@ const MachineModelNewModal = (props) => {
                                 <Input placeholder="型号编码" value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={onChangeModelCode} />
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={2}>
-                            &nbsp;
-                        </Col>
-                        <Col className="gutter-row" span={2}>
-                            <div className="flex-row-cont" style={{height: '100%'}}>
+                        <Col className="gutter-row" span={3}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>同时出料：</span>
                             </div>
                         </Col>
@@ -196,25 +193,24 @@ const MachineModelNewModal = (props) => {
                                 <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={enableFlowAll === 1 ? true : false} onChange={onChangeEnableFlowAll} />
                             </div>
                         </Col>
+                        <Col className="gutter-row" span={10}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
+                                <Space size={15}>
+                                    <Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>添加管道</Button>
+                                    <Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>删除管道</Button>
+                                </Space>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={4}>
+                            &nbsp;
+                        </Col>
                     </Row>
                 </div>
                 <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 365, width: '100%', overflowY: 'scroll'}}>
-                    <Row style={{height: 45, width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 40}}>
-                                <span><Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>添加管道</Button></span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 40}}>
-                                <span><Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>删除管道</Button></span>
-                            </div>
-                        </Col>
-                    </Row>
                     {pipelineList.map((pipeline, index) => (
                         <Row id={index} style={{width: '100%'}}>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
                                     <span>管道号码：</span>
                                 </div>
                             </Col>
@@ -223,8 +219,8 @@ const MachineModelNewModal = (props) => {
                                     <InputNumber disabled="true" min={1} max={99} defaultValue={pipeline.pipelineNum} size="small" />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
                                     <span>支持冷藏：</span>
                                 </div>
                             </Col>
@@ -233,8 +229,8 @@ const MachineModelNewModal = (props) => {
                                 <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
                                     <span>支持加热：</span>
                                 </div>
                             </Col>
@@ -242,6 +238,9 @@ const MachineModelNewModal = (props) => {
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
                                 <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
                                 </div>
+                            </Col>
+                            <Col className="gutter-row" span={6}>
+                                &nbsp;
                             </Col>
                         </Row>
                     ))}
@@ -251,4 +250,4 @@ const MachineModelNewModal = (props) => {
     );
 };
  
-export default MachineModelNewModal;
+export default ModelNewModal;

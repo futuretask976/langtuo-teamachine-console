@@ -1,15 +1,17 @@
 import React from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
 
-import MachineModelPage from './pages/deviceset/MachineModelPage';
+
 import TenantPage from './pages/userset/TenantPage';
 import OrgStrucPage from './pages/userset/OrgStrucPage';
 import RolePage from './pages/userset/RolePage';
 import AdminPage from './pages/userset/AdminPage';
 import ShopGroupPage from './pages/shopset/ShopGroupPage';
 import ShopPage from './pages/shopset/ShopPage';
-import MachineDeployPage from './pages/deviceset/MachineDeployPage';
+import ModelPage from './pages/deviceset/ModelPage';
+import DeployPage from './pages/deviceset/DeployPage';
 import MachinePage from './pages/deviceset/MachinePage';
 import ToppingTypePage from './pages/drinkset/ToppingTypePage';
 import ToppingPage from './pages/drinkset/ToppingPage';
@@ -84,10 +86,6 @@ const Routes = () => {
                     element: <IndexPage />,
                 },
                 {
-                    path: "/metadataset/model",
-                    element: <MachineModelPage />,
-                },
-                {
                     path: "/userset/tenant",
                     element: <TenantPage />,
                 },
@@ -108,8 +106,12 @@ const Routes = () => {
                     element: <ShopGroupPage />,
                 },
                 {
+                    path: "/deviceset/model",
+                    element: <ModelPage />,
+                },
+                {
                     path: "/deviceset/deploy",
-                    element: <MachineDeployPage />,
+                    element: <DeployPage />,
                 },
                 {
                     path: "/deviceset/machine",
@@ -225,7 +227,22 @@ const AuthenticatedOnlyRoute = () => {
 function App() {
     return (
         <AuthProvider>
-            <Routes />
+            <ConfigProvider theme={{
+                token: {
+                    colorPrimary: '#353535'
+                },
+                components: {
+                    Button: {
+                        colorPrimary: '#353535'
+                    },
+                    Menu: {
+                        itemSelectedBg: '#D6D6D6',
+                        subMenuItemBg: '#FFFFFF'
+                    }
+                }
+            }}>
+                <Routes />
+            </ConfigProvider>
         </AuthProvider>
     );
 }

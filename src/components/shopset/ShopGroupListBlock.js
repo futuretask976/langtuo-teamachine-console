@@ -61,15 +61,13 @@ const ShopGroupListBlock = (props) => {
             title: '店铺组编码',
             dataIndex: 'shopGroupCode',
             key: 'shopGroupCode',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '店铺数量',

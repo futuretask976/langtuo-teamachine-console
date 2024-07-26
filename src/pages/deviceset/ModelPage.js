@@ -8,12 +8,12 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import MachineModelListBlock from '../../components/deviceset/MachineModelListBlock'
-import MachineModelNewModal from '../../components/deviceset/MachineModelNewModal'
+import ModelListBlock from '../../components/deviceset/ModelListBlock'
+import ModelNewModal from '../../components/deviceset/ModelNewModal'
 
 const { Content } = Layout;
 
-const MachineModelPage = () => {
+const ModelPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['metadataSet'];
     const selectedMenu = ['2'];
@@ -93,7 +93,7 @@ const MachineModelPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineModelListBlock modelCode4Search={modelCode4Search} onClickEdit={onClickEdit} />
+                                <ModelListBlock modelCode4Search={modelCode4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -102,10 +102,10 @@ const MachineModelPage = () => {
             </Flex>
 
             {openNewModal && (
-                <MachineModelNewModal onClose={onCloseNewModelModal} modelCode4Edit={modelCode4Edit} />
+                <ModelNewModal onClose={onCloseNewModelModal} modelCode4Edit={modelCode4Edit} />
             )}
         </>
     )
 };
 
-export default MachineModelPage;
+export default ModelPage;

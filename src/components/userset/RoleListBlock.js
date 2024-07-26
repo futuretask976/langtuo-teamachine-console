@@ -67,8 +67,7 @@ const RoleListBlock = (props) => {
             title: '角色名称',
             dataIndex: 'roleName',
             key: 'roleName',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '用户数',

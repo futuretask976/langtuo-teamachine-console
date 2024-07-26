@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr } from '../../js/common.js';
 
-const MachineDeployNewModal = (props) => {
+const DeployNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
@@ -282,4 +282,4 @@ const MachineDeployNewModal = (props) => {
     );
 };
  
-export default MachineDeployNewModal;
+export default DeployNewModal;

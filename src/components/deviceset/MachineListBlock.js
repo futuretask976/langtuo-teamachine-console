@@ -58,15 +58,13 @@ const MachineListBlock = (props) => {
             title: '机器编码',
             dataIndex: 'machineCode',
             key: 'machineCode',
-            width: '15%',
-            render: (text) => <a>{text}</a>,
+            width: '15%'
         },
         {
             title: '机器名称',
             dataIndex: 'machineName',
             key: 'machineName',
-            width: '15%',
-            render: (text) => <a>{text}</a>,
+            width: '15%'
         },
         {
             title: '屏幕编码',
