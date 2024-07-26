@@ -12,7 +12,7 @@ function LoginPage() {
 
     const onClickLogin = () => {
         let postData = 'username=' + userName + "&password=" + password;
-        axios.post(genGetUrl('/login-processing'), postData, {
+        axios.post(genPostUrl('/login-processing'), postData, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
