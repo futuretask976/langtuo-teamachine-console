@@ -16,7 +16,7 @@ const { Content } = Layout;
 const ShopPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['shopSet'];
-    const selectedMenu = ['8'];
+    const selectedMenu = ['shopMgt'];
     const breadcrumbPath = ['控制台', '店铺', '店铺管理'];
 
     // 页面样式相关

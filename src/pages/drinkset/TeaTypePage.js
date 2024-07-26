@@ -16,7 +16,7 @@ const { Content } = Layout;
 const TeaTypePage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
-    const selectedMenu = ['15'];
+    const selectedMenu = ['teaTypeMgt'];
     const breadcrumbPath = ['控制台', '饮品', '茶品类型管理'];
 
     // 页面样式相关

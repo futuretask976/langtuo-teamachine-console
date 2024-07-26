@@ -62,8 +62,7 @@ const WarningRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'warningRuleCode',
-            key: 'warningRuleCode',
-            render: (text) => <a>{text}</a>,
+            key: 'warningRuleCode'
         },
         {
             title: '规则名称',
@@ -74,6 +73,7 @@ const WarningRuleListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

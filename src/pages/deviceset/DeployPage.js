@@ -16,7 +16,7 @@ const { Content } = Layout;
 const DeployPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['deviceSet'];
-    const selectedMenu = ['9'];
+    const selectedMenu = ['deployMgt'];
     const breadcrumbPath = ['控制台', '设备', '预部署管理'];
 
     // 页面样式相关

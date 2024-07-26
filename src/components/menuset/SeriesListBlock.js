@@ -62,8 +62,7 @@ const SeriesListBlock = (props) => {
             title: '系列编码',
             dataIndex: 'seriesCode',
             key: 'seriesCode',
-            width: '25%',
-            render: (text) => <a>{text}</a>
+            width: '25%'
         },
         {
             title: '系列名称',
@@ -75,7 +74,8 @@ const SeriesListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
-            width: '25%'
+            width: '25%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

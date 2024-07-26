@@ -16,7 +16,7 @@ const { Content } = Layout;
 const SpecPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
-    const selectedMenu = ['14'];
+    const selectedMenu = ['specMgt'];
     const breadcrumbPath = ['控制台', '饮品', '规格管理'];
 
     // 页面样式相关

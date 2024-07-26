@@ -16,7 +16,7 @@ const { Content } = Layout;
 const ToppingPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
-    const selectedMenu = ['13'];
+    const selectedMenu = ['toppingMgt'];
     const breadcrumbPath = ['控制台', '饮品', '物料管理'];
 
     // 页面样式相关

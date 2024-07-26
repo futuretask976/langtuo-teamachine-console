@@ -62,8 +62,7 @@ const OpenRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'openRuleCode',
-            key: 'openRuleCode',
-            render: (text) => <a>{text}</a>,
+            key: 'openRuleCode'
         },
         {
             title: '规则名称',
@@ -80,6 +79,7 @@ const OpenRuleListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

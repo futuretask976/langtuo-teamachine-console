@@ -62,8 +62,7 @@ const MenuListBlock = (props) => {
             title: '菜单编码',
             dataIndex: 'menuCode',
             key: 'menuCode',
-            width: '25%',
-            render: (text) => <a>{text}</a>
+            width: '25%'
         },
         {
             title: '菜单名称',
@@ -75,7 +74,8 @@ const MenuListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
-            width: '25%'
+            width: '25%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

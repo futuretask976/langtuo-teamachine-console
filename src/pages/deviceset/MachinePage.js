@@ -17,7 +17,7 @@ const { Content } = Layout;
 const MachinePage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['deviceSet'];
-    const selectedMenu = ['10'];
+    const selectedMenu = ['machineMgt'];
     const breadcrumbPath = ['控制台', '设备', '机器管理'];
 
     // 页面样式相关

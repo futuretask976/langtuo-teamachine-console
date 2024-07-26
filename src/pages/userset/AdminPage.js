@@ -16,7 +16,7 @@ const { Content } = Layout;
 const AdminPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['userSet'];
-    const selectedMenu = ['6'];
+    const selectedMenu = ['adminMgt'];
     const breadcrumbPath = ['控制台', '用户', '管理员管理'];
 
     // 页面样式相关

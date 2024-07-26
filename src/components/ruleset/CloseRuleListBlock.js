@@ -62,8 +62,7 @@ const CloseRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'closeRuleCode',
-            key: 'closeRuleCode',
-            render: (text) => <a>{text}</a>,
+            key: 'closeRuleCode'
         },
         {
             title: '规则名称',
@@ -80,6 +79,7 @@ const CloseRuleListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

@@ -17,7 +17,7 @@ const { Content } = Layout;
 const CleanRulePage = (props) => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['ruleSet'];
-    const selectedMenu = ['23'];
+    const selectedMenu = ['cleanRuleMgt'];
     const breadcrumbPath = ['控制台', '食安规则', '清洗规则管理'];
 
     // 页面样式相关

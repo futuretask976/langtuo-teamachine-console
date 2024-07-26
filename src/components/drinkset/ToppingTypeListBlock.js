@@ -62,15 +62,13 @@ const ToppingTypeListBlock = (props) => {
             title: '物料类型编码',
             dataIndex: 'toppingTypeCode',
             key: 'toppingTypeCode',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '物料类型名称',
             dataIndex: 'toppingTypeName',
             key: 'toppingTypeName',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '物料数量',

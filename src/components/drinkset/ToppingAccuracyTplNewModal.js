@@ -7,7 +7,7 @@ import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../.
 
 const { TextArea } = Input;
 
-const ToppingAccuracyTemplateNewModal = (props) => {
+const ToppingAccuracyTplNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
@@ -355,4 +355,4 @@ const ToppingAccuracyTemplateNewModal = (props) => {
     );
 };
  
-export default ToppingAccuracyTemplateNewModal;
+export default ToppingAccuracyTplNewModal;

@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, isBlankStr } from '../../js/common.js';
 
-const ToppingAccuracyTemplateListBlock = (props) => {
+const ToppingAccuracyTplListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -62,8 +62,7 @@ const ToppingAccuracyTemplateListBlock = (props) => {
             title: '模板编码',
             dataIndex: 'templateCode',
             key: 'templateCode',
-            width: '20%',
-            render: (text) => <a>{text}</a>
+            width: '20%'
         },
         {
             title: '模板名称',
@@ -82,7 +81,8 @@ const ToppingAccuracyTemplateListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
-            width: '40%'
+            width: '40%',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
@@ -150,5 +150,5 @@ const ToppingAccuracyTemplateListBlock = (props) => {
     )
 };
 
-export default ToppingAccuracyTemplateListBlock;
+export default ToppingAccuracyTplListBlock;
 

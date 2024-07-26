@@ -60,8 +60,7 @@ const CleanRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'cleanRuleCode',
-            key: 'cleanRuleCode',
-            render: (text) => <a>{text}</a>,
+            key: 'cleanRuleCode'
         },
         {
             title: '规则名称',
@@ -84,6 +83,7 @@ const CleanRuleListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',

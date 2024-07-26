@@ -8,15 +8,15 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import ToppingAccuracyTemplateListBlock from '../../components/drinkset/ToppingAccuracyTemplateListBlock'
-import ToppingAccuracyTemplateNewModal from '../../components/drinkset/ToppingAccuracyTemplateNewModal'
+import ToppingAccuracyTplListBlock from '../../components/drinkset/ToppingAccuracyTplListBlock'
+import ToppingAccuracyTplNewModal from '../../components/drinkset/ToppingAccuracyTplNewModal'
 
 const { Content } = Layout;
 
-const ToppingAccuracyTemplatePage = () => {
+const ToppingAccuracyTplPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
-    const selectedMenu = ['17'];
+    const selectedMenu = ['toppingAccuracyTplMgt'];
     const breadcrumbPath = ['控制台', '饮品', '规格管理'];
 
     // 页面样式相关
@@ -109,7 +109,7 @@ const ToppingAccuracyTemplatePage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ToppingAccuracyTemplateListBlock templateCode4Search={templateCode4Search} templateName4Search={templateName4Search} onClickEdit={onClickEdit} />
+                                <ToppingAccuracyTplListBlock templateCode4Search={templateCode4Search} templateName4Search={templateName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -118,10 +118,10 @@ const ToppingAccuracyTemplatePage = () => {
             </Flex>
 
             {openNewModal && (
-                <ToppingAccuracyTemplateNewModal onClose={onCloseNewModal} templateCode4Edit={templateCode4Edit} />
+                <ToppingAccuracyTplNewModal onClose={onCloseNewModal} templateCode4Edit={templateCode4Edit} />
             )}
         </>
     )
 };
 
-export default ToppingAccuracyTemplatePage;
+export default ToppingAccuracyTplPage;

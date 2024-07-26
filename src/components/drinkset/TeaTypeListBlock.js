@@ -62,15 +62,13 @@ const TeaTypeListBlock = (props) => {
             title: '类型编码',
             dataIndex: 'teaTypeCode',
             key: 'teaTypeCode',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '类型名称',
             dataIndex: 'teaTypeName',
             key: 'teaTypeName',
-            width: '20%',
-            render: (text) => <a>{text}</a>,
+            width: '20%'
         },
         {
             title: '状态',

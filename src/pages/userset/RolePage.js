@@ -16,7 +16,7 @@ const { Content } = Layout;
 const RolePage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['userSet'];
-    const selectedMenu = ['5'];
+    const selectedMenu = ['roleMgt'];
     const breadcrumbPath = ['控制台', '用户', '角色管理'];
 
     // 页面样式相关

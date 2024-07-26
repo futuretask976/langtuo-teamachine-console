@@ -16,7 +16,7 @@ const { Content } = Layout;
 const SeriesPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['menuSet'];
-    const selectedMenu = ['18'];
+    const selectedMenu = ['seriesMgt'];
     const breadcrumbPath = ['控制台', '菜单', '系列管理'];
 
     // 页面样式相关

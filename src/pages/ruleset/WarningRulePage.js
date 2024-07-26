@@ -16,7 +16,7 @@ const { Content } = Layout;
 const WarningRulePage = (props) => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['ruleSet'];
-    const selectedMenu = ['24'];
+    const selectedMenu = ['warningRuleMgt'];
     const breadcrumbPath = ['控制台', '食安规则', '预警规则管理'];
 
     // 页面样式相关

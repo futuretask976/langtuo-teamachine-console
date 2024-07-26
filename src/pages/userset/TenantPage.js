@@ -16,7 +16,7 @@ const { Content } = Layout;
 const TenantPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['userSet'];
-    const selectedMenu = ['3'];
+    const selectedMenu = ['tenantMgt'];
     const breadcrumbPath = ['控制台', '用户', '商户管理'];
 
     // 页面样式相关

@@ -15,8 +15,8 @@ const { Content } = Layout;
 
 const ModelPage = () => {
     // 导航菜单 + 面包屑相关
-    const openMenu = ['metadataSet'];
-    const selectedMenu = ['2'];
+    const openMenu = ['deviceSet'];
+    const selectedMenu = ['modelMgt'];
     const breadcrumbPath = ['控制台', '设备元数据', '设备型号管理'];
 
     // 页面样式相关

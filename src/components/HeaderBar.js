@@ -1,9 +1,9 @@
 import React from 'react';
-import { Layout, Image, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Dropdown, Layout, Image, Space } from 'antd';
+import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-import logo from '../images/logo.png'
+import logo60 from '../images/logo60.png'
 
 
 const deleteCookie = (name) => {
@@ -50,22 +50,38 @@ const HeaderBar = () => {
         border: '0px solid green',
     };
 
+    const items = [
+        {
+            key: 'logout',
+            label: (
+                <a onClick={doLogout}>
+                    登出
+                </a>
+            ),
+        }
+    ];
+
     return (
         <Header style={headerStyle}>
-            <div id='logoHeader' style={{display: 'flex', alignItems: 'center', justifyContent: 'left', width: '30%'}}>
-                <Space size={5}>
-                    <div style={{display: 'flex', alignItems: 'center'}}><Image height={60} style={{display: 'flex', alignItems: 'center'}}  src={logo} /></div>
-                    <div style={{display: 'flex', alignItems: 'center', fontSize: 20}}>管理控制台</div>
-                </Space>
+            <div className='flex-row-cont' style={{justifyContent: 'left', width: 300}}>
+                <div className='flex-row-cont'>
+                    <Image className='flex-row-cont' src={logo60} />
+                </div>
             </div>
-            <div id='loginHeader' style={{display: 'flex', alignItems: 'center', justifyContent: 'right', width: '20%'}}>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <UserOutlined style={{fontSize: '20px'}} />
-                </div>
-                <div>&nbsp;&nbsp;</div>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    登录用户：广夏（<a onClick={doLogout}>登出</a>）
-                </div>
+            <div className='flex-row-cont' style={{width: 175}}>
+                <Space size={5}>
+                    <div className='flex-row-cont'>
+                        <UserOutlined style={{fontSize: '20px'}} />
+                    </div>
+                    <div className='flex-row-cont'>
+                        <Dropdown menu={{items}}>
+                            <Space>
+                                登录用户：广夏
+                                <DownOutlined />
+                            </Space>
+                        </Dropdown>
+                    </div>
+                </Space>
             </div>
         </Header>
     )

@@ -62,8 +62,7 @@ const SpecListBlock = (props) => {
             title: '规格编码',
             dataIndex: 'specCode',
             key: 'specCode',
-            width: '20%',
-            render: (text) => <a>{text}</a>
+            width: '20%'
         },
         {
             title: '规格名称',

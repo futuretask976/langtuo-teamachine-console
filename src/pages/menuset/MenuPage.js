@@ -17,7 +17,7 @@ const { Content } = Layout;
 const MenuPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['menuSet'];
-    const selectedMenu = ['19'];
+    const selectedMenu = ['menuMgt'];
     const breadcrumbPath = ['控制台', '菜单', '菜单管理'];
 
     // 页面样式相关
