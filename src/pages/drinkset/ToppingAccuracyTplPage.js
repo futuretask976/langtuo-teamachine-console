@@ -39,16 +39,10 @@ const ToppingAccuracyTplPage = () => {
     }
 
     // 搜索相关
-    var templateCode4SearchTmp = '';
     const [templateCode4Search, setTemplateCode4Search] = useState('');
-    const onChangeTemplateCode4Search = (e) => {
-        templateCode4SearchTmp = e.target.value;
-    }
-    var templateName4SearchTmp = '';
     const [templateName4Search, setTemplateName4Search] = useState('');
-    const onChangeTemplateName4Search = (e) => {
-        templateName4SearchTmp = e.target.value;
-    }
+    var templateCode4SearchTmp = '';
+    var templateName4SearchTmp = '';
     const onClickSearch = () => {
         setTemplateCode4Search(templateCode4SearchTmp);
         setTemplateName4Search(templateName4SearchTmp);
@@ -80,7 +74,7 @@ const ToppingAccuracyTplPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="规格编码" onClick={onChangeTemplateCode4Search} style={{width: '95%'}}/>
+                                            <Input placeholder="规格编码" onChange={(e) => templateCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const ToppingAccuracyTplPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="规格名称" onClick={onChangeTemplateName4Search} style={{width: '95%'}}/>
+                                            <Input placeholder="规格名称" onChange={(e) => templateName4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

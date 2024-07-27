@@ -39,16 +39,10 @@ const OpenRulePage = (props) => {
     }
 
     // 搜索相关
-    var openRuleCode4SearchTmp = '';
     const [openRuleCode4Search, setOpenRuleCode4Search] = useState('');
-    const onChangeOpenRuleCode4Search = (e) => {
-        openRuleCode4SearchTmp = e.target.value;
-    }
-    var openRuleName4SearchTmp = '';
     const [openRuleName4Search, setOpenRuleName4Search] = useState('');
-    const onChangeOpenRuleName4Search = (e) => {
-        openRuleName4SearchTmp = e.target.value;
-    }
+    var openRuleCode4SearchTmp = '';
+    var openRuleName4SearchTmp = '';
     const onClickSearch = () => {
         setOpenRuleCode4Search(openRuleCode4SearchTmp);
         setOpenRuleName4Search(openRuleName4SearchTmp);
@@ -80,7 +74,7 @@ const OpenRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则编码" onChange="onChangeOpenRuleCode4Search"/>
+                                            <Input placeholder="规则编码" onChange={(e) => openRuleCode4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const OpenRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则名称" onChange="onChangeOpenRuleName4Search"/>
+                                            <Input placeholder="规则名称" onChange={(e) => openRuleName4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

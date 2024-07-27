@@ -39,16 +39,10 @@ const TeaPage = () => {
     }
 
     // 搜索相关
-    var teaCode4SearchTmp = '';
     const [teaCode4Search, setTeaCode4Search] = useState('');
-    const onChangeTeaCode4Search = (e) => {
-        teaCode4SearchTmp = e.target.value;
-    }
-    var teaName4SearchTmp = '';
     const [teaName4Search, setTeaName4Search] = useState('');
-    const onChangeTeaName4Search = (e) => {
-        teaName4SearchTmp = e.target.value;
-    }
+    var teaCode4SearchTmp = '';
+    var teaName4SearchTmp = '';
     const onClickSearch = () => {
         setTeaCode4Search(teaCode4SearchTmp);
         setTeaName4Search(teaName4SearchTmp);
@@ -80,7 +74,7 @@ const TeaPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="茶品编码" onChange={onChangeTeaCode4Search} style={{width: '95%'}} />
+                                            <Input placeholder="茶品编码" onChange={(e) => teaCode4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const TeaPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="茶品名称" onChange={onChangeTeaName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="茶品名称" onChange={(e) => teaName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

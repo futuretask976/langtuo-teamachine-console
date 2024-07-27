@@ -39,19 +39,11 @@ const AdminPage = () => {
     }
 
     // 搜索相关
-    var roleName4SearchTmp = '';
     const [roleName4Search, setRoleName4Search] = useState('');
-    const onChangeRoleName4Search = (e) => {
-        roleName4SearchTmp = e.target.value;
-    }
-    var loginName4SearchTmp = '';
     const [loginName4Search, setLoginName4Search] = useState('');
-    const onChangeLoginName4Search = (e) => {
-        loginName4SearchTmp = e.target.value;
-    }
+    var roleName4SearchTmp = '';
+    var loginName4SearchTmp = '';
     const onClickSearch = () => {
-        alert("roleName4SearchTmp=" + roleName4SearchTmp);
-        alert("loginName4SearchTmp=" + loginName4SearchTmp);
         setRoleName4Search(roleName4SearchTmp);
         setLoginName4Search(loginName4SearchTmp);
     }
@@ -82,7 +74,7 @@ const AdminPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="登录名称" onChange={onChangeLoginName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="登录名称" onChange={(e) => loginName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -92,7 +84,7 @@ const AdminPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="角色名称" onChange={onChangeRoleName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="角色名称" onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

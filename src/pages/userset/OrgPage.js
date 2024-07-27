@@ -49,9 +49,6 @@ const OrgPage = () => {
     // 搜索相关
     const [orgName4Search, setOrgName4Search] = useState('');
     let orgName4SearchTmp = '';
-    const onChangeOrgName4Search = (e) => {
-        orgName4SearchTmp = e.target.value;
-    }
     const onClickSearch = () => {
         setOrgName4Search(orgName4SearchTmp);
     }
@@ -82,7 +79,7 @@ const OrgPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="组织名称" onChange={onChangeOrgName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="组织名称" onChange={(e) => orgName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

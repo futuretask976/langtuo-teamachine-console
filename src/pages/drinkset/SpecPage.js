@@ -39,16 +39,10 @@ const SpecPage = () => {
     }
 
     // 搜索相关
-    var specCode4SearchTmp = '';
     const [specCode4Search, setSpecCode4Search] = useState('');
-    const onChangeSpecCode4Search = (e) => {
-        specCode4SearchTmp = e.target.value;
-    }
-    var specName4SearchTmp = '';
     const [specName4Search, setSpecName4Search] = useState('');
-    const onChangeSpecName4Search = (e) => {
-        specName4SearchTmp = e.target.value;
-    }
+    var specName4SearchTmp = '';
+    var specCode4SearchTmp = '';
     const onClickSearch = () => {
         setSpecCode4Search(specCode4SearchTmp);
         setSpecName4Search(specName4SearchTmp);
@@ -80,7 +74,7 @@ const SpecPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="规格编码" onClick={onChangeSpecCode4Search} style={{width: '95%'}}/>
+                                            <Input placeholder="规格编码" onChange={(e) => specCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const SpecPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="规格名称" onClick={onChangeSpecName4Search} style={{width: '95%'}}/>
+                                            <Input placeholder="规格名称" onChange={(e) => specName4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

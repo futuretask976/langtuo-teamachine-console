@@ -39,16 +39,10 @@ const TenantPage = () => {
     }
     
     // 搜索相关
-    var tenantName4SearchTmp = '';
     const [tenantName4Search, setTenantName4Search] = useState('');
-    const onChangeTenantName4Search = (e) => {
-        tenantName4SearchTmp = e.target.value;
-    }
-    var contactPerson4SearchTmp = '';
     const [contactPerson4Search, setContactPerson4Search] = useState('');
-    const onChangeContactPerson4Search = (e) => {
-        contactPerson4SearchTmp = e.target.value;
-    }
+    var tenantName4SearchTmp = '';
+    var contactPerson4SearchTmp = '';
     const onClickSearch = () => {
         setTenantName4Search(tenantName4SearchTmp);
         setContactPerson4Search(contactPerson4SearchTmp);
@@ -80,7 +74,7 @@ const TenantPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="商户名称" onChange={onChangeTenantName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="商户名称" onChange={(e) => tenantName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const TenantPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="联系人名称" onChange={onChangeContactPerson4Search} style={{width: '95%'}} />
+                                            <Input placeholder="联系人名称" onChange={(e) => contactPerson4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

@@ -39,31 +39,16 @@ const DeployPage = () => {
     }
 
     // 搜索相关
-    var deployCode4SearchTmp = '';
     const [deployCode4Search, setDeployCode4Search] = useState('');
-    const onChangeDeployCode4Search = (e) => {
-        deployCode4SearchTmp = e.target.value;
-    }
-    var machineCode4SearchTmp = '';
-    const [machineCode4Search, setMachineCode4Search] = useState('');
-    const onChangeMachineCode4Search = (e) => {
-        machineCode4SearchTmp = e.target.value;
-    }
-    var shopName4SearchTmp = '';
     const [shopName4Search, setShopName4Search] = useState('');
-    const onChangeShopName4Search = (e) => {
-        shopName4SearchTmp = e.target.value;
-    }
-    var state4SearchTmp = '';
     const [state4Search, setState4Search] = useState('');
-    const onChangeState4Search = (e) => {
-        state4SearchTmp = e.target.value;
-    }
+    var deployCode4SearchTmp = '';
+    var shopName4SearchTmp = '';
+    var state4SearchTmp = '';
     const onClickSearch = () => {
         setDeployCode4Search(deployCode4SearchTmp);
         setShopName4Search(shopName4SearchTmp);
         setState4Search(state4SearchTmp);
-        setMachineCode4Search(machineCode4SearchTmp);
     }
 
     // 表格操作相关
@@ -92,7 +77,7 @@ const DeployPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="部署编码" onChange={onChangeDeployCode4Search} style={{width: '95%'}} />
+                                            <Input placeholder="部署编码" onChange={(e) => deployCode4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -102,7 +87,7 @@ const DeployPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="店铺名称" onChange={onChangeShopName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -112,7 +97,7 @@ const DeployPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="部署状态" onChange={onChangeState4Search} style={{width: '95%'}} />
+                                            <Input placeholder="部署状态" onChange={(e) => state4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -128,7 +113,7 @@ const DeployPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <DeployListBlock deployCode4Search={deployCode4Search} machineCode4Search={machineCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+                                <DeployListBlock deployCode4Search={deployCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

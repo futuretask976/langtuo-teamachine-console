@@ -39,11 +39,8 @@ const ModelPage = () => {
     }
 
     // 搜索相关
-    var modelCode4SearchTmp = '';
     const [modelCode4Search, setModelCode4Search] = useState('');
-    const onChangeModelCode4Search = (e) => {
-        modelCode4SearchTmp = e.target.value;
-    }
+    var modelCode4SearchTmp = '';
     const onClickSearch = () => {
         setModelCode4Search(modelCode4SearchTmp);
     }
@@ -74,7 +71,7 @@ const ModelPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="型号编码" onChange={onChangeModelCode4Search} style={{width: '95%'}} />
+                                            <Input placeholder="型号编码" onChange={(e) => modelCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

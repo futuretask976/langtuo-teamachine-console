@@ -39,16 +39,10 @@ const CloseRulePage = (props) => {
     }
 
     // 搜索相关
-    var closeRuleCode4SearchTmp = '';
     const [closeRuleCode4Search, setCloseRuleCode4Search] = useState('');
-    const onChangeCloseRuleCode4Search = (e) => {
-        closeRuleCode4SearchTmp = e.target.value;
-    }
-    var closeRuleName4SearchTmp = '';
     const [closeRuleName4Search, setCloseRuleName4Search] = useState('');
-    const onChangeCloseRuleName4Search = (e) => {
-        closeRuleName4SearchTmp = e.target.value;
-    }
+    var closeRuleCode4SearchTmp = '';
+    var closeRuleName4SearchTmp = '';
     const onClickSearch = () => {
         setCloseRuleCode4Search(closeRuleCode4SearchTmp);
         setCloseRuleName4Search(closeRuleName4SearchTmp);
@@ -80,7 +74,7 @@ const CloseRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则编码" onChange="onChangeCloseRuleCode4Search"/>
+                                            <Input placeholder="规则编码" onChange={(e) => closeRuleCode4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const CloseRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则名称" onChange="onChangeCloseRuleName4Search"/>
+                                            <Input placeholder="规则名称" onChange={(e) => closeRuleName4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

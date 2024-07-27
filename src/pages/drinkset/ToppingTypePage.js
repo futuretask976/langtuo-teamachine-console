@@ -39,16 +39,10 @@ const ToppingTypePage = () => {
     }
 
     // 搜索相关
-    var toppingTypeCode4SearchTmp = '';
     const [toppingTypeCode4Search, setToppingTypeCode4Search] = useState('');
-    const onChangeToppingTypeCode4Search = (e) => {
-        toppingTypeCode4SearchTmp = e.target.value;
-    }
-    var toppingTypeName4SearchTmp = '';
     const [toppingTypeName4Search, setToppingTypeName4Search] = useState('');
-    const onChangeToppingTypeName4Search = (e) => {
-        toppingTypeName4SearchTmp = e.target.value;
-    }
+    var toppingTypeCode4SearchTmp = '';
+    var toppingTypeName4SearchTmp = '';
     const onClickSearch = () => {
         setToppingTypeCode4Search(toppingTypeCode4SearchTmp);
         setToppingTypeName4Search(toppingTypeName4SearchTmp);
@@ -80,7 +74,7 @@ const ToppingTypePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="物料类型编码" onChange={onChangeToppingTypeCode4Search} style={{width: '95%'}} />
+                                            <Input placeholder="物料类型编码" onChange={(e) => toppingTypeCode4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +84,7 @@ const ToppingTypePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="物料类型名称" onChange={onChangeToppingTypeName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="物料类型名称" onChange={(e) => toppingTypeName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

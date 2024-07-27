@@ -50,16 +50,10 @@ const CleanRulePage = (props) => {
     }
 
     // 搜索相关
-    var cleanRuleCode4SearchTmp = '';
     const [cleanRuleCode4Search, setCleanRuleCode4Search] = useState('');
-    const onChangeCleanRuleCode4Search = (e) => {
-        cleanRuleCode4SearchTmp = e.target.value;
-    }
-    var cleanRuleName4SearchTmp = '';
     const [cleanRuleName4Search, setCleanRuleName4Search] = useState('');
-    const onChangeCleanRuleName4Search = (e) => {
-        cleanRuleName4SearchTmp = e.target.value;
-    }
+    var cleanRuleCode4SearchTmp = '';
+    var cleanRuleName4SearchTmp = '';
     const onClickSearch = () => {
         setCleanRuleCode4Search(cleanRuleCode4SearchTmp);
         setCleanRuleName4Search(cleanRuleName4SearchTmp);
@@ -97,7 +91,7 @@ const CleanRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则编码" onChange="onChangeCleanRuleCode4Search"/>
+                                            <Input placeholder="规则编码" onChange={(e) => cleanRuleCode4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -107,7 +101,7 @@ const CleanRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则名称" onChange="onChangeCleanRuleName4Search"/>
+                                            <Input placeholder="规则名称" onChange={(e) => cleanRuleName4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>

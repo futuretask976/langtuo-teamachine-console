@@ -40,26 +40,14 @@ const MachinePage = () => {
     }
 
     // 搜索相关
-    var screenCode4SearchTmp = '';
     const [screenCode4Search, setScreenCode4Search] = useState('');
-    const onChangeScreenCode4Search = (e) => {
-        screenCode4SearchTmp = e.target.value;
-    }
-    var elecBoardCode4SearchTmp = '';
     const [elecBoardCode4Search, setElecBoardCode4Search] = useState('');
-    const onChangeElecBoardCode4Search = (e) => {
-        elecBoardCode4SearchTmp = e.target.value;
-    }
-    var modelCode4SearchTmp = '';
     const [modelCode4Search, setModelCode4Search] = useState('');
-    const onChangeModelCode4Search = (e) => {
-        modelCode4SearchTmp = e.target.value;
-    }
-    var shopName4SearchTmp = '';
     const [shopName4Search, setShopName4Search] = useState('');
-    const onChangeShopName4Search = (e) => {
-        shopName4SearchTmp = e.target.value;
-    }
+    var screenCode4SearchTmp = '';
+    var elecBoardCode4SearchTmp = '';
+    var modelCode4SearchTmp = '';
+    var shopName4SearchTmp = '';
     const onClickSearch = () => {
         setScreenCode4Search(screenCode4SearchTmp);
         setElecBoardCode4Search(elecBoardCode4SearchTmp);
@@ -93,7 +81,7 @@ const MachinePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="屏幕编码" onChange={onChangeScreenCode4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="屏幕编码" onChange={(e) => screenCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -103,7 +91,7 @@ const MachinePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="控制板编码" onChange={onChangeElecBoardCode4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="控制板编码" onChange={(e) => elecBoardCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -113,7 +101,7 @@ const MachinePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="机器型号" onChange={onChangeModelCode4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="机器型号" onChange={(e) => modelCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -131,7 +119,7 @@ const MachinePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="店铺名称" onChange={onChangeShopName4Search}/>&nbsp;&nbsp;
+                                            <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value}/>&nbsp;&nbsp;
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={17}>

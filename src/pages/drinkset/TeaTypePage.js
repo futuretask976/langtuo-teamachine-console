@@ -39,16 +39,11 @@ const TeaTypePage = () => {
     }
 
     // 搜索相关
-    var teaTypeCode4SearchTmp = '';
+    
     const [teaTypeCode4Search, setTeaTypeCode4Search] = useState('');
-    const onChangeTeaTypeCode4Search = (e) => {
-        teaTypeCode4SearchTmp = e.target.value;
-    }
-    var teaTypeName4SearchTmp = '';
     const [teaTypeName4Search, setTeaTypeName4Search] = useState('');
-    const onChangeTeaTypeName4Search = (e) => {
-        teaTypeName4SearchTmp = e.target.value;
-    }
+    var teaTypeCode4SearchTmp = '';
+    var teaTypeName4SearchTmp = '';
     const onClickSearch = () => {
         setTeaTypeCode4Search(teaTypeCode4SearchTmp);
         setTeaTypeName4Search(teaTypeName4SearchTmp);
@@ -80,7 +75,7 @@ const TeaTypePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="类型编码" onChange={onChangeTeaTypeCode4Search} style={{width: '95%'}} />
+                                            <Input placeholder="类型编码" onChange={(e) => teaTypeCode4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -90,7 +85,7 @@ const TeaTypePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="类型名称" onChange={onChangeTeaTypeName4Search} style={{width: '95%'}} />
+                                            <Input placeholder="类型名称" onChange={(e) => teaTypeName4SearchTmp = e.target.value} style={{width: '95%'}} />
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
