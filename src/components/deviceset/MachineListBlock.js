@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, handleErrorResp } from '../../js/common.js';
 
 const MachineListBlock = (props) => {
     // 样式相关
@@ -133,7 +133,7 @@ const MachineListBlock = (props) => {
         props.onClickEdit(deployCode);
     }
     const onClickDelete = (e, deployCode) => {
-        let url = 'http://localhost:8080/teamachine/deviceset/machine/tenant_001/' + deployCode + '/delete';
+        let url = genGetUrlBySegs('/deviceset/machine/{segment}/delete', [deployCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -143,12 +143,7 @@ const MachineListBlock = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
     }
 
