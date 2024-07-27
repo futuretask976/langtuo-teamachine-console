@@ -119,7 +119,7 @@ const MachinePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={5}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value}/>&nbsp;&nbsp;
+                                            <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value} style={{width: '95%'}}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={17}>
