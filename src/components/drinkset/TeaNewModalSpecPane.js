@@ -14,6 +14,8 @@ const TeaNewModalSpecPane = (props) => {
         return [];
     });
     const [specList4Select, setSpecList4Select] = useState([]);
+
+    // 赋值初始化相关
     const fetchSpecList4Select = () => {
         let url = genGetUrlByParams('/drinkset/spec/list', {
             tenantCode: 'tenant_001'
