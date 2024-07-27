@@ -100,7 +100,7 @@ export const isNumber = (value) => {
 
 // http response 处理
 export const getRespModel = (resp) => {
-    if (isBlankObj(resp) || isBlankObj(resp.data.model) || isBlankObj(resp.data.model)) {
+    if (isBlankObj(resp) || isBlankObj(resp.data) || !resp.data.success || isBlankObj(resp.data.model)) {
         alert("网络请求出现异常！");
         window.location.href='http://localhost:3000/console/error';
     }

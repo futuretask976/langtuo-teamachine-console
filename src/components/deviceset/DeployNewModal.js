@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, handleErrorResp, isBlankStr } from '../../js/common.js';
 
 const DeployNewModal = (props) => {
     // 对话框相关
@@ -11,7 +11,7 @@ const DeployNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/deviceset/machine/deploy/put');
+        let url = genPostUrl('/deviceset/deploy/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             deployCode: deployCode,
@@ -33,13 +33,7 @@ const DeployNewModal = (props) => {
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
 
         setTimeout(() => {
@@ -59,35 +53,10 @@ const DeployNewModal = (props) => {
     const [machineCode, setMachineCode] = useState('');
     const [shopCode, setShopCode] = useState('');
     const [state, setState] = useState(0);
-    useEffect(() => {
-        if (isBlankStr(props.deployCode4Edit)) {
-            return;
-        }
-
-        let url = genGetUrlBySegs('/deviceset/machine/deploy/{segment}/{segment}/get', ['tenant_001', props.deployCode4Edit]);
-        axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            if (response && response.data && response.data.success) {
-                setDeployCode(response.data.model.deployCode);
-                setModelCode(response.data.model.modelCode);
-                setMachineCode(response.data.model.machineCode);
-                setShopCode(response.data.model.shopCode);
-            }
-        })
-        .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
-        });
-    }, [props.deployCode4Edit]);
-    const [shopList, setShopList] = useState([]);
+    const [shopList4Select, setShopList4Select] = useState([]);
+    const [modelList4Select, setModelList4Select] = useState([]);
     const fetchShopListData = () => {
-        let url = genGetUrlByParams('/shop/list', {
+        let url = genGetUrlByParams('/shopset/shop/list', {
             tenantCode: 'tenant_001'
         })
         axios.get(url, {
@@ -95,7 +64,7 @@ const DeployNewModal = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setShopList((prev => {
+                setShopList4Select((prev => {
                     let shopListTmp = [];
                     response.data.model.forEach(item => {
                         shopListTmp.push({
@@ -108,17 +77,11 @@ const DeployNewModal = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
     }
-    const [modelList, setModelList] = useState([]);
     const fetchModelListData = () => {
-        let url = genGetUrlByParams('/deviceset/machine/model/list', {
+        let url = genGetUrlByParams('/deviceset/model/list', {
             tenantCode: 'tenant_001'
         })
         axios.get(url, {
@@ -126,7 +89,7 @@ const DeployNewModal = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setModelList((prev => {
+                setModelList4Select((prev => {
                     let modelListTmp = [];
                     response.data.model.forEach(item => {
                         modelListTmp.push({
@@ -139,51 +102,48 @@ const DeployNewModal = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
     }
     useEffect(() => {
         fetchShopListData();
         fetchModelListData();
     }, []);
+    useEffect(() => {
+        if (isBlankStr(props.deployCode4Edit)) {
+            return;
+        }
+
+        let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/get', ['tenant_001', props.deployCode4Edit]);
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setDeployCode(model.deployCode);
+            setModelCode(model.modelCode);
+            setMachineCode(model.machineCode);
+            setShopCode(model.shopCode);
+        })
+        .catch(error => {
+            handleErrorResp(error);
+        });
+    }, [props.deployCode4Edit]);
 
     // 输入相关
-    const onChangeDeployCode = (e) => {
-        setDeployCode(e.target.value);
-    }
-    const onChangeModelCode = (e) => {
-        setModelCode(e);
-    }
-    const onChangeMachineCode = (e) => {
-        setMachineCode(e.target.value);
-    }
-    const onChangeShopCode = (e) => {
-        setShopCode(e);
-    }
     const onClickDeployCodeGen = (e) => {
-        let url = genGetUrlByParams('/deviceset/machine/deploy/generate', {
+        let url = genGetUrlByParams('/deviceset/deploy/generate', {
             tenantCode: 'tenant_001'
         })
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setDeployCode(response.data.model);
-            }
+            let model = getRespModel(response);
+            setDeployCode(model);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
     }
  
@@ -212,7 +172,7 @@ const DeployNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="部署编码" value={deployCode} onChange={onChangeDeployCode} disabled={isBlankStr(props.deployCode4Edit) ? false : true} style={{width: '90%'}} />
+                            <Input placeholder="部署编码" value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={isBlankStr(props.deployCode4Edit) ? false : true} style={{width: '90%'}} />
                         </div>
                     </Col>
                 </Row>
@@ -232,8 +192,8 @@ const DeployNewModal = (props) => {
                             <Select
                                 value={modelCode}
                                 style={{width: '90%'}}
-                                onChange={onChangeModelCode}
-                                options={modelList}
+                                onChange={(e) => setModelCode(e)}
+                                options={modelList4Select}
                             />
                         </div>
                     </Col>
@@ -251,7 +211,7 @@ const DeployNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="机器编码" value={machineCode} onChange={onChangeMachineCode} style={{width: '90%'}} />
+                            <Input placeholder="机器编码" value={machineCode} onChange={(e) => setMachineCode(e.target.value)} style={{width: '90%'}} />
                         </div>
                     </Col>
                 </Row>
@@ -271,8 +231,8 @@ const DeployNewModal = (props) => {
                             <Select
                                 value={shopCode}
                                 style={{width: '90%'}}
-                                onChange={onChangeShopCode}
-                                options={shopList}
+                                onChange={(e) => setShopCode(e)}
+                                options={shopList4Select}
                             />
                         </div>
                     </Col>

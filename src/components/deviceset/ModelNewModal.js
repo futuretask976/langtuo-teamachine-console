@@ -4,7 +4,7 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl, handleErrorResp, getRespModel } from '../../js/common.js';
 
 const ModelNewModal = (props) => {
     // 对话框相关
@@ -12,7 +12,7 @@ const ModelNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/deviceset/machine/model/put');
+        let url = genPostUrl('/deviceset/model/put');
         axios.put(url, {
             withCredentials: true, // 这会让axios在请求中携带cookies
             modelCode: modelCode,
@@ -31,13 +31,7 @@ const ModelNewModal = (props) => {
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
 
         setTimeout(() => {
@@ -54,51 +48,39 @@ const ModelNewModal = (props) => {
     // 数据初始化相关
     const [modelCode, setModelCode] = useState(isBlankStr(props.modelCode4Edit) ? '' : props.modelCode4Edit);
     const [enableFlowAll, setEnableFlowAll] = useState(1);
+    const [pipelineList, setPipelineList] = useState([]);
+    const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
     useEffect(() => {
         if (isBlankStr(props.modelCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/machine/model/{segment}/get', [props.modelCode4Edit]);
+        let url = genGetUrlBySegs('/deviceset/model/{segment}/get', [props.modelCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setModelCode(response.data.model.modelCode);
-                setEnableFlowAll(response.data.model.enableFlowAll);
-                setPipelineList((prev => {
-                    let tmp = [];
-                    if (isArray(response.data.model.pipelineList)) {
-                        response.data.model.pipelineList.forEach(function(ite) {
-                            ite.key = ite.id;
-                            tmp.push(ite);
-                        });
-                        
-                    }
-                    return tmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setModelCode(model.modelCode);
+            setEnableFlowAll(model.enableFlowAll);
+            setPipelineList((prev => {
+                let tmp = [];
+                if (isArray(model.pipelineList)) {
+                    model.pipelineList.forEach(function(ite) {
+                        ite.key = ite.id;
+                        tmp.push(ite);
+                    });
+                    
+                }
+                return tmp;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
     }, [props.modelCode4Edit]);
 
     // 输入相关
-    const onChangeModelCode = (e) => {
-        setModelCode(e.target.value);
-    }
-    const onChangeEnableFlowAll = (value) => {
-        setEnableFlowAll(value ? 1 : 0);
-    }
-    const [pipelineList, setPipelineList] = useState([]);
-    const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
     const onClickAddPipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
@@ -180,7 +162,7 @@ const ModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={onChangeModelCode} />
+                                <Input placeholder="型号编码" value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={(e) => setModelCode(e.target.value)} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={3}>
@@ -190,7 +172,7 @@ const ModelNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={enableFlowAll === 1 ? true : false} onChange={onChangeEnableFlowAll} />
+                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={enableFlowAll === 1 ? true : false} onChange={(e) => setEnableFlowAll(e ? 1 : 0)} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={10}>
