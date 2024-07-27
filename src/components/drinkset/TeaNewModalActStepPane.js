@@ -20,7 +20,8 @@ const TeaNewModalActStepPane = (props) => {
         }
         return stepIndex + 1;
     });
-    const [toppingList4Select, setToppingList4Select] = useState(() => {
+    const [toppingList4Select, setToppingList4Select] = useState([]);
+    const fetchToppingList4Select = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
             tenantCode: 'tenant_001'
         });
@@ -45,7 +46,10 @@ const TeaNewModalActStepPane = (props) => {
         .catch(error => {
             handleErrorResp(error);
         });
-    });
+    }
+    useEffect(() => {
+        fetchToppingList4Select();
+    }, []);
 
     // 物料表格展示相关
     const actStepListCols = [

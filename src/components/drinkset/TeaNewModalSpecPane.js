@@ -3,7 +3,7 @@ import { Button, Select, Space } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, handleErrorResp, isArray } from '../../js/common';
+import { genGetUrlByParams, getRespModel, handleErrorResp, isArray } from '../../js/common';
 
 const TeaNewModalSpecPane = (props) => {
     // 状态变量初始化相关
@@ -13,7 +13,8 @@ const TeaNewModalSpecPane = (props) => {
         }
         return [];
     });
-    const [specList4Select, setSpecList4Select] = useState(() => {
+    const [specList4Select, setSpecList4Select] = useState([]);
+    const fetchSpecList4Select = () => {
         let url = genGetUrlByParams('/drinkset/spec/list', {
             tenantCode: 'tenant_001'
         });
@@ -21,38 +22,40 @@ const TeaNewModalSpecPane = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setSpecList4Select((prev => {
-                    let tmp = [];
-                    response.data.model.forEach(item => {
-                        let specTmp = {
-                            key: item.specCode,
-                            specName: item.specName,
-                            specCode: item.specCode,
-                            label: item.specName,
-                            value: item.specCode
-                        };
-                        let specItemListTmp = [];
-                        if (isArray(item.specItemList)) {
-                            item.specItemList.forEach(specItem => {
-                                specItemListTmp.push({
-                                    specItemCode: specItem.specItemCode,
-                                    specItemName: specItem.specItemName,
-                                    outerSpecItemCode: specItem.outerSpecItemCode
-                                });
+            let model = getRespModel(response);
+            setSpecList4Select((prev => {
+                let tmp = [];
+                model.forEach(item => {
+                    let specTmp = {
+                        key: item.specCode,
+                        specName: item.specName,
+                        specCode: item.specCode,
+                        label: item.specName,
+                        value: item.specCode
+                    };
+                    let specItemListTmp = [];
+                    if (isArray(item.specItemList)) {
+                        item.specItemList.forEach(specItem => {
+                            specItemListTmp.push({
+                                specItemCode: specItem.specItemCode,
+                                specItemName: specItem.specItemName,
+                                outerSpecItemCode: specItem.outerSpecItemCode
                             });
-                        }
-                        specTmp.specItemList = specItemListTmp;
-                        tmp.push(specTmp);
-                    })
-                    return tmp;
-                }));
-            }
+                        });
+                    }
+                    specTmp.specItemList = specItemListTmp;
+                    tmp.push(specTmp);
+                })
+                return tmp;
+            }));
         })
         .catch(error => {
             handleErrorResp(error);
         });
-    });
+    }
+    useEffect(() => {
+        fetchSpecList4Select();
+    }, []);
 
     // 表格操作相关
     const onChangeSpec = (selectedList) => {

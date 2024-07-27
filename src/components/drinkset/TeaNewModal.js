@@ -3,7 +3,7 @@ import { Button, Modal, Steps, theme } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, isBlankObj } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, isBlankObj, handleErrorResp } from '../../js/common.js';
 
 import TeaNewModalInfoPane from '../../components/drinkset/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../../components/drinkset/TeaNewModalActStepPane'
@@ -52,13 +52,7 @@ const TeaNewModal = (props) => {
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
 
         setTimeout(() => {
@@ -122,12 +116,7 @@ const TeaNewModal = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
     }, [props.teaCode4Edit]);
     useEffect(() => {

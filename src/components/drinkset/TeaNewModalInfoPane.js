@@ -3,7 +3,7 @@ import { Input, Select, Switch } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankObj, isBlankStr, genGetUrlByParams } from '../../js/common.js';
+import { isBlankObj, isBlankStr, genGetUrlByParams, handleErrorResp } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -63,7 +63,8 @@ const TeaNewModalInfoPane = (props) => {
         }
         return props.tea4Edit.comment;
     });
-    const [teaTypeList4Select, setTeaTypeList4Select] = useState(() => {
+    const [teaTypeList4Select, setTeaTypeList4Select] = useState([]);
+    const fetchTeaTypeList4Select = () => {
         let url = genGetUrlByParams('/drinkset/tea/type/list', {
             tenantCode: 'tenant_001'
         });
@@ -86,14 +87,12 @@ const TeaNewModalInfoPane = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
-    });
+    }
+    useEffect(() => {
+        fetchTeaTypeList4Select();
+    }, []);
 
     // 输入相关
     useEffect(() => {
