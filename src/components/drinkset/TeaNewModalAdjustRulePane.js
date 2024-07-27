@@ -103,6 +103,8 @@ const TeaNewModalAdjustRulePane = (props) => {
         })
         
         setTeaUnitList(prev => {
+            prev.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
+            teaUnitListTmp.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
             if (isTeaUnitListEqual(prev, teaUnitListTmp)) {
                 return prev;
             } else {
