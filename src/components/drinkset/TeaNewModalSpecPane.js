@@ -3,17 +3,17 @@ import { Button, Select, Space } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, isArray } from '../../js/common';
+import { genGetUrlByParams, handleErrorResp, isArray } from '../../js/common';
 
 const TeaNewModalSpecPane = (props) => {
     // 状态变量初始化相关
-    const [specRuleList, setSpecRuleList] = useState(isArray(props.specRuleList4Edit) ? props.specRuleList4Edit : []);
-
-    // 待选择数据初始化相关
-    const [specList4Select, setSpecList4Select] = useState([]);
-
-    // 赋值初始化相关
-    const fetchSpecList4Select = () => {
+    const [specRuleList, setSpecRuleList] = useState(() => {
+        if (isArray(props.specRuleList4Edit)) {
+            return props.specRuleList4Edit;
+        }
+        return [];
+    });
+    const [specList4Select, setSpecList4Select] = useState(() => {
         let url = genGetUrlByParams('/drinkset/spec/list', {
             tenantCode: 'tenant_001'
         });
@@ -50,28 +50,31 @@ const TeaNewModalSpecPane = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
-    }
-    useEffect(() => {
-        fetchSpecList4Select();
-    }, []);
+    });
 
     // 表格操作相关
-    const onChangeSpec = (e) => {
+    const onChangeSpec = (selectedList) => {
         setSpecRuleList(prev => {
             let specRuleListTmp = [];
             specList4Select.forEach(spec => {
-                e.forEach(selectedSpecCode => {
+                selectedList.forEach(selectedSpecCode => {
                     if (spec.specCode == selectedSpecCode) {
-                        let specRuleTmp = {...spec};
-                        specRuleTmp.specItemRuleList = [...spec.specItemList];
-                        specRuleListTmp.push(specRuleTmp);
+                        let specItemRuleList = [];
+                        spec.specItemList.forEach(specItem => {
+                            specItemRuleList.push({
+                                specItemCode: specItem.specItemCode,
+                                specItemName: specItem.specItemName,
+                                outerSpecItemCode: specItem.outerSpecItemCode
+                            });
+                        });
+                        specRuleListTmp.push({
+                            specCode: spec.specCode,
+                            specName: spec.specName,
+                            state: spec.state,
+                            specItemRuleList: specItemRuleList
+                        });
                     }
                 });
             });
@@ -92,7 +95,6 @@ const TeaNewModalSpecPane = (props) => {
                 if (specRule.specCode == specCode) {
                     specRule.specItemRuleList.forEach(specItemRule => {
                         if (specItemRule.specItemCode == selectedSpecItemCode) {
-                            console.log("$$$$$ selectedSpecItemCode=" + selectedSpecItemCode + ", specItemRule.selected="+ specItemRule.selected)
                             specItemRule.selected = (specItemRule.selected == 1 ? 0 : 1);
                         }
                     })

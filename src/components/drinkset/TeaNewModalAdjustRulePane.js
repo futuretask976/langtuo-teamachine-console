@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Select, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { isBlankArray, isBlankObj, isBlankStr, isNumber } from '../../js/common.js';
+import { isArray, isBlankObj, isBlankStr, isNumber } from '../../js/common.js';
 
 const TeaNewModalAdjustRulePane = (props) => {
     // 状态变量初始化相关
-    const [teaUnitList, setTeaUnitList] = useState(isBlankArray(props.teaUnitList4Edit) ? [] : props.teaUnitList4Edit);
+    const [teaUnitList, setTeaUnitList] = useState(() => {
+        if (isArray(props.teaUnitList4Edit)) {
+            let tmp = [...props.teaUnitList4Edit];
+            tmp.forEach(item => {
+                item.backgroundColor = '#FFFFFF';
+            });
+            return tmp;
+        }
+        return [];
+    });
     const [curTeaUnitCode, setCurTeaUnitCode] = useState('');
     const [curToppingAdjustRuleList, setCurToppingAdjustRuleList] = useState([]);
 
@@ -50,6 +59,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             let specItemRuleListTmp = [];
             let teaUnitCode = '';
             let teaUnitName = '';
+            combo.sort((a, b) => a.specCode.localeCompare(b.specCode));
             combo.forEach(f => {
                 specItemRuleListTmp.push(f);
                 teaUnitCode = teaUnitCode + '-' + f.specItemCode;
@@ -59,7 +69,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                 teaUnitCode: teaUnitCode.slice(1),
                 teaUnitName: teaUnitName.slice(1),
                 specItemRuleList: specItemRuleListTmp,
-                backgroundColor: 'white'
+                backgroundColor: '#FFFFFF'
             });
             return;
         }
@@ -72,19 +82,22 @@ const TeaNewModalAdjustRulePane = (props) => {
         });
     }
     const genTeaUnitList = () => {
+        // 从specRuleList过滤出上一步选中的specItem，放到specItemRuleLists中
         let specItemRuleLists = [];
         props.specRuleList4Edit.forEach(specRule => {
             let specItemRuleListTmp = [];
             specRule.specItemRuleList.forEach(specItemRule => {
                 if (specItemRule.selected == 1) {
+                    specItemRule.specCode = specRule.specCode;
                     specItemRuleListTmp.push(specItemRule);
                 }
             })
             specItemRuleLists.push(specItemRuleListTmp);
         });
+
+        // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
         let teaUnitListTmp = [];
         doGenTeaUnitList(specItemRuleLists, 0, null, teaUnitListTmp);
-        
         teaUnitListTmp.forEach(teaUnit => {
             teaUnit.toppingAdjustRuleList = genToppingAdjustRuleList();
         })
@@ -142,11 +155,6 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: '物料名称',
             dataIndex: 'toppingName',
             key: 'toppingName',
-        },
-        {
-            title: '测试',
-            dataIndex: 'adjustMode',
-            key: 'adjustMode',
         },
         {
             title: '修改',

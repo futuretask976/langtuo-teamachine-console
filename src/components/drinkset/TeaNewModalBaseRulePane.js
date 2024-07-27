@@ -6,13 +6,20 @@ import { isArray, isNumber } from '../../js/common.js';
 
 const TeaNewModalBaseRulePane = (props) => {
     // 数据初始化相关
-    const [actStepList, setActStepList] = useState(isArray(props.actStepList4Edit) ? props.actStepList4Edit : []);
+    const [actStepList, setActStepList] = useState(() => {
+        if (isArray(props.actStepList4Edit)) {
+            return props.actStepList4Edit;
+        }
+        return [];
+    });
+
+    // 赋值初始化
     const convertToDataSource = () => {
         let dataSource = [];
-        actStepList.forEach(stepItem => {
-            stepItem.toppingBaseRuleList.forEach(toppingItem => {
+        actStepList.forEach(actStep => {
+            actStep.toppingBaseRuleList.forEach(toppingItem => {
                 dataSource.push({
-                    stepIndex: stepItem.stepIndex,
+                    stepIndex: actStep.stepIndex,
                     toppingName: toppingItem.toppingName,
                     toppingCode: toppingItem.toppingCode,
                     measureUnit: toppingItem.measureUnit,
@@ -21,8 +28,7 @@ const TeaNewModalBaseRulePane = (props) => {
             })
         });
         return dataSource;
-    }
-
+    };
 
     // 表格操作相关
     const toppingConfigCols = [
@@ -44,7 +50,7 @@ const TeaNewModalBaseRulePane = (props) => {
             key: 'baseAmount',
             width: '30%',
             render: (_, { stepIndex, toppingCode, baseAmount }) => (
-                <InputNumber min={1} max={9999} onChange={(e) => onChangeBaseAmount(stepIndex, toppingCode, e)} size="small" value={baseAmount}/>
+                <InputNumber min={0} max={9999} onChange={(e) => onChangeBaseAmount(stepIndex, toppingCode, e)} size="small" value={baseAmount}/>
             ),
         },
         {
@@ -57,14 +63,14 @@ const TeaNewModalBaseRulePane = (props) => {
             ),
         }
     ];
-    const onChangeBaseAmount = (stepIndex, toppingCode, e) => {
+    const onChangeBaseAmount = (stepIndex, toppingCode, number) => {
         setActStepList(prev => {
             let tmp = [...prev];
             tmp.forEach(actStep => {
                 if (actStep.stepIndex == stepIndex) {
                     actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
                         if (toppingBaseRule.toppingCode == toppingCode) {
-                            toppingBaseRule.baseAmount = e;
+                            toppingBaseRule.baseAmount = number;
                         }
                     })
                 }

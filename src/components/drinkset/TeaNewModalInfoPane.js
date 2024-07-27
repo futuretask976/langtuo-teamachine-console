@@ -9,18 +9,61 @@ const { TextArea } = Input;
 
 const TeaNewModalInfoPane = (props) => {
     // 状态变量初始化相关
-    const [teaCode, setTeaCode] = useState(isBlankStr(props.teaCode4Edit) ? '' : props.teaCode4Edit);
-    const [teaName, setTeaName] = useState(isBlankStr(props.teaName4Edit) ? '' : props.teaName4Edit);
-    const [outerTeaCode, setOuterTeaCode] = useState(isBlankStr(props.outerTeaCode4Edit) ? '' : props.outerTeaCode4Edit);
-    const [teaTypeCode, setTeaTypeCode] = useState(isBlankStr(props.teaTypeCode4Edit) ? '' : props.teaTypeCode4Edit);
-    const [state, setState] = useState(isBlankObj(props.state4Edit) ? 0 : props.state4Edit);
-    const [comment, setComment] = useState(isBlankStr(props.comment4Edit) ? '' : props.comment4Edit);
-
-    // 待选择数据初始化相关
-    const [teaTypeList, setTeaTypeList] = useState([]);
-
-    // 赋值初始化相关
-    const fetchTeaTypeList = () => {
+    const [teaCode, setTeaCode] = useState(() => {
+        if (isBlankObj(props.tea4Edit)) {
+            return '';
+        }
+        if (isBlankObj(props.tea4Edit.teaCode)) {
+            return '';
+        }
+        return props.tea4Edit.teaCode;
+    });
+    const [teaName, setTeaName] = useState(() => {
+        if (isBlankObj(props.tea4Edit)) {
+            return '';
+        }
+        if (isBlankObj(props.tea4Edit.teaName)) {
+            return '';
+        }
+        return props.tea4Edit.teaName;
+    });
+    const [outerTeaCode, setOuterTeaCode] = useState(() => {
+        if (isBlankObj(props.tea4Edit)) {
+            return '';
+        }
+        if (isBlankObj(props.tea4Edit.outerTeaCode)) {
+            return '';
+        }
+        return props.tea4Edit.outerTeaCode;
+    });
+    const [teaTypeCode, setTeaTypeCode] = useState(() => {
+        if (isBlankObj(props.tea4Edit)) {
+            return '';
+        }
+        if (isBlankObj(props.tea4Edit.teaTypeCode)) {
+            return '';
+        }
+        return props.tea4Edit.teaTypeCode;
+    });
+    const [state, setState] = useState(() => {
+        if (isBlankObj(props.tea4Edit)) {
+            return '';
+        }
+        if (isBlankObj(props.tea4Edit.state)) {
+            return '';
+        }
+        return props.tea4Edit.state;
+    });
+    const [comment, setComment] = useState(() => {
+        if (isBlankObj(props.tea4Edit)) {
+            return '';
+        }
+        if (isBlankObj(props.tea4Edit.comment)) {
+            return '';
+        }
+        return props.tea4Edit.comment;
+    });
+    const [teaTypeList4Select, setTeaTypeList4Select] = useState(() => {
         let url = genGetUrlByParams('/drinkset/tea/type/list', {
             tenantCode: 'tenant_001'
         });
@@ -29,7 +72,7 @@ const TeaNewModalInfoPane = (props) => {
         })
         .then(response => {
             if (response && response.data && response.data.success) {
-                setTeaTypeList((prev => {
+                setTeaTypeList4Select((prev => {
                     let teaTypeListTmp = [];
                     response.data.model.forEach(item => {
                         teaTypeListTmp.push({
@@ -50,55 +93,9 @@ const TeaNewModalInfoPane = (props) => {
                 // window.location.href="/gxadmin/login";
             }
         });
-    }
-    useEffect(() => {
-        fetchTeaTypeList();
-    }, []);
-    useEffect(() => {
-        console.log('$$$$$ useEffect4Tea props.tea=', props.tea4Edit)
-        if (isBlankObj(props.tea4Edit)) {
-            return;
-        }
-
-        if (!isBlankStr(props.tea4Edit.teaCode)) {
-            setTeaCode(props.tea4Edit.teaCode)
-        }
-        if (!isBlankStr(props.tea4Edit.teaName)) {
-            setTeaName(props.tea4Edit.teaName)
-        }
-        if (!isBlankStr(props.tea4Edit.outerTeaCode)) {
-            setOuterTeaCode(props.tea4Edit.outerTeaCode)
-        }
-        if (!isBlankStr(props.tea4Edit.teaTypeCode)) {
-            setTeaTypeCode(props.tea4Edit.teaTypeCode)
-        }
-        if (!isBlankStr(props.tea4Edit.state)) {
-            setState(props.tea4Edit.state)
-        }
-        if (!isBlankStr(props.tea4Edit.comment)) {
-            setComment(props.tea4Edit.comment)
-        }
-    }, [props.tea]);
+    });
 
     // 输入相关
-    const onChangeTeaCode = (e) => {
-        setTeaCode(e.target.value);
-    }
-    const onChangeTeaName = (e) => {
-        setTeaName(e.target.value);
-    }
-    const onChangeOuterTeaCode = (e) => {
-        setOuterTeaCode(e.target.value);
-    }
-    const onChangeState = (e) => {
-        setState(e ? 1 : 0);
-    }
-    const onChangeTeaTypeCode = (e) => {
-        setTeaTypeCode(e);
-    }
-    const onChangeComment = (e) => {
-        setComment(e.target.value);
-    }
     useEffect(() => {
         props.updateInfo(teaCode, teaName, outerTeaCode, teaTypeCode, state, comment);
     }, [teaCode, teaName, outerTeaCode, teaTypeCode, state, comment]);
@@ -116,11 +113,11 @@ const TeaNewModalInfoPane = (props) => {
             </div>
             <div className="flex-row-cont" style={{height: 35, width: '98%'}}>
                 <div className="flex-row-cont" style={{height: '100%', width: '45%'}}>
-                    <Input placeholder="茶品编码" onChange={onChangeTeaCode} value={teaCode}/>
+                    <Input placeholder="茶品编码" onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
                 </div>
                 <div style={{height: '100%', width: '10%'}}></div>
                 <div className="flex-row-cont" style={{height: '100%', width: '45%'}}>
-                    <Input placeholder="茶品名称" onChange={onChangeTeaName} value={teaName}/>
+                    <Input placeholder="茶品名称" onChange={(e) => setTeaName(e.target.value)} value={teaName}/>
                 </div>
             </div>
 
@@ -135,13 +132,13 @@ const TeaNewModalInfoPane = (props) => {
             </div>
             <div className="flex-row-cont" style={{height: 35, width: '98%'}}>
                 <div className="flex-row-cont" style={{height: '100%', width: '45%'}}>
-                    <Input placeholder="外部茶品编码" onChange={onChangeOuterTeaCode} value={outerTeaCode}/>
+                    <Input placeholder="外部茶品编码" onChange={(e) => setOuterTeaCode(e.target.value)} value={outerTeaCode}/>
                 </div>
                 <div style={{height: '100%', width: '10%'}}></div>
                 <div className="flex-row-cont" style={{height: '100%', width: '45%'}}>
                     <Select
-                        onChange={onChangeTeaTypeCode}
-                        options={teaTypeList}
+                        onChange={(e) => setTeaTypeCode(e)}
+                        options={teaTypeList4Select}
                         style={{width: '100%'}}
                         value={teaTypeCode}
                     />
@@ -155,7 +152,7 @@ const TeaNewModalInfoPane = (props) => {
             </div>
             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 35, width: '98%'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '98%'}}>
-                    <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
+                    <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
                 </div>
             </div>
 
@@ -166,7 +163,7 @@ const TeaNewModalInfoPane = (props) => {
             </div>
             <div className="flex-row-cont" style={{height: 70, width: '98%'}}>
                 <div className="flex-row-cont" style={{height: '100%', width: '100%'}}>
-                    <TextArea placeholder="备注" onChange={onChangeComment} maxLength={200} rows={2} value={comment}/>
+                    <TextArea placeholder="备注" onChange={(e) => setComment(e.target.value)} maxLength={200} rows={2} value={comment}/>
                 </div>
             </div>
         </div>

@@ -3,28 +3,24 @@ import { Button, Select, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, genGetUrlByParams } from '../../js/common.js';
+import { isArray, genGetUrlByParams, handleErrorResp } from '../../js/common.js';
 
 const TeaNewModalActStepPane = (props) => {
     // 状态变量初始化相关
-    const [actStepList, setActStepList] = useState(isArray(props.actStepList4Edit) ? props.actStepList4Edit : []);
+    const [actStepList, setActStepList] = useState(() => {
+        if (isArray(props.actStepList4Edit)) {
+            return props.actStepList4Edit;
+        }
+        return [];
+    });
     const [stepIndex, setStepIndex] = useState(() => {
         let stepIndex = 0;
-        if(isArray(props.actStepList)) {
-            props.actStepList.forEach(item => {
-                if (item.stepIndex > stepIndex) {
-                    stepIndex = item.stepIndex;
-                }
-            });
+        if(isArray(props.actStepList4Edit)) {
+            stepIndex = props.actStepList4Edit.length;
         }
         return stepIndex + 1;
     });
-
-    // 待选择数据初始化相关
-    const [toppingList4Select, setToppingList4Select] = useState([]);
-
-    // 赋值初始化相关
-    const fetchToppingList4Select = () => {
+    const [toppingList4Select, setToppingList4Select] = useState(() => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
             tenantCode: 'tenant_001'
         });
@@ -47,17 +43,9 @@ const TeaNewModalActStepPane = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleErrorResp(error);
         });
-    }
-    useEffect(() => {
-        fetchToppingList4Select();
-    }, []);
+    });
 
     // 物料表格展示相关
     const actStepListCols = [
@@ -76,16 +64,16 @@ const TeaNewModalActStepPane = (props) => {
                 <Select
                     placeholder="请选择"
                     mode="multiple"
-                    onChange={(e) => onChangeToppingCode(e, stepIndex)}
+                    onChange={(e) => onChangeToppingCodeList(e, stepIndex)}
                     options={toppingList4Select}
                     size="middle"
                     style={{width: '100%'}}
-                    value={convertToppingRelList(toppingBaseRuleList)}
+                    value={convertToSelectedToppingCodeList(toppingBaseRuleList)}
                 />
             ),
         }
     ];
-    const convertToppingRelList = (toppingBaseRuleList) => {
+    const convertToSelectedToppingCodeList = (toppingBaseRuleList) => {
         let tmp = [];
         if (!isArray(toppingBaseRuleList)) {
             return tmp;
@@ -122,13 +110,13 @@ const TeaNewModalActStepPane = (props) => {
             return tmp;
         }));
     }
-    const onChangeToppingCode = (e, stepIndex) => {
+    const onChangeToppingCodeList = (selecedList, stepIndex) => {
         setActStepList((prev => {
             let tmp = [];
             prev.forEach((actStep) => {
                 if (actStep.stepIndex == stepIndex) {
                     let toppingBaseRuleList = [];
-                    e.forEach(toppingCode => {
+                    selecedList.forEach(toppingCode => {
                         let toppingTmp = findToppingByCode(toppingCode);
                         toppingBaseRuleList.push(toppingTmp);
                     })
@@ -142,10 +130,13 @@ const TeaNewModalActStepPane = (props) => {
         }));
     }
     const findToppingByCode = (toppingCode) => {
-        let found = null;
+        let found = {};
         toppingList4Select.forEach(item => {
             if (item.toppingCode == toppingCode) {
-                found = item;
+                found.toppingCode = item.toppingCode;
+                found.toppingName = item.toppingName;
+                found.measureUnit = item.measureUnit;
+                found.state = item.state;
             }
         });
         return found;
