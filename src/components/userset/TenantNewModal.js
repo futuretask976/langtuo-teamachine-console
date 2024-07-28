@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, isRespSuccess, getRespModel } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -28,20 +28,14 @@ const TenantNewModal = (props) => {
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -72,22 +66,16 @@ const TenantNewModal = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setTenantCode(response.data.model.tenantCode);
-                setTenantName(response.data.model.tenantName);
-                setContactPerson(response.data.model.contactPerson);
-                setContactPhone(response.data.model.contactPhone);
-                setImgLink(response.data.model.imgLink);
-                setComment(response.data.model.comment);
-            }
+            let model = getRespModel(response);
+            setTenantCode(model.tenantCode);
+            setTenantName(model.tenantName);
+            setContactPerson(model.contactPerson);
+            setContactPhone(model.contactPhone);
+            setImgLink(model.imgLink);
+            setComment(model.comment);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }, [props.tenantCode4Edit]);
  
