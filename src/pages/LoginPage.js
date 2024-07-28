@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import '../css/common.css';
 import { genPostUrl, getRespModel, handleRespError } from '../js/common.js';
-import logo60 from '../images/logo60.png'
+import logo from '../images/logo2.png'
 
 function LoginPage() {
     const [userName, setUserName] = useState('');
@@ -32,7 +32,7 @@ function LoginPage() {
     return (
         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: 600, width: '100%'}}>
             <div className="flex-row-cont" style={{height: 60, width: '30%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
-                <Image className='flex-row-cont' src={logo60} />
+                <Image className='flex-row-cont' src={logo} height={25} />
             </div>
             <div className="flex-col-cont" style={{height: 175, width: '30%', border: '1px solid #353535'}}>
                 <Space direction='vertical' size={20} style={{width: '90%'}}>

@@ -4,7 +4,7 @@ import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import { genGetUrl, getRespModel, handleRespError } from '../js/common.js';
-import logo60 from '../images/logo60.png'
+import logo from '../images/logo2.png'
 
 
 const deleteCookie = (name) => {
@@ -40,7 +40,7 @@ const HeaderBar = () => {
         color: '#FFFFFF',
         height: 50,
         paddingInline: 0,
-        border: '0px solid green',
+        border: '0px solid green'
     };
 
     const items = [
@@ -56,10 +56,8 @@ const HeaderBar = () => {
 
     return (
         <Header style={headerStyle}>
-            <div className='flex-row-cont' style={{justifyContent: 'left', width: 300}}>
-                <div className='flex-row-cont'>
-                    <Image className='flex-row-cont' src={logo60} />
-                </div>
+            <div className='flex-row-cont' style={{width: 175, border: '0px solid green'}}>
+                <Image className='flex-row-cont' src={logo} height={20}/>
             </div>
             <div className='flex-row-cont' style={{width: 175}}>
                 <Space size={5}>
