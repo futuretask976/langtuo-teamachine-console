@@ -4,7 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, genGetUrlBySegs, genPostUrl, isBlankStr } from '../../js/common.js';
+import { dateToYMDHMS, genGetUrlBySegs, genPostUrl, isBlankStr, handleRespError, isRespSuccess } from '../../js/common.js';
 
 dayjs.locale('zh-cn');
 
@@ -31,20 +31,14 @@ const MachineDeployNewModal = (props) => {
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {

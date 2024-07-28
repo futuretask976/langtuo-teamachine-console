@@ -3,7 +3,7 @@ import { Button, Image, Input, Space } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { genPostUrl, getRespModel, handleErrorResp } from '../js/common.js';
+import { genPostUrl, getRespModel, handleRespError } from '../js/common.js';
 import logo60 from '../images/logo60.png'
 
 function LoginPage() {
@@ -21,7 +21,7 @@ function LoginPage() {
             window.location.href='/console/index';
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     };
 

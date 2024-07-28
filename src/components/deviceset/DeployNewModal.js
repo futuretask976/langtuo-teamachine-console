@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, handleErrorResp, isBlankStr } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, handleRespError, isBlankStr } from '../../js/common.js';
 
 const DeployNewModal = (props) => {
     // 对话框相关
@@ -33,7 +33,7 @@ const DeployNewModal = (props) => {
             }
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -63,21 +63,20 @@ const DeployNewModal = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setShopList4Select((prev => {
-                    let shopListTmp = [];
-                    response.data.model.forEach(item => {
-                        shopListTmp.push({
-                            label: item.shopName,
-                            value: item.shopCode
-                        });
+            let model = getRespModel(response);
+            setShopList4Select((prev => {
+                let shopListTmp = [];
+                model.forEach(item => {
+                    shopListTmp.push({
+                        label: item.shopName,
+                        value: item.shopCode
                     });
-                    return shopListTmp;
-                }));
-            }
+                });
+                return shopListTmp;
+            }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     const fetchModelListData = () => {
@@ -88,21 +87,20 @@ const DeployNewModal = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setModelList4Select((prev => {
-                    let modelListTmp = [];
-                    response.data.model.forEach(item => {
-                        modelListTmp.push({
-                            label: item.modelCode,
-                            value: item.modelCode
-                        });
+            let model = getRespModel(response);
+            setModelList4Select((prev => {
+                let modelListTmp = [];
+                model.forEach(item => {
+                    modelListTmp.push({
+                        label: item.modelCode,
+                        value: item.modelCode
                     });
-                    return modelListTmp;
-                }));
-            }
+                });
+                return modelListTmp;
+            }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -126,7 +124,7 @@ const DeployNewModal = (props) => {
             setShopCode(model.shopCode);
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }, [props.deployCode4Edit]);
 
@@ -143,7 +141,7 @@ const DeployNewModal = (props) => {
             setDeployCode(model);
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
  

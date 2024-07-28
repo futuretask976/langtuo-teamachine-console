@@ -3,7 +3,7 @@ import { Button, Select, Space } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, handleErrorResp, isArray } from '../../js/common';
+import { genGetUrlByParams, getRespModel, handleRespError, isArray } from '../../js/common';
 
 const TeaNewModalSpecPane = (props) => {
     // 状态变量初始化相关
@@ -52,7 +52,7 @@ const TeaNewModalSpecPane = (props) => {
             }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     useEffect(() => {

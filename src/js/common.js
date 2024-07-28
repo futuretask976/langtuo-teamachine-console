@@ -108,7 +108,7 @@ export const getRespModel = (resp) => {
     return model;
 };
 
-export const handleErrorResp = (errorResp) => {
+export const handleRespError = (errorResp) => {
     if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
         alert("网络请求出现异常！");
         window.location.href='http://localhost:3000/console/error';
@@ -121,6 +121,13 @@ export const handleErrorResp = (errorResp) => {
         alert("出现未知错误！");
         window.location.href='http://localhost:3000/console/error';
     }
+};
+
+export const isRespSuccess = (resp) => {
+    if (isBlankObj(resp) || isBlankObj(resp.data)) {
+        return false;
+    }
+    return resp.data.success;
 };
 
 

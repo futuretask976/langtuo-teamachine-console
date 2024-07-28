@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, isRespSuccess, getRespModel } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -26,20 +26,14 @@ const ShopGroupNewModal = (props) => {
             },
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -67,19 +61,13 @@ const ShopGroupNewModal = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setShopGroupCode(response.data.model.shopGroupCode);
-                setShopGroupName(response.data.model.shopGroupName);
-                setComment(response.data.model.comment);
-            }
+            let model = getRespModel(response);
+            setShopGroupCode(model.shopGroupCode);
+            setShopGroupName(model.shopGroupName);
+            setComment(model.comment);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }, [props.shopGroupCode4Edit]);
  

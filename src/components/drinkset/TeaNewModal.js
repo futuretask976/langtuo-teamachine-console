@@ -3,7 +3,7 @@ import { Button, Modal, Steps, theme } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, isBlankObj, handleErrorResp } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, isBlankObj, handleRespError, getRespModel } from '../../js/common.js';
 
 import TeaNewModalInfoPane from '../../components/drinkset/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../../components/drinkset/TeaNewModalActStepPane'
@@ -52,7 +52,7 @@ const TeaNewModal = (props) => {
             }
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -108,15 +108,14 @@ const TeaNewModal = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                let teaTmp = {...response.data.model};
-                setTea(prev => {
-                    return teaTmp;
-                });
-            }
+            let model = getRespModel(response);
+            let teaTmp = {...model};
+            setTea(prev => {
+                return teaTmp;
+            });
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }, [props.teaCode4Edit]);
     useEffect(() => {

@@ -3,7 +3,7 @@ import { Button, Select, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, genGetUrlByParams, handleErrorResp } from '../../js/common.js';
+import { isArray, genGetUrlByParams, handleRespError, getRespModel } from '../../js/common.js';
 
 const TeaNewModalActStepPane = (props) => {
     // 状态变量初始化相关
@@ -29,22 +29,21 @@ const TeaNewModalActStepPane = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setToppingList4Select((prev => {
-                    let toppingList4SelectTmp = [];
-                    response.data.model.forEach(item => {
-                        let toppingTmp = {...item};
-                        toppingTmp.key = item.toppingCode;
-                        toppingTmp.label = item.toppingName;
-                        toppingTmp.value = item.toppingCode;
-                        toppingList4SelectTmp.push(toppingTmp);
-                    })
-                    return toppingList4SelectTmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setToppingList4Select((prev => {
+                let toppingList4SelectTmp = [];
+                model.forEach(item => {
+                    let toppingTmp = {...item};
+                    toppingTmp.key = item.toppingCode;
+                    toppingTmp.label = item.toppingName;
+                    toppingTmp.value = item.toppingCode;
+                    toppingList4SelectTmp.push(toppingTmp);
+                })
+                return toppingList4SelectTmp;
+            }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     useEffect(() => {

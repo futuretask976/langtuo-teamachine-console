@@ -3,7 +3,7 @@ import { Dropdown, Layout, Image, Space } from 'antd';
 import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-import { genGetUrl, getRespModel, handleErrorResp } from '../js/common.js';
+import { genGetUrl, getRespModel, handleRespError } from '../js/common.js';
 import logo60 from '../images/logo60.png'
 
 
@@ -24,7 +24,7 @@ const doLogout = () => {
         window.location.href='/console/login';
     })
     .catch(error => {
-        handleErrorResp(error);
+        handleRespError(error);
     });
 }
 

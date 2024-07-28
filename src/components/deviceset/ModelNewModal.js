@@ -4,7 +4,7 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl, handleErrorResp, getRespModel } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, getRespModel, isRespSuccess } from '../../js/common.js';
 
 const ModelNewModal = (props) => {
     // 对话框相关
@@ -24,14 +24,14 @@ const ModelNewModal = (props) => {
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -76,7 +76,7 @@ const ModelNewModal = (props) => {
             }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }, [props.modelCode4Edit]);
 

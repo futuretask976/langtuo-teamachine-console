@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleErrorResp } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const DeployListBlock = (props) => {
     // 样式相关
@@ -45,7 +45,7 @@ const DeployListBlock = (props) => {
             }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -122,17 +122,12 @@ const DeployListBlock = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 

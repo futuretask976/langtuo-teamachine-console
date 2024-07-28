@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleErrorResp } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const ModelListBlock = (props) => {
     // 样式相关
@@ -41,7 +41,7 @@ const ModelListBlock = (props) => {
             }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -106,12 +106,12 @@ const ModelListBlock = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
 

@@ -122,13 +122,11 @@ const TeaNewModalAdjustRulePane = (props) => {
         setTeaUnitList(prev => {
             let tmp = [];
             teaUnitList.forEach(teaUnit => {
-                console.log('$$$$$ TeaNewModalAdjustRulePane#onClickTeaUnit teaUnit=', teaUnit);
                 if (teaUnit.teaUnitCode == teaUnitCode) {
                     teaUnit.backgroundColor = '#145CFE';
                     teaUnit.textColor = 'white';
                     teaUnit.selected = 1;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
-                    console.log('$$$$$ TeaNewModalAdjustRulePane#onClickTeaUnit teaUnit.toppingAdjustRuleList=', teaUnit.toppingAdjustRuleList);
                     setCurToppingAdjustRuleList(prev => {
                         return teaUnit.toppingAdjustRuleList;
                     })

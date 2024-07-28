@@ -3,7 +3,7 @@ import { Input, Select, Switch } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankObj, isBlankStr, genGetUrlByParams, handleErrorResp } from '../../js/common.js';
+import { isBlankObj, isBlankStr, genGetUrlByParams, handleRespError, getRespModel } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -72,22 +72,21 @@ const TeaNewModalInfoPane = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setTeaTypeList4Select((prev => {
-                    let teaTypeListTmp = [];
-                    response.data.model.forEach(item => {
-                        teaTypeListTmp.push({
-                            key: item.teaTypeCode,
-                            label: item.teaTypeName,
-                            value: item.teaTypeCode
-                        });
-                    })
-                    return teaTypeListTmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setTeaTypeList4Select((prev => {
+                let teaTypeListTmp = [];
+                model.forEach(item => {
+                    teaTypeListTmp.push({
+                        key: item.teaTypeCode,
+                        label: item.teaTypeName,
+                        value: item.teaTypeCode
+                    });
+                })
+                return teaTypeListTmp;
+            }));
         })
         .catch(error => {
-            handleErrorResp(error);
+            handleRespError(error);
         });
     }
     useEffect(() => {
