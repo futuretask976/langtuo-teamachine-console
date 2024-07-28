@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, isBlankArray } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, handleRespError, isBlankArray } from '../../js/common.js';
 
 const WarningRuleListBlock = (props) => {
     // 样式相关
@@ -46,12 +46,7 @@ const WarningRuleListBlock = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
