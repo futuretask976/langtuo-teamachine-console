@@ -1,0 +1,117 @@
+import React, { useState } from 'react';
+import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+
+import '../../css/common.css';
+
+import HeaderBar from '../../components/HeaderBar'
+import SiderMenu from '../../components/SiderMenu'
+import FooterBar from '../../components/FooterBar'
+import BreadcrumbBlock from "../../components/BreadcrumbBlock"
+import InvalidActRecordListBlock from '../../components/recordset/InvalidActRecordListBlock'
+import InvalidActRecordViewModal from '../../components/recordset/InvalidActRecordViewModal'
+
+const { Content } = Layout;
+
+const InvalidActRecordPage = (props) => {
+    // 导航菜单 + 面包屑相关
+    const openMenu = ['recordSet'];
+    const selectedMenu = ['invalidActRecordMgt'];
+    const breadcrumbPath = ['控制台', '动作记录', '废料记录管理'];
+
+    // 页面样式相关
+    const layoutStyle = {
+        height: 1000,
+        overflow: 'hidden',
+        width: 'calc(100% - 5px)',
+        maxWidth: 'calc(100% - 5px)',
+        border: '0px solid red',
+    };
+
+    // 新建对话框相关
+    const [openViewModal, setOpenViewModal] = useState(false);
+    const onOpenViewModal = () => {
+        setOpenViewModal(true);
+    };
+    const onCloseViewModal = () => {
+        setOpenViewModal(false);
+        setIdempotentMark4View('');
+    }
+
+    // 搜索相关
+    var shopGroupCode4SearchTmp = '';
+    var shopCode4SearchTmp = '';
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
+    const [shopCode4Search, setShopCode4Search] = useState('');
+    const onClickSearch = () => {
+        setShopGroupCode4Search(shopGroupCode4SearchTmp);
+        setShopCode4Search(shopCode4SearchTmp);
+    }
+
+    // 表格操作相关
+    const [idempotentMark4View, setIdempotentMark4View] = useState('');
+    const onClickView = (selectedIdempotentMark)=> {
+        setIdempotentMark4View(selectedIdempotentMark);
+        setOpenViewModal(true);
+    }
+
+    return (
+        <>
+            <Flex gap="middle" justify="center" wrap="wrap">
+                <Layout style={layoutStyle}>
+                    <HeaderBar />
+                    <Layout>
+                        <SiderMenu openMenu={openMenu} selectedMenu={selectedMenu} />
+                        <Layout>
+                            <Content style={{ margin: '0px 5px 0px 5px' }}>
+                                <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                                <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
+                                <Row style={{backgroundColor: '#FFFFFF'}}>
+                                    <Col className="gutter-row" span={2}>
+                                        <div className="flex-row-cont" style={{ justifyContent: 'flex-end', height: '100%'}}>
+                                            <span>店铺组编码：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <Input placeholder="店铺组编码" onChange={(e) => shopGroupCode4SearchTmp = e.target.value}/>
+                                    </Col>
+                                    <Col className="gutter-row" span={2}>
+                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                            <span>店铺编码：</span>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={4}>
+                                        <Input placeholder="店铺编码" onChange={(e) => shopCode4SearchTmp = e.target.value}/>
+                                    </Col>
+                                    <Col className="gutter-row" span={3}>
+                                        <div className="flex-row-cont" style={{height: '100%'}}>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={3}>
+                                        <div className="flex-row-cont" style={{height: '100%'}}>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenViewModal} style={{width: '80%'}}>新建规则</Button>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={6}>
+                                        &nbsp;
+                                    </Col>
+                                </Row>
+                                <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
+                                <div>&nbsp;</div>
+                                <InvalidActRecordListBlock shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
+                            </Content>
+                        </Layout>
+                    </Layout>
+                    <FooterBar />
+                </Layout>
+            </Flex>
+
+            {openViewModal && (
+                <InvalidActRecordViewModal modalTitle='新建规则' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+            )}
+        </>
+    )
+};
+
+export default InvalidActRecordPage;

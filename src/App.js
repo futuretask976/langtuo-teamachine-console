@@ -25,6 +25,7 @@ import OpenRulePage from './pages/ruleset/OpenRulePage';
 import CloseRulePage from './pages/ruleset/CloseRulePage';
 import CleanRulePage from './pages/ruleset/CleanRulePage';
 import WarningRulePage from './pages/ruleset/WarningRulePage';
+import InvalidActRecordPage from './pages/recordset/InvalidActRecordPage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
@@ -169,6 +170,10 @@ const Routes = () => {
                 {
                     path: "/ruleset/warning",
                     element: <WarningRulePage />,
+                },
+                {
+                    path: "/recordset/invalid",
+                    element: <InvalidActRecordPage />,
                 },
                 {
                     path: "/login",

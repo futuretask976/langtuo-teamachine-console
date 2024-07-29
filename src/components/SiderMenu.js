@@ -52,11 +52,11 @@ const SiderMenu = (props) => {
 			getItem('清洗规则管理', 'cleanRuleMgt'),
 			getItem('预警规则管理', 'warningRuleMgt'),
         ]),
-        getItem('日常报表', 'reportSet', <FileSearchOutlined />, [
-            getItem('废料记录管理', '25'),
-            getItem('补料记录管理', '26'),
-			getItem('清洗记录管理', '27'),
-			getItem('订单记录管理', '28'),
+        getItem('动作记录', 'recordSet', <FileSearchOutlined />, [
+            getItem('废料记录管理', 'invalidActRecordMgt'),
+            getItem('补料记录管理', 'supplyActRecordMgt'),
+			getItem('清洗记录管理', 'cleanActRecordMgt'),
+			getItem('订单记录管理', 'orderActRecordMgt'),
         ]),
     ];
 
@@ -115,6 +115,8 @@ const SiderMenu = (props) => {
             window.location.href="/console/ruleset/clean";
         } else if (e.key == 'warningRuleMgt') {
             window.location.href="/console/ruleset/warning";
+        } else if (e.key == 'invalidActRecordMgt') {
+            window.location.href="/console/recordset/invalid";
         }
     };
 
