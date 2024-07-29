@@ -24,9 +24,9 @@ const ToppingAccuracyTplNewModal = (props) => {
             templateCode: templateCode,
             templateName: templateName,
             state: state,
-            overUnit: overUnit,
+            overMode: overMode,
             overAmount: overAmount,
-            underUnit: underUnit,
+            underMode: underMode,
             underAmount: underAmount,
             toppingCode: toppingCode,
             comment: comment
@@ -63,9 +63,9 @@ const ToppingAccuracyTplNewModal = (props) => {
     const [templateCode, setTemplateCode] = useState(isBlankStr(props.templateCode4Edit) ? '' : props.templateCode4Edit);
     const [templateName, setTemplateName] = useState('');
     const [state, setState] = useState(0);
-    const [overUnit, setOverUnit] = useState(0);
+    const [overMode, setOverMode] = useState(0);
     const [overAmount, setOverAmount] = useState(0);
-    const [underUnit, setUnderUnit] = useState(0);
+    const [underMode, setUnderMode] = useState(0);
     const [underAmount, setUnderAmount] = useState(0);
     const [toppingCode, setToppingCode] = useState('');
     const [comment, setComment] = useState('');
@@ -84,9 +84,9 @@ const ToppingAccuracyTplNewModal = (props) => {
                 setTemplateCode(response.data.model.templateCode);
                 setTemplateName(response.data.model.templateName);
                 setState(response.data.model.state);
-                setOverUnit(response.data.model.overUnit);
+                setOverMode(response.data.model.overMode);
                 setOverAmount(response.data.model.overAmount);
-                setUnderUnit(response.data.model.underUnit);
+                setUnderMode(response.data.model.underMode);
                 setUnderAmount(response.data.model.underAmount);
                 setToppingCode(response.data.model.toppingCode);
                 setComment(response.data.model.comment);
@@ -143,13 +143,13 @@ const ToppingAccuracyTplNewModal = (props) => {
         setState(e ? 1 : 0);
     }
     const onChangeOverUnit = (e) => {
-        setOverUnit(e);
+        setOverMode(e);
     }
     const onChangeOverAmount = (e) => {
         setOverAmount(e);
     }
     const onChangeUnderUnit = (e) => {
-        setUnderUnit(e);
+        setUnderMode(e);
     }
     const onChangeUnderAmount = (e) => {
         setUnderAmount(e);
@@ -252,7 +252,7 @@ const ToppingAccuracyTplNewModal = (props) => {
                                             value: 1
                                         }
                                     ]}
-                                    value={overUnit}
+                                    value={overMode}
                                 />
                             </div>
                         </Col>
@@ -294,7 +294,7 @@ const ToppingAccuracyTplNewModal = (props) => {
                                             value: 1
                                         }
                                     ]}
-                                    value={underUnit}
+                                    value={underMode}
                                 />
                             </div>
                         </Col>
