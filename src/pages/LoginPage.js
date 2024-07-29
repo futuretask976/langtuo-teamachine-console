@@ -54,6 +54,21 @@ function LoginPage() {
                         </Button>
                     </div>
                 </Space>
+                {/* <div className="flex-col-cont" style={{height: 200, width: '30%', border: '1px solid red'}}>
+                    <Form name="loginForm" initialValues={{remember: true}} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
+                        <Form.Item label="用户名" name="username" rules={[{required: true, message: '请输入你的用户名'}]} className="flex-row-cont" style={{width: '100%', border: '1px solid green'}}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="密&nbsp;&nbsp;&nbsp;&nbsp;码" name="password" rules={[{required: true, message: 'Please input your password!'}]} className="flex-row-cont" style={{width: '100%', border: '1px solid red'}}>
+                            <Input.Password />
+                        </Form.Item>
+                        <Form.Item className="flex-row-cont" style={{width: '100%', border: '1px solid green'}}>
+                            <Button type="primary" htmlType="submit">
+                                登录
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div> */}
             </div>
         </div>
     )

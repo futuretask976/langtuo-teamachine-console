@@ -148,7 +148,6 @@ const TeaNewModal = (props) => {
         setTea(prev => {
             let tmp = {...prev};
             tmp.specRuleList = specRuleList;
-            // delete tmp.teaUnitList;
             return tmp;
         });
     };

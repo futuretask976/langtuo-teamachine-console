@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Select, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { isArray, isBlankObj, isBlankStr, isNumber } from '../../js/common.js';
+import { isArray, isBlankObj, isNumber } from '../../js/common.js';
 
 const TeaNewModalAdjustRulePane = (props) => {
     // 状态变量初始化相关
@@ -128,6 +128,12 @@ const TeaNewModalAdjustRulePane = (props) => {
                     teaUnit.selected = 1;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
                     setCurToppingAdjustRuleList(prev => {
+                        let toppingAdjustRuleList = teaUnit.toppingAdjustRuleList;
+                        toppingAdjustRuleList.forEach(toppingAdjustRule => {
+                            if (!isNumber(toppingAdjustRule.actualAmount)) {
+                                toppingAdjustRule.actualAmount = calcActualAmount(toppingAdjustRule);
+                            }
+                        })
                         return teaUnit.toppingAdjustRuleList;
                     })
                 } else {
@@ -158,8 +164,32 @@ const TeaNewModalAdjustRulePane = (props) => {
         },
         {
             title: '修改',
+            dataIndex: 'adjustType',
+            key: 'adjustType',
+            render: (_, { adjustType, toppingCode }) => (
+                <Select
+                    size="small"
+                    style={{width: '100%'}}
+                    onChange={(e)=>onChangeAdjustType(e, toppingCode)}
+                    options={[
+                        {
+                            label: '减少',
+                            value: 0
+                        },
+                        {
+                            label: '增加',
+                            value: 1
+                        }
+                    ]}
+                    value={isNumber(adjustType) ? adjustType : 0}
+                />
+            ),
+        },
+        {
+            title: '方式',
             dataIndex: 'adjustMode',
             key: 'adjustMode',
+            width: '15%',
             render: (_, { adjustMode, toppingCode }) => (
                 <Select
                     size="small"
@@ -167,39 +197,15 @@ const TeaNewModalAdjustRulePane = (props) => {
                     onChange={(e)=>onChangeAdjustMode(e, toppingCode)}
                     options={[
                         {
-                            label: '增加',
-                            value: 'add'
-                        },
-                        {
-                            label: '减少',
-                            value: 'reduce'
-                        }
-                    ]}
-                    value={isBlankStr(adjustMode) ? '' : adjustMode}
-                />
-            ),
-        },
-        {
-            title: '方式',
-            dataIndex: 'adjustUnit',
-            key: 'adjustUnit',
-            width: '15%',
-            render: (_, { adjustUnit, toppingCode }) => (
-                <Select
-                    size="small"
-                    style={{width: '100%'}}
-                    onChange={(e)=>onChangeAdjustUnit(e, toppingCode)}
-                    options={[
-                        {
                             label: '固定值',
-                            value: 'fix'
+                            value: 0
                         },
                         {
                             label: '百分比',
-                            value: 'per'
+                            value: 1
                         }
                     ]}
-                    value={isBlankStr(adjustUnit) ? '' : adjustUnit}
+                    value={isNumber(adjustMode) ? adjustMode : 0}
                 />
             ),
         },
@@ -220,24 +226,24 @@ const TeaNewModalAdjustRulePane = (props) => {
             ),
         }
     ]
-    const onChangeAdjustMode = (e, toppingCode) => {
+    const onChangeAdjustType = (e, toppingCode) => {
         setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(adjustRule => {
                 if (adjustRule.toppingCode == toppingCode) {
-                    adjustRule.adjustMode = e;
+                    adjustRule.adjustType = e;
                     adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
             })
             return tmp;
         });
     }
-    const onChangeAdjustUnit = (e, toppingCode) => {
+    const onChangeAdjustMode = (e, toppingCode) => {
         setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(adjustRule => {
                 if (adjustRule.toppingCode == toppingCode) {
-                    adjustRule.adjustUnit = e;
+                    adjustRule.adjustMode = e;
                     adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
             })
@@ -258,24 +264,24 @@ const TeaNewModalAdjustRulePane = (props) => {
     }
     const calcActualAmount = (adjustTopping) => {
         if (isBlankObj(adjustTopping) 
-                || isBlankStr(adjustTopping.adjustMode)
-                || isBlankStr(adjustTopping.adjustUnit)
+                || !isNumber(adjustTopping.adjustType)
+                || !isNumber(adjustTopping.adjustMode)
                 || !isNumber(adjustTopping.adjustAmount)) {
             return adjustTopping.baseAmount;
         }
 
         let actualAmount = adjustTopping.baseAmount;
-        if (adjustTopping.adjustMode == 'add') {
-            if (adjustTopping.adjustUnit == 'fix') {
-                actualAmount = actualAmount + adjustTopping.adjustAmount;
-            } else {
-                actualAmount = actualAmount + actualAmount * adjustTopping.adjustAmount;
-            }
-        } else {
-            if (adjustTopping.adjustUnit == 'fix') {
+        if (adjustTopping.adjustType == 0) {
+            if (adjustTopping.adjustMode == 0) {
                 actualAmount = actualAmount - adjustTopping.adjustAmount;
             } else {
                 actualAmount = actualAmount - actualAmount * adjustTopping.adjustAmount;
+            }
+        } else {
+            if (adjustTopping.adjustMode == 0) {
+                actualAmount = actualAmount + adjustTopping.adjustAmount;
+            } else {
+                actualAmount = actualAmount + actualAmount * adjustTopping.adjustAmount;
             }
         }
         return actualAmount < 0 ? 0 : actualAmount;
