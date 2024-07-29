@@ -112,6 +112,7 @@ const InvalidActRecordViewModal = (props) => {
                                         format: 'YYYY-MM-DD HH:mm:ss',
                                         type: 'mask',
                                     }}
+                                    style={{width: '100%'}}
                                     value={dayjs(invalidTime, 'YYYY-MM-DD HH:mm:ss')}
                                 />
                             </Col>
