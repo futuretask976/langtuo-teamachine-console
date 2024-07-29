@@ -59,9 +59,9 @@ const InvalidActRecordListBlock = (props) => {
             key: 'machineCode'
         },
         {
-            title: '店铺组编码',
-            dataIndex: 'shopGroupCode',
-            key: 'shopGroupCode',
+            title: '店铺组名称',
+            dataIndex: 'shopGroupName',
+            key: 'shopGroupName',
         },
         {
             title: '失效时间',
@@ -70,9 +70,9 @@ const InvalidActRecordListBlock = (props) => {
             render: (invalidTime) => new Date(invalidTime).toLocaleString()
         },
         {
-            title: '物料编码',
-            dataIndex: 'toppingCode',
-            key: 'toppingCode'
+            title: '物料名称',
+            dataIndex: 'toppingName',
+            key: 'toppingName'
         },
         {
             title: '管道序号',

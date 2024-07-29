@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Flex, Layout, Select, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 import '../../css/common.css';
+import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -10,6 +12,7 @@ import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import InvalidActRecordListBlock from '../../components/recordset/InvalidActRecordListBlock'
 import InvalidActRecordViewModal from '../../components/recordset/InvalidActRecordViewModal'
+import { handleRespError } from '../../js/common';
 
 const { Content } = Layout;
 
@@ -28,6 +31,68 @@ const InvalidActRecordPage = (props) => {
         border: '0px solid red',
     };
 
+    // 数据初始化
+    const [shopList4Select, setShopList4Select] = useState([]);
+    const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
+    const fetchShopList4Select = () => {
+        let url = genGetUrlByParams('/shopset/shop/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setShopList4Select((prev => {
+                let shopListTmp = [{
+                    label: '全部',
+                    value: ''
+                }];
+                model.forEach(item => {
+                    shopListTmp.push({
+                        label: item.shopName,
+                        value: item.shopCode
+                    });
+            })
+            return shopListTmp;
+        }));
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
+    const fetchShopGroupList4Select = () => {
+        let url = genGetUrlByParams('/shopset/shop/group/list', {
+            tenantCode: 'tenant_001'
+        });
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setShopGroupList4Select((prev => {
+                let shopGroupListTmp = [{
+                    label: '全部',
+                    value: ''
+                }];
+                model.forEach(item => {
+                    shopGroupListTmp.push({
+                        label: item.shopGroupName,
+                        value: item.shopGroupCode
+                    });
+            })
+            return shopGroupListTmp;
+        }));
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
+    useEffect(() => {
+        fetchShopList4Select();
+        fetchShopGroupList4Select();
+    }, []);
+
     // 新建对话框相关
     const [openViewModal, setOpenViewModal] = useState(false);
     const onOpenViewModal = () => {
@@ -39,8 +104,8 @@ const InvalidActRecordPage = (props) => {
     }
 
     // 搜索相关
-    var shopGroupCode4SearchTmp = '';
-    var shopCode4SearchTmp = '';
+    const [shopGroupCode4SearchTmp, setShopGroupCode4SearchTmp] = useState('');
+    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
     const [shopCode4Search, setShopCode4Search] = useState('');
     const onClickSearch = () => {
@@ -73,7 +138,12 @@ const InvalidActRecordPage = (props) => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <Input placeholder="店铺组编码" onChange={(e) => shopGroupCode4SearchTmp = e.target.value}/>
+                                        <Select
+                                            value={shopGroupCode4SearchTmp}
+                                            style={{width: '95%'}}
+                                            onChange={(e) => setShopGroupCode4SearchTmp(e)}
+                                            options={shopGroupList4Select}
+                                        />
                                     </Col>
                                     <Col className="gutter-row" span={2}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -81,7 +151,12 @@ const InvalidActRecordPage = (props) => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <Input placeholder="店铺编码" onChange={(e) => shopCode4SearchTmp = e.target.value}/>
+                                        <Select
+                                            value={shopCode4SearchTmp}
+                                            style={{width: '95%'}}
+                                            onChange={(e) => setShopCode4SearchTmp(e)}
+                                            options={shopList4Select}
+                                        />
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{height: '100%'}}>
