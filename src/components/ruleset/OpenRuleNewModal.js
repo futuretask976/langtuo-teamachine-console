@@ -94,7 +94,7 @@ const OpenRuleNewModal = (props) => {
     const [toppingList4Select, setToppingList4Select] = useState([]);
     const [toppingCodeList4Selected, setToppingCodeList4Selected] = useState([]);
     const [toppingRuleList, setToppingRuleList] = useState([]);
-    const [flushTime, setFlushTime] = useState(0);
+    const [flushSec, setFlushSec] = useState(0);
     const [flushWeight, setFlushWeight] = useState(0);
     const fetchToppingList4Select = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
@@ -143,8 +143,8 @@ const OpenRuleNewModal = (props) => {
         },
         {
             title: '排空时间',
-            dataIndex: 'flushTime',
-            key: 'flushTime',
+            dataIndex: 'flushSec',
+            key: 'flushSec',
             width: '25%'
         },
         {
@@ -181,7 +181,7 @@ const OpenRuleNewModal = (props) => {
                 tmp.push({
                     toppingCode: topping.toppingCode,
                     toppingName: topping.toppingName,
-                    flushTime: flushTime,
+                    flushSec: flushSec,
                     flushWeight: flushWeight,
                     actions: ['delete']
                 });
@@ -298,7 +298,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
-                                <InputNumber min={0} max={999} onChange={(e) => setFlushTime(e)} value={flushTime}/>
+                                <InputNumber min={0} max={999} onChange={(e) => setFlushSec(e)} value={flushSec}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>

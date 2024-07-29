@@ -26,7 +26,7 @@ const WarningRuleNewModal = (props) => {
             warningRuleName: warningRuleName,
             warningType: warningType,
             warningContent: warningContent,
-            thresholdType: thresholdType,
+            thresholdMode: thresholdMode,
             threshold: threshold
         })
         .then(response => {
@@ -62,7 +62,7 @@ const WarningRuleNewModal = (props) => {
     const [warningRuleName, setWarningRuleName] = useState('');
     const [warningType, setWarningType] = useState(0);
     const [warningContent, setWarningContent] = useState(0);
-    const [thresholdType, setThresholdType] = useState(0);
+    const [thresholdMode, setThresholdMode] = useState(0);
     const [threshold, setThreshold] = useState(0);
     const [comment, setComment] = useState('');
     useEffect(() => {
@@ -81,7 +81,7 @@ const WarningRuleNewModal = (props) => {
                 setWarningRuleName(model.warningRuleName);
                 setWarningType(model.warningType);
                 setWarningContent(model.warningContent);
-                setThresholdType(model.thresholdType);
+                setThresholdMode(model.thresholdMode);
                 setThreshold(model.threshold);
                 setComment(model.comment);
             }
@@ -113,7 +113,7 @@ const WarningRuleNewModal = (props) => {
                     </Button>
                 ]}
             >
-                <div style={{height: 325, width: '100%'}}>
+                <div style={{height: 350, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
@@ -136,6 +136,20 @@ const WarningRuleNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>预警内容：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={21}>
+                                <Radio.Group onChange={(e) => setWarningContent(e.target.value)} value={warningContent}>
+                                    <Radio value={0}>报废预警</Radio>
+                                    <Radio value={1}>缺料预警</Radio>
+                                    <Radio value={2}>清洗预警</Radio>
+                                </Radio.Group>
+                            </Col>
+                        </Row>
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>预警类型：</span>
                                 </div>
                             </Col>
@@ -153,7 +167,7 @@ const WarningRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <Radio.Group onChange={(e) => setThresholdType(e.target.value)} value={thresholdType}>
+                                <Radio.Group onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
                                     <Radio value={0}>绝对值</Radio>
                                     <Radio value={1}>百分比</Radio>
                                 </Radio.Group>
