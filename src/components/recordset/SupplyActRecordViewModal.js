@@ -10,7 +10,6 @@ dayjs.locale('zh-cn');
 
 const SupplyActRecordViewModal = (props) => {
     // 对话框相关
-    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickCancel = () => {
         props.onClose();

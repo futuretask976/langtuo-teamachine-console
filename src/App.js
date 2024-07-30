@@ -27,6 +27,7 @@ import CleanRulePage from './pages/ruleset/CleanRulePage';
 import WarningRulePage from './pages/ruleset/WarningRulePage';
 import InvalidActRecordPage from './pages/recordset/InvalidActRecordPage';
 import SupplyActRecordPage from './pages/recordset/SupplyActRecordPage';
+import CleanActRecordPage from './pages/recordset/CleanActRecordPage';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
@@ -179,6 +180,10 @@ const Routes = () => {
                 {
                     path: "/recordset/supply",
                     element: <SupplyActRecordPage />,
+                },
+                {
+                    path: "/recordset/clean",
+                    element: <CleanActRecordPage />,
                 },
                 {
                     path: "/login",

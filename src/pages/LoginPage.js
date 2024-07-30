@@ -1,17 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, Input, Space } from 'antd';
+import { Button, Image, Input, Select, Space } from 'antd';
 import axios from 'axios';
 
 import '../css/common.css';
-import { genPostUrl, getRespModel, handleRespError } from '../js/common.js';
+import { genPostUrl, genGetUrl, getRespModel, handleRespError } from '../js/common.js';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [tenantCode, setTenantCode] = useState('');
+    const [tenantList4Select, setTenantList4Select] = useState([]);
+
+    const fetchTenantList4Select = () => {
+        let url = genGetUrl('/userset/tenant/list');
+        axios.get(url, {
+            withCredentials: true // 这会让axios在请求中携带cookies
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setTenantList4Select((prev => {
+                let tmp = [];
+                model.forEach(item => {
+                    tmp.push({
+                        label: item.tenantName,
+                        value: item.tenantCode
+                    });
+                })
+                return tmp;
+            }));
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
+    useEffect(() => {
+        fetchTenantList4Select();
+    }, []);
 
     const onClickLogin = () => {
-        let postData = 'username=' + userName + "&password=" + password;
+        let postData = 'username=' + userName + "&password=" + password + "&tenantCode=" + tenantCode;
         axios.post(genPostUrl('/login-processing'), postData, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -34,7 +62,7 @@ function LoginPage() {
             <div className="flex-row-cont" style={{height: 60, width: '30%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
                 <Image className='flex-row-cont' src={logo} height={25} />
             </div>
-            <div className="flex-col-cont" style={{height: 175, width: '30%', border: '1px solid #353535'}}>
+            <div className="flex-col-cont" style={{height: 225, width: '30%', border: '1px solid #353535'}}>
                 <Space direction='vertical' size={20} style={{width: '90%'}}>
                     <div className="flex-row-cont">
                         <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>用户名：</span></div>
@@ -46,6 +74,17 @@ function LoginPage() {
                         <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>密码：</span></div>
                         <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
                             <Input.Password placeholder='密码' onChange={(e) => setPassword(e.target.value)} style={{width: '100%'}}/>
+                        </div>
+                    </div>
+                    <div className="flex-row-cont">
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>租户：</span></div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
+                            <Select
+                                value={tenantCode}
+                                style={{width: '100%'}}
+                                onChange={(e) => setTenantCode(e)}
+                                options={tenantList4Select}
+                            />
                         </div>
                     </div>
                     <div className="flex-row-cont">

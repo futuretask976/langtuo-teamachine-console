@@ -119,6 +119,8 @@ const SiderMenu = (props) => {
             window.location.href="/console/recordset/invalid";
         } else if (e.key == 'supplyActRecordMgt') {
             window.location.href="/console/recordset/supply";
+        } else if (e.key == 'cleanActRecordMgt') {
+            window.location.href="/console/recordset/clean";
         }
     };
 
