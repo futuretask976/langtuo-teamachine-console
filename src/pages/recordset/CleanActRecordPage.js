@@ -19,7 +19,7 @@ const { Content } = Layout;
 const CleanActRecordPage = (props) => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['recordSet'];
-    const selectedMenu = ['invalidActRecordMgt'];
+    const selectedMenu = ['cleanActRecordMgt'];
     const breadcrumbPath = ['控制台', '动作记录', '废料记录管理'];
 
     // 页面样式相关
