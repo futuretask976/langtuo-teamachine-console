@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, handleRespError, isBlankStr } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, handleRespError, isBlankStr, isRespSuccess } from '../../js/common.js';
 
 const DeployNewModal = (props) => {
     // 对话框相关
@@ -26,7 +26,7 @@ const DeployNewModal = (props) => {
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
@@ -55,7 +55,7 @@ const DeployNewModal = (props) => {
     const [state, setState] = useState(0);
     const [shopList4Select, setShopList4Select] = useState([]);
     const [modelList4Select, setModelList4Select] = useState([]);
-    const fetchShopListData = () => {
+    const fetchShopList4Select = () => {
         let url = genGetUrlByParams('/shopset/shop/list', {
             tenantCode: 'tenant_001'
         })
@@ -79,7 +79,7 @@ const DeployNewModal = (props) => {
             handleRespError(error);
         });
     }
-    const fetchModelListData = () => {
+    const fetchModelList4Select= () => {
         let url = genGetUrlByParams('/deviceset/model/list', {
             tenantCode: 'tenant_001'
         })
@@ -104,8 +104,8 @@ const DeployNewModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchShopListData();
-        fetchModelListData();
+        fetchShopList4Select();
+        fetchModelList4Select();
     }, []);
     useEffect(() => {
         if (isBlankStr(props.deployCode4Edit)) {
