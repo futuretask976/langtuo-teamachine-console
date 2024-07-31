@@ -183,7 +183,7 @@ const SupplyActRecordPage = (props) => {
             </Flex>
 
             {openViewModal && (
-                <SupplyActRecordViewModal modalTitle='新建规则' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+                <SupplyActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
             )}
         </>
     )

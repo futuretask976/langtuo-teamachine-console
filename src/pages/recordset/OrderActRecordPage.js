@@ -10,17 +10,17 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import CleanActRecordListBlock from '../../components/recordset/CleanActRecordListBlock'
-import CleanActRecordViewModal from '../../components/recordset/CleanActRecordViewModal'
+import OrderActRecordListBlock from '../../components/recordset/OrderActRecordListBlock'
+import OrderActRecordViewModal from '../../components/recordset/OrderActRecordViewModal'
 import { handleRespError } from '../../js/common';
 
 const { Content } = Layout;
 
-const CleanActRecordPage = (props) => {
+const OrderActRecordPage = (props) => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['recordSet'];
-    const selectedMenu = ['cleanActRecordMgt'];
-    const breadcrumbPath = ['控制台', '动作记录', '废料记录管理'];
+    const selectedMenu = ['orderActRecordMgt'];
+    const breadcrumbPath = ['控制台', '动作记录', '补料记录管理'];
 
     // 页面样式相关
     const layoutStyle = {
@@ -80,9 +80,9 @@ const CleanActRecordPage = (props) => {
                         label: item.shopGroupName,
                         value: item.shopGroupCode
                     });
-            })
-            return shopGroupListTmp;
-        }));
+                })
+                return shopGroupListTmp;
+            }));
         })
         .catch(error => {
             handleRespError(error);
@@ -174,7 +174,7 @@ const CleanActRecordPage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <CleanActRecordListBlock shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
+                                <OrderActRecordListBlock shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
                             </Content>
                         </Layout>
                     </Layout>
@@ -183,10 +183,10 @@ const CleanActRecordPage = (props) => {
             </Flex>
 
             {openViewModal && (
-                <CleanActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+                <OrderActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
             )}
         </>
     )
 };
 
-export default CleanActRecordPage;
+export default OrderActRecordPage;

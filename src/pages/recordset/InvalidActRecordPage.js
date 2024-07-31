@@ -183,7 +183,7 @@ const InvalidActRecordPage = (props) => {
             </Flex>
 
             {openViewModal && (
-                <InvalidActRecordViewModal modalTitle='新建规则' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+                <InvalidActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
             )}
         </>
     )
