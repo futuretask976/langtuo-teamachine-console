@@ -99,6 +99,24 @@ export const isNumber = (value) => {
 
 
 // http response 处理
+export const getJwtToken = () => {
+    let jwtToken = localStorage.getItem('jwtToken');
+    if (isBlankStr(jwtToken)) {
+        return '';
+    } else {
+        return jwtToken;
+    }
+};
+
+export const getTenantCode = () => {
+    let tenantCode = localStorage.getItem('tenantCode');
+    if (isBlankStr(tenantCode)) {
+        return '';
+    } else {
+        return tenantCode;
+    }
+};
+
 export const getRespModel = (resp) => {
     if (isBlankObj(resp) || isBlankObj(resp.data) || !resp.data.success || isBlankObj(resp.data.model)) {
         alert("网络请求出现异常！");
@@ -117,6 +135,8 @@ export const handleRespError = (errorResp) => {
     if (resp.status == 401) {
         alert("认证失败，需要重新登录！");
         window.location.href='http://localhost:3000/console/login';
+    } else if (resp.status == 403) {
+        alert("授权失败，请咨询管理员授权！");
     } else {
         alert("出现未知错误！");
         window.location.href='http://localhost:3000/console/error';

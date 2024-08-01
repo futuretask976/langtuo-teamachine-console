@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isArray, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -15,33 +15,31 @@ const AdminNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/userset/admin/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
-            loginName: loginName,
-            loginPass: loginPass,
-            roleCode: roleCode,
-            orgName: orgName,
-            comment: comment,
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
             },
+            loginName: loginName,
+            loginPass: loginPass,
+            roleCode: roleCode,
+            orgName: orgName,
+            comment: comment
+        }, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                alert("here is success")
+            if (isRespSuccess(response)) {
+                alert("更新成功！")
             } else {
-                alert("here is wrong")
+                alert("更新失败，请联系管理员！")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -61,93 +59,90 @@ const AdminNewModal = (props) => {
     const [roleCode, setRoleCode] = useState('');
     const [orgName, setOrgName] = useState('');
     const [comment, setComment] = useState('');
-    const [orgStrucList, setOrgStrucList] = useState([]);
+    const [orgList, setOrgList] = useState([]);
     const [roleList, setRoleList] = useState([]);
-    useEffect(() => {
+
+    // 赋值初始化相关
+    const fetchAdmin4Edit = () => {
         if (isBlankStr(props.loginName4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/get', ['tenant_001', props.loginName4Edit]);
+        let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/get', [getTenantCode(), props.loginName4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true.valueOf, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setLoginName(response.data.model.loginName);
-                setLoginPass(response.data.model.loginPass);
-                setRoleCode(response.data.model.roleCode);
-                setOrgName(response.data.model.orgName);
-                setComment(response.data.model.comment);
-            }
+            let model = getRespModel(response);
+            setLoginName(model.loginName);
+            setLoginPass(model.loginPass);
+            setRoleCode(model.roleCode);
+            setOrgName(model.orgName);
+            setComment(model.comment);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
+    }
+    const fetchOrgList4Select = () => {
+        let url4OrgStruc = genGetUrlByParams('/userset/org/list', {tenantCode: getTenantCode()});
+        axios.get(url4OrgStruc, {
+            // withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setOrgList((prev => {
+                let orgListTmp = [];
+                model.forEach(item => {
+                    orgListTmp.push({
+                        label: item.orgName,
+                        value: item.orgName
+                    });
+                })
+                return orgListTmp;
+            }));
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
+    const fetchRoleList4Select = () => {
+        let url4Role = genGetUrlByParams('/userset/role/list', {tenantCode: getTenantCode()});
+        axios.get(url4Role, {
+            // withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setRoleList((prev => {
+                let roleListTmp = [];
+                model.forEach(item => {
+                    roleListTmp.push({
+                        label: item.roleName,
+                        value: item.roleCode
+                    });
+                })
+                return roleListTmp;
+            }));
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
+    useEffect(() => {
+        fetchAdmin4Edit();
     }, [props.loginName4Edit]);
     useEffect(() => {
-        let url4OrgStruc = genGetUrlByParams('/userset/orgstruc/list', {
-            tenantCode: 'tenant_001'
-        });
-        axios.get(url4OrgStruc, {
-            withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            if (response && response.data && response.data.success) {
-                setOrgStrucList((prev => {
-                    let orgStrucListTmp = [];
-                    response.data.model.forEach(item => {
-                        orgStrucListTmp.push({
-                            label: item.orgName,
-                            value: item.orgName
-                        });
-                    })
-                    return orgStrucListTmp;
-                }));
-            }
-        })
-        .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
-        });
-
-        let url4Role = genGetUrlByParams('/userset/admin/role/list', {
-            tenantCode: 'tenant_001'
-        });
-        axios.get(url4Role, {
-            withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            if (response && response.data && response.data.success) {
-                setRoleList((prev => {
-                    let roleListTmp = [];
-                    response.data.model.forEach(item => {
-                        roleListTmp.push({
-                            label: item.roleName,
-                            value: item.roleCode
-                        });
-                    })
-                    return roleListTmp;
-                }));
-            }
-        })
-        .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
-        });
+        fetchOrgList4Select();
+        fetchRoleList4Select();
     }, []);
  
     return (
@@ -214,7 +209,7 @@ const AdminNewModal = (props) => {
                                 value={orgName}
                                 style={{width: '90%'}}
                                 onChange={(e) => setOrgName(e)}
-                                options={orgStrucList}
+                                options={orgList}
                             />
                         </Col>
                     </Row>

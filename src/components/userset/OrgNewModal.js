@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const OrgNewModal = (props) => {
     // 对话框相关
@@ -13,30 +13,28 @@ const OrgNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/userset/org/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
-            tenantCode: 'tenant_001',
-            orgName: orgName,
-            parentOrgName: parentOrgName,
+            tenantCode: getTenantCode(),
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
+            },
+            orgName: orgName,
+            parentOrgName: parentOrgName
+        }, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                alert("here is success")
+            if (isRespSuccess(response)) {
+                alert("更新成功！")
             } else {
-                alert("here is wrong")
+                alert("更新失败，请联系管理员！")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -52,63 +50,61 @@ const OrgNewModal = (props) => {
 
     // 数据初始化相关
     const [orgName, setOrgName] = useState(isBlankStr(props.orgName4Edit) ? '' : props.orgName4Edit);
-    useEffect(() => {
+    const [parentOrgName, setParentOrgName] = useState('总公司');
+    const [parentOrgNameOpts, setParentOrgNameOpts] = useState([]);
+
+    // 初始化动作相关
+    const fetchOrg4Edit = () => {
         if (isBlankStr(props.orgName4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/get', ['tenant_001', props.orgName4Edit]);
+        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/get', [getTenantCode(), props.orgName4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setOrgName(response.data.model.orgName);
-                setParentOrgName(response.data.model.parentOrgName);
-            }
+            let model = getRespModel(response);
+            setOrgName(model.orgName);
+            setParentOrgName(model.parentOrgName);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
-    }, [props.orgName4Edit]);
-
-    const [parentOrgName, setParentOrgName] = useState('总公司');
-    const [parentOrgNameOpts, setParentOrgNameOpts] = useState([]);
-    useEffect(() => {
-        let url = genGetUrlByParams('/userset/org/list', {
-            tenantCode: 'tenant_001'
-        });
+    }
+    const fetchOrgList4Select = () => {
+        let url = genGetUrlByParams('/userset/org/list', {tenantCode: getTenantCode()});
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setParentOrgNameOpts(prev => {
-                    let tmpOpts = [];
-
-                    response.data.model.forEach(ite => {
-                        tmpOpts.push({
-                            label: ite.orgName,
-                            value: ite.orgName
-                        });
+            let model = getRespModel(response);
+            setParentOrgNameOpts(prev => {
+                let tmpOpts = [];
+                model.forEach(ite => {
+                    tmpOpts.push({
+                        label: ite.orgName,
+                        value: ite.orgName
                     });
-                    return tmpOpts;
                 });
-            }
+                return tmpOpts;
+            });
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchOrg4Edit();
+    }, [props.orgName4Edit]);
+    useEffect(() => {
+        fetchOrgList4Select();
     }, []);
  
     return (

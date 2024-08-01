@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams } from '../../js/common.js';
+import { genGetUrlByParams, getRespModel, handleRespError, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import EditableTree from '../../components/EditableTree'
 
@@ -25,27 +25,24 @@ const OrgViewModal = (props) => {
     const [orgStrucTree, setOrgStrucTree] = useState([]);
     useEffect(() => {
         let url = genGetUrlByParams('/userset/org/listbydepth', {
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setOrgStrucTree(prev => {
-                    let orgStrucTreeTmp = [];
-                    orgStrucTreeTmp.push(convertOrgNode(response.data.model));
-                    return orgStrucTreeTmp;
-                })
-            }
+            let model = getRespModel(response);
+            setOrgStrucTree(prev => {
+                let orgStrucTreeTmp = [];
+                orgStrucTreeTmp.push(convertOrgNode(model));
+                return orgStrucTreeTmp;
+            })
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }, []);
 

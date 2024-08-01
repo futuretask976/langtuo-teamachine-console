@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const OrgListBlock = (props) => {
     // 样式相关
@@ -18,37 +18,34 @@ const OrgListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchListData = () => {
         let url = genGetUrlByParams('/userset/org/search', {
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             orgName: props.orgName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                setList((prev => {
-                    let tmp = [];
-                    response.data.model.list.forEach(function(ite) {
-                        ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
-                        tmp.push(ite);
-                    });
-                    return tmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setPageNum(model.pageNum);
+            setPageSize(model.pageSize);
+            setTotal(model.total);
+            setList((prev => {
+                let tmp = [];
+                model.list.forEach(function(ite) {
+                    ite.key = ite.id;
+                    ite.actions = ["edit", "delete"];
+                    tmp.push(ite);
+                });
+                return tmp;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -85,12 +82,12 @@ const OrgListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>编辑</a>
+                            <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>删除</a>
+                            <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>删除</a>
                         );
                     }
                 })}
@@ -109,20 +106,19 @@ const OrgListBlock = (props) => {
     const onClickDelete = (e, orgName) => {
         let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/delete', ['tenant_001', orgName]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 

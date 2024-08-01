@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const RoleListBlock = (props) => {
     // 样式相关
@@ -16,39 +16,36 @@ const RoleListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
-    const fetchListData = () => {
-        let url = genGetUrlByParams('/userset/admin/role/search', {
-            tenantCode: 'tenant_001',
+    const fetchListData = async () => {
+        let url = genGetUrlByParams('/userset/role/search', {
+            tenantCode: getTenantCode(),
             roleName: props.roleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                setList((prev => {
-                    let tmp = [];
-                    response.data.model.list.forEach(function(ite) {
-                        ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
-                        tmp.push(ite);
-                    });
-                    return tmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setPageNum(model.pageNum);
+            setPageSize(model.pageSize);
+            setTotal(model.total);
+            setList((prev => {
+                let tmp = [];
+                model.list.forEach(ite => {
+                    ite.key = ite.id;
+                    ite.actions = ["edit", "delete"];
+                    tmp.push(ite);
+                });
+                return tmp;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -76,10 +73,11 @@ const RoleListBlock = (props) => {
             width: '10%'
         },
         {
-            title: '是否系统预留',
-            dataIndex: 'isReserved',
-            key: 'isReserved',
-            width: '10%'
+            title: '系统预留',
+            dataIndex: 'sysReserved',
+            key: 'sysReserved',
+            width: '10%',
+            render: (sysReserved) => 1 == sysReserved ? '是' : '否'
         },
         {
             title: '创建时间',
@@ -97,12 +95,12 @@ const RoleListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + roleCode} onClick={(e) => onClickEdit(e, roleCode)}>编辑</a>
+                            <a key={action + '_' + roleCode} onClick={(e) => onClickEdit(e, roleCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + roleCode} onClick={(e) => onClickDelete(e, roleCode)}>删除</a>
+                            <a key={action + '_' + roleCode} onClick={(e) => onClickDelete(e, roleCode)}>删除</a>
                         );
                     }
                 })}
@@ -119,22 +117,21 @@ const RoleListBlock = (props) => {
         props.onClickEdit(roleCode);
     }
     const onClickDelete = (e, roleCode) => {
-        let url = genGetUrlBySegs('/userset/admin/role/{segment}/{segment}/delete', ['tenant_001', roleCode]);
+        let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/delete', ['tenant_001', roleCode]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 

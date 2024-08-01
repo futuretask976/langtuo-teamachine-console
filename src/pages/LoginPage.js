@@ -31,7 +31,7 @@ function LoginPage() {
             }));
         })
         .catch(error => {
-            handleRespError(error);
+            console.log('$$$$$ loginPage error=', error);
         });
     }
     useEffect(() => {
@@ -45,6 +45,7 @@ function LoginPage() {
         })
         .then(response => {
             let model = getRespModel(response);
+            localStorage.setItem('tenantCode', tenantCode);
             localStorage.setItem('jwtToken', model.jwtToken);
             window.location.href='/console/index';
         })
@@ -54,7 +55,7 @@ function LoginPage() {
     };
 
     useEffect(() => {
-        alert('$$$$$ jwtToken=' + localStorage.getItem('jwtToken'));
+        console.log('$$$$$ jwtToken=' + localStorage.getItem('jwtToken'));
     }, []);
 
     return (

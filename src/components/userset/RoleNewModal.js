@@ -3,7 +3,7 @@ import { Button, Checkbox, Input, Modal, Space, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, isArray, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const RoleNewModal = (props) => {
     // 对话框相关
@@ -11,34 +11,32 @@ const RoleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/userset/admin/role/put');
+        let url = genPostUrl('/userset/role/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
-            roleCode: roleCode,
-            roleName: roleName,
-            comment: comment,
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
             },
+            roleCode: roleCode,
+            roleName: roleName,
+            comment: comment,
             permitActCodeList: permitActCodeList
+        }, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                alert("here is success")
+            if (isRespSuccess(response)) {
+                alert("更新成功！")
             } else {
-                alert("here is wrong")
+                alert("更新失败，请联系管理员！")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -58,54 +56,54 @@ const RoleNewModal = (props) => {
     const [comment, setComment] = useState('');
     const [permitActCodeList, setPermitActCodeList] = useState([]);
     const [permitActGroupList, setPermitActGroupList] = useState([]);
-    useEffect(() => {
+
+    // 初始化动作相关
+    const fetchRole4Edit = () => {
         if (isBlankStr(props.roleCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/admin/role/{segment}/{segment}/get', ['tenant_001', props.roleCode4Edit]);
+        let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/get', [getTenantCode(), props.roleCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setRoleCode(response.data.model.roleCode);
-                setRoleName(response.data.model.roleName);
-                setComment(response.data.model.comment);
-                setPermitActCodeList((prev => {
-                    return isArray(response.data.model.permitActCodeList) ? response.data.model.permitActCodeList : [];
-                }));
-            }
+            let model = getRespModel(response);
+            setRoleCode(model.roleCode);
+            setRoleName(model.roleName);
+            setComment(model.comment);
+            setPermitActCodeList((prev => {
+                return isArray(model.permitActCodeList) ? model.permitActCodeList : [];
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
-    }, [props.roleCode4Edit]);
-    useEffect(() => {
+    }
+    const fetchPermitActGroupList4Select = () => {
         let url = genPostUrl('/userset/permitact/list');
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPermitActGroupList((prev => {
-                    return response.data.model;
-                }));
-            }
+            let model = getRespModel(response);
+            setPermitActGroupList((prev => {
+                return model;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchRole4Edit();
+        fetchPermitActGroupList4Select();
     }, [props.roleCode4Edit]);
 
     // 输入相关
