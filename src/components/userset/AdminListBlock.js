@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode, isArray } from '../../js/common.js';
 
 const AdminListBlock = (props) => {
     // 样式相关
@@ -38,12 +38,14 @@ const AdminListBlock = (props) => {
             setList((prev => {
                 let tmp = [];
                 console.log('$$$$$ model.list=', model.list)
-                model.list.forEach(ite => {
-                    console.log('$$$$$ ite=', ite)
-                    ite.key = ite.id;
-                    ite.actions = ["edit", "delete"];
-                    tmp.push(ite);
-                });
+                if (isArray(model.list)) {
+                    model.list.forEach(ite => {
+                        console.log('$$$$$ ite=', ite)
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                }
                 return tmp;
             }));
         })
@@ -118,7 +120,7 @@ const AdminListBlock = (props) => {
         props.onClickEdit(loginName);
     }
     const onClickDelete = (e, loginName) => {
-        let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/delete', ['tenant_001', loginName]);
+        let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/delete', [getTenantCode(), loginName]);
         axios.delete(url, {
             // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {

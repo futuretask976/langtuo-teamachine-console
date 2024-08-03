@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, isArray } from '../../js/common.js';
 
 const TenantListBlock = (props) => {
     // 样式相关
@@ -36,11 +36,13 @@ const TenantListBlock = (props) => {
             setTotal(model.total);
             setList((prev => {
                 let tmp = [];
-                model.list.forEach(function(ite) {
-                    ite.key = ite.id;
-                    ite.actions = ["edit", "delete"];
-                    tmp.push(ite);
-                });
+                if (isArray(model.list)) {
+                    model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                }
                 return tmp;
             }));
         })

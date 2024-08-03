@@ -4,7 +4,7 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, getRespModel, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isArray, isBlankStr, handleRespError, isRespSuccess, getJwtToken } from '../../js/common.js';
 
 const ModelNewModal = (props) => {
     // 对话框相关
@@ -14,13 +14,13 @@ const ModelNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/deviceset/model/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
             modelCode: modelCode,
             enableFlowAll: enableFlowAll,
-            pipelineList: pipelineList,
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
+            pipelineList: pipelineList
+        }, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
             }
         })
         .then(response => {
@@ -57,7 +57,10 @@ const ModelNewModal = (props) => {
 
         let url = genGetUrlBySegs('/deviceset/model/{segment}/get', [props.modelCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true.valueOf, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);

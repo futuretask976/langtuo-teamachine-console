@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const MachineListBlock = (props) => {
     // 样式相关
@@ -24,7 +24,7 @@ const MachineListBlock = (props) => {
             shopName: props.shopName4Search,
             pageNum: pageNum,
             pageSize: pageSize,
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
@@ -129,7 +129,10 @@ const MachineListBlock = (props) => {
     const onClickDelete = (e, deployCode) => {
         let url = genGetUrlBySegs('/deviceset/machine/{segment}/delete', [deployCode]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             if (isRespSuccess(response)) {

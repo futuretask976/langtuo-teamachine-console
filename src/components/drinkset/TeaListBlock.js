@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode, isArray } from '../../js/common.js';
 
 const TeaListBlock = (props) => {
     // 样式相关
@@ -18,23 +18,27 @@ const TeaListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchListData = () => {
         let url = genGetUrlByParams('/drinkset/tea/search', {
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             teaCode: props.teaCode4Search,
             teaName: props.teaName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
+            let model = getRespModel(response);
+            setPageNum(model.pageNum);
+            setPageSize(model.pageSize);
+            setTotal(model.total);
+            if (isArray(model.list)) {
                 setList((prev => {
                     let tmp = [];
-                    response.data.model.list.forEach(function(ite) {
+                    model.list.forEach(function(ite) {
                         ite.actions = ["edit", "delete"];
                         tmp.push(ite);
                     });
@@ -43,12 +47,7 @@ const TeaListBlock = (props) => {
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -114,22 +113,20 @@ const TeaListBlock = (props) => {
         props.onClickEdit(teaCode);
     }
     const onClickDelete = (e, teaCode) => {
-        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/delete', ['tenant_001', teaCode]);
+        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/delete', [getTenantCode(), teaCode]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 

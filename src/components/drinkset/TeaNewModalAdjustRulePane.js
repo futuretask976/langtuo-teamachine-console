@@ -11,6 +11,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             let tmp = [...props.teaUnitList4Edit];
             tmp.forEach(item => {
                 item.backgroundColor = '#FFFFFF';
+                item.textColor = '#818181';
             });
             return tmp;
         }
@@ -31,6 +32,8 @@ const TeaNewModalAdjustRulePane = (props) => {
                     measureUnit: toppingBaseRule.measureUnit,
                     baseAmount: toppingBaseRule.baseAmount,
                     actualAmount: toppingBaseRule.baseAmount,
+                    adjustType: 0,
+                    adjustMode: 0
                 });
             })
         });
@@ -124,20 +127,18 @@ const TeaNewModalAdjustRulePane = (props) => {
             teaUnitList.forEach(teaUnit => {
                 if (teaUnit.teaUnitCode == teaUnitCode) {
                     teaUnit.backgroundColor = '#145CFE';
-                    teaUnit.textColor = 'white';
+                    teaUnit.textColor = '#FFFFFF';
                     teaUnit.selected = 1;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
                     setCurToppingAdjustRuleList(prev => {
                         let toppingAdjustRuleList = teaUnit.toppingAdjustRuleList;
                         toppingAdjustRuleList.forEach(toppingAdjustRule => {
-                            if (!isNumber(toppingAdjustRule.actualAmount)) {
-                                toppingAdjustRule.actualAmount = calcActualAmount(toppingAdjustRule);
-                            }
+                            toppingAdjustRule.actualAmount = calcActualAmount(toppingAdjustRule);
                         })
                         return teaUnit.toppingAdjustRuleList;
                     })
                 } else {
-                    teaUnit.backgroundColor = 'white';
+                    teaUnit.backgroundColor = '#FFFFFF';
                     teaUnit.textColor = '#818181';
                     teaUnit.selected = 0;
                 }
@@ -251,11 +252,13 @@ const TeaNewModalAdjustRulePane = (props) => {
         });
     }
     const onChangeAdjustAmount = (e, toppingCode) => {
+        console.log('$$$$$ toppingCode=', toppingCode);
         setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(adjustRule => {
                 if (adjustRule.toppingCode == toppingCode) {
                     adjustRule.adjustAmount = e;
+                    console.log('$$$$$ actualAmount=', calcActualAmount(adjustRule));
                     adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
             })
@@ -263,6 +266,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         });
     }
     const calcActualAmount = (adjustTopping) => {
+        console.log('$$$$$ adjustTopping=' + adjustTopping + ', adjustTopping.adjustType=' + adjustTopping.adjustType + ", adjustTopping.adjustMode=" + adjustTopping.adjustMode + ', adjustTopping.adjustAmount=' + adjustTopping.adjustAmount);
         if (isBlankObj(adjustTopping) 
                 || !isNumber(adjustTopping.adjustType)
                 || !isNumber(adjustTopping.adjustMode)
@@ -302,17 +306,17 @@ const TeaNewModalAdjustRulePane = (props) => {
     }, [curToppingAdjustRuleList]);
 
     return (
-        <div class="flex-col-cont" style={{height: 340, width: '100%'}}>
-            <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '10%', width: '100%'}}>
+        <div className="flex-col-cont" style={{height: 340, width: '100%'}}>
+            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '10%', width: '100%'}}>
                 <span style={{color: 'black', fontWeight: 'bold'}}>搭配规则：</span>
             </div>
-            <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '90%', width: '100%'}}>
+            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '90%', width: '100%'}}>
                 <div style={{height: '100%', width: '29%', overflowY: 'auto'}}>
                     <Space direction='vertical' size='small' style={{height: '100%', width: '100%'}}>
                         {teaUnitList.map(teaUnit => {
                             return (
                                 <div style={{height: 50, width: '99%', borderRadius: 5, backgroundColor: teaUnit.backgroundColor, color: teaUnit.textColor}} onClick={(e) => onClickTeaUnit(e, teaUnit.teaUnitCode)}>
-                                    <span class="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
+                                    <span className="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                         {teaUnit.teaUnitName}
                                     </span>
                                 </div>
@@ -321,13 +325,13 @@ const TeaNewModalAdjustRulePane = (props) => {
                     </Space>
                 </div>
                 <div style={{height: '100%', width: '2%'}}>&nbsp;</div>
-                <div class="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: '100%', width: '69%'}}>
+                <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: '100%', width: '69%'}}>
                     <Table 
                         columns={toppingAdjustRuleCols} 
                         dataSource={curToppingAdjustRuleList} 
                         size='small' 
                         style={{width: '100%'}} 
-                        rowKey='toppingCode'/>
+                        rowKey={record=>record.toppingCode}/>
                 </div>
             </div>
         </div>

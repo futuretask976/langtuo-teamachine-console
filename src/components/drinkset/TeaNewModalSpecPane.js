@@ -69,6 +69,7 @@ const TeaNewModalSpecPane = (props) => {
                         let specItemRuleList = [];
                         spec.specItemList.forEach(specItem => {
                             specItemRuleList.push({
+                                specCode: selectedSpecCode,
                                 specItemCode: specItem.specItemCode,
                                 specItemName: specItem.specItemName,
                                 outerSpecItemCode: specItem.outerSpecItemCode
@@ -113,12 +114,12 @@ const TeaNewModalSpecPane = (props) => {
     }, [specRuleList]);
 
     return (
-        <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
-            <div class="flex-row-cont" style={{height: '15%', width: '98%', border: '0px solid green'}}>
-                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '10%'}}>
+        <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
+            <div className="flex-row-cont" style={{height: '15%', width: '98%', border: '0px solid green'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '10%'}}>
                     可选规格：
                 </div>
-                <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '90%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '90%'}}>
                     <Select
                         mode="multiple"
                         placeholder="请选择"
@@ -130,14 +131,14 @@ const TeaNewModalSpecPane = (props) => {
                     />
                 </div>
             </div>
-            <div class="flex-col-cont" style={{justifyContent: 'flex-start', height: '85%', width: '98%', overflow: 'auto'}}>
+            <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '85%', width: '98%', overflow: 'auto'}}>
                 <Space direction="vertical" size="small" style={{width: '100%'}}>
                     {specRuleList.map((specRule) => (
-                        <div class="flex-col-cont" style={{height: 75, width: '100%', background: '#FFFFFF', borderRadius: 5}}>
-                            <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
+                        <div className="flex-col-cont" style={{height: 75, width: '100%', background: '#FFFFFF', borderRadius: 5}}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 30, width: '100%', color: 'black'}}>
                                 <span>{specRule.specName}：</span>
                             </div>
-                            <div class="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
                                     {specRule.specItemRuleList.map((specItemRule) => (
                                         <Button onClick={(e) => onClickSpecItem(specRule.specCode, specItemRule.specItemCode)} size='middle' style={{ backgroundColor: 1 == specItemRule.selected ? '#145CFE' : 'white', color: 1 == specItemRule.selected ? 'white' : 'black' }}>{specItemRule.specItemName}</Button>

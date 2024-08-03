@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, handleRespError, isBlankStr, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const DeployNewModal = (props) => {
     // 对话框相关
@@ -13,16 +13,20 @@ const DeployNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/deviceset/deploy/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
+            tenantCode: getTenantCode(),
+            extraInfo: {
+                testA: 'valueA',
+                testB: 'valueB'
+            },
             deployCode: deployCode,
             modelCode: modelCode,
             machineCode: machineCode,
             shopCode: shopCode,
-            state: state,
-            tenantCode: 'tenant_001',
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
+            state: state
+        }, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
             }
         })
         .then(response => {
@@ -81,7 +85,7 @@ const DeployNewModal = (props) => {
     }
     const fetchModelList4Select= () => {
         let url = genGetUrlByParams('/deviceset/model/list', {
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         })
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
@@ -112,7 +116,7 @@ const DeployNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/get', ['tenant_001', props.deployCode4Edit]);
+        let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/get', [getTenantCode(), props.deployCode4Edit]);
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
@@ -131,7 +135,7 @@ const DeployNewModal = (props) => {
     // 输入相关
     const onClickDeployCodeGen = (e) => {
         let url = genGetUrlByParams('/deviceset/deploy/generate', {
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         })
         axios.get(url, {
             withCredentials: true // 这会让axios在请求中携带cookies

@@ -3,7 +3,7 @@ import { Button, Modal, Steps, theme } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, isBlankObj, handleRespError, getRespModel } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankObj, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import TeaNewModalInfoPane from '../../components/drinkset/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../../components/drinkset/TeaNewModalActStepPane'
@@ -30,22 +30,22 @@ const TeaNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/drinkset/tea/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
+            tenantCode: getTenantCode(),
             teaCode: tea.teaCode,
             teaName: tea.teaName,
             outerTeaCode: tea.outerTeaCode,
             state: tea.state,
             teaTypeCode: tea.teaTypeCode,
             comment: tea.comment,
-            tenantCode: 'tenant_001',
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
             teaUnitList: tea.teaUnitList
+        }, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
@@ -103,9 +103,12 @@ const TeaNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/get', ['tenant_001', props.teaCode4Edit]);
+        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/get', [getTenantCode(), props.teaCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);

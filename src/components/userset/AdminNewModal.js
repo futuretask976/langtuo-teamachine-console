@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isArray, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -16,10 +16,6 @@ const AdminNewModal = (props) => {
         let url = genPostUrl('/userset/admin/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
             loginName: loginName,
             loginPass: loginPass,
             roleCode: roleCode,

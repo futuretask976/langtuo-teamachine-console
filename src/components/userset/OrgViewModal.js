@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, handleRespError, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlByParams, getRespModel, handleRespError, isBlankObj, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import EditableTree from '../../components/EditableTree'
 
@@ -35,11 +35,13 @@ const OrgViewModal = (props) => {
         })
         .then(response => {
             let model = getRespModel(response);
-            setOrgStrucTree(prev => {
-                let orgStrucTreeTmp = [];
-                orgStrucTreeTmp.push(convertOrgNode(model));
-                return orgStrucTreeTmp;
-            })
+            if (!isBlankObj(model)) {
+                setOrgStrucTree(prev => {
+                    let orgStrucTreeTmp = [];
+                    orgStrucTreeTmp.push(convertOrgNode(model));
+                    return orgStrucTreeTmp;
+                })
+            }
         })
         .catch(error => {
             handleRespError(error);
@@ -48,7 +50,7 @@ const OrgViewModal = (props) => {
 
     const convertOrgNode = (orgNode) => {
         let childrenTmp = [];
-        if (orgNode.childOrgNameList != undefined && orgNode.childOrgNameList != null) {
+        if (!isBlankObj(orgNode)) {
             orgNode.childOrgNameList.forEach(item => {
                 childrenTmp.push(convertOrgNode(item));
             })
