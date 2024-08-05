@@ -103,7 +103,7 @@ const TeaNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drink/tea/{segment}/{segment}/get', [getTenantCode(), props.teaCode4Edit]);
+        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/get', [getTenantCode(), props.teaCode4Edit]);
         axios.get(url, {
             // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
