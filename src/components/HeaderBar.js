@@ -47,9 +47,7 @@ const HeaderBar = () => {
         {
             key: 'logout',
             label: (
-                <a onClick={doLogout}>
-                    登出
-                </a>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>注销登录</a></div>
             ),
         }
     ];
