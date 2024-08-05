@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Image, Input, Select, Space } from 'antd';
 import axios from 'axios';
+import md5 from 'js-md5';
 
 import '../css/common.css';
 import { genPostUrl, genGetUrl, getRespModel, handleRespError } from '../js/common.js';
@@ -55,7 +56,7 @@ function LoginPage() {
     };
 
     useEffect(() => {
-        console.log('$$$$$ jwtToken=' + localStorage.getItem('jwtToken'));
+        console.log('$$$$$ md5=' + md5('ABCD99999' + 'TEA_MACHINE'));
     }, []);
 
     return (

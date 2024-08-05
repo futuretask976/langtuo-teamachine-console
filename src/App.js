@@ -3,32 +3,39 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 
-
-import TenantPage from './pages/userset/TenantPage';
-import RolePage from './pages/userset/RolePage';
-import AdminPage from './pages/userset/AdminPage';
-import OrgPage from './pages/userset/OrgPage';
-import ShopGroupPage from './pages/shopset/ShopGroupPage';
-import ShopPage from './pages/shopset/ShopPage';
-import ModelPage from './pages/deviceset/ModelPage';
-import DeployPage from './pages/deviceset/DeployPage';
-import MachinePage from './pages/deviceset/MachinePage';
-import ToppingTypePage from './pages/drinkset/ToppingTypePage';
-import ToppingPage from './pages/drinkset/ToppingPage';
-import SpecPage from './pages/drinkset/SpecPage';
-import TeaTypePage from './pages/drinkset/TeaTypePage';
-import TeaPage from './pages/drinkset/TeaPage';
-import ToppingAccuracyTplPage from './pages/drinkset/ToppingAccuracyTplPage';
-import SeriesPage from './pages/menuset/SeriesPage';
-import MenuPage from './pages/menuset/MenuPage';
-import OpenRulePage from './pages/ruleset/OpenRulePage';
-import CloseRulePage from './pages/ruleset/CloseRulePage';
-import CleanRulePage from './pages/ruleset/CleanRulePage';
-import WarningRulePage from './pages/ruleset/WarningRulePage';
-import InvalidActRecordPage from './pages/recordset/InvalidActRecordPage';
-import SupplyActRecordPage from './pages/recordset/SupplyActRecordPage';
-import CleanActRecordPage from './pages/recordset/CleanActRecordPage';
-import OrderActRecordPage from './pages/recordset/OrderActRecordPage';
+// userset
+import TenantPage from './pages/user/TenantPage';
+import RolePage from './pages/user/RolePage';
+import AdminPage from './pages/user/AdminPage';
+import OrgPage from './pages/user/OrgPage';
+// shopset
+import ShopGroupPage from './pages/shop/ShopGroupPage';
+import ShopPage from './pages/shop/ShopPage';
+// deviceset
+import ModelPage from './pages/device/ModelPage';
+import DeployPage from './pages/device/DeployPage';
+import MachinePage from './pages/device/MachinePage';
+// drinkset
+import ToppingTypePage from './pages/drink/ToppingTypePage';
+import ToppingPage from './pages/drink/ToppingPage';
+import SpecPage from './pages/drink/SpecPage';
+import TeaTypePage from './pages/drink/TeaTypePage';
+import TeaPage from './pages/drink/TeaPage';
+import ToppingAccuracyTplPage from './pages/drink/ToppingAccuracyTplPage';
+// menu
+import SeriesPage from './pages/menu/SeriesPage';
+import MenuPage from './pages/menu/MenuPage';
+// ruleset
+import OpenRulePage from './pages/rule/OpenRulePage';
+import CloseRulePage from './pages/rule/CloseRulePage';
+import CleanRulePage from './pages/rule/CleanRulePage';
+import WarningRulePage from './pages/rule/WarningRulePage';
+// recordset
+import InvalidActRecordPage from './pages/record/InvalidActRecordPage';
+import SupplyActRecordPage from './pages/record/SupplyActRecordPage';
+import CleanActRecordPage from './pages/record/CleanActRecordPage';
+import OrderActRecordPage from './pages/record/OrderActRecordPage';
+// single page
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
