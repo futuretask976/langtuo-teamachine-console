@@ -15,7 +15,7 @@ const SpecNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/drink/spec/put');
+        let url = genPostUrl('/drinkset/spec/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
             comment: comment,
@@ -62,7 +62,7 @@ const SpecNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drink/spec/{segment}/{segment}/get', [getTenantCode(), props.specCode4Edit]);
+        let url = genGetUrlBySegs('/drinkset/spec/{segment}/{segment}/get', [getTenantCode(), props.specCode4Edit]);
         axios.get(url, {
             // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
@@ -157,12 +157,12 @@ const SpecNewModal = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + specItemCode} onClick={(e) => onOpenSpecItemNewModal(specItemCode, specItemName, outerSpecItemCode)}>编辑</a>
+                            <a key={action + '_' + specItemCode} onClick={(e) => onOpenSpecItemNewModal(specItemCode, specItemName, outerSpecItemCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + specItemCode} onClick={(e) => onClickDeleteSpecItem(e, specItemCode)}>删除</a>
+                            <a key={action + '_' + specItemCode} onClick={(e) => onClickDeleteSpecItem(e, specItemCode)}>删除</a>
                         );
                     }
                 })}

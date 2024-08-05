@@ -82,7 +82,7 @@ const SpecListBlock = (props) => {
             render: (specItemList) => (
                 <Space size="middle">
                 {specItemList.map((specItem) => {
-                    return (<span>{specItem.specItemName}</span>);
+                    return (<span key={specItem.specItemCode}>{specItem.specItemName}</span>);
                 })}
                 </Space>
             )
@@ -96,12 +96,12 @@ const SpecListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + specCode} onClick={(e) => onClickEdit(e, specCode)}>编辑</a>
+                            <a key={action + '_' + specCode} onClick={(e) => onClickEdit(e, specCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + specCode} onClick={(e) => onClickDelete(e, specCode)}>删除</a>
+                            <a key={action + '_' + specCode} onClick={(e) => onClickDelete(e, specCode)}>删除</a>
                         );
                     }
                 })}
