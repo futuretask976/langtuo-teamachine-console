@@ -90,12 +90,12 @@ const TeaTypeListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + teaTypeCode} onClick={(e) => onClickEdit(e, teaTypeCode)}>编辑</a>
+                            <a key={action + '_' + teaTypeCode} onClick={(e) => onClickEdit(e, teaTypeCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + teaTypeCode} onClick={(e) => onClickDelete(e, teaTypeCode)}>删除</a>
+                            <a key={action + '_' + teaTypeCode} onClick={(e) => onClickDelete(e, teaTypeCode)}>删除</a>
                         );
                     }
                 })}
