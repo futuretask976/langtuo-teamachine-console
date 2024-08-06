@@ -128,18 +128,17 @@ export const getRespModel = (resp) => {
 
 export const handleRespError = (errorResp) => {
     if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
-        alert("网络请求出现异常！");
-        window.location.href='http://localhost:3000/console/error';
+        let redirectUrl = 'http://localhost:3000/console/error?msg=' + encodeURI('网络请求出现异常！');
+        console.log(redirectUrl);
+        window.location.href=redirectUrl;
     }
     let resp = errorResp.response;
     if (resp.status == 401) {
-        alert("认证失败，需要重新登录！");
-        window.location.href='http://localhost:3000/console/login';
+        window.location.href='http://localhost:3000/console/login?msg=' + encodeURI('认证失败，需要重新登录！');
     } else if (resp.status == 403) {
         alert("授权失败，请咨询管理员授权！");
     } else {
-        alert("出现未知错误！");
-        window.location.href='http://localhost:3000/console/error';
+        window.location.href='http://localhost:3000/console/error?msg=' + encodeURI('出现未知错误！');
     }
 };
 
