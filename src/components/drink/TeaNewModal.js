@@ -28,7 +28,7 @@ const TeaNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickSubmit = () => {
         setLoading(true);
-        let url = genPostUrl('/drink/tea/put');
+        let url = genPostUrl('/drinkset/tea/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
             teaCode: tea.teaCode,

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Input, Modal, Space, Switch, Col, Row } from 'antd';
+import { Button, DatePicker, Input, Modal, Select, Space, Switch, Col, Row } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, genGetUrlBySegs, genPostUrl, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getRespModel, getTenantCode } from '../../js/common.js';
+import { dateToYMDHMS, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getRespModel, getTenantCode, isArray } from '../../js/common.js';
 
 dayjs.locale('zh-cn');
 
@@ -60,6 +60,10 @@ const MachineDeployNewModal = (props) => {
     const [state, setState] = useState(0);
     const [validUntil, setValidUntil] = useState('');
     const [maintainUntil, setMaintainUntil] = useState(dateToYMDHMS(new Date()));
+    const [shopCode, setShopCode] = useState('');
+    const [shopList4Select, setShopList4Select] = useState([]);
+
+    // 赋值初始化相关
     const fetchMachine4Edit = () => {
         if (isBlankStr(props.machineCode4Edit)) {
             return;
@@ -81,11 +85,42 @@ const MachineDeployNewModal = (props) => {
             setState(model.state);
             setValidUntil(dateToYMDHMS(new Date(model.validUntil)));
             setMaintainUntil(dateToYMDHMS(new Date(model.maintainUntil)));
+            setShopCode(model.shopCode);
         })
         .catch(error => {
             handleRespError(error);
         });
     }
+    const fetchShopList4Select = () => {
+        let url = genGetUrlByParams('/shopset/shop/list', {tenantCode: getTenantCode()});
+        axios.get(url, {
+            // withCredentials: true, // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            if (isArray(model)) {
+                setShopList4Select(prev => {
+                    let tmp = [];
+                    model.forEach(item => {
+                        tmp.push({
+                            label: item.shopName,
+                            value: item.shopCode
+                        });
+                    })
+                    return tmp;
+                });
+            }
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
+    useEffect(() => {
+        fetchShopList4Select();
+    }, []);
     useEffect(() => {
         fetchMachine4Edit();
     }, [props.machineCodeCode4Edit]);
@@ -114,7 +149,7 @@ const MachineDeployNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 350, width: '100%'}}>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 400, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
@@ -212,6 +247,21 @@ const MachineDeployNewModal = (props) => {
                                     value={dayjs(validUntil, 'YYYY-MM-DD HH:mm:ss')}
                                 />
                             </div>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={5}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>归属店铺：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={19}>
+                            <Select
+                                value={shopCode}
+                                style={{width: '100%'}}
+                                onChange={(e) => setShopCode(e)}
+                                options={shopList4Select}
+                            />
                         </Col>
                     </Row>
                 </Space>
