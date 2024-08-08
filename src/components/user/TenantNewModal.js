@@ -20,12 +20,7 @@ const TenantNewModal = (props) => {
             tenantName: tenantName,
             contactPerson: contactPerson,
             contactPhone: contactPhone,
-            imgLink: "https://pic.com",
-            comment: comment,
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            }
+            comment: comment
         })
         .then(response => {
             if (isRespSuccess(response)) {
@@ -54,7 +49,6 @@ const TenantNewModal = (props) => {
     const [tenantName, setTenantName] = useState('');
     const [contactPerson, setContactPerson] = useState('');
     const [contactPhone, setContactPhone] = useState('');
-    const [imgLink, setImgLink] = useState('');
     const [comment, setComment] = useState('');
     useEffect(() => {
         if (isBlankStr(props.tenantCode4Edit)) {
@@ -73,7 +67,6 @@ const TenantNewModal = (props) => {
             setTenantName(model.tenantName);
             setContactPerson(model.contactPerson);
             setContactPhone(model.contactPhone);
-            setImgLink(model.imgLink);
             setComment(model.comment);
         })
         .catch(error => {
