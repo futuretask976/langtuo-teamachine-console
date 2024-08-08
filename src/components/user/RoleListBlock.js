@@ -24,7 +24,6 @@ const RoleListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -121,7 +120,6 @@ const RoleListBlock = (props) => {
     const onClickDelete = (e, roleCode) => {
         let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/delete', ['tenant_001', roleCode]);
         axios.delete(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

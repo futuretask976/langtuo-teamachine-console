@@ -22,7 +22,6 @@ const AdminNewModal = (props) => {
             orgName: orgName,
             comment: comment
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -66,7 +65,6 @@ const AdminNewModal = (props) => {
 
         let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/get', [getTenantCode(), props.loginName4Edit]);
         axios.get(url, {
-            // withCredentials: true.valueOf, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -86,7 +84,6 @@ const AdminNewModal = (props) => {
     const fetchOrgList4Select = () => {
         let url4OrgStruc = genGetUrlByParams('/userset/org/list', {tenantCode: getTenantCode()});
         axios.get(url4OrgStruc, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -111,7 +108,6 @@ const AdminNewModal = (props) => {
     const fetchRoleList4Select = () => {
         let url4Role = genGetUrlByParams('/userset/role/list', {tenantCode: getTenantCode()});
         axios.get(url4Role, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

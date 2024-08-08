@@ -24,7 +24,6 @@ const OrgListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -108,7 +107,6 @@ const OrgListBlock = (props) => {
     const onClickDelete = (e, orgName) => {
         let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/delete', ['tenant_001', orgName]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

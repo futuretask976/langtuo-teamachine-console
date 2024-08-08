@@ -24,7 +24,6 @@ const TenantListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -120,7 +119,6 @@ const TenantListBlock = (props) => {
     const onClickDelete = (e, tenantCode) => {
         let url = genGetUrlBySegs('/userset/tenant/{segment}/delete', [tenantCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

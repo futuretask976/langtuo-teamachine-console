@@ -25,7 +25,6 @@ const AdminListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -37,7 +36,6 @@ const AdminListBlock = (props) => {
             setTotal(model.total);
             setList((prev => {
                 let tmp = [];
-                console.log('$$$$$ model.list=', model.list)
                 if (isArray(model.list)) {
                     model.list.forEach(ite => {
                         console.log('$$$$$ ite=', ite)
@@ -122,7 +120,6 @@ const AdminListBlock = (props) => {
     const onClickDelete = (e, loginName) => {
         let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/delete', [getTenantCode(), loginName]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

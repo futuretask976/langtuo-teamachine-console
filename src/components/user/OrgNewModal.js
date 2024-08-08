@@ -21,7 +21,6 @@ const OrgNewModal = (props) => {
             orgName: orgName,
             parentOrgName: parentOrgName
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -61,7 +60,6 @@ const OrgNewModal = (props) => {
 
         let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/get', [getTenantCode(), props.orgName4Edit]);
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -78,7 +76,6 @@ const OrgNewModal = (props) => {
     const fetchOrgList4Select = () => {
         let url = genGetUrlByParams('/userset/org/list', {tenantCode: getTenantCode()});
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

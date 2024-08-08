@@ -63,7 +63,9 @@ const TenantNewModal = (props) => {
 
         let url = genGetUrlBySegs('/userset/tenant/{segment}/get', [props.tenantCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);
