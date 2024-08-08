@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, isRespSuccess, getRespModel } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, isRespSuccess, getRespModel, getJwtToken } from '../../js/common.js';
 
 const { TextArea } = Input;
 
