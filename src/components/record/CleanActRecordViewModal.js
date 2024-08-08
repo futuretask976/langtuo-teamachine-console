@@ -4,7 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { getRespModel, handleRespError, getTenantCode } from '../../js/common.js';
+import { genGetUrlBySegs, getRespModel, handleRespError, isBlankStr, getJwtToken, getTenantCode } from '../../js/common.js';
 
 dayjs.locale('zh-cn');
 

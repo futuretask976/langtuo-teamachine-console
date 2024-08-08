@@ -16,7 +16,7 @@ function LoginPage() {
     const fetchTenantList4Select = () => {
         let url = genGetUrl('/userset/tenant/list');
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             let model = getRespModel(response);
@@ -32,7 +32,7 @@ function LoginPage() {
             }));
         })
         .catch(error => {
-            console.log('$$$$$ loginPage error=', error);
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -40,9 +40,9 @@ function LoginPage() {
     }, []);
 
     const onClickLogin = () => {
-        let postData = 'username=' + userName + "&password=" + password + "&tenantCode=" + tenantCode;
+        let postData = 'username=' + userName + "&password=" + md5(password) + "&tenantCode=" + tenantCode;
         axios.post(genPostUrl('/login-processing'), postData, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            // withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
             let model = getRespModel(response);
@@ -54,10 +54,6 @@ function LoginPage() {
             handleRespError(error);
         });
     };
-
-    useEffect(() => {
-        console.log('$$$$$ md5=' + md5('ABCD99999' + 'TEA_MACHINE'));
-    }, []);
 
     return (
         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: 600, width: '100%'}}>
@@ -79,7 +75,7 @@ function LoginPage() {
                         </div>
                     </div>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>租户：</span></div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>商户：</span></div>
                         <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
                             <Select
                                 value={tenantCode}

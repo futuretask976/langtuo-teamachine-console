@@ -14,16 +14,11 @@ const RoleNewModal = (props) => {
         let url = genPostUrl('/userset/role/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
             roleCode: roleCode,
             roleName: roleName,
             comment: comment,
-            permitActCodeList: permitActCodeList
+            permitActCodeList: getCheckedPermitActCodeList()
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -54,39 +49,12 @@ const RoleNewModal = (props) => {
     const [roleCode, setRoleCode] = useState(isBlankStr(props.roleCode4Edit) ? '' : props.roleCode4Edit);
     const [roleName, setRoleName] = useState('');
     const [comment, setComment] = useState('');
-    const [permitActCodeList, setPermitActCodeList] = useState([]);
     const [permitActGroupList, setPermitActGroupList] = useState([]);
 
     // 初始化动作相关
-    const fetchRole4Edit = () => {
-        if (isBlankStr(props.roleCode4Edit)) {
-            return;
-        }
-
-        let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/get', [getTenantCode(), props.roleCode4Edit]);
-        axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
-            setRoleCode(model.roleCode);
-            setRoleName(model.roleName);
-            setComment(model.comment);
-            setPermitActCodeList((prev => {
-                return isArray(model.permitActCodeList) ? model.permitActCodeList : [];
-            }));
-        })
-        .catch(error => {
-            handleRespError(error);
-        });
-    }
     const fetchPermitActGroupList4Select = () => {
         let url = genPostUrl('/userset/permitact/list');
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -101,42 +69,111 @@ const RoleNewModal = (props) => {
             handleRespError(error);
         });
     }
-    useEffect(() => {
-        fetchRole4Edit();
-        fetchPermitActGroupList4Select();
-    }, [props.roleCode4Edit]);
+    const fetchRole4Edit = () => {
+        if (isBlankStr(props.roleCode4Edit)) {
+            return;
+        }
 
-    // 输入相关
-    const onChangePermitAct = (permitActCode, e) => {
-        setPermitActCodeList(prev => {
-            let permitActCodeListTmp = [];
-            let matched = false;
-            prev.forEach(ele => {
-                if (ele == permitActCode) {
-                    matched = true;
-                    if (e.target.checked) {
-                        permitActCodeListTmp.push(permitActCode);
-                    }
-                } else {
-                    permitActCodeListTmp.push(ele);
-                }
-            });
-            if (!matched && e.target.checked) {
-                permitActCodeListTmp.push(permitActCode);
+        let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/get', [getTenantCode(), props.roleCode4Edit]);
+        axios.get(url, {
+            headers: {
+                'Authorization': getJwtToken()
             }
-            return permitActCodeListTmp;
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setRoleCode(model.roleCode);
+            setRoleName(model.roleName);
+            setComment(model.comment);
+            initCheckPermitActGroup(isArray(model.permitActCodeList) ? model.permitActCodeList : []);
+        })
+        .catch(error => {
+            handleRespError(error);
         });
     }
+    const initCheckPermitActGroup = (permitActCodeList) => {
+        setPermitActGroupList(prev => {
+            let tmp = [];
+            prev.forEach(permitActGroupItem => {
+                let hasUnchecked = false;
+                permitActGroupItem.permitActList.forEach(permitActItem => {
+                    let checked = false;
+                    permitActCodeList.forEach(permitActCodeItem => {
+                        if (permitActItem.permitActCode == permitActCodeItem) {
+                            checked = true;
+                        }
+                    });
+                    permitActItem.checked = checked;
+                    if (!permitActItem.checked) {
+                        hasUnchecked = true;
+                    }
+                });
+                if (hasUnchecked) {
+                    permitActGroupItem.checked = false;
+                } else {
+                    permitActGroupItem.checked = true;
+                }
+                tmp.push(permitActGroupItem);
+            });
+            return tmp;
+        });
+    }
+    useEffect(() => {
+        fetchPermitActGroupList4Select();
+        fetchRole4Edit();
+    }, [props.roleCode4Edit]);
 
     // 表格操作相关
-    const isPermitCodeChecked = (permitActCode) => {
-        let isChecked = false;
-        permitActCodeList.forEach(item => {
-            if (permitActCode == item) {
-                isChecked = true;
-            }
+    const getCheckedPermitActCodeList = () => {
+        let tmp = [];
+        permitActGroupList.forEach(permitActGroupItem => {
+            permitActGroupItem.permitActList.forEach(permitActItem => {
+                if (permitActItem.checked) {
+                    tmp.push(permitActItem.permitActCode);
+                }
+            });
         });
-        return isChecked;
+        return tmp;
+    }
+    const onChangePermitAct = (permitActGroupCode, permitActCode, e) => {
+        setPermitActGroupList(prev => {
+            let tmp = [];
+            prev.forEach(permitActGroupItem => {
+                if (permitActGroupItem.permitActGroupCode == permitActGroupCode) {
+                    let hasUnchecked = false;
+                    permitActGroupItem.permitActList.forEach(permitActItem => {
+                        if (permitActItem.permitActCode == permitActCode) {
+                            permitActItem.checked = e.target.checked;
+                        }
+                        if (!permitActItem.checked) {
+                            hasUnchecked = true;
+                        }
+                    });
+                    if (hasUnchecked) {
+                        permitActGroupItem.checked = false;
+                    } else {
+                        permitActGroupItem.checked = true;
+                    }
+                }
+                tmp.push(permitActGroupItem);
+            });
+            return tmp;
+        });
+    }
+    const onChangePermitActGroup = (permitActGroupCode, e) => {
+        setPermitActGroupList(prev => {
+            let tmp = [];
+            prev.forEach(permitActGroupItem => {
+                if (permitActGroupItem.permitActGroupCode == permitActGroupCode) {
+                    permitActGroupItem.checked = e.target.checked;
+                    permitActGroupItem.permitActList.forEach(permitActItem => {
+                        permitActItem.checked = e.target.checked;
+                    });
+                }
+                tmp.push(permitActGroupItem);
+            });
+            return tmp;
+        });
     }
     const permitActTableCol = [
         {
@@ -144,7 +181,12 @@ const RoleNewModal = (props) => {
             dataIndex: 'permitActGroupName',
             key: 'permitActGroupName',
             render: (_, record) => (
-                <Checkbox>{record.permitActGroupName}</Checkbox>
+                <Checkbox 
+                        key={record.permitActGroupCode}
+                        onChange={(e) => onChangePermitActGroup(record.permitActGroupCode, e)} 
+                        checked={record.checked}>
+                    {record.permitActGroupName}
+                </Checkbox>
             ),
         },
         {
@@ -152,9 +194,14 @@ const RoleNewModal = (props) => {
             dataIndex: 'permitAct',
             key: 'permitAct',
             render: (_, record) => (
-                record.permitActList.map((permitAct, idx) => {
+                record.permitActList.map((permitAct) => {
                     return (
-                        <Checkbox onChange={(e) => onChangePermitAct(permitAct.permitActCode, e)} checked={isPermitCodeChecked(permitAct.permitActCode)}>{permitAct.permitActName}</Checkbox>
+                        <Checkbox 
+                                key={permitAct.permitActCode}
+                                onChange={(e) => onChangePermitAct(permitAct.permitActGroupCode, permitAct.permitActCode, e)} 
+                                checked={permitAct.checked}>
+                            {permitAct.permitActName}
+                        </Checkbox>
                     );
                 })
             ),
@@ -165,7 +212,7 @@ const RoleNewModal = (props) => {
         <Modal
                 centered
                 open={open}
-                title="新建角色"
+                title="新建/编辑角色"
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 width={1000}
@@ -209,11 +256,17 @@ const RoleNewModal = (props) => {
                         </Space>
                     </div>
                     <div className="flex-row-cont" style={{height: 350, width: '100%'}}>
-                        <Table columns={permitActTableCol} dataSource={permitActGroupList} pagination={false} size={'small'} style={{width: '100%'}} />
+                        <Table 
+                            columns={permitActTableCol} 
+                            dataSource={permitActGroupList} 
+                            rowKey={record=>record.permitActGroupCode}
+                            pagination={false} 
+                            size={'small'} 
+                            style={{width: '100%'}} />
                     </div>
                 </div>
             </Modal>
     );
 };
- 
+
 export default RoleNewModal;
