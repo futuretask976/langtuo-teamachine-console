@@ -15,12 +15,15 @@ const TenantNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/userset/tenant/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
             tenantCode: tenantCode,
             tenantName: tenantName,
             contactPerson: contactPerson,
             contactPhone: contactPhone,
             comment: comment
+        }, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             if (isRespSuccess(response)) {
