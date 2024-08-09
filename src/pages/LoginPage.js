@@ -63,20 +63,26 @@ function LoginPage() {
             <div className="flex-col-cont" style={{height: 225, width: '30%', border: '1px solid #353535'}}>
                 <Space direction='vertical' size={20} style={{width: '90%'}}>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>用户名：</span></div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '25%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>用户名：</span></Space>
+                        </div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '75%'}}>
                             <Input placeholder='用户名' onChange={(e) => setUserName(e.target.value)} style={{width: '100%'}}/>
                         </div>
                     </div>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>密码：</span></div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '25%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>密码：</span></Space>
+                        </div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '75%'}}>
                             <Input.Password placeholder='密码' onChange={(e) => setPassword(e.target.value)} style={{width: '100%'}}/>
                         </div>
                     </div>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '20%'}}><span>商户：</span></div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '80%'}}>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '25%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>商户：</span></Space>
+                        </div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '75%'}}>
                             <Select
                                 value={tenantCode}
                                 style={{width: '100%'}}

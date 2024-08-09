@@ -96,6 +96,14 @@ export const isNumber = (value) => {
     return /^-?\d+(\.\d+)?$/.test(value);
 };
 
+export const isValidInput = (value) => {
+    return /^[A-Za-z0-9_]{0,50}$/.test(value);
+};
+
+export const isValidTextArea = (value) => {
+    return /^[A-Za-z0-9_]{0,50}$/.test(value);
+};
+
 
 
 // http response 处理
