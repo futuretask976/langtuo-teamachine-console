@@ -37,7 +37,8 @@ const OrgListBlock = (props) => {
                 let tmp = [];
                 if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
-                        ite.key = ite.id;
+                        ite.key = ite.orgName;
+                        delete ite.children;
                         ite.actions = ["edit", "delete"];
                         tmp.push(ite);
                     });
