@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, getRespModel, handleRespError, isRespSuccess, getTenantCode } from '../../js/common.js';
 
 const ShopListBlock = (props) => {
     // 样式相关
@@ -18,38 +18,34 @@ const ShopListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchListData = () => {
         let url = genGetUrlByParams('/shopset/shop/search', {
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             shopName: props.shopName4Search,
             shopGroupName: props.shopGroupName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                setList((prev => {
-                    let tmp = [];
-                    response.data.model.list.forEach(function(ite) {
-                        ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
-                        tmp.push(ite);
-                    });
-                    return tmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setPageNum(model.pageNum);
+            setPageSize(model.pageSize);
+            setTotal(model.total);
+            setList((prev => {
+                let tmp = [];
+                model.list.forEach(function(ite) {
+                    ite.key = ite.id;
+                    ite.actions = ["edit", "delete"];
+                    tmp.push(ite);
+                });
+                return tmp;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -119,17 +115,12 @@ const ShopListBlock = (props) => {
             withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 
