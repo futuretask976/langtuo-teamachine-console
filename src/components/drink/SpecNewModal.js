@@ -21,10 +21,8 @@ const SpecNewModal = (props) => {
             comment: comment,
             specCode: specCode,
             specName: specName,
-            state: state,
             specItemList: specItemList
         }, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -54,7 +52,6 @@ const SpecNewModal = (props) => {
     // 数据初始化相关
     const [specCode, setSpecCode] = useState(isBlankStr(props.specCode4Edit) ? '' : props.specCode4Edit);
     const [specName, setSpecName] = useState('');
-    const [state, setState] = useState(0);
     const [comment, setComment] = useState('');
     const [specItemList, setSpecItemList] = useState([]);
     const fetchSpec4Edit = () => {
@@ -64,7 +61,6 @@ const SpecNewModal = (props) => {
 
         let url = genGetUrlBySegs('/drinkset/spec/{segment}/{segment}/get', [getTenantCode(), props.specCode4Edit]);
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -73,7 +69,6 @@ const SpecNewModal = (props) => {
             let model = getRespModel(response);
             setSpecCode(model.specCode);
             setSpecName(model.specName);
-            setState(model.state);
             setComment(model.comment);
             setSpecItemList(prev => {
                 let tmp = [];
@@ -96,20 +91,6 @@ const SpecNewModal = (props) => {
     useEffect(() => {
         fetchSpec4Edit();
     }, [props.specCode4Edit]);
-
-    // 输入相关
-    const onChangeSpecCode = (e) => {
-        setSpecCode(e.target.value);
-    }
-    const onChangeSpecName = (e) => {
-        setSpecName(e.target.value);
-    }
-    const onChangeState = (e) => {
-        setState(e ? 1 : 0);
-    }
-    const onChangeComment = (e) => {
-        setComment(e.target.value);
-    }
 
     // 子规格相关
     const [specItemCode4Edit, setSpecItemCode4Edit] = useState('');
@@ -230,104 +211,74 @@ const SpecNewModal = (props) => {
                     </Button>,
                 ]}
             >
-                <div style={{height: 500, width: '100%'}}>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规格编码：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={21}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="规格编码" disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={onChangeSpecCode} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规格名称：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={21}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="规格名称" value={specName} onChange={onChangeSpecName} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>状态：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={21}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{height: 220, width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规格项列表：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={21}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Table
-                                columns={specItemCols} 
-                                dataSource={specItemList}
-                                pagination={false}
-                                rowKey={record=>record.id}
-                                scroll={{ y: 170 }}
-                                size='small'
-                                style={{width: '100%'}} />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            &nbsp;
-                        </Col>
-                        <Col className="gutter-row" span={21}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Button onClick={(e) => onOpenSpecItemNewModal('', '', '')} type='primary'>新增规格</Button>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row style={{height: 20, width: '100%'}}>
-                        <Col className="gutter-row" span={24}>
-                            &nbsp;
-                        </Col>
-                    </Row> 
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={3}>
-                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={21}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} />
-                            </div>
-                        </Col>
-                    </Row>
+                <div style={{height: 475, width: '100%'}}>
+                    <Space direction='vertical' size={20} style={{width: '100%'}}>
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>规格编码：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={21}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <Input placeholder="规格编码" disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={(e) => setSpecCode(e.target.value)} />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>规格名称：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={21}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <Input placeholder="规格名称" value={specName} onChange={(e) => setSpecName(e.target.value)} />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row style={{height: 220, width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>规格项列表：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={21}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Table
+                                    columns={specItemCols} 
+                                    dataSource={specItemList}
+                                    pagination={false}
+                                    rowKey={record=>record.id}
+                                    scroll={{ y: 170 }}
+                                    size='small'
+                                    style={{width: '100%'}} />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                &nbsp;
+                            </Col>
+                            <Col className="gutter-row" span={21}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <Button onClick={(e) => onOpenSpecItemNewModal('', '', '')} type='primary'>新增规格</Button>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>备注：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={21}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                    <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)} />
+                                </div>
+                            </Col>
+                        </Row>
+                    </Space>
                 </div>
             </Modal>
 
