@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Select, Switch, Tabs } from 'antd';
 import axios from 'axios';
 
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const CleanRuleNewModal = (props) => {
     // 对话框相关
@@ -15,30 +15,27 @@ const CleanRuleNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/ruleset/clean/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             cleanRuleCode: cleanRuleCode,
             cleanRuleName: cleanRuleName,
             permitRemind: permitRemind,
             permitBatch: permitBatch,
             exceptToppingCodeList: exceptToppingCodeList,
             cleanRuleStepList: cleanRuleStepList
+        }, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -65,30 +62,26 @@ const CleanRuleNewModal = (props) => {
             tenantCode: 'tenant_001'
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setToppingList4Select((prev => {
-                    let toppingList4SelectTmp = [];
-                    response.data.model.forEach(item => {
-                        let toppingTmp = {...item};
-                        toppingTmp.key = item.toppingCode;
-                        toppingTmp.label = item.toppingName;
-                        toppingTmp.value = item.toppingCode;
-                        toppingList4SelectTmp.push(toppingTmp);
-                    })
-                    return toppingList4SelectTmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setToppingList4Select((prev => {
+            let toppingList4SelectTmp = [];
+            model.forEach(item => {
+                let toppingTmp = {...item};
+                toppingTmp.key = item.toppingCode;
+                toppingTmp.label = item.toppingName;
+                toppingTmp.value = item.toppingCode;
+                toppingList4SelectTmp.push(toppingTmp);
+            })
+            return toppingList4SelectTmp;
+        }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -101,44 +94,40 @@ const CleanRuleNewModal = (props) => {
 
         let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/get', ['tenant_001', props.cleanRuleCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setCleanRuleCode(response.data.model.cleanRuleCode);
-                setCleanRuleName(response.data.model.cleanRuleName);
-                setPermitRemind(response.data.model.permitRemind);
-                setPermitBatch(response.data.model.permitBatch);
-                setExceptToppingCodeList(response.data.model.exceptToppingCodeList);
-                if (isArray(response.data.model.cleanRuleStepList)) {
-                    setCleanRuleStepList(prev => {
-                        return response.data.model.cleanRuleStepList;
-                    });
-                    setCleanRuleStepPaneList(prev => {
-                        let tmp = new Array(10);
-                        response.data.model.cleanRuleStepList.forEach(cleanRuleStep => {
-                            tmp.push({
-                                label: '步骤'+ (cleanRuleStep.stepIndex + 1),
-                                children: <CleanRuleStepTabPane 
-                                        cleanRuleStep={cleanRuleStep} 
-                                        stepIndex={cleanRuleStep.stepIndex} 
-                                        updateCleanRuleStep={updateCleanRuleStep}/>,
-                                key: cleanRuleStep.stepIndex
-                            });
+            let model = getRespModel(response);
+            setCleanRuleCode(model.cleanRuleCode);
+            setCleanRuleName(model.cleanRuleName);
+            setPermitRemind(model.permitRemind);
+            setPermitBatch(model.permitBatch);
+            setExceptToppingCodeList(model.exceptToppingCodeList);
+            if (isArray(model.cleanRuleStepList)) {
+                setCleanRuleStepList(prev => {
+                    return model.cleanRuleStepList;
+                });
+                setCleanRuleStepPaneList(prev => {
+                    let tmp = new Array(10);
+                    model.cleanRuleStepList.forEach(cleanRuleStep => {
+                        tmp.push({
+                            label: '步骤'+ (cleanRuleStep.stepIndex + 1),
+                            children: <CleanRuleStepTabPane 
+                                    cleanRuleStep={cleanRuleStep} 
+                                    stepIndex={cleanRuleStep.stepIndex} 
+                                    updateCleanRuleStep={updateCleanRuleStep}/>,
+                            key: cleanRuleStep.stepIndex
                         });
-                        return tmp;
                     });
-                    setStepIndex(response.data.model.cleanRuleStepList.length == 0 ? 0 : (response.data.model.cleanRuleStepList.length - 1));
-                }
+                    return tmp;
+                });
+                setStepIndex(model.cleanRuleStepList.length == 0 ? 0 : (model.cleanRuleStepList.length - 1));
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -236,7 +225,7 @@ const CleanRuleNewModal = (props) => {
                 <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>提交</Button>
             ]}
         >
-            <div className="flex-col-cont" style={{height: 450, width: '100%'}}>
+            <div className="flex-col-cont" style={{height: 400, width: '100%'}}>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>规则编号：</div>
                     <div style={{width: '35%'}}>

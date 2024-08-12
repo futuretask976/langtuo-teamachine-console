@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, InputNumber, Radio, Switch } from 'antd';
+import { Input, InputNumber, Radio, Select, Switch } from 'antd';
 
 import '../../css/common.css';
 import { isBlankObj } from '../../js/common.js';
@@ -91,6 +91,15 @@ const CleanRuleStepTabPane = (props) => {
         }
         return cleanRuleStep.remindContent;
     }
+    const getCleanAgentType = () => {
+        if (isBlankObj(cleanRuleStep)) {
+            return 0;
+        }
+        if (isBlankObj(cleanRuleStep.getCleanAgentType)) {
+            return 0;
+        }
+        return cleanRuleStep.getCleanAgentType;
+    }
 
     // 输入相关
     const onChangeCleanContent = (e) => {
@@ -149,6 +158,13 @@ const CleanRuleStepTabPane = (props) => {
             return tmp;
         });
     };
+    const onChangeCleanAgentType = (e) => {
+        setCleanRuleStep(prev => {
+            let tmp = {...prev};
+            tmp.cleanAgentType = e;
+            return tmp;
+        });
+    };
     useEffect(() => {
         props.updateCleanRuleStep(props.stepIndex, cleanRuleStep);
     }, [cleanRuleStep]);
@@ -157,15 +173,37 @@ const CleanRuleStepTabPane = (props) => {
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
             <div className="flex-row-cont" style={{height: 42, width: '100%'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>清洗方式：</div>
-                <div style={{justifyContent: 'flex-start', width: '35%'}}>
+                <div style={{justifyContent: 'flex-start', width: '20%'}}>
                     <Radio.Group onChange={onChangeCleanContent} value={getCleanContent()}>
                         <Radio value={0}>冲洗</Radio>
                         <Radio value={1}>浸泡</Radio>
                     </Radio.Group>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>是否再次确认：</div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '35%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '10%'}}>
                     <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={getNeedConfirm()} size="middle" onChange={onChangeNeedConfirm}/>
+                </div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>清洗剂：</div>
+                <div className="flex-row-cont" style={{width: '25%'}}>
+                    <Select
+                        onChange={onChangeCleanAgentType}
+                        options={[
+                            {
+                                label: '清水',
+                                value: 0
+                            },
+                            {
+                                label: '消毒水',
+                                value: 1
+                            },
+                            {
+                                label: '饮用水',
+                                value: 2
+                            }
+                        ]}
+                        value={getCleanAgentType()}
+                        style={{width: '100%'}}
+                    />
                 </div>
             </div>
             {getCleanContent() == 0 && 
