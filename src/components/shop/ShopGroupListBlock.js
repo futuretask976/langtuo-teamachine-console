@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const ShopGroupListBlock = (props) => {
     // 样式相关
@@ -18,13 +18,12 @@ const ShopGroupListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchListData = () => {
         let url = genGetUrlByParams('/shopset/shop/group/search', {
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             shopGroupName: props.shopGroupName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': localStorage.getItem('jwtToken')
             }
@@ -68,8 +67,8 @@ const ShopGroupListBlock = (props) => {
         },
         {
             title: '店铺数量',
-            dataIndex: 'shopCnt',
-            key: 'shopCnt',
+            dataIndex: 'shopCount',
+            key: 'shopCount',
             width: '20%'
         },
         {
@@ -110,12 +109,14 @@ const ShopGroupListBlock = (props) => {
         props.onClickEdit(shopGroupCode);
     }
     const onClickDelete = (e, shopGroupCode) => {
-        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/delete', ['tenant_001', shopGroupCode]);
+        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/delete', [getTenantCode(), shopGroupCode]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
@@ -135,7 +136,7 @@ const ShopGroupListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.shopGroupCode} />
         </div>
     )
 };

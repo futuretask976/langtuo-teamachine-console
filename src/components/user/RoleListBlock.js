@@ -69,8 +69,8 @@ const RoleListBlock = (props) => {
         },
         {
             title: '用户数',
-            dataIndex: 'adminUserCnt',
-            key: 'adminUserCnt',
+            dataIndex: 'adminCount',
+            key: 'adminCount',
             width: '10%'
         },
         {

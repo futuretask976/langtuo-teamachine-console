@@ -72,7 +72,7 @@ const TeaListBlock = (props) => {
             title: '状态',
             dataIndex: 'state',
             key: 'state',
-            width: '20%',
+            width: '10%',
             render: (state) => state == 0 ? '禁用' : '启用'
         },
         {

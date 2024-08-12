@@ -67,11 +67,10 @@ const TeaTypeListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '状态',
-            dataIndex: 'state',
-            key: 'state',
-            width: '20%',
-            render: (state) => state == 0 ? '禁用' : '启用'
+            title: '茶品数量',
+            dataIndex: 'teaCount',
+            key: 'teaCount',
+            width: '20%'
         },
         {
             title: '创建时间',
