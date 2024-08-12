@@ -68,8 +68,8 @@ const ToppingTypeListBlock = (props) => {
         },
         {
             title: '物料数量',
-            dataIndex: 'shopCnt',
-            key: 'shopCnt',
+            dataIndex: 'toppingCount',
+            key: 'toppingCount',
             width: '20%'
         },
         {
