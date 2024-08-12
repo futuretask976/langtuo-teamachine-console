@@ -3,7 +3,7 @@ import { Button, Modal, Steps, theme } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankObj, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, handleRespError, isBlankObj, isBlankStr, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import TeaNewModalInfoPane from '../../components/drink/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../../components/drink/TeaNewModalActStepPane'
@@ -37,9 +37,9 @@ const TeaNewModal = (props) => {
             state: tea.state,
             teaTypeCode: tea.teaTypeCode,
             comment: tea.comment,
+            imgLink: tea.imgLink,
             teaUnitList: tea.teaUnitList
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -105,7 +105,6 @@ const TeaNewModal = (props) => {
 
         let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/get', [getTenantCode(), props.teaCode4Edit]);
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -128,7 +127,7 @@ const TeaNewModal = (props) => {
     }, [tea]);
 
     // hook 相关
-    const updateInfo = (teaCode, teaName, outerTeaCode, teaTypeCode, state, comment) => {
+    const updateInfo = (teaCode, teaName, outerTeaCode, teaTypeCode, state, comment, imgLink) => {
         setTea(prev => {
             let tmp = {...prev};
             tmp.teaCode = teaCode;
@@ -137,6 +136,7 @@ const TeaNewModal = (props) => {
             tmp.teaTypeCode = teaTypeCode;
             tmp.state = state;
             tmp.comment = comment;
+            tmp.imgLink = imgLink;
             return tmp;
         });
     };
