@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const ToppingTypeListBlock = (props) => {
     // 样式相关
@@ -25,7 +25,6 @@ const ToppingTypeListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -113,7 +112,6 @@ const ToppingTypeListBlock = (props) => {
     const onClickDelete = (e, toppingTypeCode) => {
         let url = genGetUrlBySegs('/drinkset/topping/type/{segment}/{segment}/delete', [getTenantCode(), toppingTypeCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -139,7 +137,7 @@ const ToppingTypeListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.toppingTypeCode} />
         </div>
     )
 };
