@@ -25,7 +25,6 @@ const TeaTypeListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -114,7 +113,6 @@ const TeaTypeListBlock = (props) => {
     const onClickDelete = (e, teaTypeCode) => {
         let url = genGetUrlBySegs('/drinkset/tea/type/{segment}/{segment}/delete', [getTenantCode(), teaTypeCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
