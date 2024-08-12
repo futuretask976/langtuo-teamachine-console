@@ -3,7 +3,7 @@ import { Button, Input, InputNumber, Modal, Select, Space, Switch, Table, Col, R
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankStr, isBlankArray, isRespSuccess } from '../../js/common.js';
 
 const OpenRuleNewModal = (props) => {
     // 对话框相关
@@ -13,32 +13,25 @@ const OpenRuleNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/ruleset/open/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
-            tenantCode: 'tenant_001',
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
+            tenantCode: getTenantCode(),
             openRuleCode: openRuleCode,
             openRuleName: openRuleName,
             defaultRule: defaultRule,
             toppingRuleList: toppingRuleList
+        }, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -56,38 +49,39 @@ const OpenRuleNewModal = (props) => {
     const [openRuleCode, setOpenRuleCode] = useState(isBlankStr(props.openRuleCode4Edit) ? '' : props.openRuleCode4Edit);
     const [openRuleName, setOpenRuleName] = useState('');
     const [defaultRule, setDefaultRule] = useState(0);
-    useEffect(() => {
+
+    // 初始化动作相关
+    const fetchOpenRule4Edit = () => {
         if (isBlankStr(props.openRuleCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/open/{segment}/{segment}/get', ['tenant_001', props.openRuleCode4Edit]);
+        let url = genGetUrlBySegs('/ruleset/open/{segment}/{segment}/get', [getTenantCode(), props.openRuleCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setOpenRuleCode(response.data.model.openRuleCode);
-                setOpenRuleName(response.data.model.openRuleName);
-                setDefaultRule(response.data.model.defaultRule);
-                setToppingRuleList(prev => {
-                    let tmp = [];
-                    response.data.model.toppingRuleList.forEach(item => {
-                        item.actions = ['delete'];
-                        tmp.push(item);
-                    });
-                    return tmp;
+            let model = getRespModel(response);
+            setOpenRuleCode(model.openRuleCode);
+            setOpenRuleName(model.openRuleName);
+            setDefaultRule(model.defaultRule);
+            setToppingRuleList(prev => {
+                let tmp = [];
+                model.toppingRuleList.forEach(item => {
+                    item.actions = ['delete'];
+                    tmp.push(item);
                 });
-            }
+                return tmp;
+            });
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchOpenRule4Edit();
     }, [props.openRuleCode4Edit]);
 
     // 物料规则相关
@@ -98,35 +92,31 @@ const OpenRuleNewModal = (props) => {
     const [flushWeight, setFlushWeight] = useState(0);
     const fetchToppingList4Select = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setToppingList4Select((prev => {
-                    let toppingList4SelectTmp = [];
-                    response.data.model.forEach(item => {
-                        let toppingTmp = {...item};
-                        toppingTmp.key = item.toppingCode;
-                        toppingTmp.label = item.toppingName;
-                        toppingTmp.toppingName = item.toppingName;
-                        toppingTmp.value = item.toppingCode;
-                        toppingTmp.toppingCode = item.toppingCode;
-                        toppingList4SelectTmp.push(toppingTmp);
-                    })
-                    return toppingList4SelectTmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setToppingList4Select((prev => {
+                let toppingList4SelectTmp = [];
+                model.forEach(item => {
+                    let toppingTmp = {...item};
+                    toppingTmp.key = item.toppingCode;
+                    toppingTmp.label = item.toppingName;
+                    toppingTmp.toppingName = item.toppingName;
+                    toppingTmp.value = item.toppingCode;
+                    toppingTmp.toppingCode = item.toppingCode;
+                    toppingList4SelectTmp.push(toppingTmp);
+                })
+                return toppingList4SelectTmp;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {

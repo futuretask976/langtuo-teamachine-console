@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, isBlankArray } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankArray, isRespSuccess } from '../../js/common.js';
 
 const OpenRuleListBlock = (props) => {
     // 样式相关
@@ -18,40 +18,36 @@ const OpenRuleListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchListData = () => {
         let url = genGetUrlByParams('/ruleset/open/search', {
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             openRuleCode: props.openRuleCode4Search,
             openRuleName: props.openRuleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                if (!isBlankArray(response.data.model.list)) {
-                    setList((prev => {
-                        let tmp = [];
-                        response.data.model.list.forEach(function(ite) {
-                            ite.key = ite.id;
-                            ite.actions = ["edit", "delete"];
-                            tmp.push(ite);
-                        });
-                        return tmp;
-                    }));
-                }
+            let model = getRespModel(response);
+            setPageNum(model.pageNum);
+            setPageSize(model.pageSize);
+            setTotal(model.total);
+            if (!isBlankArray(model.list)) {
+                setList((prev => {
+                    let tmp = [];
+                    model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
+                }));
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -113,20 +109,17 @@ const OpenRuleListBlock = (props) => {
     const onClickDelete = (e, openRuleCode) => {
         let url = genGetUrlBySegs('/ruleset/open/{segment}/{segment}/delete', ['tenant_001', openRuleCode]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 
