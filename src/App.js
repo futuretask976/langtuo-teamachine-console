@@ -21,7 +21,7 @@ import ToppingPage from './pages/drink/ToppingPage';
 import SpecPage from './pages/drink/SpecPage';
 import TeaTypePage from './pages/drink/TeaTypePage';
 import TeaPage from './pages/drink/TeaPage';
-import ToppingAccuracyTplPage from './pages/drink/ToppingAccuracyTplPage';
+import AccuracyTplPage from './pages/drink/AccuracyTplPage';
 // menu
 import SeriesPage from './pages/menu/SeriesPage';
 import MenuPage from './pages/menu/MenuPage';
@@ -155,7 +155,7 @@ const Routes = () => {
                 },
                 {
                     path: "/drinkset/topping/accuracy/template",
-                    element: <ToppingAccuracyTplPage />,
+                    element: <AccuracyTplPage />,
                 },
                 {
                     path: "/menuset/series",

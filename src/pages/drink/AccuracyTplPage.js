@@ -8,12 +8,12 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import ToppingAccuracyTplListBlock from '../../components/drink/ToppingAccuracyTplListBlock'
-import ToppingAccuracyTplNewModal from '../../components/drink/ToppingAccuracyTplNewModal'
+import AccuracyTplListBlock from '../../components/drink/AccuracyTplListBlock'
+import AccuracyTplNewModal from '../../components/drink/AccuracyTplNewModal'
 
 const { Content } = Layout;
 
-const ToppingAccuracyTplPage = () => {
+const AccuracyTplPage = () => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
     const selectedMenu = ['toppingAccuracyTplMgt'];
@@ -103,7 +103,7 @@ const ToppingAccuracyTplPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ToppingAccuracyTplListBlock templateCode4Search={templateCode4Search} templateName4Search={templateName4Search} onClickEdit={onClickEdit} />
+                                <AccuracyTplListBlock templateCode4Search={templateCode4Search} templateName4Search={templateName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
@@ -112,10 +112,10 @@ const ToppingAccuracyTplPage = () => {
             </Flex>
 
             {openNewModal && (
-                <ToppingAccuracyTplNewModal onClose={onCloseNewModal} templateCode4Edit={templateCode4Edit} />
+                <AccuracyTplNewModal onClose={onCloseNewModal} templateCode4Edit={templateCode4Edit} />
             )}
         </>
     )
 };
 
-export default ToppingAccuracyTplPage;
+export default AccuracyTplPage;

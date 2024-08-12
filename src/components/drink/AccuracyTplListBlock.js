@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, isBlankStr, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
-const ToppingAccuracyTplListBlock = (props) => {
+const AccuracyTplListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -25,7 +25,6 @@ const ToppingAccuracyTplListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -114,7 +113,6 @@ const ToppingAccuracyTplListBlock = (props) => {
     const onClickDelete = (e, specCode) => {
         let url = genGetUrlBySegs('/drinkset/accuracy/{segment}/{segment}/delete', [getTenantCode(), specCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -140,10 +138,10 @@ const ToppingAccuracyTplListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.templateCode} />
         </div>
     )
 };
 
-export default ToppingAccuracyTplListBlock;
+export default AccuracyTplListBlock;
 
