@@ -19,13 +19,12 @@ const CleanActRecordListBlock = (props) => {
     const fetchListData = () => {
         let url = genGetUrlByParams('/recordset/clean/search', {
             tenantCode: getTenantCode(),
-            shopGroupCode: props.shopGroupCode4Search,
-            shopCode: props.shopCode4Search,
+            shopGroupCodeList: [props.shopGroupCode4Search],
+            shopCodeList: [props.shopCode4Search],
             pageNum: pageNum,
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -118,7 +117,7 @@ const CleanActRecordListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.idempotentMark} />
         </div>
     )
 };

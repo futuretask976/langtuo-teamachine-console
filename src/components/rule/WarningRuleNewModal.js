@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Radio, Select, Space, Switch, Table, Col, Row } from 'antd';
+import { Button, Input, InputNumber, Modal, Radio, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, getJwtToken, genPostUrl, getRespModel, getTenantCode, handleRespError } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -15,19 +15,18 @@ const WarningRuleNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/ruleset/warning/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             comment: comment,
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
             warningRuleCode: warningRuleCode,
             warningRuleName: warningRuleName,
             warningType: warningType,
             warningContent: warningContent,
             thresholdMode: thresholdMode,
             threshold: threshold
+        }, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             if (response && response.data && response.data.success) {
@@ -37,13 +36,7 @@ const WarningRuleNewModal = (props) => {
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -70,29 +63,24 @@ const WarningRuleNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/get', ['tenant_001', props.warningRuleCode4Edit]);
+        let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/get', [getTenantCode(), props.warningRuleCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                let model = response.data.model;
-                setWarningRuleCode(model.warningRuleCode);
-                setWarningRuleName(model.warningRuleName);
-                setWarningType(model.warningType);
-                setWarningContent(model.warningContent);
-                setThresholdMode(model.thresholdMode);
-                setThreshold(model.threshold);
-                setComment(model.comment);
-            }
+            let model = getRespModel(response);
+            setWarningRuleCode(model.warningRuleCode);
+            setWarningRuleName(model.warningRuleName);
+            setWarningType(model.warningType);
+            setWarningContent(model.warningContent);
+            setThresholdMode(model.thresholdMode);
+            setThreshold(model.threshold);
+            setComment(model.comment);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }, [props.warningRuleCode4Edit]);
  

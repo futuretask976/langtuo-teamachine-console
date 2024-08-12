@@ -4,7 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel } from '../../js/common.js';
+import { genGetUrlByParams, getRespModel, handleRespError, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -12,7 +12,6 @@ import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import OrderActRecordListBlock from '../../components/record/OrderActRecordListBlock'
 import OrderActRecordViewModal from '../../components/record/OrderActRecordViewModal'
-import { handleRespError } from '../../js/common';
 
 const { Content } = Layout;
 
@@ -35,11 +34,13 @@ const OrderActRecordPage = (props) => {
     const [shopList4Select, setShopList4Select] = useState([]);
     const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
     const fetchShopList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/list', {
-            tenantCode: 'tenant_001'
+        let url = genGetUrlByParams('/shopset/shop/listbyadminorg', {
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);
@@ -62,11 +63,13 @@ const OrderActRecordPage = (props) => {
         });
     }
     const fetchShopGroupList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/list', {
-            tenantCode: 'tenant_001'
+        let url = genGetUrlByParams('/shopset/shop/group/listbyadminorg', {
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);

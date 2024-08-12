@@ -4,7 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, getTenantCode, getJwtToken, handleRespError } from '../../js/common.js';
+import { genGetUrlByParams, getRespModel, handleRespError, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -34,11 +34,10 @@ const SupplyActRecordPage = (props) => {
     const [shopList4Select, setShopList4Select] = useState([]);
     const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
     const fetchShopList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/list', {
+        let url = genGetUrlByParams('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -64,11 +63,10 @@ const SupplyActRecordPage = (props) => {
         });
     }
     const fetchShopGroupList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/list', {
+        let url = genGetUrlByParams('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
