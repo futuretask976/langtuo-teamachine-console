@@ -48,8 +48,7 @@ const SiderMenu = (props) => {
         ]),
         getItem('食安规则', 'ruleSet', <MonitorOutlined />, [
             getItem('营业准备管理', 'openRuleMgt'),
-            getItem('打烊准备管理', 'closeRuleMgt'),
-			getItem('清洗规则管理', 'cleanRuleMgt'),
+			getItem('管道清洗管理', 'cleanRuleMgt'),
 			getItem('预警规则管理', 'warningRuleMgt'),
         ]),
         getItem('动作记录', 'recordSet', <FileSearchOutlined />, [

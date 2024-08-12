@@ -27,7 +27,6 @@ import SeriesPage from './pages/menu/SeriesPage';
 import MenuPage from './pages/menu/MenuPage';
 // ruleset
 import OpenRulePage from './pages/rule/OpenRulePage';
-import CloseRulePage from './pages/rule/CloseRulePage';
 import CleanRulePage from './pages/rule/CleanRulePage';
 import WarningRulePage from './pages/rule/WarningRulePage';
 // recordset
@@ -168,10 +167,6 @@ const Routes = () => {
                 {
                     path: "/ruleset/open",
                     element: <OpenRulePage />,
-                },
-                {
-                    path: "/ruleset/close",
-                    element: <CloseRulePage />,
                 },
                 {
                     path: "/ruleset/clean",
