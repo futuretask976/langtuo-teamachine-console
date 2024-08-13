@@ -5,7 +5,7 @@ import axios from 'axios';
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess, isBlankObj } from '../../js/common.js';
 
 const CleanRuleNewModal = (props) => {
     // 对话框相关
@@ -49,17 +49,19 @@ const CleanRuleNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 基础数据初始化相关
     const [cleanRuleCode, setCleanRuleCode] = useState(isBlankStr(props.cleanRuleCode4Edit) ? '' : props.cleanRuleCode4Edit);
     const [cleanRuleName, setCleanRuleName] = useState('');
     const [permitRemind, setPermitRemind] = useState(0);
     const [permitBatch, setPermitBatch] = useState(0);
     const [exceptToppingCodeList, setExceptToppingCodeList] = useState([]);
-    const [cleanRuleStepList, setCleanRuleStepList] = useState(new Array(10));
+    const [cleanRuleStepList, setCleanRuleStepList] = useState([]);
     const [toppingList4Select, setToppingList4Select] = useState([]);
+
+    // 初始化动作相关
     const fetchToppingList4Select = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
             headers: {
@@ -84,15 +86,12 @@ const CleanRuleNewModal = (props) => {
             handleRespError(error);
         });
     }
-    useEffect(() => {
-        fetchToppingList4Select();
-    }, []);
-    const fetchCleanRule = () => {
+    const fetchCleanRule4Edit = () => {
         if (isBlankStr(props.cleanRuleCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/get', ['tenant_001', props.cleanRuleCode4Edit]);
+        let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/get', [getTenantCode(), props.cleanRuleCode4Edit]);
         axios.get(url, {
             headers: {
                 'Authorization': getJwtToken()
@@ -110,20 +109,17 @@ const CleanRuleNewModal = (props) => {
                     return model.cleanRuleStepList;
                 });
                 setCleanRuleStepPaneList(prev => {
-                    let tmp = new Array(10);
+                    let tmp = [];
                     model.cleanRuleStepList.forEach(cleanRuleStep => {
                         tmp.push({
-                            label: '步骤'+ (cleanRuleStep.stepIndex + 1),
-                            children: <CleanRuleStepTabPane 
-                                    cleanRuleStep={cleanRuleStep} 
-                                    stepIndex={cleanRuleStep.stepIndex} 
-                                    updateCleanRuleStep={updateCleanRuleStep}/>,
+                            label: '步骤'+ (cleanRuleStep.stepIndex),
+                            children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStep} stepIndex={cleanRuleStep.stepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
                             key: cleanRuleStep.stepIndex
                         });
                     });
                     return tmp;
                 });
-                setStepIndex(model.cleanRuleStepList.length == 0 ? 0 : (model.cleanRuleStepList.length - 1));
+                setStepIndex(model.cleanRuleStepList.length);
             }
         })
         .catch(error => {
@@ -131,50 +127,74 @@ const CleanRuleNewModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchCleanRule();
+        fetchToppingList4Select();
+    }, []);
+    useEffect(() => {
+        fetchCleanRule4Edit();
     }, [props.cleanRuleCode4Edit]);
 
 
-    // 输入相关
-    const updateCleanRuleStep = (stepIndex, cleanRuleStep) => {
+    // 针对pane的hook相关
+    const updateCleanRuleStep = (cleanRuleStep) => {
+        if (isBlankObj(cleanRuleStep)) {
+            return;
+        }
         setCleanRuleStepList(prev => {
             let tmp = [...prev];
-            tmp[stepIndex] = {...cleanRuleStep};
+            tmp[cleanRuleStep.stepIndex - 1] = {...cleanRuleStep};
             return tmp;
         });
     };
-    const removeCleanRuleStep = (stepIndex) => {
+    const addCleanRuleStep = () => {
         setCleanRuleStepList(prev => {
-            let tmp = [...prev];
-            tmp[stepIndex] = undefined;
+            let tmp = [];
+            for (let i = 0; i < prev.length; i++) {
+                tmp.push(prev[i]);
+            }
+            tmp.push(undefined);
+            return tmp;
+        });
+    };
+    const removeCleanRuleStep = () => {
+        setCleanRuleStepList(prev => {
+            let tmp = [];
+            for (let i = 0; i < prev.length - 1; i++) {
+                tmp.push(prev[i]);
+            }
             return tmp;
         });
     };
 
     // 步骤相关
-    const [stepIndex, setStepIndex] = useState(0);
-    const [activeKey, setActiveKey] = useState(stepIndex);
+    // 步骤从1开始，不是0，和展示保持一致
+    const [stepIndex, setStepIndex] = useState(1);
+    const [activeKey, setActiveKey] = useState(1);
     const [cleanRuleStepPaneList, setCleanRuleStepPaneList] = useState([{
-        label: '步骤' + (stepIndex + 1),
-        children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStepList[0]} stepIndex={0} updateCleanRuleStep={updateCleanRuleStep}/>,
+        label: '步骤：' + stepIndex,
+        children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStepList[stepIndex - 1]} stepIndex={stepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
+        // 用stepIndex当作key
         key: stepIndex
     }]);
     const add = () => {
-        const newActiveKey = stepIndex + 1;
+        let newStepIndex = stepIndex + 1;
+        // 先添加数据
+        addCleanRuleStep();
+        // 再添加视图
         setCleanRuleStepPaneList(prev => {
             const tmp = [...prev];
             tmp.push({
-                label: '步骤'+ (newActiveKey + 1),
-                children: <CleanRuleStepTabPane cleanRuleStepList={cleanRuleStepList[newActiveKey]} stepIndex={newActiveKey} updateCleanRuleStep={updateCleanRuleStep}/>,
-                key: newActiveKey,
+                label: '步骤：'+ newStepIndex,
+                children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStepList[newStepIndex - 1]} stepIndex={newStepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
+                key: newStepIndex,
             });
             return tmp;
         });
-        setActiveKey(newActiveKey);
-        setStepIndex(newActiveKey);
+        // 更新指针
+        setStepIndex(newStepIndex);
+        setActiveKey(newStepIndex);
     };
     const remove = (targetKey) => {
-        if (targetKey == 0) {
+        if (targetKey == 1) {
             alert("请保留至少一个步骤");
             return;
         }
@@ -183,29 +203,24 @@ const CleanRuleNewModal = (props) => {
             return;
         }
 
-        let newActiveKey = activeKey;
-        let lastIndex = -1;
-        cleanRuleStepPaneList.forEach((item, i) => {
-            if (item.key === targetKey) {
-                lastIndex = i - 1;
+        // 先删除视图
+        setCleanRuleStepPaneList(prev => {
+            let tmp = [];
+            for (let i = 0; i < prev.length - 1; i++) {
+                tmp.push(prev[i]);
             }
+            return tmp;
         });
-    
-        const newCleanStepPaneList = cleanRuleStepPaneList.filter((item) => item.key !== targetKey);
-        if (newCleanStepPaneList.length && newActiveKey === targetKey) {
-            if (lastIndex >= 0) {
-                newActiveKey = newCleanStepPaneList[lastIndex].key;
-            } else {
-                newActiveKey = newCleanStepPaneList[0].key;
-            }
-        }
-        setCleanRuleStepPaneList(newCleanStepPaneList);
-        setActiveKey(newActiveKey);
+        // 再删除数据
         removeCleanRuleStep(stepIndex);
+        // 更新指针
         setStepIndex(stepIndex - 1);
+        if (activeKey == targetKey) {
+            setActiveKey(stepIndex - 1);
+        }
     };
-    const onEditCleanStepList = (targetKey, action) => {
-        if (action === 'add') {
+    const onEditCleanStepList = (targetKey, act) => {
+        if (act === 'add') {
             add();
         } else {
             remove(targetKey);

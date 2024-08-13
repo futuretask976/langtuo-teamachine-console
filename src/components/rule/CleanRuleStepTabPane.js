@@ -17,8 +17,12 @@ const CleanRuleStepTabPane = (props) => {
         flushSec: 0
     });
     useEffect(() => {
-        setCleanRuleStep(props.cleanRuleStep);
+        if (!isBlankObj(props.cleanRuleStep)) {
+            setCleanRuleStep(props.cleanRuleStep);
+        }
     }, [props.cleanRuleStep]);
+
+    // 数据读取
     const getCleanContent = () => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
@@ -75,19 +79,19 @@ const CleanRuleStepTabPane = (props) => {
     }
     const getRemindTitle = () => {
         if (isBlankObj(cleanRuleStep)) {
-            return 0;
+            return '';
         }
         if (isBlankObj(cleanRuleStep.remindTitle)) {
-            return 0;
+            return '';
         }
         return cleanRuleStep.remindTitle;
     }
     const getRemindContent = () => {
         if (isBlankObj(cleanRuleStep)) {
-            return 0;
+            return '';
         }
         if (isBlankObj(cleanRuleStep.remindContent)) {
-            return 0;
+            return '';
         }
         return cleanRuleStep.remindContent;
     }
@@ -95,13 +99,13 @@ const CleanRuleStepTabPane = (props) => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
         }
-        if (isBlankObj(cleanRuleStep.getCleanAgentType)) {
+        if (isBlankObj(cleanRuleStep.cleanAgentType)) {
             return 0;
         }
-        return cleanRuleStep.getCleanAgentType;
+        return cleanRuleStep.cleanAgentType;
     }
 
-    // 输入相关
+    // 数据更新
     const onChangeCleanContent = (e) => {
         setCleanRuleStep(prev => {
             let tmp = {...prev};
@@ -159,6 +163,7 @@ const CleanRuleStepTabPane = (props) => {
         });
     };
     const onChangeCleanAgentType = (e) => {
+        // console.log('$$$$$ onChangeCleanAgentType cleanRuleStep=', cleanRuleStep)
         setCleanRuleStep(prev => {
             let tmp = {...prev};
             tmp.cleanAgentType = e;
@@ -166,7 +171,8 @@ const CleanRuleStepTabPane = (props) => {
         });
     };
     useEffect(() => {
-        props.updateCleanRuleStep(props.stepIndex, cleanRuleStep);
+        // console.log('$$$$$ useEffect4Pane cleanRuleStep=', cleanRuleStep)
+        props.updateCleanRuleStep(cleanRuleStep);
     }, [cleanRuleStep]);
  
     return (

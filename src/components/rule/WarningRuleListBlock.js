@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankArray, genGetUrlByParams, genGetUrlBySegs, getJwtToken, getTenantCode, handleRespError } from '../../js/common.js';
+import { isBlankArray, genGetUrlByParams, genGetUrlBySegs, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const WarningRuleListBlock = (props) => {
     // 样式相关
@@ -16,6 +16,8 @@ const WarningRuleListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作相关
     const fetchListData = () => {
         let url = genGetUrlByParams('/ruleset/warning/search', {
             tenantCode: getTenantCode(),
@@ -30,21 +32,20 @@ const WarningRuleListBlock = (props) => {
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setPageNum(response.data.model.pageNum);
-                setPageSize(response.data.model.pageSize);
-                setTotal(response.data.model.total);
-                if (!isBlankArray(response.data.model.list)) {
-                    setList((prev => {
-                        let tmp = [];
-                        response.data.model.list.forEach(function(ite) {
-                            ite.key = ite.id;
-                            ite.actions = ["edit", "delete"];
-                            tmp.push(ite);
-                        });
-                        return tmp;
-                    }));
-                }
+            let model = getRespModel(response);
+            setPageNum(model.pageNum);
+            setPageSize(model.pageSize);
+            setTotal(model.total);
+            if (!isBlankArray(model.list)) {
+                setList((prev => {
+                    let tmp = [];
+                    model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
+                }));
             }
         })
         .catch(error => {
@@ -102,22 +103,19 @@ const WarningRuleListBlock = (props) => {
         props.onClickEdit(warningRuleCode);
     }
     const onClickDelete = (e, warningRuleCode) => {
-        let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/delete', ['tenant_001', warningRuleCode]);
+        let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/delete', [getTenantCode(), warningRuleCode]);
         axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 fetchListData();
             }
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
     }
 
