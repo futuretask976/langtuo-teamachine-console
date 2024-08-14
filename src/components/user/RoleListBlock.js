@@ -16,6 +16,8 @@ const RoleListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作相关
     const fetchListData = async () => {
         let url = genGetUrlByParams('/userset/role/search', {
             tenantCode: getTenantCode(),
@@ -111,9 +113,6 @@ const RoleListBlock = (props) => {
     ];
 
     // 表格操作数据相关
-    const onChangePage = (page) => {
-        setPageNum(page);
-    }
     const onClickEdit = (e, roleCode) => {
         props.onClickEdit(roleCode);
     }
@@ -142,11 +141,11 @@ const RoleListBlock = (props) => {
                     pageNum,
                     total,
                     pageSize,
-                    onChange: (page)=>onChangePage(page),
+                    onChange: (page) => setPageNum(page),
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.roleCode} />
+                rowKey={record => record.roleCode} />
         </div>
     )
 };

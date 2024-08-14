@@ -27,7 +27,6 @@ const DeployListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -122,7 +121,6 @@ const DeployListBlock = (props) => {
     const onClickDelete = (e, deployCode) => {
         let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/delete', [getTenantCode(), deployCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -144,7 +142,7 @@ const DeployListBlock = (props) => {
                     pageNum,
                     total,
                     pageSize,
-                    onChange: (page)=>onChangePage(page),
+                    onChange: (page) => onChangePage(page),
                 }}
                 columns={columns} 
                 dataSource={list}

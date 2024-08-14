@@ -60,13 +60,13 @@ const OrgListBlock = (props) => {
             title: '组织架构名称',
             dataIndex: 'orgName',
             key: 'orgName',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '上级节点',
             dataIndex: 'parentOrgName',
             key: 'parentOrgName',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '创建时间',
@@ -78,7 +78,7 @@ const OrgListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '25%',
+            width: '15%',
             render: (_, { orgName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
@@ -99,9 +99,6 @@ const OrgListBlock = (props) => {
     ];
 
     // 表格操作数据相关
-    const onChangePage = (page) => {
-        setPageNum(page);
-    }
     const onClickEdit = (e, orgName) => {
         props.onClickEdit(orgName);
     }
@@ -130,11 +127,11 @@ const OrgListBlock = (props) => {
                     pageNum,
                     total,
                     pageSize,
-                    onChange: (page)=>onChangePage(page),
+                    onChange: (page) => setPageNum(page),
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record => record.orgName} />
         </div>
     )
 };

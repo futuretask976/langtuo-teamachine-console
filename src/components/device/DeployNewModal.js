@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Col, Row } from 'antd';
+import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
@@ -20,7 +20,6 @@ const DeployNewModal = (props) => {
             shopCode: shopCode,
             state: state
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -55,12 +54,13 @@ const DeployNewModal = (props) => {
     const [state, setState] = useState(0);
     const [shopList4Select, setShopList4Select] = useState([]);
     const [modelList4Select, setModelList4Select] = useState([]);
+
+    // 初始化动作相关
     const fetchShopList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/list', {
+        let url = genGetUrlByParams('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         })
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -87,7 +87,9 @@ const DeployNewModal = (props) => {
             tenantCode: getTenantCode()
         })
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);
@@ -106,18 +108,13 @@ const DeployNewModal = (props) => {
             handleRespError(error);
         });
     }
-    useEffect(() => {
-        fetchShopList4Select();
-        fetchModelList4Select();
-    }, []);
-    useEffect(() => {
+    const fetchDeploy4Edit = () => {
         if (isBlankStr(props.deployCode4Edit)) {
             return;
         }
 
         let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/get', [getTenantCode(), props.deployCode4Edit]);
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -132,15 +129,21 @@ const DeployNewModal = (props) => {
         .catch(error => {
             handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchShopList4Select();
+        fetchModelList4Select();
+    }, []);
+    useEffect(() => {
+        fetchDeploy4Edit();
     }, [props.deployCode4Edit]);
 
     // 输入相关
     const onClickDeployCodeGen = (e) => {
-        let url = genGetUrlByParams('/deviceset/deploy/generate', {
+        let url = genGetUrlByParams('/deviceset/deploy/deploycode/generate', {
             tenantCode: getTenantCode()
         })
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -153,12 +156,29 @@ const DeployNewModal = (props) => {
             handleRespError(error);
         });
     }
+    const onClickMachineCodeGen = (e) => {
+        let url = genGetUrlByParams('/deviceset/deploy/machinecode/generate', {
+            tenantCode: getTenantCode()
+        })
+        axios.get(url, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            setMachineCode(model);
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
  
     return (
         <Modal
             centered
             open={open}
-            title="新建部署码"
+            title="新建/编辑部署码"
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={500}
@@ -171,79 +191,66 @@ const DeployNewModal = (props) => {
             ]}
         >
             <div style={{height: 200, width: '100%'}}>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>部署码生成</Button>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={18}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="部署编码" value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={isBlankStr(props.deployCode4Edit) ? false : true} style={{width: '90%'}} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>型号编码：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={18}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Select
-                                value={modelCode}
-                                style={{width: '90%'}}
-                                onChange={(e) => setModelCode(e)}
-                                options={modelList4Select}
-                            />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row>
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>机器编码：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={18}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="机器编码" value={machineCode} onChange={(e) => setMachineCode(e.target.value)} style={{width: '90%'}} />
-                        </div>
-                    </Col>
-                </Row>
-                <Row style={{height: 20, width: '100%'}}>
-                    <Col className="gutter-row" span={24}>
-                        &nbsp;
-                    </Col>
-                </Row> 
-                <Row style={{width: '100%'}}>
-                    <Col className="gutter-row" span={6}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>店铺：</span>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" span={18}>
-                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Select
-                                value={shopCode}
-                                style={{width: '90%'}}
-                                onChange={(e) => setShopCode(e)}
-                                options={shopList4Select}
-                            />
-                        </div>
-                    </Col>
-                </Row>
+                <Space direction='vertical' size={20} style={{width: '100%'}}>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>部署码生成</Button>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="部署编码" value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>机器码生成</Button>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="机器编码" value={machineCode} onChange={(e) => setMachineCode(e.target.value)} disabled={true}/>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>型号编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={modelCode}
+                                    style={{width: '90%'}}
+                                    onChange={(e) => setModelCode(e)}
+                                    options={modelList4Select}
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>店铺：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={shopCode}
+                                    style={{width: '90%'}}
+                                    onChange={(e) => setShopCode(e)}
+                                    options={shopList4Select}
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                </Space>
             </div>
         </Modal>
     );

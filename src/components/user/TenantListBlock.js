@@ -16,6 +16,8 @@ const TenantListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作相关
     const fetchListData = () => {
         let url = genGetUrlByParams('/userset/tenant/search', {
             tenantName: props.tenantName4Search,
@@ -110,9 +112,6 @@ const TenantListBlock = (props) => {
     ];
     
     // 表格操作数据相关
-    const onChangePage = (page) => {
-        setPageNum(page);
-    }
     const onClickEdit = (e, tenantCode) => {
         props.onClickEdit(tenantCode);
     }
@@ -141,11 +140,11 @@ const TenantListBlock = (props) => {
                     pageNum,
                     total,
                     pageSize,
-                    onChange: (page)=>onChangePage(page),
+                    onChange: (page) => setPageNum(page),
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record => record.tenantCode} />
         </div>
     )
 };

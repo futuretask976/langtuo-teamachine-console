@@ -16,6 +16,8 @@ const AdminListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作相关
     const fetchListData = () => {
         let url = genGetUrlByParams('/userset/admin/search', {
             tenantCode: getTenantCode(),
@@ -38,7 +40,6 @@ const AdminListBlock = (props) => {
                 let tmp = [];
                 if (isArray(model.list)) {
                     model.list.forEach(ite => {
-                        console.log('$$$$$ ite=', ite)
                         ite.key = ite.id;
                         ite.actions = ["edit", "delete"];
                         tmp.push(ite);
@@ -104,16 +105,8 @@ const AdminListBlock = (props) => {
             ),
         },
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.loginName;
-        ite.actions = ["edit", "delete"];
-    });
 
     // 表格操作数据相关
-    const onChangePage = (page) => {
-        setPageNum(page);
-    }
     const onClickEdit = (e, loginName) => {
         props.onClickEdit(loginName);
     }
@@ -142,11 +135,11 @@ const AdminListBlock = (props) => {
                     pageNum,
                     total,
                     pageSize,
-                    onChange: (page)=>onChangePage(page),
+                    onChange: (page) => setPageNum(page),
                 }}
                 columns={columns} 
-                dataSource={data}
-                rowKey={record=>record.id} />
+                dataSource={list}
+                rowKey={record => record.loginName} />
         </div>
     )
 };
