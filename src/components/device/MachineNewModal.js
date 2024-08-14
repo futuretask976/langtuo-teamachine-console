@@ -183,7 +183,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" value={screenCode} onChange={(e) => setScreenCode(e.target.value)}/>
+                                <Input placeholder="机器编码" value={screenCode} disabled={true} onChange={(e) => setScreenCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -195,7 +195,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="电控板编码" value={elecBoardCode} onChange={(e) => setElecBoardCode(e.target.value)}/>
+                                <Input placeholder="电控板编码" value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -258,6 +258,7 @@ const MachineDeployNewModal = (props) => {
                         <Col className="gutter-row" span={19}>
                             <Select
                                 value={shopCode}
+                                disabled={true}
                                 style={{width: '100%'}}
                                 onChange={(e) => setShopCode(e)}
                                 options={shopList4Select}
