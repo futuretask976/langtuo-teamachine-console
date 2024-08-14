@@ -10,6 +10,7 @@ import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import WarningRuleListBlock from '../../components/rule/WarningRuleListBlock'
 import WarningRuleNewModal from '../../components/rule/WarningRuleNewModal'
+import WarningRuleDispatchModal from '../../components/rule/WarningRuleDispatchModal'
 
 const { Content } = Layout;
 
@@ -38,6 +39,13 @@ const WarningRulePage = (props) => {
         setWarningRuleCode4Edit('');
     }
 
+    // 分发对话框相关
+    const [openDispatchModal, setOpenDispatchModal] = useState(false);
+    const onCloseDispatchModal = () => {
+        setOpenDispatchModal(false);
+        setWarningRuleCode4Dispatch('');
+    }
+
     // 搜索相关
     var warningRuleCode4SearchTmp = '';
     var warningRuleName4SearchTmp = '';
@@ -53,6 +61,11 @@ const WarningRulePage = (props) => {
     const onClickEdit = (selectedWarningRuleCode)=> {
         setWarningRuleCode4Edit(selectedWarningRuleCode);
         setOpenNewModal(true);
+    }
+    const [warningRuleCode4Dispatch, setWarningRuleCode4Dispatch] = useState('');
+    const onClickDispatch = (selectedWarningRuleCode)=> {
+        setWarningRuleCode4Dispatch(selectedWarningRuleCode);
+        setOpenDispatchModal(true);
     }
 
     return (
@@ -99,7 +112,7 @@ const WarningRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <WarningRuleListBlock warningRuleCode4Search={warningRuleCode4Search} warningRuleName4Search={warningRuleName4Search} onClickEdit={onClickEdit}/>
+                                <WarningRuleListBlock warningRuleCode4Search={warningRuleCode4Search} warningRuleName4Search={warningRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>
@@ -109,6 +122,10 @@ const WarningRulePage = (props) => {
 
             {openNewModal && (
                 <WarningRuleNewModal modalTitle='新建规则' warningRuleCode4Edit={warningRuleCode4Edit} onClose={onCloseNewModal}/>
+            )}
+
+            {openDispatchModal && (
+                <WarningRuleDispatchModal warningRuleCode4Dispatch={warningRuleCode4Dispatch} onClose={onCloseDispatchModal}/>
             )}
         </>
     )

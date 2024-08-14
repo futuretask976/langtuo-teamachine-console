@@ -39,7 +39,7 @@ const OpenRuleListBlock = (props) => {
                     let tmp = [];
                     model.list.forEach(function(ite) {
                         ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
+                        ite.actions = ["edit", "delete", "dispatch"];
                         tmp.push(ite);
                     });
                     return tmp;
@@ -93,6 +93,11 @@ const OpenRuleListBlock = (props) => {
                             <a key={action + '_' + openRuleCode} onClick={(e) => onClickDelete(e, openRuleCode)}>删除</a>
                         );
                     }
+                    if (action == 'dispatch') {
+                        return (
+                            <a key={action + '_' + openRuleCode} onClick={(e) => onClickDispatch(e, openRuleCode)}>分发</a>
+                        );
+                    }
                 })}
                 </Space>
             ),
@@ -105,6 +110,9 @@ const OpenRuleListBlock = (props) => {
     }
     const onClickEdit = (e, openRuleCode) => {
         props.onClickEdit(openRuleCode);
+    }
+    const onClickDispatch = (e, openRuleCode) => {
+        props.onClickDispatch(openRuleCode);
     }
     const onClickDelete = (e, openRuleCode) => {
         let url = genGetUrlBySegs('/ruleset/open/{segment}/{segment}/delete', ['tenant_001', openRuleCode]);

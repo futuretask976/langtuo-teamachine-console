@@ -25,7 +25,6 @@ const MachineDeployNewModal = (props) => {
             maintainUntil: new Date(maintainUntil),
             tenantCode: getTenantCode()
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

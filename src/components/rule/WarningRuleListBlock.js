@@ -41,7 +41,7 @@ const WarningRuleListBlock = (props) => {
                     let tmp = [];
                     model.list.forEach(function(ite) {
                         ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
+                        ite.actions = ["edit", "delete", "dispatch"];
                         tmp.push(ite);
                     });
                     return tmp;
@@ -89,6 +89,11 @@ const WarningRuleListBlock = (props) => {
                             <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDelete(e, warningRuleCode)}>删除</a>
                         );
                     }
+                    if (action == 'dispatch') {
+                        return (
+                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDispatch(e, warningRuleCode)}>分发</a>
+                        );
+                    }
                 })}
                 </Space>
             ),
@@ -101,6 +106,9 @@ const WarningRuleListBlock = (props) => {
     }
     const onClickEdit = (e, warningRuleCode) => {
         props.onClickEdit(warningRuleCode);
+    }
+    const onClickDispatch = (e, warningRuleCode) => {
+        props.onClickDispatch(warningRuleCode);
     }
     const onClickDelete = (e, warningRuleCode) => {
         let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/delete', [getTenantCode(), warningRuleCode]);

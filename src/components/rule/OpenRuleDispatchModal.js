@@ -5,16 +5,16 @@ import axios from 'axios';
 import '../../css/common.css';
 import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
-const CleanRuleDispatchModal = (props) => {
+const OpenRuleDispatchModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/clean/dispatch/put');
+        let url = genPostUrl('/ruleset/open/dispatch/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
-            cleanRuleCode: cleanRuleCode,
+            openRuleCode: openRuleCode,
             shopGroupCodeList: targetKeys
         }, {
             headers: {
@@ -44,16 +44,16 @@ const CleanRuleDispatchModal = (props) => {
     };
 
     // 数据初始化相关
-    const [cleanRuleCode, setCleanRuleCode] = useState(isBlankStr(props.cleanRuleCode4Dispatch) ? '' : props.cleanRuleCode4Dispatch);
+    const [openRuleCode, setOpenRuleCode] = useState(isBlankStr(props.openRuleCode4Dispatch) ? '' : props.openRuleCode4Dispatch);
     const [shopGroupList4Transfer, setShopGroupList4Transfer] = useState([]);
 
     // 初始化动作相关
-    const fetchCleanRule4Edit = () => {
-        if (isBlankStr(props.cleanRuleCode4Dispatch)) {
+    const fetchOpenRule4Edit = () => {
+        if (isBlankStr(props.openRuleCode4Dispatch)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/clean/dispatch/{segment}/{segment}/get', [getTenantCode(), props.cleanRuleCode4Dispatch]);
+        let url = genGetUrlBySegs('/ruleset/open/dispatch/{segment}/{segment}/get', [getTenantCode(), props.openRuleCode4Dispatch]);
         axios.get(url, {
             headers: {
                 'Authorization': getJwtToken()
@@ -100,8 +100,8 @@ const CleanRuleDispatchModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchCleanRule4Edit();
-    }, [props.cleanRuleCode4Dispatch]);
+        fetchOpenRule4Edit();
+    }, [props.openRuleCode4Dispatch]);
     useEffect(() => {
         fetchShopGroupList4Transfer();
     }, []);
@@ -130,7 +130,7 @@ const CleanRuleDispatchModal = (props) => {
         <Modal
             centered
             open={open}
-            title="清洗规格分发"
+            title="开业规格分发"
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={600}
@@ -172,4 +172,4 @@ const CleanRuleDispatchModal = (props) => {
     );
 };
  
-export default CleanRuleDispatchModal;
+export default OpenRuleDispatchModal;

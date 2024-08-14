@@ -25,7 +25,6 @@ const CleanRuleListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -122,7 +121,6 @@ const CleanRuleListBlock = (props) => {
     const onClickDelete = (e, cleanRuleCode) => {
         let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/delete', [getTenantCode(), cleanRuleCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

@@ -10,6 +10,7 @@ import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import OpenRuleListBlock from '../../components/rule/OpenRuleListBlock'
 import OpenRuleNewModal from '../../components/rule/OpenRuleNewModal'
+import OpenRuleDispatchModal from '../../components/rule/OpenRuleDispatchModal'
 
 const { Content } = Layout;
 
@@ -38,6 +39,13 @@ const OpenRulePage = (props) => {
         setOpenRuleCode4Edit('');
     }
 
+    // 分发对话框相关
+    const [openDispatchModal, setOpenDispatchModal] = useState(false);
+    const onCloseDispatchModal = () => {
+        setOpenDispatchModal(false);
+        setOpenRuleCode4Dispatch('');
+    }
+
     // 搜索相关
     const [openRuleCode4Search, setOpenRuleCode4Search] = useState('');
     const [openRuleName4Search, setOpenRuleName4Search] = useState('');
@@ -53,6 +61,11 @@ const OpenRulePage = (props) => {
     const onClickEdit = (selectedOpenRuleCode)=> {
         setOpenRuleCode4Edit(selectedOpenRuleCode);
         setOpenNewModal(true);
+    }
+    const [openRuleCode4Dispatch, setOpenRuleCode4Dispatch] = useState('');
+    const onClickDispatch = (selectedOpenRuleCode)=> {
+        setOpenRuleCode4Dispatch(selectedOpenRuleCode);
+        setOpenDispatchModal(true);
     }
 
     return (
@@ -103,7 +116,7 @@ const OpenRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <OpenRuleListBlock openRuleCode4Search={openRuleCode4Search} openRuleName4Search={openRuleName4Search} onClickEdit={onClickEdit}/>
+                                <OpenRuleListBlock openRuleCode4Search={openRuleCode4Search} openRuleName4Search={openRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>
@@ -113,6 +126,10 @@ const OpenRulePage = (props) => {
 
             {openNewModal && (
                 <OpenRuleNewModal modalTitle='新建规则' openRuleCode4Edit={openRuleCode4Edit} onClose={onCloseNewModal}/>
+            )}
+
+            {openDispatchModal && (
+                <OpenRuleDispatchModal openRuleCode4Dispatch={openRuleCode4Dispatch} onClose={onCloseDispatchModal}/>
             )}
         </>
     )
