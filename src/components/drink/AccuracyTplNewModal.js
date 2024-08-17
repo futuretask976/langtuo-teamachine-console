@@ -3,7 +3,7 @@ import { Button, Input, InputNumber, Modal, Select, Space, Col, Row } from 'antd
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, handleRespError, getRespModel, isRespSuccess } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, handleRespError, getRespModel, isRespSuccess } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -22,7 +22,7 @@ const AccuracyTplNewModal = (props) => {
             overAmount: overAmount,
             underMode: underMode,
             underAmount: underAmount,
-            toppingCode: toppingCode,
+            toppingCodeList: toppingCodeList,
             comment: comment
         }, {
             headers: {
@@ -58,7 +58,7 @@ const AccuracyTplNewModal = (props) => {
     const [overAmount, setOverAmount] = useState(0);
     const [underMode, setUnderMode] = useState(0);
     const [underAmount, setUnderAmount] = useState(0);
-    const [toppingCode, setToppingCode] = useState('');
+    const [toppingCodeList, setToppingCodeList] = useState([]);
     const [comment, setComment] = useState('');
     const [toppingList4Select, setToppingList4Select] = useState([]);
 
@@ -82,16 +82,13 @@ const AccuracyTplNewModal = (props) => {
             setOverAmount(model.overAmount);
             setUnderMode(model.underMode);
             setUnderAmount(model.underAmount);
-            setToppingCode(model.toppingCode);
+            setToppingCodeList(isArray(model.toppingCodeList) ? model.toppingCodeList : []);
             setComment(model.comment);
         })
         .catch(error => {
             handleRespError(error);
         });
     }
-    useEffect(() => {
-        fetchTemplate4Edit();
-    }, [props.templateCode4Edit]);
     const fetchToppingList4Select = () => {
         let url = genGetUrlByParams('/drinkset/topping/list', {
             tenantCode: getTenantCode()
@@ -121,6 +118,9 @@ const AccuracyTplNewModal = (props) => {
     useEffect(() => {
         fetchToppingList4Select();
     }, []);
+    useEffect(() => {
+        fetchTemplate4Edit();
+    }, [props.templateCode4Edit]);
  
     return (
         <>
@@ -247,10 +247,11 @@ const AccuracyTplNewModal = (props) => {
                             <Col className="gutter-row" span={20}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
-                                        style={{width: '100%'}}
-                                        onChange={(e) => setToppingCode(e)}
+                                        onChange={(e) => setToppingCodeList(e)}
                                         options={toppingList4Select}
-                                        value={toppingCode}
+                                        mode='multiple'
+                                        style={{width: '100%'}}
+                                        value={toppingCodeList}
                                     />
                                 </div>
                             </Col>
