@@ -70,7 +70,6 @@ const MachineDeployNewModal = (props) => {
 
         let url = genGetUrlBySegs('/deviceset/machine/{segment}/{segment}/get', [getTenantCode(), props.machineCode4Edit]);
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -93,7 +92,6 @@ const MachineDeployNewModal = (props) => {
     const fetchShopList4Select = () => {
         let url = genGetUrlByParams('/shopset/shop/list', {tenantCode: getTenantCode()});
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
