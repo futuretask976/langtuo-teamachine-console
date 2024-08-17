@@ -26,12 +26,13 @@ import AccuracyTplPage from './pages/drink/AccuracyTplPage';
 import SeriesPage from './pages/menu/SeriesPage';
 import MenuPage from './pages/menu/MenuPage';
 // ruleset
-import OpenRulePage from './pages/rule/OpenRulePage';
+import DrainRulePage from './pages/rule/DrainRulePage';
 import CleanRulePage from './pages/rule/CleanRulePage';
 import WarningRulePage from './pages/rule/WarningRulePage';
 // recordset
 import InvalidActRecordPage from './pages/record/InvalidActRecordPage';
 import SupplyActRecordPage from './pages/record/SupplyActRecordPage';
+import DrainActRecordPage from './pages/record/DrainActRecordPage';
 import CleanActRecordPage from './pages/record/CleanActRecordPage';
 import OrderActRecordPage from './pages/record/OrderActRecordPage';
 // single page
@@ -165,8 +166,8 @@ const Routes = () => {
                     element: <MenuPage />,
                 },
                 {
-                    path: "/ruleset/open",
-                    element: <OpenRulePage />,
+                    path: "/ruleset/drain",
+                    element: <DrainRulePage />,
                 },
                 {
                     path: "/ruleset/clean",
@@ -183,6 +184,10 @@ const Routes = () => {
                 {
                     path: "/recordset/supply",
                     element: <SupplyActRecordPage />,
+                },
+                {
+                    path: "/recordset/drain",
+                    element: <DrainActRecordPage />,
                 },
                 {
                     path: "/recordset/clean",

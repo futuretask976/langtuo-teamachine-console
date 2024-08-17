@@ -5,17 +5,17 @@ import axios from 'axios';
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankStr, isBlankArray, isRespSuccess } from '../../js/common.js';
 
-const OpenRuleNewModal = (props) => {
+const DrainRuleNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/open/put');
+        let url = genPostUrl('/ruleset/drain/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
-            openRuleCode: openRuleCode,
-            openRuleName: openRuleName,
+            drainRuleCode: drainRuleCode,
+            drainRuleName: drainRuleName,
             defaultRule: defaultRule,
             toppingRuleList: toppingRuleList
         }, {
@@ -46,17 +46,17 @@ const OpenRuleNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [openRuleCode, setOpenRuleCode] = useState(isBlankStr(props.openRuleCode4Edit) ? '' : props.openRuleCode4Edit);
-    const [openRuleName, setOpenRuleName] = useState('');
+    const [drainRuleCode, setDrainRuleCode] = useState(isBlankStr(props.drainRuleCode4Edit) ? '' : props.drainRuleCode4Edit);
+    const [drainRuleName, setDrainRuleName] = useState('');
     const [defaultRule, setDefaultRule] = useState(0);
 
     // 初始化动作相关
-    const fetchOpenRule4Edit = () => {
-        if (isBlankStr(props.openRuleCode4Edit)) {
+    const fetchDrainRule4Edit = () => {
+        if (isBlankStr(props.drainRuleCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/open/{segment}/{segment}/get', [getTenantCode(), props.openRuleCode4Edit]);
+        let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/get', [getTenantCode(), props.drainRuleCode4Edit]);
         axios.get(url, {
             headers: {
                 'Authorization': getJwtToken()
@@ -64,8 +64,8 @@ const OpenRuleNewModal = (props) => {
         })
         .then(response => {
             let model = getRespModel(response);
-            setOpenRuleCode(model.openRuleCode);
-            setOpenRuleName(model.openRuleName);
+            setDrainRuleCode(model.drainRuleCode);
+            setDrainRuleName(model.drainRuleName);
             setDefaultRule(model.defaultRule);
             setToppingRuleList(prev => {
                 let tmp = [];
@@ -81,8 +81,8 @@ const OpenRuleNewModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchOpenRule4Edit();
-    }, [props.openRuleCode4Edit]);
+        fetchDrainRule4Edit();
+    }, [props.drainRuleCode4Edit]);
 
     // 物料规则相关
     const [toppingList4Select, setToppingList4Select] = useState([]);
@@ -236,7 +236,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="规则编码" disabled={isBlankStr(props.openRuleCode4Edit) ? false : true} value={openRuleCode} onChange={(e) => setOpenRuleCode(e.target.value)} />
+                                <Input placeholder="规则编码" disabled={isBlankStr(props.drainRuleCode4Edit) ? false : true} value={drainRuleCode} onChange={(e) => setDrainRuleCode(e.target.value)} />
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -244,7 +244,7 @@ const OpenRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="规则名称" value={openRuleName} onChange={(e) => setOpenRuleName(e.target.value)} />
+                                <Input placeholder="规则名称" value={drainRuleName} onChange={(e) => setDrainRuleName(e.target.value)} />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
@@ -326,4 +326,4 @@ const OpenRuleNewModal = (props) => {
     );
 };
  
-export default OpenRuleNewModal;
+export default DrainRuleNewModal;

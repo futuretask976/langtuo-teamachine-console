@@ -47,13 +47,14 @@ const SiderMenu = (props) => {
             getItem('菜单管理', 'menuMgt')
         ]),
         getItem('食安规则', 'ruleSet', <MonitorOutlined />, [
-            getItem('管道排空管理', 'openRuleMgt'),
+            getItem('管道排空管理', 'drainRuleMgt'),
 			getItem('管道清洗管理', 'cleanRuleMgt'),
 			getItem('预警规则管理', 'warningRuleMgt'),
         ]),
         getItem('动作记录', 'recordSet', <FileSearchOutlined />, [
             getItem('废料记录管理', 'invalidActRecordMgt'),
             getItem('补料记录管理', 'supplyActRecordMgt'),
+            getItem('排空记录管理', 'drainActRecordMgt'),
 			getItem('清洗记录管理', 'cleanActRecordMgt'),
 			getItem('订单记录管理', 'orderActRecordMgt'),
         ]),
@@ -106,10 +107,8 @@ const SiderMenu = (props) => {
             window.location.href="/console/menuset/series";
         } else if (e.key == 'menuMgt') {
             window.location.href="/console/menuset/menu";
-        } else if (e.key == 'openRuleMgt') {
-            window.location.href="/console/ruleset/open";
-        } else if (e.key == 'closeRuleMgt') {
-            window.location.href="/console/ruleset/close";
+        } else if (e.key == 'drainRuleMgt') {
+            window.location.href="/console/ruleset/drain";
         } else if (e.key == 'cleanRuleMgt') {
             window.location.href="/console/ruleset/clean";
         } else if (e.key == 'warningRuleMgt') {
@@ -118,6 +117,8 @@ const SiderMenu = (props) => {
             window.location.href="/console/recordset/invalid";
         } else if (e.key == 'supplyActRecordMgt') {
             window.location.href="/console/recordset/supply";
+        } else if (e.key == 'drainActRecordMgt') {
+            window.location.href="/console/recordset/drain";
         } else if (e.key == 'cleanActRecordMgt') {
             window.location.href="/console/recordset/clean";
         } else if (e.key == 'orderActRecordMgt') {

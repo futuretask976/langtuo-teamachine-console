@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankArray, isRespSuccess } from '../../js/common.js';
 
-const OpenRuleListBlock = (props) => {
+const DrainRuleListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -17,10 +17,10 @@ const OpenRuleListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/ruleset/open/search', {
+        let url = genGetUrlByParams('/ruleset/drain/search', {
             tenantCode: getTenantCode(),
-            openRuleCode: props.openRuleCode4Search,
-            openRuleName: props.openRuleName4Search,
+            drainRuleCode: props.drainRuleCode4Search,
+            drainRuleName: props.drainRuleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         });
@@ -52,18 +52,18 @@ const OpenRuleListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.openRuleCode4Search, props.openRuleName4Search, pageNum]);
+    }, [props.drainRuleCode4Search, props.drainRuleName4Search, pageNum]);
 
     let columns = [
         {
             title: '规则编码',
-            dataIndex: 'openRuleCode',
-            key: 'openRuleCode'
+            dataIndex: 'drainRuleCode',
+            key: 'drainRuleCode'
         },
         {
             title: '规则名称',
-            dataIndex: 'openRuleName',
-            key: 'openRuleName',
+            dataIndex: 'drainRuleName',
+            key: 'drainRuleName',
         },
         {
             title: '默认规则',
@@ -80,22 +80,22 @@ const OpenRuleListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            render: (_, { openRuleCode, actions }) => (
+            render: (_, { drainRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + openRuleCode} onClick={(e) => onClickEdit(e, openRuleCode)}>编辑</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickEdit(e, drainRuleCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + openRuleCode} onClick={(e) => onClickDelete(e, openRuleCode)}>删除</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>删除</a>
                         );
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + openRuleCode} onClick={(e) => onClickDispatch(e, openRuleCode)}>分发</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDispatch(e, drainRuleCode)}>分发</a>
                         );
                     }
                 })}
@@ -108,14 +108,14 @@ const OpenRuleListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onClickEdit = (e, openRuleCode) => {
-        props.onClickEdit(openRuleCode);
+    const onClickEdit = (e, drainRuleCode) => {
+        props.onClickEdit(drainRuleCode);
     }
-    const onClickDispatch = (e, openRuleCode) => {
-        props.onClickDispatch(openRuleCode);
+    const onClickDispatch = (e, drainRuleCode) => {
+        props.onClickDispatch(drainRuleCode);
     }
-    const onClickDelete = (e, openRuleCode) => {
-        let url = genGetUrlBySegs('/ruleset/open/{segment}/{segment}/delete', ['tenant_001', openRuleCode]);
+    const onClickDelete = (e, drainRuleCode) => {
+        let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/delete', ['tenant_001', drainRuleCode]);
         axios.delete(url, {
             headers: {
                 'Authorization': getJwtToken()
@@ -147,5 +147,5 @@ const OpenRuleListBlock = (props) => {
     )
 };
 
-export default OpenRuleListBlock;
+export default DrainRuleListBlock;
 

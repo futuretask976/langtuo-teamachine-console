@@ -8,16 +8,16 @@ import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
-import OpenRuleListBlock from '../../components/rule/OpenRuleListBlock'
-import OpenRuleNewModal from '../../components/rule/OpenRuleNewModal'
-import OpenRuleDispatchModal from '../../components/rule/OpenRuleDispatchModal'
+import DrainRuleListBlock from '../../components/rule/DrainRuleListBlock'
+import DrainRuleNewModal from '../../components/rule/DrainRuleNewModal'
+import DrainRuleDispatchModal from '../../components/rule/DrainRuleDispatchModal'
 
 const { Content } = Layout;
 
-const OpenRulePage = (props) => {
+const DrainRulePage = (props) => {
     // 导航菜单 + 面包屑相关
     const openMenu = ['ruleSet'];
-    const selectedMenu = ['openRuleMgt'];
+    const selectedMenu = ['drainRuleMgt'];
     const breadcrumbPath = ['控制台', '食安规则', '营业准备管理'];
 
     // 页面样式相关
@@ -36,35 +36,35 @@ const OpenRulePage = (props) => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setOpenRuleCode4Edit('');
+        setDrainRuleCode4Edit('');
     }
 
     // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
-        setOpenRuleCode4Dispatch('');
+        setDrainRuleCode4Dispatch('');
     }
 
     // 搜索相关
-    const [openRuleCode4Search, setOpenRuleCode4Search] = useState('');
-    const [openRuleName4Search, setOpenRuleName4Search] = useState('');
-    var openRuleCode4SearchTmp = '';
-    var openRuleName4SearchTmp = '';
+    const [drainRuleCode4Search, setDrainRuleCode4Search] = useState('');
+    const [drainRuleName4Search, setDrainRuleName4Search] = useState('');
+    var drainRuleCode4SearchTmp = '';
+    var drainRuleName4SearchTmp = '';
     const onClickSearch = () => {
-        setOpenRuleCode4Search(openRuleCode4SearchTmp);
-        setOpenRuleName4Search(openRuleName4SearchTmp);
+        setDrainRuleCode4Search(drainRuleCode4SearchTmp);
+        setDrainRuleName4Search(drainRuleName4SearchTmp);
     }
 
     // 表格操作相关
-    const [openRuleCode4Edit, setOpenRuleCode4Edit] = useState('');
-    const onClickEdit = (selectedOpenRuleCode)=> {
-        setOpenRuleCode4Edit(selectedOpenRuleCode);
+    const [drainRuleCode4Edit, setDrainRuleCode4Edit] = useState('');
+    const onClickEdit = (selectedDrainRuleCode)=> {
+        setDrainRuleCode4Edit(selectedDrainRuleCode);
         setOpenNewModal(true);
     }
-    const [openRuleCode4Dispatch, setOpenRuleCode4Dispatch] = useState('');
-    const onClickDispatch = (selectedOpenRuleCode)=> {
-        setOpenRuleCode4Dispatch(selectedOpenRuleCode);
+    const [drainRuleCode4Dispatch, setDrainRuleCode4Dispatch] = useState('');
+    const onClickDispatch = (selectedDrainRuleCode)=> {
+        setDrainRuleCode4Dispatch(selectedDrainRuleCode);
         setOpenDispatchModal(true);
     }
 
@@ -87,7 +87,7 @@ const OpenRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则编码" onChange={(e) => openRuleCode4SearchTmp = e.target.value}/>
+                                            <Input placeholder="规则编码" onChange={(e) => drainRuleCode4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={2}>
@@ -97,7 +97,7 @@ const OpenRulePage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont">
-                                            <Input placeholder="规则名称" onChange={(e) => openRuleName4SearchTmp = e.target.value}/>
+                                            <Input placeholder="规则名称" onChange={(e) => drainRuleName4SearchTmp = e.target.value}/>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
@@ -116,7 +116,7 @@ const OpenRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <OpenRuleListBlock openRuleCode4Search={openRuleCode4Search} openRuleName4Search={openRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
+                                <DrainRuleListBlock drainRuleCode4Search={drainRuleCode4Search} drainRuleName4Search={drainRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>
@@ -125,14 +125,14 @@ const OpenRulePage = (props) => {
             </Flex>
 
             {openNewModal && (
-                <OpenRuleNewModal modalTitle='新建规则' openRuleCode4Edit={openRuleCode4Edit} onClose={onCloseNewModal}/>
+                <DrainRuleNewModal modalTitle='新建规则' drainRuleCode4Edit={drainRuleCode4Edit} onClose={onCloseNewModal}/>
             )}
 
             {openDispatchModal && (
-                <OpenRuleDispatchModal openRuleCode4Dispatch={openRuleCode4Dispatch} onClose={onCloseDispatchModal}/>
+                <DrainRuleDispatchModal drainRuleCode4Dispatch={drainRuleCode4Dispatch} onClose={onCloseDispatchModal}/>
             )}
         </>
     )
 };
 
-export default OpenRulePage;
+export default DrainRulePage;

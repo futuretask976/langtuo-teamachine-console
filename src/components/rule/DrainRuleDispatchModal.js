@@ -5,16 +5,16 @@ import axios from 'axios';
 import '../../css/common.css';
 import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
-const OpenRuleDispatchModal = (props) => {
+const DrainRuleDispatchModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/open/dispatch/put');
+        let url = genPostUrl('/ruleset/drain/dispatch/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
-            openRuleCode: openRuleCode,
+            drainRuleCode: drainRuleCode,
             shopGroupCodeList: targetKeys
         }, {
             headers: {
@@ -44,16 +44,16 @@ const OpenRuleDispatchModal = (props) => {
     };
 
     // 数据初始化相关
-    const [openRuleCode, setOpenRuleCode] = useState(isBlankStr(props.openRuleCode4Dispatch) ? '' : props.openRuleCode4Dispatch);
+    const [drainRuleCode, setDrainRuleCode] = useState(isBlankStr(props.drainRuleCode4Dispatch) ? '' : props.drainRuleCode4Dispatch);
     const [shopGroupList4Transfer, setShopGroupList4Transfer] = useState([]);
 
     // 初始化动作相关
-    const fetchOpenRule4Edit = () => {
-        if (isBlankStr(props.openRuleCode4Dispatch)) {
+    const fetchDrainRule4Edit = () => {
+        if (isBlankStr(props.drainRuleCode4Dispatch)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/open/dispatch/{segment}/{segment}/get', [getTenantCode(), props.openRuleCode4Dispatch]);
+        let url = genGetUrlBySegs('/ruleset/drain/dispatch/{segment}/{segment}/get', [getTenantCode(), props.drainRuleCode4Dispatch]);
         axios.get(url, {
             headers: {
                 'Authorization': getJwtToken()
@@ -100,11 +100,11 @@ const OpenRuleDispatchModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchOpenRule4Edit();
-    }, [props.openRuleCode4Dispatch]);
-    useEffect(() => {
         fetchShopGroupList4Transfer();
     }, []);
+    useEffect(() => {
+        fetchDrainRule4Edit();
+    }, [props.drainRuleCode4Dispatch]);
     
 
     // 输入相关
@@ -130,7 +130,7 @@ const OpenRuleDispatchModal = (props) => {
         <Modal
             centered
             open={open}
-            title="开业规格分发"
+            title="排空规则分发"
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={600}
@@ -172,4 +172,4 @@ const OpenRuleDispatchModal = (props) => {
     );
 };
  
-export default OpenRuleDispatchModal;
+export default DrainRuleDispatchModal;

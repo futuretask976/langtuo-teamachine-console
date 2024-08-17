@@ -8,7 +8,7 @@ import { genGetUrlBySegs, getRespModel, handleRespError, isBlankStr, getJwtToken
 
 dayjs.locale('zh-cn');
 
-const CleanActRecordViewModal = (props) => {
+const DrainActRecordViewModal = (props) => {
     // 对话框相关
     const [open, setOpen] = useState(true);
     const onClickCancel = () => {
@@ -20,17 +20,14 @@ const CleanActRecordViewModal = (props) => {
     const [machineCode, setMachineCode] = useState('');
     const [shopName, setShopName] = useState('');
     const [shopGroupName, setShopGroupName] = useState('');
-    const [cleanStartTime, setCleanStartTime] = useState();
-    const [cleanEndTime, setCleanEndTime] = useState();
+    const [drainStartTime, setDrainStartTime] = useState();
+    const [drainEndTime, setDrainEndTime] = useState();
     const [toppingName, setToppingName] = useState('');
     const [pipelineNum, setPipelineNum] = useState(0);
-    const [cleanType, setCleanType] = useState(0);
-    const [cleanRuleCode, setCleanRuleCode] = useState('');
-    const [cleanContent, setCleanContent] = useState(0);
-    const [washSec, setWashSec] = useState(10);
-    const [soakMin, setSoakMin] = useState(0);
-    const [flushIntervalMin, setFlushIntervalMin] = useState(0);
+    const [drainType, setDrainType] = useState(0);
+    const [drainRuleCode, setDrainRuleCode] = useState('');
     const [flushSec, setFlushSec] = useState(0);
+    const [flushWeight, setFlushWeight] = useState(0);
 
     // 赋值初始化
     const fetchInvalidActRecord = () => {
@@ -38,7 +35,7 @@ const CleanActRecordViewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/recordset/clean/{segment}/{segment}/get', [getTenantCode(), props.idempotentMark4View]);
+        let url = genGetUrlBySegs('/recordset/drain/{segment}/{segment}/get', [getTenantCode(), props.idempotentMark4View]);
         axios.get(url, {
             // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
@@ -50,17 +47,14 @@ const CleanActRecordViewModal = (props) => {
             setMachineCode(model.machineCode);
             setShopName(model.shopName);
             setShopGroupName(model.shopGroupName);
-            setCleanStartTime(model.cleanStartTime);
-            setCleanEndTime(model.cleanEndTime);
+            setDrainStartTime(model.drainStartTime);
+            setDrainEndTime(model.drainEndTime);
             setToppingName(model.toppingName);
             setPipelineNum(model.pipelineNum);
-            setCleanType(model.cleanType);
-            setCleanRuleCode(model.cleanRuleCode);
-            setCleanContent(model.cleanContent);
-            setWashSec(model.washSec);
-            setSoakMin(model.soakMin);
-            setFlushIntervalMin(model.flushIntervalMin);
+            setDrainType(model.drainType);
+            setDrainRuleCode(model.drainRuleCode);
             setFlushSec(model.flushSec);
+            setFlushWeight(model.flushWeight);
         })
         .catch(error => {
             handleRespError(error);
@@ -127,7 +121,7 @@ const CleanActRecordViewModal = (props) => {
                                         type: 'mask',
                                     }}
                                     style={{width: '100%'}}
-                                    value={dayjs(cleanStartTime, 'YYYY-MM-DD HH:mm:ss')}
+                                    value={dayjs(drainStartTime, 'YYYY-MM-DD HH:mm:ss')}
                                 />
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -143,7 +137,7 @@ const CleanActRecordViewModal = (props) => {
                                         type: 'mask',
                                     }}
                                     style={{width: '100%'}}
-                                    value={dayjs(cleanEndTime, 'YYYY-MM-DD HH:mm:ss')}
+                                    value={dayjs(drainEndTime, 'YYYY-MM-DD HH:mm:ss')}
                                 />
                             </Col>
                         </Row>
@@ -165,56 +159,43 @@ const CleanActRecordViewModal = (props) => {
                                 <InputNumber disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
-                        {cleanType == 0 &&
+                        {drainType == 0 &&
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <span>清洗规则：</span>
+                                        <span>排空规则：</span>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={9}>
-                                    <InputNumber disabled={true} value={cleanRuleCode}/>
+                                    <InputNumber disabled={true} value={drainRuleCode}/>
                                 </Col>
                             </Row>
                         }
-                        {cleanType == 1 &&
+                        {drainType == 1 &&
                             <>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>手动清洗：</span>
+                                            <span>手动排空：</span>
                                         </div>
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>清洗内容：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={9}>
-                                        <Radio.Group disabled={true} value={cleanContent}>
-                                            <Radio value={0}>冲洗</Radio>
-                                            <Radio value={1}>浸泡</Radio>
-                                        </Radio.Group>
-                                    </Col>
-                                </Row>
-                                <Row style={{width: '100%'}}>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>清洗时间：</span>
+                                            <span>排空时间：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <InputNumber disabled={true} value={washSec} style={{width: 50}}/>秒
+                                        <InputNumber disabled={true} value={flushSec} style={{width: 50}}/>秒
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>浸泡时间：</span>
+                                            <span>排空克重：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={15}>
-                                        <InputNumber disabled={true} value={soakMin} style={{width: 50}}/>分钟，每隔<InputNumber disabled={true} value={flushIntervalMin} style={{width: 50}}/>分钟，冲洗<InputNumber disabled={true} value={flushSec} style={{width: 50}}/>秒
+                                        <InputNumber disabled={true} value={flushWeight} style={{width: 50}}/>克
                                     </Col>
                                 </Row>
                             </>
@@ -226,4 +207,4 @@ const CleanActRecordViewModal = (props) => {
     );
 };
  
-export default CleanActRecordViewModal;
+export default DrainActRecordViewModal;
