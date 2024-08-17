@@ -167,7 +167,7 @@ const DrainActRecordViewModal = (props) => {
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={9}>
-                                    <InputNumber disabled={true} value={drainRuleCode}/>
+                                    <Input disabled={true} value={drainRuleCode}/>
                                 </Col>
                             </Row>
                         }
