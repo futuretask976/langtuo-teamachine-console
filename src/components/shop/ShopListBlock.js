@@ -110,7 +110,7 @@ const ShopListBlock = (props) => {
         props.onClickEdit(shopCode);
     }
     const onClickDelete = (e, shopCode) => {
-        let url = genGetUrlBySegs('/shopset/shop/{segment}/{segment}/delete', ['tenant_001', shopCode]);
+        let url = genGetUrlBySegs('/shopset/shop/{segment}/{segment}/delete', [getTenantCode(), shopCode]);
         axios.delete(url, {
             withCredentials: true // 这会让axios在请求中携带cookies
         })

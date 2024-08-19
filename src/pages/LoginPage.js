@@ -4,7 +4,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genPostUrl, genGetUrl, getRespModel, handleRespError } from '../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, genPostUrl, genGetUrl, getRespModel, handleRespError, getTenantCode } from '../js/common.js';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
@@ -35,8 +35,57 @@ function LoginPage() {
             handleRespError(error);
         });
     }
+    const onlyTest = () => {
+        // let url = genGetUrlBySegs('/deviceset/model/{segment}/get', ['GX_TEAMACHINE_01']);
+        // axios.get(url, {
+        //     headers: {
+        //         'Authorization': getJwtToken()
+        //     }
+        // })
+        // .then(response => {
+        //     let model = getRespModel(response);
+        //     console.log('$$$$$ onlyTest modelList=', model);
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ onlyTest error=', error);
+        // });
+
+        // let url2 = genGetUrlByParams('/drinkset/accuracy/list', {
+        //     tenantCode: getTenantCode()
+        // });
+        // axios.get(url2, {
+        //     headers: {
+        //         'Authorization': getJwtToken()
+        //     }
+        // })
+        // .then(response => {
+        //     let model = getRespModel(response);
+        //     console.log('$$$$$ onlyTest accuracyList=', model);
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ onlyTest error=', error);
+        // });
+
+        let url3 = genGetUrlByParams('/ruleset/warning/listbyshop', {
+            tenantCode: getTenantCode(),
+            shopCode: 'shop_001'
+        });
+        axios.get(url3, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
+        })
+        .then(response => {
+            let model = getRespModel(response);
+            console.log('$$$$$ onlyTest list=', model);
+        })
+        .catch(error => {
+            console.log('$$$$$ onlyTest error=', error);
+        });
+    }
     useEffect(() => {
         fetchTenantList4Select();
+        onlyTest();
     }, []);
 
     const onClickLogin = () => {

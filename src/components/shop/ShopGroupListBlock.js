@@ -25,7 +25,7 @@ const ShopGroupListBlock = (props) => {
         });
         axios.get(url, {
             headers: {
-                'Authorization': localStorage.getItem('jwtToken')
+                'Authorization': getJwtToken()
             }
         })
         .then(response => {

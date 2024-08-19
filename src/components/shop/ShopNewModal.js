@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl } from '../../js/common.js';
+import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -15,32 +15,29 @@ const ShopNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/shopset/shop/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
             shopCode: shopCode,
             shopName: shopName,
             shopGroupCode: shopGroupCode,
             comment: comment,
-            tenantCode: 'tenant_001',
+            tenantCode: getTenantCode(),
             extraInfo: {
                 testA: 'valueA',
                 testB: 'valueB'
             },
+        }, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
+            if (isRespSuccess(response)) {
                 alert("here is success")
             } else {
                 alert("here is wrong")
             }
         })
         .catch(error => {
-            alert("here is error")
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -60,64 +57,64 @@ const ShopNewModal = (props) => {
     const [shopGroupCode, setShopGroupCode] = useState('');
     const [shopGroupName, setShopGroupName] = useState('');
     const [comment, setComment] = useState('');
-    useEffect(() => {
+    const [shopGroupList, setShopGroupList] = useState([]);
+
+    // 初始化动作相关
+    const fetchShop4Edit = () => {
         if (isBlankStr(props.shopCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/shopset/shop/{segment}/{segment}/get', ['tenant_001', props.shopCode4Edit]);
+        let url = genGetUrlBySegs('/shopset/shop/{segment}/{segment}/get', [getTenantCode(), props.shopCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setShopCode(response.data.model.shopCode);
-                setShopName(response.data.model.shopName);
-                setShopGroupCode(response.data.model.shopGroupCode);
-                setShopGroupName(response.data.model.shopGroupName);
-                setComment(response.data.model.comment);
-            }
+            let model = getRespModel(response);
+            setShopCode(model.shopCode);
+            setShopName(model.shopName);
+            setShopGroupCode(model.shopGroupCode);
+            setShopGroupName(model.shopGroupName);
+            setComment(model.comment);
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
-    }, [props.shopCode4Edit]);
-    const [shopGroupList, setShopGroupList] = useState([]);
-    useEffect(() => {
+    }
+    const fetchShopGroupList4Select = () => {
         let url = genGetUrlByParams('/shopset/shop/group/list', {
-            tenantCode: 'tenant_001'
+            tenantCode: getTenantCode()
         });
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                setShopGroupList((prev => {
-                    let shopGroupListTmp = [];
-                    response.data.model.forEach(item => {
-                        shopGroupListTmp.push({
-                            label: item.shopGroupName,
-                            value: item.shopGroupCode
-                        });
-                    })
-                    return shopGroupListTmp;
-                }));
-            }
+            let model = getRespModel(response);
+            setShopGroupList((prev => {
+                let shopGroupListTmp = [];
+                model.forEach(item => {
+                    shopGroupListTmp.push({
+                        label: item.shopGroupName,
+                        value: item.shopGroupCode
+                    });
+                })
+                return shopGroupListTmp;
+            }));
         })
         .catch(error => {
-            // console.error('error: ', error);
-            // console.error('error.response: ', error.response);
-            // console.error('error.response.status: ', error.response.status);
-            if (error && error.response && error.response.status === 401) {
-                // window.location.href="/gxadmin/login";
-            }
+            handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchShopGroupList4Select();
     }, []);
+    useEffect(() => {
+        fetchShop4Edit();
+    }, [props.shopCode4Edit]);
  
     return (
         <Modal

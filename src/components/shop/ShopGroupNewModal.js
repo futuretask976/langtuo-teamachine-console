@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, isRespSuccess, getRespModel } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -15,15 +15,14 @@ const ShopGroupNewModal = (props) => {
         setLoading(true);
         let url = genPostUrl('/shopset/shop/group/put');
         axios.put(url, {
-            withCredentials: true, // 这会让axios在请求中携带cookies
             shopGroupCode: shopGroupCode,
             shopGroupName: shopGroupName,
             comment: comment,
-            tenantCode: 'tenant_001',
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
+            tenantCode: getTenantCode()
+        }, {
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             if (isRespSuccess(response)) {
@@ -56,9 +55,11 @@ const ShopGroupNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/get', ['tenant_001', props.shopGroupCode4Edit]);
+        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/get', [getTenantCode(), props.shopGroupCode4Edit]);
         axios.get(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
+            headers: {
+                'Authorization': getJwtToken()
+            }
         })
         .then(response => {
             let model = getRespModel(response);
