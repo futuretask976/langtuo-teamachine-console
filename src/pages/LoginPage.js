@@ -66,22 +66,22 @@ function LoginPage() {
         //     console.log('$$$$$ onlyTest error=', error);
         // });
 
-        let url3 = genGetUrlByParams('/menuset/menu/trigger', {
-            tenantCode: getTenantCode(),
-            shopCode: 'shop_001',
-            machineCode: '12345'
-        });
-        axios.get(url3, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            console.log('$$$$$ onlyTest response=', response);
-        })
-        .catch(error => {
-            console.log('$$$$$ onlyTest error=', error);
-        });
+        // let url3 = genGetUrlByParams('/menuset/menu/trigger', {
+        //     tenantCode: getTenantCode(),
+        //     shopCode: 'shop_001',
+        //     machineCode: '12345'
+        // });
+        // axios.get(url3, {
+        //     headers: {
+        //         'Authorization': getJwtToken()
+        //     }
+        // })
+        // .then(response => {
+        //     console.log('$$$$$ onlyTest response=', response);
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ onlyTest error=', error);
+        // });
     }
     useEffect(() => {
         fetchTenantList4Select();

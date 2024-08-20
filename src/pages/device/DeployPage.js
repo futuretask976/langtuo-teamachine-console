@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 import '../../css/common.css';
+import { genGetUrlBySegs, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -57,6 +59,27 @@ const DeployPage = () => {
         setDeployCode4Edit(selectedDeployCode);
         setOpenNewModal(true);
     }
+    const onExportByExcel = ()=> {
+        let url = genGetUrlBySegs('/deviceset/deploy/{segment}/export', [getTenantCode()]);
+        axios.get(url, {
+            headers: {
+                'Authorization': getJwtToken()
+            },
+            responseType: 'blob'
+        })
+        .then(response => {
+            const url4Export = window.URL.createObjectURL(new Blob([response.data]));
+            const link4Export = document.createElement('a');
+            link4Export.href = url4Export;
+            link4Export.setAttribute('download', 'export.xlsx');
+            document.body.appendChild(link4Export);
+            link4Export.click();
+            document.body.removeChild(link4Export);
+        })
+        .catch(error => {
+            console.log('$$$$$ onlyTest error=', error);
+        });
+    }
 
     return (
         <>
@@ -108,6 +131,17 @@ const DeployPage = () => {
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
                                             <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建部署码</Button>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
+                                <Row style={{backgroundColor: '#fff'}}>
+                                    <Col className="gutter-row" span={21}>
+                                        &nbsp;
+                                    </Col>
+                                    <Col className="gutter-row" span={3}>
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
                                         </div>
                                     </Col>
                                 </Row>
