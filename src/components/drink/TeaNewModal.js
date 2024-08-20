@@ -33,12 +33,13 @@ const TeaNewModal = (props) => {
             tenantCode: getTenantCode(),
             teaCode: tea.teaCode,
             teaName: tea.teaName,
+            teaTypeCode: tea.teaTypeCode,
             outerTeaCode: tea.outerTeaCode,
             state: tea.state,
-            teaTypeCode: tea.teaTypeCode,
-            comment: tea.comment,
             imgLink: tea.imgLink,
-            teaUnitList: tea.teaUnitList
+            comment: tea.comment,
+            teaUnitList: tea.teaUnitList,
+            actStepList: tea.actStepList
         }, {
             headers: {
                 'Authorization': getJwtToken()
@@ -97,7 +98,7 @@ const TeaNewModal = (props) => {
     const [tea, setTea] = useState();
 
     // 赋值初始化相关
-    useEffect(() => {
+    const fetchTea4Edit = () => {
         if (isBlankStr(props.teaCode4Edit)) {
             setTea({});
             return;
@@ -119,6 +120,9 @@ const TeaNewModal = (props) => {
         .catch(error => {
             handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchTea4Edit();
     }, [props.teaCode4Edit]);
     useEffect(() => {
         if (!isBlankObj(tea)) {

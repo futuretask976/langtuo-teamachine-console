@@ -66,9 +66,10 @@ function LoginPage() {
         //     console.log('$$$$$ onlyTest error=', error);
         // });
 
-        let url3 = genGetUrlByParams('/ruleset/warning/listbyshop', {
+        let url3 = genGetUrlByParams('/menuset/menu/trigger', {
             tenantCode: getTenantCode(),
-            shopCode: 'shop_001'
+            shopCode: 'shop_001',
+            machineCode: '12345'
         });
         axios.get(url3, {
             headers: {
@@ -76,8 +77,7 @@ function LoginPage() {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
-            console.log('$$$$$ onlyTest list=', model);
+            console.log('$$$$$ onlyTest response=', response);
         })
         .catch(error => {
             console.log('$$$$$ onlyTest error=', error);
