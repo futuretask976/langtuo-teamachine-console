@@ -182,6 +182,16 @@ export const handleRespError = (errorResp) => {
     }
 };
 
+export const handleRespExport = (resp) => {
+    const url4Export = window.URL.createObjectURL(new Blob([resp.data]));
+    const link4Export = document.createElement('a');
+    link4Export.href = url4Export;
+    link4Export.setAttribute('download', 'export.xlsx');
+    document.body.appendChild(link4Export);
+    link4Export.click();
+    document.body.removeChild(link4Export);
+};
+
 export const isRespSuccess = (resp) => {
     if (isBlankObj(resp) || isBlankObj(resp.data)) {
         return false;

@@ -4,7 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlBySegs, getJwtToken, getTenantCode, handleRespError, handleRespExport } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -68,16 +68,10 @@ const DeployPage = () => {
             responseType: 'blob'
         })
         .then(response => {
-            const url4Export = window.URL.createObjectURL(new Blob([response.data]));
-            const link4Export = document.createElement('a');
-            link4Export.href = url4Export;
-            link4Export.setAttribute('download', 'export.xlsx');
-            document.body.appendChild(link4Export);
-            link4Export.click();
-            document.body.removeChild(link4Export);
+            handleRespExport(response);
         })
         .catch(error => {
-            console.log('$$$$$ onlyTest error=', error);
+            handleRespError(error);
         });
     }
 
