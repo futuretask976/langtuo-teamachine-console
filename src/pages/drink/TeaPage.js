@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 import '../../css/common.css';
+import { genGetUrlBySegs, getJwtToken, getTenantCode } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -54,6 +56,27 @@ const TeaPage = () => {
         setTeaCode4Edit(selectedTeaCode);
         setOpenNewModal(true);
     }
+    const onExportByExcel = ()=> {
+        let url = genGetUrlBySegs('/drinkset/tea/{segment}/export', [getTenantCode()]);
+        axios.get(url, {
+            headers: {
+                'Authorization': getJwtToken()
+            },
+            responseType: 'blob'
+        })
+        .then(response => {
+            const url4Export = window.URL.createObjectURL(new Blob([response.data]));
+            const link4Export = document.createElement('a');
+            link4Export.href = url4Export;
+            link4Export.setAttribute('download', 'export.xlsx');
+            document.body.appendChild(link4Export);
+            link4Export.click();
+            document.body.removeChild(link4Export);
+        })
+        .catch(error => {
+            console.log('$$$$$ onlyTest error=', error);
+        });
+    }
 
     return (
         <>
@@ -97,7 +120,12 @@ const TeaPage = () => {
                                             <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建茶品</Button>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={6}>
+                                    <Col className="gutter-row" span={3}>
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
+                                        </div>
+                                    </Col>
+                                    <Col className="gutter-row" span={3}>
                                         &nbsp;
                                     </Col>
                                 </Row>
