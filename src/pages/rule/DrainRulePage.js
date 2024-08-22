@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -52,6 +53,15 @@ const DrainRulePage = (props) => {
     var drainRuleCode4SearchTmp = '';
     var drainRuleName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(drainRuleCode4SearchTmp)) {
+            alert('排空规则编码不符合规则');
+            return;
+        }
+        if (!isValidName(drainRuleName4SearchTmp)) {
+            alert('排空规则名称不符合规则');
+            return;
+        }
+
         setDrainRuleCode4Search(drainRuleCode4SearchTmp);
         setDrainRuleName4Search(drainRuleName4SearchTmp);
     }

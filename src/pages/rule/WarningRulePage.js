@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -52,6 +53,15 @@ const WarningRulePage = (props) => {
     const [warningRuleCode4Search, setWarningRuleCode4Search] = useState('');
     const [warningRuleName4Search, setWarningRuleName4Search] = useState('');
     const onClickSearch = () => {
+        if (!isValidCode(warningRuleCode4SearchTmp)) {
+            alert('预警规则编码不符合规则');
+            return;
+        }
+        if (!isValidName(warningRuleName4SearchTmp)) {
+            alert('预警规则名称不符合规则');
+            return;
+        }
+
         setWarningRuleCode4Search(warningRuleCode4SearchTmp);
         setWarningRuleName4Search(warningRuleName4SearchTmp);
     }
