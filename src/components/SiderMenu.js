@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Layout, Menu } from 'antd';
-import { BorderOuterOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, GatewayOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
+import { BorderOuterOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 

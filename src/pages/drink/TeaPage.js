@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
@@ -116,7 +116,7 @@ const TeaPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
+                                            <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
