@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -55,6 +56,15 @@ const MenuPage = () => {
     var menuCode4SearchTmp = '';
     var menuName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(menuCode4SearchTmp)) {
+            alert('菜单编码不符合规则');
+            return;
+        }
+        if (!isValidName(menuName4SearchTmp)) {
+            alert('菜单名称不符合规则');
+            return;
+        }
+
         setMenuCode4Search(menuCode4SearchTmp);
         setMenuName4Search(menuName4SearchTmp);
     }

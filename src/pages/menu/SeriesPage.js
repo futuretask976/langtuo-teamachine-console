@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Modal, Radio, Select, Space, Steps, Table,
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -44,6 +45,15 @@ const SeriesPage = () => {
     var seriesCode4SearchTmp = '';
     var seriesName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(seriesCode4SearchTmp)) {
+            alert('系列编码不符合规则');
+            return;
+        }
+        if (!isValidName(seriesName4SearchTmp)) {
+            alert('系列名称不符合规则');
+            return;
+        }
+
         setSeriesCode4Search(seriesCode4SearchTmp);
         setSeriesName4Search(seriesName4SearchTmp);
     }
