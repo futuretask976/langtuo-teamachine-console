@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Image } from 'antd';
 
 import '../css/common.css';
+import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
 const LogoutPage = () => {
+    // 上下文初始化
+    const {token, setToken} = useContext(AuthContext);
+
+    // 初始化动作相关
     useEffect(() => {
+        setToken(null);
     }, []);
 
     return (

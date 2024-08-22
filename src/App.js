@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 
-import { getJwtToken } from './js/common.js';
+import { deleteJwtToken, getJwtToken, isBlankStr, putJwtToken } from './js/common';
+import { AuthContext } from './js/context';
 
 // userset
 import TenantPage from './pages/user/TenantPage';
@@ -42,27 +43,20 @@ import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import ErrorPage from './pages/ErrorPage';
 
-const AuthContext = createContext();
-
 const AuthProvider = ({ children }) => {
-    // useState 返回一个状态和一个修改状态的方法，状态需要通过这个方法来进行修改
-    // useState 的入参是这个参数的初始状态
-    const [token, setToken_] = useState(getJwtToken());
- 
-    const setToken = (newToken) => {
-        setToken_(newToken);
-    };
- 
-    // 仅当 token 发生变化时，useEffect 定义的方法才会被执行
+    const [token, setToken] = useState(getJwtToken());
     useEffect(() => {
-        if (token) {
-            localStorage.setItem('token',token);
+        if (isBlankStr(token)) {
+            console.log("$$$$$ to deleteJwtToken token=", token);
+            deleteJwtToken();
         } else {
-            localStorage.removeItem('token')
+            console.log("$$$$$ to putJwtToken token=", token);
+            putJwtToken(token);
         }
     }, [token]);
     
-    // 缓存封装，同样的参数+函数，如果已经缓存，则直接返回缓存的值
+    // 返回一个对象，包含 token 和 setToken 方法，可以在 Context 的 value 中直接传递对象，但是这里用 useMemo 封装了一下，用于缓存？
+    // 好像是为了提升性能，避免不必要的渲染
     const contextValue = useMemo(
         () => ({
             token,
@@ -77,14 +71,8 @@ const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
- 
-const useAuth = () => {
-    return useContext(AuthContext);
-};
 
 const Routes = () => {
-    const { token } = useAuth();
-   
     // 公共路由配置
     const routesForPublic = [
         {
@@ -224,21 +212,22 @@ const Routes = () => {
     ];
    
     // 合并路由配置
-    const router = createBrowserRouter([
-        ...routesForPublic,
-        ...routesForAuthenticatedOnly,
-    ],
-    {
-        basename: "/console"
-    });
+    const router = createBrowserRouter(
+        [
+            ...routesForPublic,
+            ...routesForAuthenticatedOnly,
+        ],
+        {
+            basename: "/console"
+        }
+    );
    
     return <RouterProvider router={router} />;
 };
 
 
 const PublicRoute = () => {
-    const { token } = useAuth();
-  
+    const { token } = useContext(AuthContext);
     console.log("$$$$$ PublicRoute entering=", token);
   
     // 如果已经登录，则直接渲染目标组件
@@ -246,14 +235,13 @@ const PublicRoute = () => {
 };
 
 const AuthenticatedOnlyRoute = () => {
-    const { token } = useAuth();
-
+    const { token } = useContext(AuthContext);
     console.log("$$$$$ AuthenticatedOnlyRoute entering=", token);
   
     // 判断用户是否有登录
     if (!token) {
-      // 如果没有登录，则跳转到登录页面
-      return <Navigate to="/login" />;
+        // 如果没有登录，则跳转到登录页面
+        return <Navigate to="/login" />;
     }
   
     // 如果已经登录，则直接渲染目标组件

@@ -143,6 +143,12 @@ export const deleteCookie = (name) => {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
+// 清除本地存储的认证信息，如token等
+export const deleteJwtToken = () => {
+    localStorage.removeItem('jwtToken');
+    deleteCookie('JSESSIONID');
+};
+
 export const getJwtToken = () => {
     let jwtToken = localStorage.getItem('jwtToken');
     if (isBlankStr(jwtToken)) {
@@ -152,16 +158,10 @@ export const getJwtToken = () => {
     }
 };
 
-// 清除本地存储的认证信息，如token等
-export const deleteJwtToken = () => {
-    localStorage.removeItem('jwtToken');
-    deleteCookie('JSESSIONID');
-};
-
 export const getTenantCode = () => {
     let tenantCode = localStorage.getItem('tenantCode');
     if (isBlankStr(tenantCode)) {
-        return '';
+        return null;
     } else {
         return tenantCode;
     }
@@ -207,6 +207,14 @@ export const isRespSuccess = (resp) => {
         return false;
     }
     return resp.data.success;
+};
+
+export const putJwtToken = (jwtToken) => {
+    localStorage.setItem('jwtToken', jwtToken);
+};
+
+export const putTenantCode = (tenantCode) => {
+    localStorage.setItem('tenantCode', tenantCode);
 };
 
 

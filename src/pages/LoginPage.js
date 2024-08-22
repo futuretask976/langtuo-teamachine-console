@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Image, Input, Select, Space } from 'antd';
 import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, genPostUrl, genGetUrl, getRespModel, handleRespError, getTenantCode } from '../js/common.js';
+import { genPostUrl, genGetUrl, getRespModel, handleRespError, putTenantCode } from '../js/common';
+import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
+    // 上下文初始化
+    const {token, setToken} = useContext(AuthContext);
+
+    // 数据初始化
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [tenantCode, setTenantCode] = useState('');
     const [tenantList4Select, setTenantList4Select] = useState([]);
 
+    // 初始化动作相关
     const fetchTenantList4Select = () => {
         let url = genGetUrl('/userset/tenant/list');
         axios.get(url, {
@@ -95,8 +101,8 @@ function LoginPage() {
         })
         .then(response => {
             let model = getRespModel(response);
-            localStorage.setItem('tenantCode', tenantCode);
-            localStorage.setItem('jwtToken', model.jwtToken);
+            putTenantCode(tenantCode);
+            setToken(model.jwtToken);
             window.location.href='/console/index';
         })
         .catch(error => {
