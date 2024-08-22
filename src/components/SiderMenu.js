@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import { Layout, Menu } from 'antd';
 import { BorderOuterOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, GatewayOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
 
@@ -14,6 +15,7 @@ function getItem(label, key, icon, children) {
 }
 
 const SiderMenu = (props) => {
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
 
     const menuItems = [
@@ -72,57 +74,58 @@ const SiderMenu = (props) => {
 
     const onMenuItemClick = (e) => {
         if (e.key == 'indexMgt') {
+            navigate('/index');
             window.location.href="/console/index";
         } else if (e.key == 'tenantMgt') {
-            window.location.href="/console/userset/tenant";
+            navigate('/userset/tenant');
         } else if (e.key == 'orgMgt') {
-            window.location.href="/console/userset/org";
+            navigate('/userset/org');
         } else if (e.key == 'roleMgt') {
-            window.location.href="/console/userset/role";
+            navigate('/userset/role');
         } else if (e.key == 'adminMgt') {
-            window.location.href="/console/userset/admin";
+            navigate('/userset/admin');
         } else if (e.key == 'shopGroupMgt') {
-            window.location.href="/console/shopset/group";
+            navigate('/shopset/group');
         } else if (e.key == 'shopMgt') {
-            window.location.href="/console/shopset/shop";
+            navigate('/shopset/shop');
         } else if (e.key == 'modelMgt') {
-            window.location.href="/console/deviceset/model";
+            navigate('/deviceset/model');
         } else if (e.key == 'deployMgt') {
-            window.location.href="/console/deviceset/deploy";
+            navigate('/deviceset/deploy');
         } else if (e.key == 'machineMgt') {
-            window.location.href="/console/deviceset/machine";
+            navigate('/deviceset/machine');
         } else if (e.key == 'toppingTypeMgt') {
-            window.location.href="/console/drinkset/topping/type";
+            navigate('/drinkset/topping/type');
         } else if (e.key == 'toppingMgt') {
-            window.location.href="/console/drinkset/topping";
+            navigate('/drinkset/topping');
         } else if (e.key == 'specMgt') {
-            window.location.href="/console/drinkset/spec";
+            navigate('/drinkset/spec');
         } else if (e.key == 'teaTypeMgt') {
-            window.location.href="/console/drinkset/tea/type";
+            navigate('/drinkset/tea/type');
         } else if (e.key == 'teaMgt') {
-            window.location.href="/console/drinkset/tea";
+            navigate('/drinkset/tea');
         } else if (e.key == 'toppingAccuracyTplMgt') {
-            window.location.href="/console/drinkset/topping/accuracy/template";
+            navigate('/drinkset/topping/accuracy/template');
         } else if (e.key == 'seriesMgt') {
-            window.location.href="/console/menuset/series";
+            navigate('/menuset/series');
         } else if (e.key == 'menuMgt') {
-            window.location.href="/console/menuset/menu";
+            navigate('/menuset/menu');
         } else if (e.key == 'drainRuleMgt') {
-            window.location.href="/console/ruleset/drain";
+            navigate('/ruleset/drain');
         } else if (e.key == 'cleanRuleMgt') {
-            window.location.href="/console/ruleset/clean";
+            navigate('/ruleset/clean');
         } else if (e.key == 'warningRuleMgt') {
-            window.location.href="/console/ruleset/warning";
+            navigate('/ruleset/warning');
         } else if (e.key == 'invalidActRecordMgt') {
-            window.location.href="/console/recordset/invalid";
+            navigate('/recordset/invalid');
         } else if (e.key == 'supplyActRecordMgt') {
-            window.location.href="/console/recordset/supply";
+            navigate('/recordset/supply');
         } else if (e.key == 'drainActRecordMgt') {
-            window.location.href="/console/recordset/drain";
+            navigate('/recordset/drain');
         } else if (e.key == 'cleanActRecordMgt') {
-            window.location.href="/console/recordset/clean";
+            navigate('/recordset/clean');
         } else if (e.key == 'orderActRecordMgt') {
-            window.location.href="/console/recordset/order";
+            navigate('/recordset/order');
         }
     };
 
