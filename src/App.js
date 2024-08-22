@@ -249,6 +249,7 @@ const AuthenticatedOnlyRoute = () => {
 };
 
 function App() {
+    document.title = '控制台';
     return (
         <AuthProvider>
             <ConfigProvider theme={{
