@@ -1,7 +1,8 @@
-import React from 'react';
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
+
+import { getJwtToken } from './js/common.js';
 
 // userset
 import TenantPage from './pages/user/TenantPage';
@@ -46,7 +47,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     // useState 返回一个状态和一个修改状态的方法，状态需要通过这个方法来进行修改
     // useState 的入参是这个参数的初始状态
-    const [token, setToken_] = useState(localStorage.getItem("token"));
+    const [token, setToken_] = useState(getJwtToken());
  
     const setToken = (newToken) => {
         setToken_(newToken);
@@ -55,9 +56,9 @@ const AuthProvider = ({ children }) => {
     // 仅当 token 发生变化时，useEffect 定义的方法才会被执行
     useEffect(() => {
         if (token) {
-          localStorage.setItem('token',token);
+            localStorage.setItem('token',token);
         } else {
-          localStorage.removeItem('token')
+            localStorage.removeItem('token')
         }
     }, [token]);
     
@@ -88,6 +89,27 @@ const Routes = () => {
     const routesForPublic = [
         {
             element: <PublicRoute />, // Wrap the component in AuthenticatedOnlyRoute
+            children: [
+                {
+                    path: "/login",
+                    element: <LoginPage />,
+                },
+                {
+                    path: "/logout",
+                    element: <LogoutPage />,
+                },
+                {
+                    path: "/error",
+                    element: <ErrorPage />,
+                }
+            ]
+        }
+    ];
+   
+    // 授权的用户才可以访问的路由配置
+    const routesForAuthenticatedOnly = [
+        {
+            element: <AuthenticatedOnlyRoute />, // Wrap the component in AuthenticatedOnlyRoute
             children: [
                 {
                     path: "/",
@@ -196,28 +218,8 @@ const Routes = () => {
                 {
                     path: "/recordset/order",
                     element: <OrderActRecordPage />,
-                },
-                {
-                    path: "/login",
-                    element: <LoginPage />,
-                },
-                {
-                    path: "/logout",
-                    element: <LogoutPage />,
-                },
-                {
-                    path: "/error",
-                    element: <ErrorPage />,
                 }
             ]
-        }
-    ];
-   
-    // 授权的用户才可以访问的路由配置
-    const routesForAuthenticatedOnly = [
-        {
-            element: <AuthenticatedOnlyRoute />, // Wrap the component in AuthenticatedOnlyRoute
-            children: []
         }
     ];
    
@@ -237,7 +239,7 @@ const Routes = () => {
 const PublicRoute = () => {
     const { token } = useAuth();
   
-    console.log("App.js#PublicRoute entering");
+    console.log("$$$$$ PublicRoute entering=", token);
   
     // 如果已经登录，则直接渲染目标组件
     return <Outlet />;
@@ -245,6 +247,8 @@ const PublicRoute = () => {
 
 const AuthenticatedOnlyRoute = () => {
     const { token } = useAuth();
+
+    console.log("$$$$$ AuthenticatedOnlyRoute entering=", token);
   
     // 判断用户是否有登录
     if (!token) {

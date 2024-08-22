@@ -1,27 +1,23 @@
 import React from 'react';
 import { Dropdown, Layout, Image, Space } from 'antd';
-import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-import { genGetUrl, getRespModel, handleRespError } from '../js/common.js';
+import { deleteJwtToken, genGetUrl, getJwtToken, handleRespError, isRespSuccess } from '../js/common.js';
 import logo from '../images/logo2.png'
-
-
-const deleteCookie = (name) => {
-    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
 
 const doLogout = () => {
     axios.get(genGetUrl('/logout'), {
-        withCredentials: true // 这会让axios在请求中携带cookies
+        headers: {
+            'Authorization': getJwtToken()
+        }
     })
     .then(response => {
-        let model = getRespModel(response);
-        // 清除本地存储的认证信息，如token等
-        localStorage.removeItem('jwtToken');
-        deleteCookie('JSESSIONID');
-        alert('登出成功，重定向到登录页面！');
-        window.location.href='/console/login';
+        if (isRespSuccess(response)) {
+            deleteJwtToken();
+            alert('登出成功，重定向到登录页面！');
+            window.location.href='/console/login';
+        }
     })
     .catch(error => {
         handleRespError(error);

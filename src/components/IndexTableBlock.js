@@ -8,33 +8,6 @@ const { TextArea } = Input;
 
 function IndexTableBlock() {
     const [machineData, setMachineData] = useState([]);
-    useEffect(() => {
-        axios.get('/gxsp3demo/machine/list', {
-            withCredentials: true // 这会让axios在请求中携带cookies
-        })
-            .then(response => {
-                console.log("response: ", response);
-                let tmpData = [];
-                response.data.model.forEach((item, index) => {
-                    tmpData.push({
-                        key: index,
-                        id: item.id,
-                        machineCode: item.machineCode,
-                        machineName: item.machineName,
-                    });
-                });
-                setMachineData(tmpData);
-            })
-            .catch(error => {
-                // console.error('error: ', error);
-                // console.error('error.response: ', error.response);
-                // console.error('error.response.status: ', error.response.status);
-                if (error && error.response && error.response.status === 401) {
-                    // window.location.href="/gxadmin/login";
-                }
-            });
-    }, []);
-
     const [maCode, setMaCode] = useState();
     const [maName, setMaName] = useState();
     const onTitleClick = (record) => {

@@ -6,7 +6,6 @@ import logo from '../images/logo2.png'
 
 const LogoutPage = () => {
     useEffect(() => {
-        localStorage.removeItem('jwtToken');
     }, []);
 
     return (

@@ -139,13 +139,23 @@ export const isValidComment = (input, required) => {
 };
 
 // http response 处理
+export const deleteCookie = (name) => {
+    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 export const getJwtToken = () => {
     let jwtToken = localStorage.getItem('jwtToken');
     if (isBlankStr(jwtToken)) {
-        return '';
+        return null;
     } else {
         return jwtToken;
     }
+};
+
+// 清除本地存储的认证信息，如token等
+export const deleteJwtToken = () => {
+    localStorage.removeItem('jwtToken');
+    deleteCookie('JSESSIONID');
 };
 
 export const getTenantCode = () => {
