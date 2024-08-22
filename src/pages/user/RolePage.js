@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidName } from '../../js/common';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -42,6 +43,11 @@ const RolePage = () => {
     const [roleName4Search, setRoleName4Search] = useState('');
     var roleName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidName(roleName4SearchTmp)) {
+            alert('角色名称不符合规则');
+            return;
+        }
+
         setRoleName4Search(roleName4SearchTmp);
     }
 

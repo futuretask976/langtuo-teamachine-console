@@ -4,7 +4,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genPostUrl, genGetUrl, getRespModel, handleRespError, putTenantCode } from '../js/common';
+import { genPostUrl, genGetUrl, getRespModel, handleRespError, putTenantCode, isValidCode } from '../js/common';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
@@ -95,6 +95,15 @@ function LoginPage() {
     }, []);
 
     const onClickLogin = () => {
+        if (!isValidCode(userName)) {
+            alert('用户名不符合规则');
+            return;
+        }
+        if (!isValidCode(password)) {
+            alert('密码不符合规则');
+            return;
+        }
+
         let postData = 'username=' + userName + "&password=" + md5(password) + "&tenantCode=" + tenantCode;
         axios.post(genPostUrl('/login-processing'), postData, {
             // withCredentials: true // 这会让axios在请求中携带cookies

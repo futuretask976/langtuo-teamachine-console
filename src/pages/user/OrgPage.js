@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidName } from '../../js/common';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -50,6 +51,11 @@ const OrgPage = () => {
     const [orgName4Search, setOrgName4Search] = useState('');
     let orgName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidName(orgName4SearchTmp)) {
+            alert('组织名称不符合规则');
+            return;
+        }
+
         setOrgName4Search(orgName4SearchTmp);
     }
 

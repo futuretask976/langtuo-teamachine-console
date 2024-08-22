@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Modal, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidName } from '../../js/common';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -44,6 +45,15 @@ const TenantPage = () => {
     var tenantName4SearchTmp = '';
     var contactPerson4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidName(tenantName4SearchTmp)) {
+            alert('商户名称不符合规则');
+            return;
+        }
+        if (!isValidName(contactPerson4SearchTmp)) {
+            alert('联系人名称不符合规则');
+            return;
+        }
+
         setTenantName4Search(tenantName4SearchTmp);
         setContactPerson4Search(contactPerson4SearchTmp);
     }

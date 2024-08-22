@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -44,6 +45,15 @@ const AdminPage = () => {
     var roleName4SearchTmp = '';
     var loginName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidName(loginName4SearchTmp)) {
+            alert('登录名称不符合规则');
+            return;
+        }
+        if (!isValidName(roleName4SearchTmp)) {
+            alert('角色名称不符合规则');
+            return;
+        }
+
         setRoleName4Search(roleName4SearchTmp);
         setLoginName4Search(loginName4SearchTmp);
     }
