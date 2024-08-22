@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode } from '../../js/common';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -42,6 +43,11 @@ const ModelPage = () => {
     const [modelCode4Search, setModelCode4Search] = useState('');
     var modelCode4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(modelCode4SearchTmp)) {
+            alert('型号编码不符合规则');
+            return;
+        }
+
         setModelCode4Search(modelCode4SearchTmp);
     }
 

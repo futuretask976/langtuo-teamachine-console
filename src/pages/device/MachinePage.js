@@ -3,7 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import '../../js/common.js';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -49,6 +49,23 @@ const MachinePage = () => {
     var modelCode4SearchTmp = '';
     var shopName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(screenCode4SearchTmp)) {
+            alert('屏幕编码不符合规则');
+            return;
+        }
+        if (!isValidCode(elecBoardCode4SearchTmp)) {
+            alert('电控板编码不符合规则');
+            return;
+        }
+        if (!isValidCode(modelCode4SearchTmp)) {
+            alert('型号编码不符合规则');
+            return;
+        }
+        if (!isValidName(shopName4SearchTmp)) {
+            alert('店铺名称不符合规则');
+            return;
+        }
+
         setScreenCode4Search(screenCode4SearchTmp);
         setElecBoardCode4Search(elecBoardCode4SearchTmp);
         setModelCode4Search(modelCode4SearchTmp);
