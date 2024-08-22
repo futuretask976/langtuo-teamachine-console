@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -44,6 +45,15 @@ const ToppingTypePage = () => {
     var toppingTypeCode4SearchTmp = '';
     var toppingTypeName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(toppingTypeCode4SearchTmp)) {
+            alert('物料类型编码不符合规则');
+            return;
+        }
+        if (!isValidName(toppingTypeName4SearchTmp)) {
+            alert('物料类型名称不符合规则');
+            return;
+        }
+
         setToppingTypeCode4Search(toppingTypeCode4SearchTmp);
         setToppingTypeName4Search(toppingTypeName4SearchTmp);
     }

@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -44,6 +45,15 @@ const SpecPage = () => {
     var specName4SearchTmp = '';
     var specCode4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(specCode4SearchTmp)) {
+            alert('规格编码不符合规则');
+            return;
+        }
+        if (!isValidName(specName4SearchTmp)) {
+            alert('规格名称不符合规则');
+            return;
+        }
+
         setSpecCode4Search(specCode4SearchTmp);
         setSpecName4Search(specName4SearchTmp);
     }

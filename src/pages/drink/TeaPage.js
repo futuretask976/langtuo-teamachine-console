@@ -4,7 +4,7 @@ import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, getJwtToken, getTenantCode, handleRespExport } from '../../js/common.js';
+import { genGetUrlBySegs, getJwtToken, getTenantCode, handleRespExport, isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -46,6 +46,15 @@ const TeaPage = () => {
     var teaCode4SearchTmp = '';
     var teaName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(teaCode4SearchTmp)) {
+            alert('茶品编码不符合规则');
+            return;
+        }
+        if (!isValidName(teaName4SearchTmp)) {
+            alert('茶品名称不符合规则');
+            return;
+        }
+
         setTeaCode4Search(teaCode4SearchTmp);
         setTeaName4Search(teaName4SearchTmp);
     }

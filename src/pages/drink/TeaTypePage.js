@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -45,6 +46,15 @@ const TeaTypePage = () => {
     var teaTypeCode4SearchTmp = '';
     var teaTypeName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(teaTypeCode4SearchTmp)) {
+            alert('茶品类型编码不符合规则');
+            return;
+        }
+        if (!isValidName(teaTypeName4SearchTmp)) {
+            alert('茶品类型名称不符合规则');
+            return;
+        }
+
         setTeaTypeCode4Search(teaTypeCode4SearchTmp);
         setTeaTypeName4Search(teaTypeName4SearchTmp);
     }

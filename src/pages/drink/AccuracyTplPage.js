@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -44,6 +45,15 @@ const AccuracyTplPage = () => {
     var templateCode4SearchTmp = '';
     var templateName4SearchTmp = '';
     const onClickSearch = () => {
+        if (!isValidCode(templateCode4SearchTmp)) {
+            alert('模板编码不符合规则');
+            return;
+        }
+        if (!isValidName(templateName4SearchTmp)) {
+            alert('模板名称不符合规则');
+            return;
+        }
+
         setTemplateCode4Search(templateCode4SearchTmp);
         setTemplateName4Search(templateName4SearchTmp);
     }
