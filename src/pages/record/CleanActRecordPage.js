@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Flex, Layout, Select, Col, Row } from 'antd';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
