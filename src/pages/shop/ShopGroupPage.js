@@ -3,6 +3,7 @@ import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { isValidName } from '../../js/common';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -42,6 +43,11 @@ const ShopGroupPage = () => {
     var shopGroupName4SearchTmp = '';
     const [shopGroupName4Search, setShopGroupName4Search] = useState('');
     const onClickSearch = () => {
+        if (!isValidName(shopGroupName4SearchTmp)) {
+            alert('店铺组名称不符合规则');
+            return;
+        }
+
         setShopGroupName4Search(shopGroupName4SearchTmp);
     }
 
