@@ -3,13 +3,26 @@ import { Button, Checkbox, Input, Modal, Space, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespModel, isArray, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isArray, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const RoleNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(roleCode, true)) {
+            alert('角色编码不符合规则');
+            return;
+        }
+        if (!isValidName(roleName, true)) {
+            alert('角色名称不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/userset/role/put');
         axios.put(url, {
@@ -35,8 +48,8 @@ const RoleNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -211,45 +224,40 @@ const RoleNewModal = (props) => {
     return (
         <Modal
                 centered
+                confirmLoading={loading}
                 open={open}
-                title="新建/编辑角色"
                 onOk={onClickOK}
                 onCancel={onClickCancel}
-                width={1000}
                 style={{border: '0px solid red'}}
-                footer={[
-                    <Button key="back" onClick={onClickCancel}>取消</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                        提交
-                    </Button>,
-                ]}
+                title="新建/编辑角色"
+                width={1000}
             >
                 <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
                     <div className="flex-row-cont" style={{height: 60, width: '100%'}}>
                         <Space direction='vertical' size={20} style={{width: '100%'}}>
                             <Row style={{width: '100%'}}>
-                                <Col className="gutter-row" span={2}>
+                                <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <span>角色编码：</span>
+                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>角色编码：</span></Space>
                                     </div>
                                 </Col>
-                                <Col className="gutter-row" span={6}>
+                                <Col className="gutter-row" span={5}>
                                     <Input placeholder="角色编码" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={(e) => setRoleCode(e.target.value)}/>
                                 </Col>
-                                <Col className="gutter-row" span={2}>
+                                <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <span>角色名称：</span>
+                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>角色名称：</span></Space>
                                     </div>
                                 </Col>
-                                <Col className="gutter-row" span={6}>
+                                <Col className="gutter-row" span={5}>
                                     <Input placeholder="角色名称" value={roleName} onChange={(e) => setRoleName(e.target.value)}/>
                                 </Col>
-                                <Col className="gutter-row" span={2}>
+                                <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                         <span>备注：</span>
                                     </div>
                                 </Col>
-                                <Col className="gutter-row" span={6}>
+                                <Col className="gutter-row" span={5}>
                                     <Input placeholder="备注" value={comment} onChange={(e) => setComment(e.target.value)}/>
                                 </Col>
                             </Row>
@@ -259,8 +267,8 @@ const RoleNewModal = (props) => {
                         <Table 
                             columns={permitActTableCol} 
                             dataSource={permitActGroupList} 
-                            rowKey={record=>record.permitActGroupCode}
                             pagination={false} 
+                            rowKey={record=>record.permitActGroupCode}
                             size={'small'} 
                             style={{width: '100%'}} />
                     </div>

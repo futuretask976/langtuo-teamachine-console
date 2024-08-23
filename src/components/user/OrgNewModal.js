@@ -3,21 +3,22 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidName } from '../../js/common.js';
 
 const OrgNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidName(orgName, true)) {
+            alert('组织名称不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/userset/org/put');
         axios.put(url, {
             tenantCode: getTenantCode(),
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
             orgName: orgName,
             parentOrgName: parentOrgName
         }, {
@@ -37,8 +38,8 @@ const OrgNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -107,25 +108,20 @@ const OrgNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建租户"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={400}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑组织"
+            width={450}
         >
             <div style={{height: 100, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>组织名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>组织名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -135,15 +131,15 @@ const OrgNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>父组织名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>父组织名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <Select
-                                style={{width: '100%'}}
-                                value={parentOrgName}
                                 onChange={(e) => setParentOrgName(e)}
                                 options={parentOrgNameOpts}
+                                style={{width: '100%'}}
+                                value={parentOrgName}
                             />
                         </Col>
                     </Row>

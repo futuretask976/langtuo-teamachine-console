@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, handleRespError, isRespSuccess, getRespModel, getJwtToken } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,27 @@ const TenantNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(tenantCode, true)) {
+            alert('商户编码不符合规则');
+            return;
+        }
+        if (!isValidName(tenantName, true)) {
+            alert('商户名称不符合规则');
+            return;
+        }
+        if (!isValidName(contactPerson, false)) {
+            alert('联系人不符合规则');
+            return;
+        }
+        if (!isValidCode(contactPhone, false)) {
+            alert('电话不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/userset/tenant/put');
         axios.put(url, {
@@ -37,8 +58,8 @@ const TenantNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -80,25 +101,20 @@ const TenantNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建租户"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={500}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑租户"
+            width={500}
         >
             <div style={{height: 320, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>商户编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>商户编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -108,7 +124,7 @@ const TenantNewModal = (props) => {
                     <Row>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>商户名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>商户名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
