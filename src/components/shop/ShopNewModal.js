@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,23 @@ const ShopNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(shopCode, true)) {
+            alert('店铺编码不符合规则');
+            return;
+        }
+        if (!isValidName(shopName, true)) {
+            alert('店铺名称不符合规则');
+            return;
+        }
+        if (!isValidCode(shopGroupCode, true)) {
+            alert('店铺组编码不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/shopset/shop/put');
         axios.put(url, {
@@ -19,11 +36,7 @@ const ShopNewModal = (props) => {
             shopName: shopName,
             shopGroupCode: shopGroupCode,
             comment: comment,
-            tenantCode: getTenantCode(),
-            extraInfo: {
-                testA: 'valueA',
-                testB: 'valueB'
-            },
+            tenantCode: getTenantCode()
         }, {
             headers: {
                 'Authorization': getJwtToken()
@@ -41,8 +54,8 @@ const ShopNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -137,7 +150,7 @@ const ShopNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -147,7 +160,7 @@ const ShopNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -157,7 +170,7 @@ const ShopNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺组：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>

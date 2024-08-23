@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Input, Modal, Select, Space, Col, Row } from 'antd';
+import { DatePicker, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getTenantCode, getJwtToken, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getTenantCode, getJwtToken, getRespModel, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -13,6 +13,19 @@ const MenuNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(menuCode, true)) {
+            alert('菜单编码不符合规则');
+            return;
+        }
+        if (!isValidName(menuName, true)) {
+            alert('菜单名称不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/menuset/menu/put');
         axios.put(url, {
@@ -41,8 +54,8 @@ const MenuNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -156,50 +169,47 @@ const MenuNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建/编辑系列"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={550}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>提交</Button>
-            ]}
+            title="新建/编辑菜单"
+            width={550}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>菜单编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>菜单编码：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="菜单编码" value={menuCode} disabled={isBlankStr(props.menuCode4Edit) ? false : true} onChange={(e) => setMenuCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>菜单名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>菜单名称：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="菜单名称" value={menuName} onChange={(e) => setMenuName(e.target.value)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>包含系列：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Select
                                     mode='multiple'
@@ -212,12 +222,12 @@ const MenuNewModal = (props) => {
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>生效期：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>生效期：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <DatePicker
                                     format={{
@@ -231,12 +241,12 @@ const MenuNewModal = (props) => {
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>备注：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>

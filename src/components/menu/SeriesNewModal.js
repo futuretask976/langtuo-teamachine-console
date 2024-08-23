@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Space, Upload, Col, Row } from 'antd';
+import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getTenantCode, handleRespError, getRespModel, getJwtToken, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getTenantCode, getRespModel, getJwtToken, genPostUrl, handleRespError, isBlankStr, isBlankArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,19 @@ const SeriesNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(seriesCode, true)) {
+            alert('系列编码不符合规则');
+            return;
+        }
+        if (!isValidName(seriesName, true)) {
+            alert('系列名称不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         axios.put(genPostUrl('/menuset/series/put'), {
             tenantCode: getTenantCode(),
@@ -37,8 +50,8 @@ const SeriesNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -134,25 +147,20 @@ const SeriesNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建/编辑系列"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={550}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑系列"
+            width={550}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>系列编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>系列编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
@@ -164,7 +172,7 @@ const SeriesNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>系列名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>系列名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>

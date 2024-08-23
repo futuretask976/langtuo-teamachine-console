@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,19 @@ const ShopGroupNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(shopGroupCode, true)) {
+            alert('店铺组编码不符合规则');
+            return;
+        }
+        if (!isValidName(shopGroupName, true)) {
+            alert('店铺组名称不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/shopset/shop/group/put');
         axios.put(url, {
@@ -36,8 +49,8 @@ const ShopGroupNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -75,25 +88,20 @@ const ShopGroupNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建店铺组"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={400}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑店铺组"
+            width={500}
         >
             <div style={{height: 225, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺组编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -103,7 +111,7 @@ const ShopGroupNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺组名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
