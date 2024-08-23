@@ -96,7 +96,7 @@ const ShopGroupNewModal = (props) => {
             title="新建/编辑店铺组"
             width={500}
         >
-            <div style={{height: 225, width: '100%'}}>
+            <div style={{height: 250, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
