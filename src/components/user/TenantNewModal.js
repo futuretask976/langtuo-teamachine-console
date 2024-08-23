@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Space, Col, Row } from 'antd';
+import { Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
@@ -68,12 +68,14 @@ const TenantNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义相关
     const [tenantCode, setTenantCode] = useState(isBlankStr(props.tenantCode4Edit) ? '' : props.tenantCode4Edit);
     const [tenantName, setTenantName] = useState('');
     const [contactPerson, setContactPerson] = useState('');
     const [contactPhone, setContactPhone] = useState('');
     const [comment, setComment] = useState('');
+
+    // 初始化动作相关
     useEffect(() => {
         if (isBlankStr(props.tenantCode4Edit)) {
             return;
