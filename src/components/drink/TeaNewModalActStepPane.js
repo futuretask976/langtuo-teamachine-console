@@ -26,7 +26,6 @@ const TeaNewModalActStepPane = (props) => {
             tenantCode: getTenantCode()
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

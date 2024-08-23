@@ -51,7 +51,7 @@ const OrgPage = () => {
     const [orgName4Search, setOrgName4Search] = useState('');
     let orgName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(orgName4SearchTmp)) {
+        if (!isValidName(orgName4SearchTmp, false)) {
             alert('组织名称不符合规则');
             return;
         }

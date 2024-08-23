@@ -10,7 +10,7 @@ import logo from '../images/logo2.png'
 
 function LoginPage() {
     // 上下文初始化
-    const {token, setToken} = useContext(AuthContext);
+    const { setToken } = useContext(AuthContext);
 
     // 数据初始化
     const [userName, setUserName] = useState('');
@@ -95,11 +95,11 @@ function LoginPage() {
     }, []);
 
     const onClickLogin = () => {
-        if (!isValidCode(userName)) {
+        if (!isValidCode(userName, true)) {
             alert('用户名不符合规则');
             return;
         }
-        if (!isValidCode(password)) {
+        if (!isValidCode(password, true)) {
             alert('密码不符合规则');
             return;
         }

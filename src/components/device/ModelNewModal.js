@@ -4,13 +4,18 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isArray, isBlankStr, handleRespError, isRespSuccess, getJwtToken } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, handleRespError, isArray, isBlankStr, isRespSuccess, isValidCode } from '../../js/common.js';
 
 const ModelNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(modelCode, true)) {
+            alert('型号编码不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/deviceset/model/put');
         axios.put(url, {
@@ -35,8 +40,8 @@ const ModelNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -145,25 +150,20 @@ const ModelNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建型号"
-            onOk={onClickOK}
-            onCancel={onClickCancel}
-            width={750}
-            style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            onOk={onClickOK} 
+            onCancel={onClickCancel} 
+            style={{border: '0px solid red'}} 
+            title="新建/编辑型号" 
+            width="750"
         >
             <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
                 <div className="flex-col-cont" style={{height: 45, width: '100%'}}>
                     <Row style={{height: 45, width: '100%'}}>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>型号编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={5}>
@@ -204,7 +204,7 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <InputNumber disabled="true" min={1} max={99} defaultValue={pipeline.pipelineNum} size="small" />
+                                    <InputNumber disabled="true" min={1} max={99} defaultValue={pipeline.pipelineNum}/>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -214,7 +214,7 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
+                                    <Switch checkedChildren="支持" disabled="true" unCheckedChildren="不支持" checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>

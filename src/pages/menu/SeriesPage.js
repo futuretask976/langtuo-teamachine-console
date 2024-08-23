@@ -45,11 +45,11 @@ const SeriesPage = () => {
     var seriesCode4SearchTmp = '';
     var seriesName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(seriesCode4SearchTmp)) {
+        if (!isValidCode(seriesCode4SearchTmp, false)) {
             alert('系列编码不符合规则');
             return;
         }
-        if (!isValidName(seriesName4SearchTmp)) {
+        if (!isValidName(seriesName4SearchTmp, false)) {
             alert('系列名称不符合规则');
             return;
         }

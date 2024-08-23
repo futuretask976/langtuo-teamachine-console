@@ -49,19 +49,19 @@ const MachinePage = () => {
     var modelCode4SearchTmp = '';
     var shopName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(screenCode4SearchTmp)) {
+        if (!isValidCode(screenCode4SearchTmp, false)) {
             alert('屏幕编码不符合规则');
             return;
         }
-        if (!isValidCode(elecBoardCode4SearchTmp)) {
+        if (!isValidCode(elecBoardCode4SearchTmp, false)) {
             alert('电控板编码不符合规则');
             return;
         }
-        if (!isValidCode(modelCode4SearchTmp)) {
+        if (!isValidCode(modelCode4SearchTmp, false)) {
             alert('型号编码不符合规则');
             return;
         }
-        if (!isValidName(shopName4SearchTmp)) {
+        if (!isValidName(shopName4SearchTmp, false)) {
             alert('店铺名称不符合规则');
             return;
         }

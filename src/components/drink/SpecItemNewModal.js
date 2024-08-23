@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
-import { Button, Input, Modal, Col, Row } from 'antd';
+import { Input, Modal, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankStr } from '../../js/common.js';
+import { isBlankStr, isValidCode, isValidName } from '../../js/common.js';
 
 const SpecItemNewModal = (props) => {
     // 对话框相关
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(specItemCode, true)) {
+            alert('规格项编码不符合规则');
+            return;
+        }
+        if (!isValidName(specItemName, true)) {
+            alert('规格项名称不符合规则');
+            return;
+        }
+        if (!isValidCode(outerSpecItemCode, true)) {
+            alert('外部规格项编码不符合规则');
+            return;
+        }
+
         props.onClickSubmitSpecItem(specItemCode, specItemName, outerSpecItemCode);
     };
     const onClickCancel = () => {
@@ -35,23 +48,17 @@ const SpecItemNewModal = (props) => {
         <Modal
             centered
             open={open}
-            title="新建规格项"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={500}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑规格项"
+            width={600}
         >
             <div style={{height: 200, width: '100%'}}>
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>规格项编码：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>规格项编码：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
@@ -68,7 +75,7 @@ const SpecItemNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>规格项名称：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>规格项名称：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
@@ -85,7 +92,7 @@ const SpecItemNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>外部规格项名称：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>外部规格项名称：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>

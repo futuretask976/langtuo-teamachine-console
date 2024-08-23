@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,19 @@ const TeaTypeNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(teaTypeCode, true)) {
+            alert('茶品类型名称不符合规则');
+            return;
+        }
+        if (!isValidCode(teaTypeName, true)) {
+            alert('茶品类型编码不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/drinkset/tea/type/put');
         axios.put(url, {
@@ -96,7 +109,7 @@ const TeaTypeNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>类型编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>类型编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -108,7 +121,7 @@ const TeaTypeNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>类型名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>类型名称：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>

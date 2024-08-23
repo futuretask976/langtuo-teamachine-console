@@ -46,11 +46,11 @@ const TeaTypePage = () => {
     var teaTypeCode4SearchTmp = '';
     var teaTypeName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(teaTypeCode4SearchTmp)) {
+        if (!isValidCode(teaTypeCode4SearchTmp, false)) {
             alert('茶品类型编码不符合规则');
             return;
         }
-        if (!isValidName(teaTypeName4SearchTmp)) {
+        if (!isValidName(teaTypeName4SearchTmp, false)) {
             alert('茶品类型名称不符合规则');
             return;
         }

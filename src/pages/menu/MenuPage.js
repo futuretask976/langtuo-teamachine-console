@@ -56,11 +56,11 @@ const MenuPage = () => {
     var menuCode4SearchTmp = '';
     var menuName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(menuCode4SearchTmp)) {
+        if (!isValidCode(menuCode4SearchTmp, false)) {
             alert('菜单编码不符合规则');
             return;
         }
-        if (!isValidName(menuName4SearchTmp)) {
+        if (!isValidName(menuName4SearchTmp, false)) {
             alert('菜单名称不符合规则');
             return;
         }

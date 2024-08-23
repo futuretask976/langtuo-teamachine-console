@@ -98,9 +98,6 @@ const CleanActRecordPage = (props) => {
 
     // 新建对话框相关
     const [openViewModal, setOpenViewModal] = useState(false);
-    const onOpenViewModal = () => {
-        setOpenViewModal(true);
-    };
     const onCloseViewModal = () => {
         setOpenViewModal(false);
         setIdempotentMark4View('');

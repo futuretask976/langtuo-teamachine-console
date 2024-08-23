@@ -3,13 +3,30 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidCode, isValidName } from '../../js/common.js';
 
 const DeployNewModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(deployCode, true)) {
+            alert('部署编码不符合规则');
+            return;
+        }
+        if (!isValidCode(modelCode, true)) {
+            alert('型号编码不符合规则');
+            return;
+        }
+        if (!isValidCode(machineCode, true)) {
+            alert('机器编码不符合规则');
+            return;
+        }
+        if (!isValidCode(shopCode, true)) {
+            alert('店铺编码不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/deviceset/deploy/put');
         axios.put(url, {
@@ -36,8 +53,8 @@ const DeployNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -195,7 +212,7 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>部署码生成</Button>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>部署码生成</Button></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -207,7 +224,7 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>机器码生成</Button>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>机器码生成</Button></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -219,7 +236,7 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>型号编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -236,7 +253,7 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>

@@ -45,11 +45,11 @@ const ShopPage = () => {
     var shopName4SearchTmp = '';
     var shopGroupName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(shopGroupName4SearchTmp)) {
+        if (!isValidName(shopGroupName4SearchTmp, false)) {
             alert('店铺组名称不符合规则');
             return;
         }
-        if (!isValidName(shopName4SearchTmp)) {
+        if (!isValidName(shopName4SearchTmp, false)) {
             alert('店铺名称不符合规则');
             return;
         }

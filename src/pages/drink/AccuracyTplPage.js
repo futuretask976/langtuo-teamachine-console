@@ -45,11 +45,11 @@ const AccuracyTplPage = () => {
     var templateCode4SearchTmp = '';
     var templateName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(templateCode4SearchTmp)) {
+        if (!isValidCode(templateCode4SearchTmp, false)) {
             alert('模板编码不符合规则');
             return;
         }
-        if (!isValidName(templateName4SearchTmp)) {
+        if (!isValidName(templateName4SearchTmp, false)) {
             alert('模板名称不符合规则');
             return;
         }

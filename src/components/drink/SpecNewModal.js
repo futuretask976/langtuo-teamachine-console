@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Space, Switch, Table, Col, Row } from 'antd';
+import { Button, Input, Modal, Space, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getTenantCode, handleRespError, getJwtToken, getRespModel, isRespSuccess } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, getTenantCode, handleRespError, getJwtToken, getRespModel, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 import SpecItemNewModal from '../../components/drink/SpecItemNewModal'
 
@@ -14,6 +14,19 @@ const SpecNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(specCode, true)) {
+            alert('规格编码不符合规则');
+            return;
+        }
+        if (!isValidName(specName, true)) {
+            alert('规格名称不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/drinkset/spec/put');
         axios.put(url, {
@@ -39,8 +52,8 @@ const SpecNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -198,25 +211,20 @@ const SpecNewModal = (props) => {
         <>
             <Modal
                 centered
+                confirmLoading={loading}
                 open={open}
-                title="新建规格"
                 onOk={onClickOK}
                 onCancel={onClickCancel}
-                width={800}
                 style={{border: '0px solid red'}}
-                footer={[
-                    <Button key="back" onClick={onClickCancel}>取消</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                        提交
-                    </Button>,
-                ]}
+                title="新建/编辑规格"
+                width={850}
             >
                 <div style={{height: 475, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规格编码：</span>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规格编码：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
@@ -228,7 +236,7 @@ const SpecNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规格名称：</span>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规格名称：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
@@ -239,8 +247,8 @@ const SpecNewModal = (props) => {
                         </Row>
                         <Row style={{height: 220, width: '100%'}}>
                             <Col className="gutter-row" span={3}>
-                                <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规格项列表：</span>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规格项列表：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>

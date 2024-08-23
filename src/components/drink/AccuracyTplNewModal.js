@@ -3,7 +3,7 @@ import { Button, Input, InputNumber, Modal, Select, Space, Col, Row } from 'antd
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, handleRespError, getRespModel, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, handleRespError, getRespModel, isArray, isBlankStr, isRespSuccess, isValidCode, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -41,8 +41,8 @@ const AccuracyTplNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };
@@ -144,7 +144,7 @@ const AccuracyTplNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>模板编码：</span>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>模板编码：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={20}>
@@ -156,7 +156,7 @@ const AccuracyTplNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>模板名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>模板名称：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={20}>

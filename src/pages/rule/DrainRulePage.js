@@ -53,11 +53,11 @@ const DrainRulePage = (props) => {
     var drainRuleCode4SearchTmp = '';
     var drainRuleName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(drainRuleCode4SearchTmp)) {
+        if (!isValidCode(drainRuleCode4SearchTmp, false)) {
             alert('排空规则编码不符合规则');
             return;
         }
-        if (!isValidName(drainRuleName4SearchTmp)) {
+        if (!isValidName(drainRuleName4SearchTmp, false)) {
             alert('排空规则名称不符合规则');
             return;
         }

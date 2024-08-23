@@ -45,11 +45,11 @@ const AdminPage = () => {
     var roleName4SearchTmp = '';
     var loginName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(loginName4SearchTmp)) {
+        if (!isValidName(loginName4SearchTmp, false)) {
             alert('登录名称不符合规则');
             return;
         }
-        if (!isValidName(roleName4SearchTmp)) {
+        if (!isValidName(roleName4SearchTmp, false)) {
             alert('角色名称不符合规则');
             return;
         }

@@ -45,11 +45,11 @@ const ToppingPage = () => {
     var toppingCode4SearchTmp = '';
     var toppingName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(toppingCode4SearchTmp)) {
+        if (!isValidCode(toppingCode4SearchTmp, false)) {
             alert('物料编码不符合规则');
             return;
         }
-        if (!isValidName(toppingName4SearchTmp)) {
+        if (!isValidName(toppingName4SearchTmp, false)) {
             alert('物料名称不符合规则');
             return;
         }

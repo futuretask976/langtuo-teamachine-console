@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isBlankStr, genGetUrlBySegs, genPostUrl, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,19 @@ const ToppingTypeNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(toppingTypeCode, true)) {
+            alert('物料类型编码不符合规则');
+            return;
+        }
+        if (!isValidName(toppingTypeName, true)) {
+            alert('物料类型名称不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/drinkset/topping/type/put');
         axios.put(url, {
@@ -78,54 +91,49 @@ const ToppingTypeNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建物料类型"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={450}
+            title="新建物料类型"
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            width={450}
         >
             <div style={{height: 250, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>物料类型编码：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>物料类型编码：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料类型编码" value={toppingTypeCode} onChange={(e) => setToppingTypeCode(e.target.value)} disabled={isBlankStr(props.toppingTypeCode4Edit) ? false : true} style={{width: '90%'}} />
+                                <Input placeholder="物料类型编码" value={toppingTypeCode} onChange={(e) => setToppingTypeCode(e.target.value)} disabled={isBlankStr(props.toppingTypeCode4Edit) ? false : true}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>物料类型名称：</span>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>物料类型名称：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料类型名称" value={toppingTypeName} onChange={(e) => setToppingTypeName(e.target.value)} style={{width: '90%'}} />
+                                <Input placeholder="物料类型名称" value={toppingTypeName} onChange={(e) => setToppingTypeName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
+                        <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                 <span>备注：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)} style={{width: '90%'}} />
+                                <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>

@@ -43,7 +43,7 @@ const ShopGroupPage = () => {
     var shopGroupName4SearchTmp = '';
     const [shopGroupName4Search, setShopGroupName4Search] = useState('');
     const onClickSearch = () => {
-        if (!isValidName(shopGroupName4SearchTmp)) {
+        if (!isValidName(shopGroupName4SearchTmp, false)) {
             alert('店铺组名称不符合规则');
             return;
         }

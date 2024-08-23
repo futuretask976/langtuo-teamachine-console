@@ -43,7 +43,7 @@ const RolePage = () => {
     const [roleName4Search, setRoleName4Search] = useState('');
     var roleName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(roleName4SearchTmp)) {
+        if (!isValidName(roleName4SearchTmp, false)) {
             alert('角色名称不符合规则');
             return;
         }

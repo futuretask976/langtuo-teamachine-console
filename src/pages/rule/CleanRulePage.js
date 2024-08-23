@@ -53,11 +53,11 @@ const CleanRulePage = (props) => {
     var cleanRuleCode4SearchTmp = '';
     var cleanRuleName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(cleanRuleCode4SearchTmp)) {
+        if (!isValidCode(cleanRuleCode4SearchTmp, false)) {
             alert('清洁规则编码不符合规则');
             return;
         }
-        if (!isValidName(cleanRuleName4SearchTmp)) {
+        if (!isValidName(cleanRuleName4SearchTmp, false)) {
             alert('清洁规则名称不符合规则');
             return;
         }

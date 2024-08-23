@@ -45,11 +45,11 @@ const ToppingTypePage = () => {
     var toppingTypeCode4SearchTmp = '';
     var toppingTypeName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(toppingTypeCode4SearchTmp)) {
+        if (!isValidCode(toppingTypeCode4SearchTmp, false)) {
             alert('物料类型编码不符合规则');
             return;
         }
-        if (!isValidName(toppingTypeName4SearchTmp)) {
+        if (!isValidName(toppingTypeName4SearchTmp, false)) {
             alert('物料类型名称不符合规则');
             return;
         }

@@ -45,11 +45,11 @@ const SpecPage = () => {
     var specName4SearchTmp = '';
     var specCode4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(specCode4SearchTmp)) {
+        if (!isValidCode(specCode4SearchTmp, false)) {
             alert('规格编码不符合规则');
             return;
         }
-        if (!isValidName(specName4SearchTmp)) {
+        if (!isValidName(specName4SearchTmp, false)) {
             alert('规格名称不符合规则');
             return;
         }

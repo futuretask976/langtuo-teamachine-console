@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Input, Modal, Select, Space, Switch, Col, Row } from 'antd';
+import { DatePicker, Input, Modal, Select, Space, Switch, Col, Row } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getRespModel, getTenantCode, isArray } from '../../js/common.js';
+import { dateToYMDHMS, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getRespModel, getTenantCode, isArray, isValidName } from '../../js/common.js';
 
 dayjs.locale('zh-cn');
 
@@ -13,6 +13,11 @@ const MachineDeployNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidName(machineName, true)) {
+            alert('机器名称不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/deviceset/machine/update');
         axios.put(url, {
@@ -41,10 +46,10 @@ const MachineDeployNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
-        }, 3000);
+        }, 1000);
     };
     const onClickCancel = () => {
         props.onClose();
@@ -133,18 +138,13 @@ const MachineDeployNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="更新机器信息"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={500}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="编辑机器信息"
+            width="500"
         >
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 400, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>

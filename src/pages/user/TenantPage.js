@@ -45,11 +45,11 @@ const TenantPage = () => {
     var tenantName4SearchTmp = '';
     var contactPerson4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(tenantName4SearchTmp)) {
+        if (!isValidName(tenantName4SearchTmp, false)) {
             alert('商户名称不符合规则');
             return;
         }
-        if (!isValidName(contactPerson4SearchTmp)) {
+        if (!isValidName(contactPerson4SearchTmp, false)) {
             alert('联系人名称不符合规则');
             return;
         }

@@ -3,7 +3,7 @@ import { Button, Input, InputNumber, Modal, Radio, Select, Space, Switch, Col, R
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankObj, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -12,6 +12,31 @@ const ToppingNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(toppingCode, true)) {
+            alert('物料编码不符合规则');
+            return;
+        }
+        if (!isValidName(toppingName, true)) {
+            alert('物料名称不符合规则');
+            return;
+        }
+        if (!isValidCode(toppingTypeCode, true)) {
+            alert('物料类型编码不符合规则');
+            return;
+        }
+        if (!isBlankObj(validHourPeriod, true)) {
+            alert('维保期不符合规则');
+            return;
+        }
+        if (!isBlankObj(cleanHourPeriod, true)) {
+            alert('清洗期不符合规则');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/drinkset/topping/put');
         axios.put(url, {
@@ -27,7 +52,6 @@ const ToppingNewModal = (props) => {
             comment: comment,
             tenantCode: getTenantCode()
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -72,7 +96,6 @@ const ToppingNewModal = (props) => {
 
         let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/get', [getTenantCode(), props.toppingCode4Edit]);
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -103,7 +126,6 @@ const ToppingNewModal = (props) => {
             tenantCode: getTenantCode()
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -128,66 +150,28 @@ const ToppingNewModal = (props) => {
     useEffect(() => {
         fetchToppingTypeListData();
     }, []);
-    
-
-    // 输入相关
-    const onChangeToppingCode = (e) => {
-        setToppingCode(e.target.value);
-    }
-    const onChangeToppingName = (e) => {
-        setToppingName(e.target.value);
-    }
-    const onChangeMeasureUnit = (e) => {
-        setMeasureUnit(e.target.value);
-    }
-    const onChangeState = (e) => {
-        setState(e == true ? 1 : 0);
-    }
-    const onChangeValidHourPeriod = (e) => {
-        setValidHourPeriod(e);
-    }
-    const onChangeCleanHourPeriod = (e) => {
-        setCleanHourPeriod(e);
-    }
-    const onChangeConvertCoefficient = (e) => {
-        setConvertCoefficient(e);
-    }
-    const onChangeFlowSpeed = (e) => {
-        setFlowSpeed(e);
-    }
-    const onChangeComment = (e) => {
-        setComment(e.target.value);
-    }
-    const onChangeToppingTypeCode = (e) => {
-        setToppingTypeCode(e);
-    }
  
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建物料"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={550}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑物料"
+            width={550}
         >
             <div style={{height: 380, width: '100%'}}>
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>物料编码：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>物料编码：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={20}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="物料编码" value={toppingCode} onChange={onChangeToppingCode} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
+                            <Input placeholder="物料编码" value={toppingCode} onChange={(e) => setToppingCode(e.target.value)} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
                         </div>
                     </Col>
                 </Row>
@@ -199,12 +183,12 @@ const ToppingNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>物料名称：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>物料名称：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={20}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="物料名称" value={toppingName} onChange={onChangeToppingName} />
+                            <Input placeholder="物料名称" value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
                         </div>
                     </Col>
                 </Row>
@@ -216,7 +200,7 @@ const ToppingNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>物料类型：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>物料类型：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={20}>
@@ -224,7 +208,7 @@ const ToppingNewModal = (props) => {
                             <Select
                                 value={toppingTypeCode}
                                 style={{width: '100%'}}
-                                onChange={onChangeToppingTypeCode}
+                                onChange={(e) => setToppingTypeCode(e)}
                                 options={toppingTypeList}
                             />
                         </div>
@@ -238,12 +222,12 @@ const ToppingNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>计量单位：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>计量单位：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Radio.Group onChange={onChangeMeasureUnit} value={measureUnit}>
+                            <Radio.Group onChange={(e) => setMeasureUnit(e.target.value)} value={measureUnit}>
                                 <Radio value={0}>克</Radio>
                                 <Radio value={1}>毫升</Radio>
                             </Radio.Group>
@@ -256,7 +240,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={onChangeState} />
+                            <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={(e) => setState(e == true ? 1 : 0)} />
                         </div>
                     </Col>
                 </Row>
@@ -268,22 +252,22 @@ const ToppingNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>维保期：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>维保期：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Space><InputNumber min={1} max={99999999} value={validHourPeriod} onChange={onChangeValidHourPeriod} /><span>小时</span></Space>
+                            <Space><InputNumber min={1} max={9999} value={validHourPeriod} onChange={(e) => setValidHourPeriod(e)} /><span>小时</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>清洗期：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>清洗期：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Space><InputNumber min={1} max={99999999} value={cleanHourPeriod} onChange={onChangeCleanHourPeriod} /><span>小时</span></Space>
+                            <Space><InputNumber min={1} max={9999} value={cleanHourPeriod} onChange={(e) => setCleanHourPeriod(e)} /><span>小时</span></Space>
                         </div>
                     </Col>
                 </Row>
@@ -295,22 +279,22 @@ const ToppingNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>转换系数：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>转换系数：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <InputNumber min={0} max={99999999} step={0.01} value={convertCoefficient} onChange={onChangeConvertCoefficient} />
+                            <InputNumber min={0} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
                         </div>
                     </Col>
                     <Col className="gutter-row" span={4}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <span>转速：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>转速：</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Space><InputNumber min={0} max={99} value={flowSpeed} onChange={onChangeFlowSpeed} /><span>档</span></Space>
+                            <Space><InputNumber min={0} max={99} value={flowSpeed} onChange={(e) => setFlowSpeed(e)} /><span>档</span></Space>
                         </div>
                     </Col>
                 </Row>
@@ -327,7 +311,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={20}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={onChangeComment} />
+                            <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)} />
                         </div>
                     </Col>
                 </Row>

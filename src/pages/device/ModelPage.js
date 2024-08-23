@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import { Button, Flex, Input, Layout, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
@@ -43,7 +43,7 @@ const ModelPage = () => {
     const [modelCode4Search, setModelCode4Search] = useState('');
     var modelCode4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(modelCode4SearchTmp)) {
+        if (!isValidCode(modelCode4SearchTmp, false)) {
             alert('型号编码不符合规则');
             return;
         }
@@ -72,7 +72,7 @@ const ModelPage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>型号编码：</span>
+                                            <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>

@@ -53,11 +53,11 @@ const WarningRulePage = (props) => {
     const [warningRuleCode4Search, setWarningRuleCode4Search] = useState('');
     const [warningRuleName4Search, setWarningRuleName4Search] = useState('');
     const onClickSearch = () => {
-        if (!isValidCode(warningRuleCode4SearchTmp)) {
+        if (!isValidCode(warningRuleCode4SearchTmp, false)) {
             alert('预警规则编码不符合规则');
             return;
         }
-        if (!isValidName(warningRuleName4SearchTmp)) {
+        if (!isValidName(warningRuleName4SearchTmp, false)) {
             alert('预警规则名称不符合规则');
             return;
         }

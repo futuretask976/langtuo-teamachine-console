@@ -48,15 +48,15 @@ const DeployPage = () => {
     var shopName4SearchTmp = '';
     var state4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(deployCode4SearchTmp)) {
+        if (!isValidCode(deployCode4SearchTmp, false)) {
             alert('部署编码不符合规则');
             return;
         }
-        if (!isValidCode(shopName4SearchTmp)) {
+        if (!isValidCode(shopName4SearchTmp, false)) {
             alert('店铺名称不符合规则');
             return;
         }
-        if (!isValidName(state4SearchTmp)) {
+        if (!isValidName(state4SearchTmp, false)) {
             alert('状态不符合规则');
             return;
         }
