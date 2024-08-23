@@ -3,7 +3,7 @@ import { Button, Modal, Steps, theme } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespModel, handleRespError, isBlankObj, isBlankStr, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankObj, isBlankStr, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 import TeaNewModalInfoPane from '../../components/drink/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../../components/drink/TeaNewModalActStepPane'
@@ -27,6 +27,35 @@ const TeaNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickSubmit = () => {
+        if (!isValidCode(tea.teaCode, true)) {
+            alert('茶品编码不符合规则');
+            return;
+        }
+        if (!isValidName(tea.teaName, true)) {
+            alert('茶品名称不符合规则');
+            return;
+        }
+        if (!isValidCode(tea.outerTeaCode, true)) {
+            alert('外部茶品编码不符合规则');
+            return;
+        }
+        if (!isValidCode(tea.teaTypeCode, true)) {
+            alert('茶品类型编码不符合规则');
+            return;
+        }
+        if (!isValidComment(tea.comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
+        if (isEmptyArray(tea.actStepList, true)) {
+            alert('茶品操作步骤不符合规则');
+            return;
+        }
+        if (isEmptyArray(tea.teaUnitList, true)) {
+            alert('茶品规格不符合规则');
+            return;
+        }
+
         setLoading(true);
         let url = genPostUrl('/drinkset/tea/put');
         axios.put(url, {
@@ -57,8 +86,8 @@ const TeaNewModal = (props) => {
         });
 
         setTimeout(() => {
-            setLoading(false);
             props.onClose();
+            setLoading(false);
             setOpen(false);
         }, 1000);
     };

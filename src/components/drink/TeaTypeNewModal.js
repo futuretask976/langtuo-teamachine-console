@@ -95,7 +95,7 @@ const TeaTypeNewModal = (props) => {
             title="新建/编辑茶品类型"
             onOk={onClickOK}
             onCancel={onClickCancel}
-            width={400}
+            width={450}
             style={{border: '0px solid red'}}
             footer={[
                 <Button key="back" onClick={onClickCancel}>取消</Button>,
@@ -104,41 +104,41 @@ const TeaTypeNewModal = (props) => {
                 </Button>,
             ]}
         >
-            <div style={{height: 225, width: '100%'}}>
+            <div style={{height: 275, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>类型编码：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="类型编码" value={teaTypeCode} disabled={isBlankStr(props.teaTypeCode4Edit) ? false : true} onChange={(e) => setTeaTypeCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>类型名称：</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="类型名称" value={teaTypeName} onChange={(e) => setTeaTypeName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>备注：</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                <TextArea rows={6} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>

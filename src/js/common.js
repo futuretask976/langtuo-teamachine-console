@@ -66,6 +66,18 @@ export const isArray = (arr) => {
     }
 };
 
+export const isEmptyArray = (arr) => {
+    if (arr == undefined || arr == null || !arr instanceof Array) {
+        return true;
+    } else {
+        if (arr.length == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
 export const isBlankArray = (arr) => {
     if (arr == undefined || arr == null || !arr instanceof Array) {
         return true;

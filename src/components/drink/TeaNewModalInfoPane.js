@@ -5,7 +5,7 @@ import axios from 'axios';
 import OSS from 'ali-oss';
 
 import '../../css/common.css';
-import { genGetUrlByParams, handleRespError, getJwtToken, getRespModel, getTenantCode, isBlankObj, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, handleRespError, getJwtToken, getRespModel, getTenantCode, isBlankObj, isBlankStr } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -142,27 +142,6 @@ const TeaNewModalInfoPane = (props) => {
 
     // 输入相关
     useEffect(() => {
-        if (!isValidCode(teaCode, true)) {
-            alert('规格编码不符合规则');
-            return;
-        }
-        if (!isValidName(teaName, true)) {
-            alert('规格名称不符合规则');
-            return;
-        }
-        if (!isValidCode(outerTeaCode, true)) {
-            alert('规格编码不符合规则');
-            return;
-        }
-        if (!isValidCode(teaTypeCode, true)) {
-            alert('规格编码不符合规则');
-            return;
-        }
-        if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
-            return;
-        }
-
         props.updateInfo(teaCode, teaName, outerTeaCode, teaTypeCode, state, comment, imgLink);
     }, [teaCode, teaName, outerTeaCode, teaTypeCode, state, comment, imgLink]);
 
@@ -248,31 +227,31 @@ const TeaNewModalInfoPane = (props) => {
     return (
         <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
             <div className="flex-row-cont" style={{height: 50, width: '98%', border: '0px solid red'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品编码：</span></Space>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '38%'}}>
+                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
                     <Input placeholder="茶品编码" onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
                 </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品名称：</span></Space>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '38%'}}>
+                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
                     <Input placeholder="茶品名称" onChange={(e) => setTeaName(e.target.value)} value={teaName}/>
                 </div>
             </div>
 
             <div className="flex-row-cont" style={{height: 50, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>外部茶品编码：</span></Space>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '38%'}}>
+                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
                     <Input placeholder="外部茶品编码" onChange={(e) => setOuterTeaCode(e.target.value)} value={outerTeaCode}/>
                 </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品类型：</span></Space>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '38%'}}>
+                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
                     <Select
                         onChange={(e) => setTeaTypeCode(e)}
                         options={teaTypeList4Select}
@@ -283,7 +262,7 @@ const TeaNewModalInfoPane = (props) => {
             </div>
 
             <div className="flex-row-cont" style={{height: 50, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品状态：</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
@@ -292,7 +271,7 @@ const TeaNewModalInfoPane = (props) => {
             </div>
 
             <div className="flex-row-cont" style={{height: 65, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <span>备注：</span>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '88%'}}>
@@ -301,7 +280,7 @@ const TeaNewModalInfoPane = (props) => {
             </div>
 
             <div className="flex-row-cont" style={{height: 130, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '12%'}}>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>图片上传：</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
