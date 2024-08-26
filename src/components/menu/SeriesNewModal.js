@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getTenantCode, getRespModel, getJwtToken, genPostUrl, handleRespError, isBlankStr, isBlankArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getTenantCode, getRespModel, getJwtToken, genPostUrl, handleRespError, isBlankStr, isBlankArray, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -22,6 +22,10 @@ const SeriesNewModal = (props) => {
         }
         if (!isValidComment(comment, false)) {
             alert('备注不符合规则');
+            return;
+        }
+        if (isEmptyArray(teaCodeList)) {
+            alert('包含的茶品不能为空');
             return;
         }
 

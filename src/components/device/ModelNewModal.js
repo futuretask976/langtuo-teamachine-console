@@ -4,7 +4,7 @@ import { FormOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, handleRespError, isArray, isBlankStr, isRespSuccess, isValidCode } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, handleRespError, isArray, isEmptyArray, isBlankStr, isRespSuccess, isValidCode } from '../../js/common.js';
 
 const ModelNewModal = (props) => {
     // 对话框相关
@@ -15,6 +15,10 @@ const ModelNewModal = (props) => {
             alert('型号编码不符合规则');
             return;
         }
+        if (isEmptyArray(pipelineList)) {
+            alert('管道序号不能为空');
+            return;
+        }
 
         setLoading(true);
         let url = genPostUrl('/deviceset/model/put');
@@ -23,7 +27,6 @@ const ModelNewModal = (props) => {
             enableFlowAll: enableFlowAll,
             pipelineList: pipelineList
         }, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -62,7 +65,6 @@ const ModelNewModal = (props) => {
 
         let url = genGetUrlBySegs('/deviceset/model/{segment}/get', [props.modelCode4Edit]);
         axios.get(url, {
-            // withCredentials: true.valueOf, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

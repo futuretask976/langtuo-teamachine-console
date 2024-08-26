@@ -4,7 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getTenantCode, getJwtToken, getRespModel, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getTenantCode, getJwtToken, getRespModel, handleRespError, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -23,6 +23,10 @@ const MenuNewModal = (props) => {
         }
         if (!isValidComment(comment, false)) {
             alert('备注不符合规则');
+            return;
+        }
+        if (isEmptyArray(seriesCodeList)) {
+            alert('包含的系列不能为空');
             return;
         }
 

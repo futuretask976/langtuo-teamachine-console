@@ -3,7 +3,7 @@ import { Button, Input, Modal, Space, Table, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getTenantCode, handleRespError, getJwtToken, getRespModel, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { genGetUrlBySegs, genPostUrl, getTenantCode, getJwtToken, getRespModel, handleRespError, isEmptyArray, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 import SpecItemNewModal from '../../components/drink/SpecItemNewModal'
 
@@ -24,6 +24,10 @@ const SpecNewModal = (props) => {
         }
         if (!isValidComment(comment, false)) {
             alert('备注不符合规则');
+            return;
+        }
+        if (isEmptyArray(specItemList)) {
+            alert('规格项列表不能为空');
             return;
         }
 
