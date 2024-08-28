@@ -115,6 +115,11 @@ const DrainRuleListBlock = (props) => {
         props.onClickDispatch(drainRuleCode);
     }
     const onClickDelete = (e, drainRuleCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/delete', ['tenant_001', drainRuleCode]);
         axios.delete(url, {
             headers: {

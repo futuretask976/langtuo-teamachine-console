@@ -119,6 +119,11 @@ const DeployListBlock = (props) => {
         props.onClickEdit(deployCode);
     }
     const onClickDelete = (e, deployCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/delete', [getTenantCode(), deployCode]);
         axios.delete(url, {
             headers: {

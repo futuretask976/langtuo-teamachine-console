@@ -109,6 +109,11 @@ const ShopGroupListBlock = (props) => {
         props.onClickEdit(shopGroupCode);
     }
     const onClickDelete = (e, shopGroupCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/delete', [getTenantCode(), shopGroupCode]);
         axios.delete(url, {
             headers: {

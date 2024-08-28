@@ -116,6 +116,11 @@ const TenantListBlock = (props) => {
         props.onClickEdit(tenantCode);
     }
     const onClickDelete = (e, tenantCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/userset/tenant/{segment}/delete', [tenantCode]);
         axios.delete(url, {
             headers: {

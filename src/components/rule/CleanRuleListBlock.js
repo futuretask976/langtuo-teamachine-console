@@ -119,6 +119,11 @@ const CleanRuleListBlock = (props) => {
         props.onClickDispatch(cleanRuleCode);
     }
     const onClickDelete = (e, cleanRuleCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/delete', [getTenantCode(), cleanRuleCode]);
         axios.delete(url, {
             headers: {

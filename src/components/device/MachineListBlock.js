@@ -130,9 +130,13 @@ const MachineListBlock = (props) => {
         props.onClickEdit(deployCode);
     }
     const onClickDelete = (e, deployCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/deviceset/machine/{segment}/delete', [deployCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

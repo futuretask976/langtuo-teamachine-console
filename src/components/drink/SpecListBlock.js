@@ -118,6 +118,11 @@ const SpecListBlock = (props) => {
         props.onClickEdit(specCode);
     }
     const onClickDelete = (e, specCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/drinkset/spec/{segment}/{segment}/delete', [getTenantCode(), specCode]);
         axios.delete(url, {
             // withCredentials: true // 这会让axios在请求中携带cookies

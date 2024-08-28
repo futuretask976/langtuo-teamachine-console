@@ -110,6 +110,11 @@ const TeaTypeListBlock = (props) => {
         props.onClickEdit(teaTypeCode);
     }
     const onClickDelete = (e, teaTypeCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/drinkset/tea/type/{segment}/{segment}/delete', [getTenantCode(), teaTypeCode]);
         axios.delete(url, {
             headers: {

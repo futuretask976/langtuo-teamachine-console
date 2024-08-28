@@ -111,6 +111,11 @@ const AdminListBlock = (props) => {
         props.onClickEdit(loginName);
     }
     const onClickDelete = (e, loginName) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/delete', [getTenantCode(), loginName]);
         axios.delete(url, {
             headers: {

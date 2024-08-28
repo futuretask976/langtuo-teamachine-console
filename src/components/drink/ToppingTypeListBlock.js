@@ -110,6 +110,11 @@ const ToppingTypeListBlock = (props) => {
         props.onClickEdit(toppingTypeCode);
     }
     const onClickDelete = (e, toppingTypeCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/drinkset/topping/type/{segment}/{segment}/delete', [getTenantCode(), toppingTypeCode]);
         axios.delete(url, {
             headers: {

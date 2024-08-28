@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
+import md5 from 'js-md5';
 
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
@@ -39,7 +40,7 @@ const AdminNewModal = (props) => {
         axios.put(url, {
             tenantCode: getTenantCode(),
             loginName: loginName,
-            loginPass: loginPass,
+            loginPass: md5(loginPass),
             roleCode: roleCode,
             orgName: orgName,
             comment: comment

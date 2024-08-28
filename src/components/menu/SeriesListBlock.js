@@ -105,6 +105,11 @@ const SeriesListBlock = (props) => {
         props.onClickEdit(seriesCode);
     }
     const onClickDelete = (e, seriesCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/menuset/series/{segment}/{segment}/delete', [getTenantCode(), seriesCode]);
         axios.delete(url, {
             // withCredentials: true // 这会让axios在请求中携带cookies

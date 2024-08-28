@@ -113,6 +113,11 @@ const TeaListBlock = (props) => {
         props.onClickEdit(teaCode);
     }
     const onClickDelete = (e, teaCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/delete', [getTenantCode(), teaCode]);
         axios.delete(url, {
             // withCredentials: true, // 这会让axios在请求中携带cookies

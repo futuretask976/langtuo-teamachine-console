@@ -117,6 +117,11 @@ const RoleListBlock = (props) => {
         props.onClickEdit(roleCode);
     }
     const onClickDelete = (e, roleCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/delete', ['tenant_001', roleCode]);
         axios.delete(url, {
             headers: {

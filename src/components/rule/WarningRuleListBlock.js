@@ -111,6 +111,11 @@ const WarningRuleListBlock = (props) => {
         props.onClickDispatch(warningRuleCode);
     }
     const onClickDelete = (e, warningRuleCode) => {
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
         let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/delete', [getTenantCode(), warningRuleCode]);
         axios.delete(url, {
             headers: {

@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode, isArray } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess, isArray } from '../../js/common.js';
 
 const OrgListBlock = (props) => {
     // 样式相关
@@ -103,7 +103,12 @@ const OrgListBlock = (props) => {
         props.onClickEdit(orgName);
     }
     const onClickDelete = (e, orgName) => {
-        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/delete', ['tenant_001', orgName]);
+        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        if (!confirmRtn) {
+            return;
+        }
+
+        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/delete', [getTenantCode(), orgName]);
         axios.delete(url, {
             headers: {
                 'Authorization': getJwtToken()
