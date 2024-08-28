@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
-import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
+import { DownCircleOutlined, FormOutlined, SearchOutlined, UpCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, getJwtToken, getTenantCode, handleRespExport, isValidCode, isValidName } from '../../js/common.js';
+import { genGetUrlBySegs, getJwtToken, getTenantCode, handleRespError, handleRespExport, isValidCode, isValidName } from '../../js/common.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -12,6 +12,7 @@ import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import TeaListBlock from '../../components/drink/TeaListBlock'
 import TeaNewModal from '../../components/drink/TeaNewModal'
+import TeaUploadModal from '../../components/drink/TeaUploadModal'
 
 const { Content } = Layout;
 
@@ -32,12 +33,19 @@ const TeaPage = () => {
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
-    const onOpenNewModal = () => {
+    const onClickNew = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setTeaCode4Edit('');
+    }
+    const [openUploadModal, setUploadModal] = useState(false);
+    const onClickUpload = () => {
+        setUploadModal(true);
+    };
+    const onCloseUploadModal = () => {
+        setUploadModal(false);
     }
 
     // 搜索相关
@@ -77,7 +85,7 @@ const TeaPage = () => {
             handleRespExport(response);
         })
         .catch(error => {
-            console.log('$$$$$ onlyTest error=', error);
+            handleRespError(error);
         });
     }
 
@@ -120,16 +128,18 @@ const TeaPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建茶品</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '80%'}}>新建茶品</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
+                                            <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        &nbsp;
+                                        <div className="flex-row-cont">
+                                            <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '80%'}}>导入</Button>
+                                        </div>
                                     </Col>
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
@@ -144,6 +154,10 @@ const TeaPage = () => {
 
             {openNewModal && (
                 <TeaNewModal onClose={onCloseNewModal} teaCode4Edit={teaCode4Edit} />
+            )}
+
+            {openUploadModal && (
+                <TeaUploadModal onClose={onCloseUploadModal} />
             )}
         </>
     )
