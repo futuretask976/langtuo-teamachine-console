@@ -138,13 +138,13 @@ const ToppingListBlock = (props) => {
 
         let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/delete', [getTenantCode(), toppingCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
         })
         .then(response => {
             if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })

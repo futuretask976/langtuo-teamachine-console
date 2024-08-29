@@ -120,7 +120,7 @@ const DrainRuleListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/delete', ['tenant_001', drainRuleCode]);
+        let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/delete', [getTenantCode(), drainRuleCode]);
         axios.delete(url, {
             headers: {
                 'Authorization': getJwtToken()
@@ -128,6 +128,7 @@ const DrainRuleListBlock = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })

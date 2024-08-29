@@ -29,10 +29,10 @@ const WarningRuleNewModal = (props) => {
             }
         })
         .then(response => {
-            if (response && response.data && response.data.success) {
-                alert("here is success")
+            if (isRespSuccess(response)) {
+                alert("保存成功")
             } else {
-                alert("here is wrong")
+                alert("保存失败，请重试，或联系管理员处理")
             }
         })
         .catch(error => {

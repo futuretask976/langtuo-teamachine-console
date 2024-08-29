@@ -25,7 +25,6 @@ const SeriesListBlock = (props) => {
             pageSize: pageSize
         });
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -112,13 +111,13 @@ const SeriesListBlock = (props) => {
 
         let url = genGetUrlBySegs('/menuset/series/{segment}/{segment}/delete', [getTenantCode(), seriesCode]);
         axios.delete(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
         })
         .then(response => {
             if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })

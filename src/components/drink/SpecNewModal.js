@@ -46,9 +46,9 @@ const SpecNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("here is success")
+                alert("保存成功")
             } else {
-                alert("here is wrong")
+                alert("保存失败，请重试，或联系管理员处理")
             }
         })
         .catch(error => {

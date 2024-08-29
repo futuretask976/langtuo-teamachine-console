@@ -34,7 +34,6 @@ const OrderActRecordViewModal = (props) => {
 
         let url = genGetUrlBySegs('/recordset/order/{segment}/{segment}/get', [getTenantCode(), props.idempotentMark4View]);
         axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }

@@ -124,6 +124,7 @@ const AccuracyTplListBlock = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })

@@ -120,13 +120,13 @@ const TeaListBlock = (props) => {
 
         let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/delete', [getTenantCode(), teaCode]);
         axios.delete(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
         })
         .then(response => {
             if (isRespSuccess(response)) {
+                alert('删除成功');
                 fetchListData();
             }
         })

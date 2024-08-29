@@ -51,9 +51,9 @@ const AdminNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("更新成功！")
+                alert("保存成功")
             } else {
-                alert("更新失败，请联系管理员！")
+                alert("保存失败，请重试，或联系管理员处理")
             }
         })
         .catch(error => {
