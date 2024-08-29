@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess, isArray } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess, isArray } from '../../js/common.js';
 
 const OrgListBlock = (props) => {
     // 样式相关

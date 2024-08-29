@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, isArray } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, handleRespError, isRespSuccess, getJwtToken, isArray } from '../../js/common.js';
 
 const TenantListBlock = (props) => {
     // 样式相关
