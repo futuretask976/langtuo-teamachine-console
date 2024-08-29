@@ -17,10 +17,6 @@ const AdminNewModal = (props) => {
             alert('登录名称不符合规则');
             return;
         }
-        if (!isValidCode(loginPass, true)) {
-            alert('密码不符合规则');
-            return;
-        }
         if (!isValidCode(roleCode, true)) {
             alert('角色编码不符合规则');
             return;
@@ -33,7 +29,12 @@ const AdminNewModal = (props) => {
             alert('备注不符合规则');
             return;
         }
-
+        if (isBlankStr(props.loginName4Edit)) {
+            if (!isValidCode(loginPass, true)) {
+                alert('密码不符合规则');
+                return;
+            }
+        }
 
         setLoading(true);
         let url = genPostUrl('/userset/admin/put');
@@ -184,16 +185,20 @@ const AdminNewModal = (props) => {
                             <Input placeholder="管理员登录名称" disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={(e) => setLoginName(e.target.value)}/>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={7}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>管理员登录密码：</span></Space>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={17}>
-                            <Input.Password placeholder="管理员登录密码，更新时需要重新输入" value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
-                        </Col>
-                    </Row>
+
+                    {isBlankStr(props.loginName4Edit) && (
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={7}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>管理员登录密码：</span></Space>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={17}>
+                                <Input.Password placeholder="管理员登录密码" value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
+                            </Col>
+                        </Row>
+                    )}
+
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
