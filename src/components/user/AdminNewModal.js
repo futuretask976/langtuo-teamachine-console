@@ -95,7 +95,7 @@ const AdminNewModal = (props) => {
         .then(response => {
             let model = getRespModel(response);
             setLoginName(model.loginName);
-            setLoginPass(model.loginPass);
+            // setLoginPass(model.loginPass);
             setRoleCode(model.roleCode);
             setOrgName(model.orgName);
             setComment(model.comment);
@@ -191,7 +191,7 @@ const AdminNewModal = (props) => {
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
-                            <Input placeholder="管理员登录密码" value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
+                            <Input.Password placeholder="管理员登录密码，更新时需要重新输入" value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
