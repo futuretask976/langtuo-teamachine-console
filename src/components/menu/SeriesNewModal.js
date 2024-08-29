@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getTenantCode, getRespModel, getJwtToken, genPostUrl, handleRespError, isBlankStr, isBlankArray, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getTenantCode, getRespErrorMsg, getRespModel, getJwtToken, genPostUrl, handleRespError, isBlankStr, isBlankArray, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -44,9 +44,9 @@ const SeriesNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("保存成功")
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + getRespErrorMsg(response));
             }
         })
         .catch(error => {

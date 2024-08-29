@@ -5,7 +5,7 @@ import axios from 'axios';
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess, isBlankObj } from '../../js/common.js';
+import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess, isBlankObj } from '../../js/common.js';
 
 const CleanRuleNewModal = (props) => {
     // 对话框相关
@@ -29,9 +29,9 @@ const CleanRuleNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("保存成功")
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + getRespErrorMsg(response));
             }
         })
         .catch(error => {

@@ -4,7 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankStr, handleRespError, isRespSuccess, getJwtToken, getRespModel, getTenantCode, isArray, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getRespModel, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isArray, isValidName } from '../../js/common.js';
 
 dayjs.locale('zh-cn');
 
@@ -36,9 +36,9 @@ const MachineDeployNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("保存成功")
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + getRespErrorMsg(response));
             }
         })
         .catch(error => {

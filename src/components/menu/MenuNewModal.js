@@ -4,7 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getTenantCode, getJwtToken, getRespModel, handleRespError, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getRespErrorMsg, getTenantCode, getJwtToken, getRespModel, handleRespError, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -48,9 +48,9 @@ const MenuNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("保存成功")
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + getRespErrorMsg(response));
             }
         })
         .catch(error => {

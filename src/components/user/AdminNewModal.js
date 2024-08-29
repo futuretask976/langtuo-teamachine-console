@@ -4,7 +4,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 
 const { TextArea } = Input;
 
@@ -51,9 +51,9 @@ const AdminNewModal = (props) => {
         })
         .then(response => {
             if (isRespSuccess(response)) {
-                alert("保存成功")
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + getRespErrorMsg(response));
             }
         })
         .catch(error => {
