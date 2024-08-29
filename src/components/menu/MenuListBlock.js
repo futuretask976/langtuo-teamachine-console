@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, handleRespError, getRespModel, getTenantCode, getJwtToken, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const MenuListBlock = (props) => {
     // 样式相关
@@ -128,6 +128,8 @@ const MenuListBlock = (props) => {
             if (isRespSuccess(response)) {
                 alert('删除成功');
                 fetchListData();
+            } else {
+                alert('删除失败：' + getRespErrorMsg(response))
             }
         })
         .catch(error => {

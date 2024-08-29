@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankArray, genGetUrlByParams, genGetUrlBySegs, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isBlankArray, genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const WarningRuleListBlock = (props) => {
     // 样式相关
@@ -126,6 +126,8 @@ const WarningRuleListBlock = (props) => {
             if (isRespSuccess(response)) {
                 alert('删除成功');
                 fetchListData();
+            } else {
+                alert('删除失败：' + getRespErrorMsg(response))
             }
         })
         .catch(error => {

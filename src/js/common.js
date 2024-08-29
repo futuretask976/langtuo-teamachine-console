@@ -188,6 +188,20 @@ export const getRespModel = (resp) => {
     return model;
 };
 
+export const getRespErrorCode = (resp) => {
+    if (isBlankObj(resp) || isBlankObj(resp.data) || resp.data.success) {
+        return;
+    }
+    return resp.data.errorCode;
+};
+
+export const getRespErrorMsg = (resp) => {
+    if (isBlankObj(resp) || isBlankObj(resp.data) || resp.data.success) {
+        return;
+    }
+    return resp.data.errorMsg;
+};
+
 export const handleRespError = (errorResp) => {
     if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
         let redirectUrl = 'http://localhost:3000/console/error?msg=' + encodeURI('网络请求出现异常！');

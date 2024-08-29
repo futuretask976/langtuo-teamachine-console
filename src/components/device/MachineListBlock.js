@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
 
 const MachineListBlock = (props) => {
     // 样式相关
@@ -27,7 +27,6 @@ const MachineListBlock = (props) => {
             tenantCode: getTenantCode()
         });
         axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
             headers: {
                 'Authorization': getJwtToken()
             }
@@ -145,6 +144,8 @@ const MachineListBlock = (props) => {
             if (isRespSuccess(response)) {
                 alert('删除成功');
                 fetchListData();
+            } else {
+                alert('删除失败：' + getRespErrorMsg(response))
             }
         })
         .catch(error => {

@@ -3,7 +3,7 @@ import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getJwtToken, getTenantCode, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const TeaTypeListBlock = (props) => {
     // 样式相关
@@ -125,6 +125,8 @@ const TeaTypeListBlock = (props) => {
             if (isRespSuccess(response)) {
                 alert('删除成功');
                 fetchListData();
+            } else {
+                alert('删除失败：' + getRespErrorMsg(response))
             }
         })
         .catch(error => {
