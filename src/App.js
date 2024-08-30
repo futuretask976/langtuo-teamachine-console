@@ -218,7 +218,7 @@ const Routes = () => {
             ...routesForAuthenticatedOnly,
         ],
         {
-            basename: "/console"
+            basename: "/teamachineconsole"
         }
     );
    
