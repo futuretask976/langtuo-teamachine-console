@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import { Button, Image, Input, Select, Space } from 'antd';
 import axios from 'axios';
 import md5 from 'js-md5';
@@ -9,6 +10,8 @@ import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
+    const navigate = useNavigate();
+
     // 上下文初始化
     const { setToken } = useContext(AuthContext);
 
@@ -112,7 +115,7 @@ function LoginPage() {
             let model = getRespModel(response);
             putTenantCode(tenantCode);
             setToken(model.jwtToken);
-            window.location.href='/console/index';
+            navigate('/index');
         })
         .catch(error => {
             handleRespError(error);
