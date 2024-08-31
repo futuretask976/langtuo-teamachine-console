@@ -1,4 +1,4 @@
-export const TEAMACHINE_HOST_URL = 'http://localhost:8080/teamachinebackend';
+export const TEAMACHINE_HOST_URL = 'http://47.102.144.19:88/teamachinebackend';
 export const OSS_CONFIG_BUCKET = 'miya-bucket2';
 export const OSS_CONFIG_REGION = 'oss-cn-hangzhou';
 export const OSS_CONFIG_TEA_FOLDER = 'teamachine/tea';
