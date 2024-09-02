@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import { Dropdown, Layout, Image, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -6,25 +7,8 @@ import axios from 'axios';
 import { deleteJwtToken, genGetUrl, getJwtToken, getLoginName, handleRespError, isRespSuccess } from '../js/common.js';
 import logo from '../images/logo2.png'
 
-const doLogout = () => {
-    axios.get(genGetUrl('/logout'), {
-        headers: {
-            'Authorization': getJwtToken()
-        }
-    })
-    .then(response => {
-        if (isRespSuccess(response)) {
-            deleteJwtToken();
-            alert('登出成功，重定向到登录页面！');
-            window.location.href='/console/login';
-        }
-    })
-    .catch(error => {
-        handleRespError(error);
-    });
-}
-
 const HeaderBar = () => {
+    const navigate = useNavigate();
     const { Header } = Layout;
 
     const loginName = getLoginName();
@@ -40,6 +24,24 @@ const HeaderBar = () => {
         paddingInline: 0,
         border: '0px solid green'
     };
+
+    const doLogout = () => {
+        axios.get(genGetUrl('/logout'), {
+            headers: {
+                'Authorization': getJwtToken()
+            }
+        })
+        .then(response => {
+            if (isRespSuccess(response)) {
+                deleteJwtToken();
+                alert('登出成功，重定向到登录页面！');
+                navigate('/login');
+            }
+        })
+        .catch(error => {
+            handleRespError(error);
+        });
+    }
 
     const items = [
         {
