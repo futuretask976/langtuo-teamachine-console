@@ -28,7 +28,6 @@ const HeaderBar = () => {
     const { Header } = Layout;
 
     const loginName = getLoginName();
-    alert("aa" + loginName + "bb");
 
     const headerStyle = {
         display: 'flex', 
