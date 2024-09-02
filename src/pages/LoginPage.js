@@ -5,7 +5,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genPostUrl, genGetUrl, getRespModel, handleRespError, putTenantCode, isValidCode } from '../js/common';
+import { genPostUrl, genGetUrl, getRespModel, handleRespError, putTenantCode, isValidCode, putLoginName } from '../js/common';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
@@ -115,6 +115,7 @@ function LoginPage() {
             let model = getRespModel(response);
             putTenantCode(tenantCode);
             setToken(model.jwtToken);
+            putLoginName(model.loginName);
             navigate('/index');
         })
         .catch(error => {

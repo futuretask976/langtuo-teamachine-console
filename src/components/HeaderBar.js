@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dropdown, Layout, Image, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-import { deleteJwtToken, genGetUrl, getJwtToken, handleRespError, isRespSuccess } from '../js/common.js';
+import { deleteJwtToken, genGetUrl, getJwtToken, getLoginName, handleRespError, isRespSuccess } from '../js/common.js';
 import logo from '../images/logo2.png'
 
 const doLogout = () => {
@@ -26,6 +26,9 @@ const doLogout = () => {
 
 const HeaderBar = () => {
     const { Header } = Layout;
+
+    const loginName = getLoginName();
+    alert("aa" + loginName + "bb");
 
     const headerStyle = {
         display: 'flex', 
@@ -53,15 +56,15 @@ const HeaderBar = () => {
             <div className='flex-row-cont' style={{width: 175, border: '0px solid green'}}>
                 <Image className='flex-row-cont' src={logo} height={20}/>
             </div>
-            <div className='flex-row-cont' style={{width: 175}}>
-                <Space size={5}>
+            <div className='flex-row-cont' style={{justifyContent: 'flex-end', width: 325}}>
+                <Space className='flex-row-cont' size={5}>
                     <div className='flex-row-cont'>
                         <UserOutlined style={{fontSize: '20px'}} />
                     </div>
                     <div className='flex-row-cont'>
                         <Dropdown menu={{items}}>
                             <Space>
-                                登录用户：广夏
+                                {loginName}
                                 <DownOutlined />
                             </Space>
                         </Dropdown>

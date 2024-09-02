@@ -4,6 +4,7 @@ import { Image } from 'antd';
 import '../css/common.css';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
+import { deleteLoginName } from '../js/common';
 
 const LogoutPage = () => {
     // 上下文初始化
@@ -12,6 +13,7 @@ const LogoutPage = () => {
     // 初始化动作相关
     useEffect(() => {
         setToken(null);
+        deleteLoginName();
     }, []);
 
     return (

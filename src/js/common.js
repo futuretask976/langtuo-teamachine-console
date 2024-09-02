@@ -1,4 +1,4 @@
-export const TEAMACHINE_HOST_URL = 'http://47.102.144.19:88/teamachinebackend';
+export const TEAMACHINE_HOST_URL = 'http://localhost:8080/teamachinebackend';
 export const OSS_CONFIG_BUCKET = 'miya-bucket2';
 export const OSS_CONFIG_REGION = 'oss-cn-hangzhou';
 export const OSS_CONFIG_TEA_FOLDER = 'teamachine/tea';
@@ -161,12 +161,26 @@ export const deleteJwtToken = () => {
     deleteCookie('JSESSIONID');
 };
 
+export const deleteLoginName = () => {
+    localStorage.removeItem('loginName');
+};
+
+
 export const getJwtToken = () => {
     let jwtToken = localStorage.getItem('jwtToken');
     if (isBlankStr(jwtToken)) {
         return null;
     } else {
         return jwtToken;
+    }
+};
+
+export const getLoginName = () => {
+    let loginName = localStorage.getItem('loginName');
+    if (isBlankStr(loginName)) {
+        return null;
+    } else {
+        return loginName;
     }
 };
 
@@ -182,7 +196,7 @@ export const getTenantCode = () => {
 export const getRespModel = (resp) => {
     if (isBlankObj(resp) || isBlankObj(resp.data) || !resp.data.success || isBlankObj(resp.data.model)) {
         alert("网络请求出现异常！");
-        window.location.href='http://localhost:3000/console/error';
+        window.location.href='http://localhost:3000/teamachineconsole/error';
     }
     let model = resp.data.model;
     return model;
@@ -204,17 +218,17 @@ export const getRespErrorMsg = (resp) => {
 
 export const handleRespError = (errorResp) => {
     if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
-        let redirectUrl = 'http://localhost:3000/console/error?msg=' + encodeURI('网络请求出现异常！');
+        let redirectUrl = 'http://localhost:3000/teamachineconsole/error?msg=' + encodeURI('网络请求出现异常！');
         console.log(redirectUrl);
         window.location.href=redirectUrl;
     }
     let resp = errorResp.response;
     if (resp.status == 401) {
-        window.location.href='http://localhost:3000/console/login?msg=' + encodeURI('认证失败，需要重新登录！');
+        window.location.href='http://localhost:3000/teamachineconsole/login?msg=' + encodeURI('认证失败，需要重新登录！');
     } else if (resp.status == 403) {
         alert("授权失败，请咨询管理员授权！");
     } else {
-        window.location.href='http://localhost:3000/console/error?msg=' + encodeURI('出现未知错误！');
+        window.location.href='http://localhost:3000/teamachineconsole/error?msg=' + encodeURI('出现未知错误！');
     }
 };
 
@@ -237,6 +251,10 @@ export const isRespSuccess = (resp) => {
 
 export const putJwtToken = (jwtToken) => {
     localStorage.setItem('jwtToken', jwtToken);
+};
+
+export const putLoginName = (loginName) => {
+    localStorage.setItem('loginName', loginName);
 };
 
 export const putTenantCode = (tenantCode) => {
