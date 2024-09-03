@@ -232,8 +232,8 @@ const RoleNewModal = (props) => {
                 title="新建/编辑角色"
                 width={1000}
             >
-                <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
-                    <div className="flex-row-cont" style={{height: 60, width: '100%'}}>
+                <div className="flex-col-cont" style={{height: 390, width: '100%'}}>
+                    <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                         <Space direction='vertical' size={20} style={{width: '100%'}}>
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={3}>

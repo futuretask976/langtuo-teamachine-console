@@ -160,7 +160,7 @@ const ToppingNewModal = (props) => {
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
             title="新建/编辑物料"
-            width={550}
+            width={650}
         >
             <div style={{height: 380, width: '100%'}}>
                 <Row style={{width: '100%'}}>

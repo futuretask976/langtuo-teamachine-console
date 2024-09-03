@@ -143,8 +143,8 @@ const MachineDeployNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
-            title="编辑机器信息"
-            width="500"
+            title="编辑机器信息01"
+            width={500}
         >
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 400, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
