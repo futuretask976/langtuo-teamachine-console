@@ -75,7 +75,6 @@ const SiderMenu = (props) => {
     const onMenuItemClick = (e) => {
         if (e.key == 'indexMgt') {
             navigate('/index');
-            window.location.href="/console/index";
         } else if (e.key == 'tenantMgt') {
             navigate('/userset/tenant');
         } else if (e.key == 'orgMgt') {
