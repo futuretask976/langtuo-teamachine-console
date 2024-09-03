@@ -89,7 +89,7 @@ const WarningRuleNewModal = (props) => {
             <Modal
                 centered
                 open={open}
-                title="新建规则"
+                title="新建/编辑规则"
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 width={650}
@@ -155,8 +155,8 @@ const WarningRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <Radio.Group onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
-                                    <Radio value={0}>绝对值</Radio>
+                                <Radio.Group disabled='true' onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
+                                    <Radio value={0}>固定值</Radio>
                                     <Radio value={1}>百分比</Radio>
                                 </Radio.Group>
                             </Col>
@@ -168,7 +168,7 @@ const WarningRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/>
+                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>克/分钟</span></Space>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>

@@ -79,7 +79,7 @@ const ToppingTypePage = () => {
                                 <Row style={{backgroundColor: '#fff'}}>
                                     <Col className="gutter-row" span={2}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>物料类型编码：</span>
+                                            <span>类型编码：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
@@ -89,7 +89,7 @@ const ToppingTypePage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={2}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>物料类型名称：</span>
+                                            <span>类型名称：</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>

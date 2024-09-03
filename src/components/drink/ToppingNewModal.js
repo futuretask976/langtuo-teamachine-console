@@ -24,11 +24,11 @@ const ToppingNewModal = (props) => {
             alert('物料类型编码不符合规则');
             return;
         }
-        if (!isBlankObj(validHourPeriod, true)) {
+        if (isBlankObj(validHourPeriod)) {
             alert('维保期不符合规则');
             return;
         }
-        if (!isBlankObj(cleanHourPeriod, true)) {
+        if (isBlankObj(cleanHourPeriod)) {
             alert('清洗期不符合规则');
             return;
         }
@@ -284,7 +284,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <InputNumber min={0} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
+                            <InputNumber disabled='true' min={0} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
                         </div>
                     </Col>
                     <Col className="gutter-row" span={4}>

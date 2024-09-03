@@ -59,17 +59,14 @@ const HeaderBar = () => {
             </div>
             <div className='flex-row-cont' style={{justifyContent: 'flex-end', width: 325}}>
                 <Space className='flex-row-cont' size={5}>
-                    <div className='flex-row-cont'>
-                        <UserOutlined style={{fontSize: '20px'}} />
-                    </div>
-                    <div className='flex-row-cont'>
-                        <Dropdown menu={{items}}>
-                            <Space>
-                                {loginName}
-                                <DownOutlined />
-                            </Space>
-                        </Dropdown>
-                    </div>
+                    <UserOutlined style={{fontSize: '20px'}} />
+                    <Dropdown menu={{items}}>
+                        <Space>
+                            {loginName}
+                            <DownOutlined />
+                        </Space>
+                    </Dropdown>
+                    <span>&nbsp;</span>
                 </Space>
             </div>
         </Header>
