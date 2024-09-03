@@ -12,6 +12,10 @@
 /build
 /gxreact
 
+# build
+/teamachineconsole
+teamachineconsole.tar.tgz
+
 # misc
 .DS_Store
 .env.local

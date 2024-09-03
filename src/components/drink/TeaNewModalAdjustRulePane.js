@@ -193,8 +193,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             width: '15%',
             render: (_, { adjustMode, toppingCode }) => (
                 <Select
-                    size="small"
-                    style={{width: '100%'}}
+                    disabled='true'
                     onChange={(e)=>onChangeAdjustMode(e, toppingCode)}
                     options={[
                         {
@@ -206,6 +205,8 @@ const TeaNewModalAdjustRulePane = (props) => {
                             value: 1
                         }
                     ]}
+                    size="small"
+                    style={{width: '100%'}}
                     value={isNumber(adjustMode) ? adjustMode : 0}
                 />
             ),

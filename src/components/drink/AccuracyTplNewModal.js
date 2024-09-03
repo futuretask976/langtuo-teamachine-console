@@ -174,7 +174,7 @@ const AccuracyTplNewModal = (props) => {
                             <Col className="gutter-row" span={8}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
-                                        style={{width: '100%'}}
+                                        disabled='true'
                                         onChange={(e) => setOverMode(e)}
                                         options={[
                                             {
@@ -186,6 +186,8 @@ const AccuracyTplNewModal = (props) => {
                                                 value: 1
                                             }
                                         ]}
+                                        size='small'
+                                        style={{width: '100%'}}
                                         value={overMode}
                                     />
                                 </div>
@@ -210,8 +212,7 @@ const AccuracyTplNewModal = (props) => {
                             <Col className="gutter-row" span={8}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
-                                        size="small"
-                                        style={{width: '100%'}}
+                                        disabled='true'
                                         onChange={(e) => setUnderMode(e)}
                                         options={[
                                             {
@@ -223,6 +224,8 @@ const AccuracyTplNewModal = (props) => {
                                                 value: 1
                                             }
                                         ]}
+                                        size='small'
+                                        style={{width: '100%'}}
                                         value={underMode}
                                     />
                                 </div>
