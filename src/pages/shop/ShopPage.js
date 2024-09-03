@@ -99,12 +99,12 @@ const ShopPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '80%'}}>新建店铺</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建店铺</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={6}>

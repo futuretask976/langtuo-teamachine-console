@@ -82,12 +82,12 @@ const ModelPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewModelModal} style={{width: '80%'}}>新建型号</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewModelModal} style={{width: '90%'}}>新建型号</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={12}>

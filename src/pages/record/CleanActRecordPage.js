@@ -160,7 +160,7 @@ const CleanActRecordPage = (props) => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={9}>

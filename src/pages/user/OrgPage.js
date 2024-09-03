@@ -90,17 +90,17 @@ const OrgPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickView} style={{width: '80%'}}>查看架构</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickView} style={{width: '90%'}}>查看架构</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '80%'}}>新增架构</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>新增架构</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={9}>

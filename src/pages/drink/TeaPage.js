@@ -123,22 +123,22 @@ const TeaPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '80%'}}>开始搜索</Button>
+                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '80%'}}>新建茶品</Button>
+                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>新建茶品</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '80%'}}>导出</Button>
+                                            <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '80%'}}>导入</Button>
+                                            <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '90%'}}>导入</Button>
                                         </div>
                                     </Col>
                                 </Row>
