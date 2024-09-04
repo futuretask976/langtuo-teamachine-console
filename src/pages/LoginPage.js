@@ -5,7 +5,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genPostUrl, genGetUrl, getRespModel, handleRespError, putTenantCode, isValidCode, putLoginName } from '../js/common';
+import { genPostUrl, genGetUrl, genGetUrlBySegs, getRespModel, handleRespError, putTenantCode, isValidCode, putLoginName } from '../js/common';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
@@ -48,7 +48,9 @@ function LoginPage() {
         // let url = genGetUrlBySegs('/deviceset/model/{segment}/get', ['GX_TEAMACHINE_01']);
         // axios.get(url, {
         //     headers: {
-        //         'Authorization': getJwtToken()
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': 'machine_001',
+        //         'Deploy-Code': 'fmzxpo'
         //     }
         // })
         // .then(response => {
@@ -59,12 +61,12 @@ function LoginPage() {
         //     console.log('$$$$$ onlyTest error=', error);
         // });
 
-        // let url2 = genGetUrlByParams('/drinkset/accuracy/list', {
-        //     tenantCode: getTenantCode()
-        // });
+        // let url2 = genGetUrlBySegs('/drinkset/accuracy/{segment}/list', ['tenant_001']);
         // axios.get(url2, {
         //     headers: {
-        //         'Authorization': getJwtToken()
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': 'machine_001',
+        //         'Deploy-Code': 'fmzxpo'
         //     }
         // })
         // .then(response => {
@@ -75,14 +77,57 @@ function LoginPage() {
         //     console.log('$$$$$ onlyTest error=', error);
         // });
 
-        // let url3 = genGetUrlByParams('/menuset/menu/trigger', {
-        //     tenantCode: getTenantCode(),
-        //     shopCode: 'shop_001',
-        //     machineCode: '12345'
-        // });
+        // let url3 = genGetUrlBySegs('/menuset/menu/{segment}/{segment}/{segment}/trigger', ['tenant_001', 'shop_001', 'machine033']);
         // axios.get(url3, {
         //     headers: {
-        //         'Authorization': getJwtToken()
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': 'machine_001',
+        //         'Deploy-Code': 'fmzxpo'
+        //     }
+        // })
+        // .then(response => {
+        //     console.log('$$$$$ onlyTest response=', response);
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ onlyTest error=', error);
+        // });
+
+        // let url4 = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/listbyshop', ['tenant_001', 'shop_001']);
+        // axios.get(url4, {
+        //     headers: {
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': 'machine_001',
+        //         'Deploy-Code': 'fmzxpo'
+        //     }
+        // })
+        // .then(response => {
+        //     console.log('$$$$$ onlyTest response=', response);
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ onlyTest error=', error);
+        // });
+
+        // let url5 = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/listbyshop', ['tenant_001', 'shop_001']);
+        // axios.get(url5, {
+        //     headers: {
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': 'machine_001',
+        //         'Deploy-Code': 'fmzxpo'
+        //     }
+        // })
+        // .then(response => {
+        //     console.log('$$$$$ onlyTest response=', response);
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ onlyTest error=', error);
+        // });
+
+        // let url6 = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/listbyshop', ['tenant_001', 'shop_001']);
+        // axios.get(url6, {
+        //     headers: {
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': 'machine_001',
+        //         'Deploy-Code': 'fmzxpo'
         //     }
         // })
         // .then(response => {
