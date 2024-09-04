@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { DownCircleOutlined, FormOutlined, SearchOutlined, UpCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -17,6 +18,9 @@ import TeaUploadModal from '../../components/drink/TeaUploadModal'
 const { Content } = Layout;
 
 const TeaPage = () => {
+    // 路由组件
+    const navigate = useNavigate();
+
     // 导航菜单 + 面包屑相关
     const openMenu = ['drinkSet'];
     const selectedMenu = ['teaMgt'];
@@ -85,7 +89,7 @@ const TeaPage = () => {
             handleRespExport(response);
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
 

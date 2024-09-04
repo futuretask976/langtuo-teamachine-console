@@ -31,9 +31,6 @@ const MachinePage = () => {
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
-    const onOpenNewModal = () => {
-        setOpenNewModal(true);
-    };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setMachineCode4Edit('');

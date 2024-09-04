@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import { Button, Flex, Layout, Select, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -16,6 +17,9 @@ import CleanActRecordViewModal from '../../components/record/CleanActRecordViewM
 const { Content } = Layout;
 
 const CleanActRecordPage = (props) => {
+    // 路由组件
+    const navigate = useNavigate();
+
     // 导航菜单 + 面包屑相关
     const openMenu = ['recordSet'];
     const selectedMenu = ['cleanActRecordMgt'];
@@ -43,7 +47,7 @@ const CleanActRecordPage = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
@@ -59,7 +63,7 @@ const CleanActRecordPage = (props) => {
         }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     const fetchShopGroupList4Select = () => {
@@ -72,7 +76,7 @@ const CleanActRecordPage = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
@@ -88,7 +92,7 @@ const CleanActRecordPage = (props) => {
         }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     useEffect(() => {

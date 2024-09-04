@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Image } from 'antd';
 
 import '../css/common.css';
+import { deleteLoginName } from '../js/common';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
-import { deleteLoginName } from '../js/common';
 
 const LogoutPage = () => {
-    // 上下文初始化
-    const {token, setToken} = useContext(AuthContext);
-
+    // 路由组件
     const navigate = useNavigate();
+
+    // 上下文初始化
+    const { setToken } = useContext(AuthContext);
 
     // 初始化动作相关
     useEffect(() => {

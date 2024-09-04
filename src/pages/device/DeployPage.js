@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -16,6 +17,9 @@ import DeployNewModal from '../../components/device/DeployNewModal'
 const { Content } = Layout;
 
 const DeployPage = () => {
+    // 路由组件
+    const navigate = useNavigate();
+
     // 导航菜单 + 面包屑相关
     const openMenu = ['deviceSet'];
     const selectedMenu = ['deployMgt'];
@@ -84,7 +88,7 @@ const DeployPage = () => {
             handleRespExport(response);
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
 

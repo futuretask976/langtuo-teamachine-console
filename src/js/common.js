@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export const TEAMACHINE_HOST_URL = 'http://localhost:8080/teamachinebackend';
 // export const TEAMACHINE_HOST_URL = 'https://47.102.144.19:446/teamachinebackend';
 export const OSS_CONFIG_BUCKET = 'miya-bucket2';
@@ -194,10 +196,9 @@ export const getTenantCode = () => {
     }
 };
 
-export const getRespModel = (resp) => {
+export const getRespModel = (resp, navigate) => {
     if (isBlankObj(resp) || isBlankObj(resp.data) || !resp.data.success || isBlankObj(resp.data.model)) {
-        alert("网络请求出现异常！");
-        window.location.href='http://localhost:3000/teamachineconsole/error';
+        navigate('/error?msg=' + encodeURI('出现未知错误！'));
     }
     let model = resp.data.model;
     return model;
@@ -217,19 +218,18 @@ export const getRespErrorMsg = (resp) => {
     return resp.data.errorMsg;
 };
 
-export const handleRespError = (errorResp) => {
+export const handleRespError = (errorResp, navigate) => {
     if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
-        let redirectUrl = 'http://localhost:3000/teamachineconsole/error?msg=' + encodeURI('网络请求出现异常！');
-        console.log(redirectUrl);
-        window.location.href=redirectUrl;
+        navigate('/error?msg=' + encodeURI('网络请求出现异常！'));
     }
+
     let resp = errorResp.response;
     if (resp.status == 401) {
-        window.location.href='http://localhost:3000/teamachineconsole/login?msg=' + encodeURI('认证失败，需要重新登录！');
+        navigate('/login?msg=' + encodeURI('认证失败，需要重新登录！'));
     } else if (resp.status == 403) {
         alert("授权失败，请咨询管理员授权！");
     } else {
-        window.location.href='http://localhost:3000/teamachineconsole/error?msg=' + encodeURI('出现未知错误！');
+        navigate('/error?msg=' + encodeURI('出现未知错误！'));
     }
 };
 

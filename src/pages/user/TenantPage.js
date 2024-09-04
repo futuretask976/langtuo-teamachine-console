@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Flex, Input, Layout, Modal, Col, Row } from 'antd';
+import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';

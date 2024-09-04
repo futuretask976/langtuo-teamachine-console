@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import { Button, Flex, Layout, Select, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -16,6 +17,9 @@ import SupplyActRecordViewModal from '../../components/record/SupplyActRecordVie
 const { Content } = Layout;
 
 const SupplyActRecordPage = (props) => {
+    // 路由组件
+    const navigate = useNavigate();
+
     // 导航菜单 + 面包屑相关
     const openMenu = ['recordSet'];
     const selectedMenu = ['supplyActRecordMgt'];
@@ -43,7 +47,7 @@ const SupplyActRecordPage = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
@@ -59,7 +63,7 @@ const SupplyActRecordPage = (props) => {
         }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     const fetchShopGroupList4Select = () => {
@@ -72,7 +76,7 @@ const SupplyActRecordPage = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
@@ -88,7 +92,7 @@ const SupplyActRecordPage = (props) => {
         }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     useEffect(() => {
@@ -98,9 +102,6 @@ const SupplyActRecordPage = (props) => {
 
     // 新建对话框相关
     const [openViewModal, setOpenViewModal] = useState(false);
-    const onOpenViewModal = () => {
-        setOpenViewModal(true);
-    };
     const onCloseViewModal = () => {
         setOpenViewModal(false);
         setIdempotentMark4View('');

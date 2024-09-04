@@ -42,9 +42,6 @@ const MenuPage = () => {
 
     // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
-    const onOpenDispatchModal = () => {
-        setOpenNewModal(true);
-    };
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
         setMenuCode4Dispatch('');

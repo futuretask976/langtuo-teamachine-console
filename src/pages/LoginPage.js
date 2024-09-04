@@ -5,11 +5,12 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genPostUrl, genGetUrl, genGetUrlBySegs, getRespModel, handleRespError, putTenantCode, isValidCode, putLoginName } from '../js/common';
+import { genGetUrl, genPostUrl, getRespModel, handleRespError, isValidCode, putLoginName, putTenantCode } from '../js/common';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
+    // 路由组件
     const navigate = useNavigate();
 
     // 上下文初始化
@@ -28,7 +29,7 @@ function LoginPage() {
             // withCredentials: true // 这会让axios在请求中携带cookies
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setTenantList4Select((prev => {
                 let tmp = [];
                 model.forEach(item => {
@@ -41,7 +42,7 @@ function LoginPage() {
             }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     const onlyTest = () => {
