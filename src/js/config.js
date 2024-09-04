@@ -1,7 +1,9 @@
-const devBaseURL = 'http://localhost:8080/teamachinebackend';
-const prodBaseURL = 'https://47.102.144.19:446/teamachinebackend';
+export const CONTEXT_PATH = '/teamachinebackend'
+export const DEV_BASE_URL = 'http://localhost:8080/' + CONTEXT_PATH;
+export const PROD_BASE_URL = 'https://47.102.144.19:446' + CONTEXT_PATH;;
 
-export const BASE_URL = devBaseURL; // process.env.NODE_ENV === 'dev' ? devBaseURL: prodBaseURL;
+export const BASE_URL = DEV_BASE_URL; // process.env.NODE_ENV === 'dev' ? devBaseURL: prodBaseURL;
+
 export const TIMEOUT = 5000;
 
 export const OSS_CONFIG_BUCKET = 'miya-bucket2';
