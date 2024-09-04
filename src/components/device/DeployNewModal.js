@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidCode, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, genPostUrl, getRespErrorMsg, getRespModel, getTenantCode, handleRespError, isBlankStr, isRespSuccess, isValidCode } from '../../js/common.js';
 
 const DeployNewModal = (props) => {
+    // 路由组件
+    const navigate = useNavigate();
+
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
@@ -45,11 +49,11 @@ const DeployNewModal = (props) => {
             if (isRespSuccess(response)) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + getRespErrorMsg(response, navigate));
             }
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
 
         setTimeout(() => {
@@ -83,7 +87,7 @@ const DeployNewModal = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setShopList4Select((prev => {
                 let shopListTmp = [];
                 model.forEach(item => {
@@ -96,7 +100,7 @@ const DeployNewModal = (props) => {
             }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     const fetchModelList4Select= () => {
@@ -109,7 +113,7 @@ const DeployNewModal = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setModelList4Select((prev => {
                 let modelListTmp = [];
                 model.forEach(item => {
@@ -122,7 +126,7 @@ const DeployNewModal = (props) => {
             }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     const fetchDeploy4Edit = () => {
@@ -137,14 +141,14 @@ const DeployNewModal = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setDeployCode(model.deployCode);
             setModelCode(model.modelCode);
             setMachineCode(model.machineCode);
             setShopCode(model.shopCode);
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     useEffect(() => {
@@ -166,11 +170,11 @@ const DeployNewModal = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setDeployCode(model);
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     const onClickMachineCodeGen = (e) => {
@@ -183,11 +187,11 @@ const DeployNewModal = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setMachineCode(model);
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
  

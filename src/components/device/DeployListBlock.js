@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { theme, Space, Table } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, getRespErrorMsg, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
 
 const DeployListBlock = (props) => {
+    // 路由组件
+    const navigate = useNavigate();
+
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -32,7 +36,7 @@ const DeployListBlock = (props) => {
             }
         })
         .then(response => {
-            let model = getRespModel(response);
+            let model = getRespModel(response, navigate);
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -47,7 +51,7 @@ const DeployListBlock = (props) => {
             }));
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
     useEffect(() => {
@@ -135,11 +139,11 @@ const DeployListBlock = (props) => {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + getRespErrorMsg(response, navigate))
             }
         })
         .catch(error => {
-            handleRespError(error);
+            handleRespError(error, navigate);
         });
     }
 
