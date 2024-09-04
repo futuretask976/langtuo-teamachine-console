@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, handleRespError, getRespModel, isArray, isBlankStr, isRespSuccess, isValidCode, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -13,8 +13,8 @@ const AccuracyTplNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/drinkset/accuracy/put');
-        axios.put(url, {
+
+        put('/drinkset/accuracy/put', {
             tenantCode: getTenantCode(),
             templateCode: templateCode,
             templateName: templateName,
@@ -24,20 +24,12 @@ const AccuracyTplNewModal = (props) => {
             underAmount: underAmount,
             toppingCodeList: toppingCodeList,
             comment: comment
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -68,14 +60,11 @@ const AccuracyTplNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/accuracy/{segment}/{segment}/get', [getTenantCode(), props.templateCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/drinkset/accuracy/get', {
+            tenantCode: getTenantCode(),
+            templateCode: props.templateCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setTemplateCode(model.templateCode);
             setTemplateName(model.templateName);
             setOverMode(model.overMode);
@@ -84,22 +73,13 @@ const AccuracyTplNewModal = (props) => {
             setUnderAmount(model.underAmount);
             setToppingCodeList(isArray(model.toppingCodeList) ? model.toppingCodeList : []);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchToppingList4Select = () => {
-        let url = genGetUrlByParams('/drinkset/topping/list', {
+        get('/drinkset/topping/list', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setToppingList4Select(prev => {
                 let tmp = [];
                 model.forEach(topping => {
@@ -110,9 +90,6 @@ const AccuracyTplNewModal = (props) => {
                 });
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

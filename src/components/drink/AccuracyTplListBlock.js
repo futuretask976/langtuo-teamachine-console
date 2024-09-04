@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getJwtToken, getRespModel, getTenantCode, handleRespError, isBlankStr, isRespSuccess } from '../../js/common.js';
+import { getTenantCode, isBlankStr } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const AccuracyTplListBlock = (props) => {
     // 样式相关
@@ -17,20 +17,14 @@ const AccuracyTplListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/drinkset/accuracy/search', {
+        get('/drinkset/accuracy/search', {
             tenantCode: getTenantCode(),
             templateCode: isBlankStr(props.templateCode4Search) ? '' : props.templateCode4Search,
             templateName: isBlankStr(props.templateName4Search) ? '' : props.templateName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -43,9 +37,6 @@ const AccuracyTplListBlock = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -110,28 +101,22 @@ const AccuracyTplListBlock = (props) => {
     const onClickEdit = (e, specCode) => {
         props.onClickEdit(specCode);
     }
-    const onClickDelete = (e, specCode) => {
+    const onClickDelete = (e, templateCode) => {
         let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
         if (!confirmRtn) {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/accuracy/{segment}/{segment}/delete', [getTenantCode(), specCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/drinkset/accuracy/delete', {
+            tenantCode: getTenantCode(),
+            templateCode: templateCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 
