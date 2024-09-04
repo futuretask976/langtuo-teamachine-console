@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Select, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, genGetUrlByParams, handleRespError, getRespModel, getTenantCode, getJwtToken } from '../../js/common.js';
+import { isArray, getTenantCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 const TeaNewModalActStepPane = (props) => {
     // 状态变量初始化相关
@@ -22,16 +22,10 @@ const TeaNewModalActStepPane = (props) => {
     });
     const [toppingList4Select, setToppingList4Select] = useState([]);
     const fetchToppingList4Select = () => {
-        let url = genGetUrlByParams('/drinkset/topping/list', {
+        get('/drinkset/topping/list', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setToppingList4Select((prev => {
                 let toppingList4SelectTmp = [];
                 model.forEach(item => {
@@ -43,9 +37,6 @@ const TeaNewModalActStepPane = (props) => {
                 })
                 return toppingList4SelectTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

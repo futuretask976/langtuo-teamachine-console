@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Select, Space, Switch, Spin, Upload, message } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
-import axios from 'axios';
 import OSS from 'ali-oss';
 
 import '../../css/common.css';
-import { genGetUrlByParams, handleRespError, getJwtToken, getRespModel, getTenantCode, isBlankObj, isBlankStr } from '../../js/common.js';
+import { getTenantCode, isBlankObj, isBlankStr } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -110,16 +110,10 @@ const TeaNewModalInfoPane = (props) => {
     });
     const [teaTypeList4Select, setTeaTypeList4Select] = useState([]);
     const fetchTeaTypeList4Select = () => {
-        let url = genGetUrlByParams('/drinkset/tea/type/list', {
+        get('/drinkset/tea/type/list', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setTeaTypeList4Select((prev => {
                 let teaTypeListTmp = [];
                 model.forEach(item => {
@@ -131,9 +125,6 @@ const TeaNewModalInfoPane = (props) => {
                 })
                 return teaTypeListTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

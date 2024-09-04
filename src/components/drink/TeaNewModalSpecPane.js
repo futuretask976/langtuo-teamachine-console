@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Select, Space } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, getTenantCode, getJwtToken, handleRespError, isArray } from '../../js/common';
+import { getTenantCode, isArray } from '../../js/common';
+import { get } from '../../js/request.js';
 
 const TeaNewModalSpecPane = (props) => {
     // 状态变量初始化相关
@@ -17,17 +17,10 @@ const TeaNewModalSpecPane = (props) => {
 
     // 赋值初始化相关
     const fetchSpecList4Select = () => {
-        let url = genGetUrlByParams('/drinkset/spec/list', {
+        get('/drinkset/spec/list', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setSpecList4Select((prev => {
                 let tmp = [];
                 model.forEach(item => {
@@ -53,9 +46,6 @@ const TeaNewModalSpecPane = (props) => {
                 })
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
