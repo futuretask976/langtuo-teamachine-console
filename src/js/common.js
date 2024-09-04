@@ -196,60 +196,6 @@ export const getTenantCode = () => {
     }
 };
 
-export const getRespModel = (resp, navigate) => {
-    if (isBlankObj(resp) || isBlankObj(resp.data) || !resp.data.success || isBlankObj(resp.data.model)) {
-        navigate('/error?msg=' + encodeURI('出现未知错误！'));
-    }
-    let model = resp.data.model;
-    return model;
-};
-
-export const getRespErrorCode = (resp) => {
-    if (isBlankObj(resp) || isBlankObj(resp.data) || resp.data.success) {
-        return;
-    }
-    return resp.data.errorCode;
-};
-
-export const getRespErrorMsg = (resp) => {
-    if (isBlankObj(resp) || isBlankObj(resp.data) || resp.data.success) {
-        return;
-    }
-    return resp.data.errorMsg;
-};
-
-export const handleRespError = (errorResp, navigate) => {
-    if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
-        navigate('/error?msg=' + encodeURI('网络请求出现异常！'));
-    }
-
-    let resp = errorResp.response;
-    if (resp.status == 401) {
-        navigate('/login?msg=' + encodeURI('认证失败，需要重新登录！'));
-    } else if (resp.status == 403) {
-        alert("授权失败，请咨询管理员授权！");
-    } else {
-        navigate('/error?msg=' + encodeURI('出现未知错误！'));
-    }
-};
-
-export const handleRespExport = (resp) => {
-    const url4Export = window.URL.createObjectURL(new Blob([resp.data]));
-    const link4Export = document.createElement('a');
-    link4Export.href = url4Export;
-    link4Export.setAttribute('download', 'export.xlsx');
-    document.body.appendChild(link4Export);
-    link4Export.click();
-    document.body.removeChild(link4Export);
-};
-
-export const isRespSuccess = (resp) => {
-    if (isBlankObj(resp) || isBlankObj(resp.data)) {
-        return false;
-    }
-    return resp.data.success;
-};
-
 export const putJwtToken = (jwtToken) => {
     localStorage.setItem('jwtToken', jwtToken);
 };

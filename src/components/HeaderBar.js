@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Dropdown, Layout, Image, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
-import { deleteJwtToken, genGetUrl, getJwtToken, getLoginName, handleRespError, isRespSuccess } from '../js/common.js';
+import { deleteJwtToken, getLoginName } from '../js/common.js';
+import { get } from '../js/request.js';
 import logo from '../images/logo2.png'
 
 const HeaderBar = () => {
@@ -26,20 +26,13 @@ const HeaderBar = () => {
     };
 
     const doLogout = () => {
-        axios.get(genGetUrl('/logout'), {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        get('/logout', {  
+        }).then(resp => {
+            if (resp.success) {
                 deleteJwtToken();
                 alert('登出成功，重定向到登录页面！');
                 navigate('/login');
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 
