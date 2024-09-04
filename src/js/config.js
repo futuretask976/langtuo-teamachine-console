@@ -1,4 +1,4 @@
-export const CONTEXT_PATH = '/teamachinebackend'
+export const CONTEXT_PATH = '/teamachineconsole'
 export const DEV_BASE_URL = 'http://localhost:8080/' + CONTEXT_PATH;
 export const PROD_BASE_URL = 'https://47.102.144.19:446' + CONTEXT_PATH;;
 
