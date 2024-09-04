@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import '../../css/common.css';
 import { dateToYMDHMS, isBlankStr, isBlankArray, getTenantCode, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
-import { get } from '../../js/request.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
