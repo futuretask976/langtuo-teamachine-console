@@ -43,6 +43,7 @@ const TeaPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setTeaCode4Edit('');
+        refreshList();
     }
     const [openUploadModal, setUploadModal] = useState(false);
     const onClickUpload = () => {
@@ -92,6 +93,12 @@ const TeaPage = () => {
             handleRespError(error, navigate);
         });
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -148,7 +155,7 @@ const TeaPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <TeaListBlock teaCode4Search={teaCode4Search} teaName4Search={teaName4Search} onClickEdit={onClickEdit} />
+                                <TeaListBlock key={refreshListKey} teaCode4Search={teaCode4Search} teaName4Search={teaName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

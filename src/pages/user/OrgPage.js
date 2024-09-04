@@ -38,6 +38,7 @@ const OrgPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setOrgName4Edit('');
+        refreshList();
     }
     const [openViewModal, setOpenViewModal] = useState(false);
     const onClickView = () => {
@@ -65,6 +66,12 @@ const OrgPage = () => {
         setOrgName4Edit(selectedOrgName);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -109,7 +116,7 @@ const OrgPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <OrgListBlock orgName4Search={orgName4Search} onClickEdit={onClickEdit} />
+                                <OrgListBlock key={refreshListKey} orgName4Search={orgName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

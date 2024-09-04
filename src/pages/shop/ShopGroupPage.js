@@ -37,6 +37,7 @@ const ShopGroupPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setShopGroupCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -57,6 +58,12 @@ const ShopGroupPage = () => {
         setShopGroupCode4Edit(selectedShopGroupCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -96,7 +103,7 @@ const ShopGroupPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ShopGroupListBlock shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
+                                <ShopGroupListBlock key={refreshListKey} shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

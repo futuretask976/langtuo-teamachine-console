@@ -37,6 +37,7 @@ const ShopPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setShopCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const ShopPage = () => {
         setShopCode4Edit(selectedShopCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const ShopPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ShopListBlock shopName4Search={shopName4Search} shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
+                                <ShopListBlock key={refreshListKey} shopName4Search={shopName4Search} shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

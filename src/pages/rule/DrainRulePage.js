@@ -38,6 +38,7 @@ const DrainRulePage = (props) => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setDrainRuleCode4Edit('');
+        refreshList();
     }
 
     // 分发对话框相关
@@ -77,6 +78,12 @@ const DrainRulePage = (props) => {
         setDrainRuleCode4Dispatch(selectedDrainRuleCode);
         setOpenDispatchModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -126,7 +133,7 @@ const DrainRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <DrainRuleListBlock drainRuleCode4Search={drainRuleCode4Search} drainRuleName4Search={drainRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
+                                <DrainRuleListBlock key={refreshListKey} drainRuleCode4Search={drainRuleCode4Search} drainRuleName4Search={drainRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>

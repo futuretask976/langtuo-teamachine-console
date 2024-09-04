@@ -37,6 +37,7 @@ const RolePage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setRoleCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -57,6 +58,12 @@ const RolePage = () => {
         setRoleCode4Edit(selectedRoleCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -96,7 +103,7 @@ const RolePage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <RoleListBlock roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
+                                <RoleListBlock key={refreshListKey} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

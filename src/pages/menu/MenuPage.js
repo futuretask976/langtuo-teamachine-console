@@ -45,6 +45,7 @@ const MenuPage = () => {
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
         setMenuCode4Dispatch('');
+        refreshList();
     }
 
     // 搜索相关
@@ -77,6 +78,12 @@ const MenuPage = () => {
         setMenuCode4Dispatch(selectedMenuCode);
         setOpenDispatchModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -126,7 +133,7 @@ const MenuPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MenuListBlock menuCode4Search={menuCode4Search} menuName4Search={menuName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
+                                <MenuListBlock key={refreshListKey} menuCode4Search={menuCode4Search} menuName4Search={menuName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>

@@ -38,6 +38,7 @@ const WarningRulePage = (props) => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setWarningRuleCode4Edit('');
+        refreshList();
     }
 
     // 分发对话框相关
@@ -77,6 +78,12 @@ const WarningRulePage = (props) => {
         setWarningRuleCode4Dispatch(selectedWarningRuleCode);
         setOpenDispatchModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -122,7 +129,7 @@ const WarningRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <WarningRuleListBlock warningRuleCode4Search={warningRuleCode4Search} warningRuleName4Search={warningRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
+                                <WarningRuleListBlock key={refreshListKey} warningRuleCode4Search={warningRuleCode4Search} warningRuleName4Search={warningRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>

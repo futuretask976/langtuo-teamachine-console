@@ -37,6 +37,7 @@ const ModelPage = () => {
     const onCloseNewModelModal = () => {
         setOpenNewModal(false);
         setModelCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -57,6 +58,12 @@ const ModelPage = () => {
         setModelCode4Edit(selectedModelCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -96,7 +103,7 @@ const ModelPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ModelListBlock modelCode4Search={modelCode4Search} onClickEdit={onClickEdit} />
+                                <ModelListBlock key={refreshListKey} modelCode4Search={modelCode4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

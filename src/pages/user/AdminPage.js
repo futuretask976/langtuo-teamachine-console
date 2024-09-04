@@ -37,6 +37,7 @@ const AdminPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setLoginName4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const AdminPage = () => {
         setLoginName4Edit(selectedLoginName);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const AdminPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <AdminListBlock loginName4Search={loginName4Search} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
+                                <AdminListBlock key={refreshListKey} loginName4Search={loginName4Search} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

@@ -37,6 +37,7 @@ const TenantPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setTenantCode4Edit('');
+        refreshList();
     }
     
     // 搜索相关
@@ -64,6 +65,12 @@ const TenantPage = () => {
         setTenantCode4Edit(selectedTenantCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const TenantPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <TenantListBlock tenantName4Search={tenantName4Search} contactPerson4Search={contactPerson4Search} onClickEdit={onClickEdit} />
+                                <TenantListBlock key={refreshListKey} tenantName4Search={tenantName4Search} contactPerson4Search={contactPerson4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

@@ -42,6 +42,7 @@ const DeployPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setDeployCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -91,6 +92,12 @@ const DeployPage = () => {
             handleRespError(error, navigate);
         });
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -158,7 +165,7 @@ const DeployPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <DeployListBlock deployCode4Search={deployCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+                                <DeployListBlock key={refreshListKey} deployCode4Search={deployCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

@@ -37,6 +37,7 @@ const SeriesPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setSeriesCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const SeriesPage = () => {
         setSeriesCode4Edit(selectedSeriesCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const SeriesPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <SeriesListBlock seriesCode4Search={seriesCode4Search} seriesName4Search={seriesName4Search} onClickEdit={onClickEdit} />
+                                <SeriesListBlock key={refreshListKey} seriesCode4Search={seriesCode4Search} seriesName4Search={seriesName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

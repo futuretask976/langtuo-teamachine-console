@@ -37,6 +37,7 @@ const TeaTypePage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setTeaTypeCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const TeaTypePage = () => {
         setTeaTypeCode4Edit(selectedTeaTypeCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const TeaTypePage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <TeaTypeListBlock teaTypeCode4Search={teaTypeCode4Search} teaTypeName4Search={teaTypeName4Search} onClickEdit={onClickEdit} />
+                                <TeaTypeListBlock key={refreshListKey} teaTypeCode4Search={teaTypeCode4Search} teaTypeName4Search={teaTypeName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

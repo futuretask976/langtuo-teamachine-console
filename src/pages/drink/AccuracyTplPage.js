@@ -37,6 +37,7 @@ const AccuracyTplPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setTemplateCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const AccuracyTplPage = () => {
         setTemplateCode4Edit(selectedTemplateCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const AccuracyTplPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <AccuracyTplListBlock templateCode4Search={templateCode4Search} templateName4Search={templateName4Search} onClickEdit={onClickEdit} />
+                                <AccuracyTplListBlock key={refreshListKey} templateCode4Search={templateCode4Search} templateName4Search={templateName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

@@ -37,6 +37,7 @@ const SpecPage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setSpecCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const SpecPage = () => {
         setSpecCode4Edit(selectedSpecCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const SpecPage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <SpecListBlock specCode4Search={specCode4Search} specName4Search={specName4Search} onClickEdit={onClickEdit} />
+                                <SpecListBlock key={refreshListKey} specCode4Search={specCode4Search} specName4Search={specName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

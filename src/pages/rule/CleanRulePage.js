@@ -38,6 +38,7 @@ const CleanRulePage = (props) => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setCleanRuleCode4Edit('');
+        refreshList();
     }
 
     // 分发对话框相关
@@ -78,6 +79,11 @@ const CleanRulePage = (props) => {
         setOpenDispatchModal(true);
     }
 
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -127,7 +133,7 @@ const CleanRulePage = (props) => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <CleanRuleListBlock cleanRuleCode4Search={cleanRuleCode4Search} cleanRuleName4Search={cleanRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
+                                <CleanRuleListBlock key={refreshListKey} cleanRuleCode4Search={cleanRuleCode4Search} cleanRuleName4Search={cleanRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
                             </Content>
                         </Layout>
                     </Layout>

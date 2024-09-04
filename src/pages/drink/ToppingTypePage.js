@@ -37,6 +37,7 @@ const ToppingTypePage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setToppingTypeCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -64,6 +65,12 @@ const ToppingTypePage = () => {
         setToppingTypeCode4Edit(selectedToppingTypeCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -113,7 +120,7 @@ const ToppingTypePage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <ToppingTypeListBlock toppingTypeCode4Search={toppingTypeCode4Search} toppingTypeName4Search={toppingTypeName4Search} onClickEdit={onClickEdit} />
+                                <ToppingTypeListBlock key={refreshListKey} toppingTypeCode4Search={toppingTypeCode4Search} toppingTypeName4Search={toppingTypeName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>

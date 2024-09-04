@@ -34,6 +34,7 @@ const MachinePage = () => {
     const onCloseNewModal = () => {
         setOpenNewModal(false);
         setMachineCode4Edit('');
+        refreshList();
     }
 
     // 搜索相关
@@ -75,6 +76,12 @@ const MachinePage = () => {
         setMachineCode4Edit(selectedMachineCode);
         setOpenNewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -142,7 +149,7 @@ const MachinePage = () => {
                                 </Row>
                                 <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
                                 <div>&nbsp;</div>
-                                <MachineListBlock screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} modelCode4Search={modelCode4Search} shopName4Search={shopName4Search} onClickEdit={onClickEdit} />
+                                <MachineListBlock key={refreshListKey} screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} modelCode4Search={modelCode4Search} shopName4Search={shopName4Search} onClickEdit={onClickEdit} />
                             </Content>
                         </Layout>
                     </Layout>
