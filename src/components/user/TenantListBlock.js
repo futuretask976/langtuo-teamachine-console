@@ -113,7 +113,7 @@ const TenantListBlock = (props) => {
         }
 
         del('/userset/tenant/delete', {
-            tenantCode: getTenantCode()
+            tenantCode: tenantCode
         }).then(resp => {
             if (resp.success) {
                 alert('删除成功');

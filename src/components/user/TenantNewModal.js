@@ -74,7 +74,7 @@ const TenantNewModal = (props) => {
         }
 
         get('/userset/tenant/get', {  
-            tenantCode: getTenantCode()
+            tenantCode: props.tenantCode4Edit
         }).then(resp => {
             let model = resp.model;
             setTenantCode(model.tenantCode);
