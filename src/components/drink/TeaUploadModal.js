@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Space, Switch, Spin, Upload, message } from 'antd';
+import React, { useState } from 'react';
+import { Button, Modal, Space, Spin, Upload, message } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
-import axios from 'axios';
 import OSS from 'ali-oss';
 
 import '../../css/common.css';
-import { getJwtToken, getTenantCode, isBlankStr, genGetUrlBySegs } from '../../js/common.js';
+import { getTenantCode, isBlankStr } from '../../js/common.js';
+import { post4Import } from '../../js/request4Import';
 
 const TeaUploadModal = (props) => {
     // 对话框相关
@@ -82,15 +82,10 @@ const TeaUploadModal = (props) => {
         const { file, onSuccess, onProgress, onError } = option;
 
         const formData = new FormData();
+        formData.append('tenantCode', getTenantCode());
         formData.append('file', file);
        
-        let url = genGetUrlBySegs('/drinkset/tea/{segment}/upload', [getTenantCode()]);
-        axios.post(url, formData, {
-            headers: {
-                'Authorization': getJwtToken(),
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        post4Import('/drinkset/tea/upload', formData)
         .then(response => {
             console.log('File uploaded successfully');
             // 处理响应数据
@@ -98,10 +93,6 @@ const TeaUploadModal = (props) => {
                 response,
                 file,
             );
-            
-        })
-        .catch(error => {
-            onError(error);
         });
     };
     const beforeUpload = (file) => {

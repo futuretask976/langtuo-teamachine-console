@@ -1,13 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
-export const TEAMACHINE_HOST_URL = 'http://localhost:8080/teamachinebackend';
-// export const TEAMACHINE_HOST_URL = 'https://47.102.144.19:446/teamachinebackend';
-export const OSS_CONFIG_BUCKET = 'miya-bucket2';
-export const OSS_CONFIG_REGION = 'oss-cn-hangzhou';
-export const OSS_CONFIG_TEA_FOLDER = 'teamachine/tea';
-export const OSS_CONFIG_SERIES_FOLDER = 'teamachine/series';
-export const OSS_CONFIG_MENU_FOLDER = 'teamachine/folder';
-
 // 通用方法
 export const dateToYMDHMS = (date) => {
     function pad(number) {
@@ -26,39 +16,6 @@ export const dateToYMDHMS = (date) => {
         pad(date.getMinutes()) + ':' +
         pad(date.getSeconds())
     );
-}
-
-export const genGetUrl = (path) => {
-    let url = TEAMACHINE_HOST_URL + path;
-    return url;
-}
-
-export const genGetUrlByParams = (path, params) => {
-    let url = TEAMACHINE_HOST_URL + path;
-    let paramStr = '';
-    for (let key in params) {
-        if (params.hasOwnProperty(key)) {
-            paramStr = paramStr + "&" + key + "=" + params[key];
-        }
-    }
-    if (isBlankStr(paramStr)) {
-        return url;
-    } else {
-        return url + "?" + paramStr.slice(1);
-    }
-}
-
-export const genGetUrlBySegs = (path, segments) => {
-    let url = TEAMACHINE_HOST_URL + path;
-    segments.forEach(ele => {
-        url = url.replace('{segment}', ele);
-    })
-    return url;
-}
-
-export const genPostUrl = (path) => {
-    let url = TEAMACHINE_HOST_URL + path;
-    return url;
 }
 
 export const isArray = (arr) => {
