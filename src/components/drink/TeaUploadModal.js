@@ -5,7 +5,7 @@ import axios from 'axios';
 import OSS from 'ali-oss';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, getJwtToken, getTenantCode, handleRespError, isArray, isBlankObj, isBlankStr, genGetUrlBySegs } from '../../js/common.js';
+import { getJwtToken, getTenantCode, isBlankStr, genGetUrlBySegs } from '../../js/common.js';
 
 const TeaUploadModal = (props) => {
     // 对话框相关

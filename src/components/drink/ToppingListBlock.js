@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getTenantCode, getJwtToken, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { getTenantCode } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const ToppingListBlock = (props) => {
     // 样式相关
@@ -17,21 +17,14 @@ const ToppingListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/drinkset/topping/search', {
+        get('/drinkset/topping/search', {
             tenantCode: getTenantCode(),
             toppingCode: props.toppingCode4Search,
             toppingName: props.toppingName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            // withCredentials: true, // 这会让axios在请求中携带cookies
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -44,9 +37,6 @@ const ToppingListBlock = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -136,22 +126,16 @@ const ToppingListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/delete', [getTenantCode(), toppingCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/drinkset/topping/delete', {
+            tenantCode: getTenantCode(),
+            toppingCode: toppingCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

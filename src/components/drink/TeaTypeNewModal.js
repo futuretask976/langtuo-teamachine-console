@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Space, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { isBlankStr, getTenantCode, isValidCode, isValidComment } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -26,26 +26,18 @@ const TeaTypeNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/drinkset/tea/type/put');
-        axios.put(url, {
+
+        put('/drinkset/tea/type/put', {
             teaTypeCode: teaTypeCode,
             teaTypeName: teaTypeName,
             comment: comment,
             tenantCode: getTenantCode()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -68,20 +60,14 @@ const TeaTypeNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/tea/type/{segment}/{segment}/get', [getTenantCode(), props.teaTypeCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/drinkset/tea/type/get', {
+            tenantCode: getTenantCode(),
+            teaTypeCode: props.teaTypeCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setTeaTypeCode(model.teaTypeCode);
             setTeaTypeName(model.teaTypeName);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

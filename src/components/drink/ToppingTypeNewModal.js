@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Space, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, Modal, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { isBlankStr, getTenantCode, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -26,26 +26,18 @@ const ToppingTypeNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/drinkset/topping/type/put');
-        axios.put(url, {
+
+        put('/drinkset/topping/type/put', {
             toppingTypeCode: toppingTypeCode,
             toppingTypeName: toppingTypeName,
             comment: comment,
             tenantCode: getTenantCode()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -68,20 +60,14 @@ const ToppingTypeNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/topping/type/{segment}/{segment}/get', [getTenantCode(), props.toppingTypeCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/drinkset/topping/type/get', {
+            tenantCode: getTenantCode(),
+            toppingTypeCode: props.toppingTypeCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setToppingTypeCode(model.toppingTypeCode);
             setToppingTypeName(model.toppingTypeName);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Radio, Select, Space, Switch, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, InputNumber, Modal, Radio, Select, Space, Switch, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankObj, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isBlankObj, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -38,8 +38,8 @@ const ToppingNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/drinkset/topping/put');
-        axios.put(url, {
+
+        put('/drinkset/topping/put', {
             toppingCode: toppingCode,
             toppingName: toppingName,
             toppingTypeCode: toppingTypeCode,
@@ -51,20 +51,12 @@ const ToppingNewModal = (props) => {
             flowSpeed: flowSpeed,
             comment: comment,
             tenantCode: getTenantCode()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -94,14 +86,11 @@ const ToppingNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/topping/{segment}/{segment}/get', [getTenantCode(), props.toppingCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/drinkset/topping/get', {
+            tenantCode: getTenantCode(),
+            toppingCode: props.toppingCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setToppingCode(model.toppingCode);
             setToppingName(model.toppingName);
             setToppingTypeCode(model.toppingTypeCode);
@@ -112,9 +101,6 @@ const ToppingNewModal = (props) => {
             setConvertCoefficient(model.convertCoefficient);
             setFlowSpeed(model.flowSpeed);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -122,16 +108,10 @@ const ToppingNewModal = (props) => {
     }, [props.toppingTypeCode4Edit]);
     const [toppingTypeList, setToppingTypeList] = useState([]);
     const fetchToppingTypeListData = () => {
-        let url = genGetUrlByParams('/drinkset/topping/type/list', {
+        get('/drinkset/topping/type/list', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setToppingTypeList((prev => {
                 let tmp = [];
                 model.forEach(function(item) {
@@ -142,9 +122,6 @@ const ToppingNewModal = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
@@ -7,9 +6,6 @@ import { getTenantCode, isBlankStr, isValidCode } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const DeployNewModal = (props) => {
-    // 路由组件
-    const navigate = useNavigate();
-
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
