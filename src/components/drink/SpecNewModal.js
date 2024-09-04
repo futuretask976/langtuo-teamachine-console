@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Space, Table, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getTenantCode, getJwtToken, getRespModel, handleRespError, isEmptyArray, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isEmptyArray, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 import SpecItemNewModal from '../../components/drink/SpecItemNewModal'
 
@@ -32,27 +32,19 @@ const SpecNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/drinkset/spec/put');
-        axios.put(url, {
+
+        put('/drinkset/spec/put', {
             tenantCode: getTenantCode(),
             comment: comment,
             specCode: specCode,
             specName: specName,
             specItemList: specItemList
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -76,14 +68,11 @@ const SpecNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/spec/{segment}/{segment}/get', [getTenantCode(), props.specCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/drinkset/spec/get', {
+            tenantCode: getTenantCode(),
+            specCode: props.specCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setSpecCode(model.specCode);
             setSpecName(model.specName);
             setComment(model.comment);
@@ -100,9 +89,6 @@ const SpecNewModal = (props) => {
                 });
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

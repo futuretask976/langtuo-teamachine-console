@@ -33,7 +33,6 @@ const DeployNewModal = (props) => {
 
         setLoading(true);
 
-
         put('/deviceset/deploy/put', {
             tenantCode: getTenantCode(),
             deployCode: deployCode,
