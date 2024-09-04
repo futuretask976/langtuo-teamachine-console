@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Steps, theme } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankObj, isBlankStr, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isBlankObj, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 import TeaNewModalInfoPane from '../../components/drink/TeaNewModalInfoPane'
 import TeaNewModalActStepPane from '../../components/drink/TeaNewModalActStepPane'
@@ -57,8 +57,8 @@ const TeaNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/drinkset/tea/put');
-        axios.put(url, {
+
+        put('/drinkset/tea/put', {
             tenantCode: getTenantCode(),
             teaCode: tea.teaCode,
             teaName: tea.teaName,
@@ -69,20 +69,12 @@ const TeaNewModal = (props) => {
             comment: tea.comment,
             teaUnitList: tea.teaUnitList,
             actStepList: tea.actStepList
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -133,21 +125,14 @@ const TeaNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/drinkset/tea/{segment}/{segment}/get', [getTenantCode(), props.teaCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
-            let teaTmp = {...model};
+        get('/drinkset/tea/get', {
+            tenantCode: getTenantCode(),
+            teaCode: props.teaCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setTea(prev => {
-                return teaTmp;
+                return {...model};
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
