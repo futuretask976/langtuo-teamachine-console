@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidName } from '../../js/common.js';
+import { getTenantCode, isBlankStr, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const OrgNewModal = (props) => {
     // 对话框相关
@@ -16,25 +16,17 @@ const OrgNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/userset/org/put');
-        axios.put(url, {
+
+        put('/userset/org/put', {
             tenantCode: getTenantCode(),
             orgName: orgName,
             parentOrgName: parentOrgName
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -59,30 +51,20 @@ const OrgNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/get', [getTenantCode(), props.orgName4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/org/get', {  
+            tenantCode: getTenantCode(),
+            orgName: props.orgName4Edit
+        }).then(resp => {
+            let model = resp.model;
             setOrgName(model.orgName);
             setParentOrgName(model.parentOrgName);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchOrgList4Select = () => {
-        let url = genGetUrlByParams('/userset/org/list', {tenantCode: getTenantCode()});
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/org/list', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
             setParentOrgNameOpts(prev => {
                 let tmpOpts = [];
                 model.forEach(ite => {
@@ -93,9 +75,6 @@ const OrgNewModal = (props) => {
                 });
                 return tmpOpts;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

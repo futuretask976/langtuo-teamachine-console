@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode, isArray } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const RoleListBlock = (props) => {
     // 样式相关
@@ -19,19 +19,13 @@ const RoleListBlock = (props) => {
 
     // 初始化动作相关
     const fetchListData = async () => {
-        let url = genGetUrlByParams('/userset/role/search', {
+        get('/userset/role/search', {  
             tenantCode: getTenantCode(),
             roleName: props.roleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -46,9 +40,6 @@ const RoleListBlock = (props) => {
                 }
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -122,22 +113,16 @@ const RoleListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/delete', ['tenant_001', roleCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/userset/role/delete', {
+            tenantCode: getTenantCode(),
+            roleCode: roleCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

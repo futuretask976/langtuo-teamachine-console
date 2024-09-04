@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Input, Modal, Space, Table, Col, Row } from 'antd';
-import axios from 'axios';
+import { Checkbox, Input, Modal, Space, Table, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespModel, getJwtToken, getRespErrorMsg, getTenantCode, handleRespError, isArray, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const RoleNewModal = (props) => {
     // 对话框相关
@@ -24,27 +24,19 @@ const RoleNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/userset/role/put');
-        axios.put(url, {
+
+        put('/userset/role/put', {
             tenantCode: getTenantCode(),
             roleCode: roleCode,
             roleName: roleName,
             comment: comment,
             permitActCodeList: getCheckedPermitActCodeList()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -66,20 +58,13 @@ const RoleNewModal = (props) => {
 
     // 初始化动作相关
     const fetchPermitActGroupList4Select = () => {
-        let url = genPostUrl('/userset/permitact/list');
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/permitact/list', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
             setPermitActGroupList((prev => {
                 return model;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchRole4Edit = () => {
@@ -87,21 +72,15 @@ const RoleNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/role/{segment}/{segment}/get', [getTenantCode(), props.roleCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/role/get', {  
+            tenantCode: getTenantCode(),
+            roleCode: props.roleCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setRoleCode(model.roleCode);
             setRoleName(model.roleName);
             setComment(model.comment);
             initCheckPermitActGroup(isArray(model.permitActCodeList) ? model.permitActCodeList : []);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const initCheckPermitActGroup = (permitActCodeList) => {

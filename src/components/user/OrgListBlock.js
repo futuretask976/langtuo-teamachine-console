@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess, isArray } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const OrgListBlock = (props) => {
     // 样式相关
@@ -17,19 +17,13 @@ const OrgListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/userset/org/search', {
+        get('/userset/org/search', {  
             tenantCode: getTenantCode(),
             orgName: props.orgName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -45,9 +39,6 @@ const OrgListBlock = (props) => {
                 }
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -108,22 +99,16 @@ const OrgListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/org/{segment}/{segment}/delete', [getTenantCode(), orgName]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/userset/org/delete', {
+            tenantCode: getTenantCode(),
+            orgName: orgName
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

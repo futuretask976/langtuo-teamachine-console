@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankObj, isArray } from '../../js/common.js';
+import { getTenantCode, isBlankObj, isArray } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 import EditableTree from '../../components/EditableTree'
 
@@ -24,16 +24,10 @@ const OrgViewModal = (props) => {
     // 数据初始化相关
     const [orgStrucTree, setOrgStrucTree] = useState([]);
     useEffect(() => {
-        let url = genGetUrlByParams('/userset/org/listbydepth', {
+        get('/userset/org/listbydepth', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             if (!isBlankObj(model)) {
                 setOrgStrucTree(prev => {
                     let orgStrucTreeTmp = [];
@@ -41,9 +35,6 @@ const OrgViewModal = (props) => {
                     return orgStrucTreeTmp;
                 })
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }, []);
 

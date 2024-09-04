@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, Modal, Select, Space, Col, Row } from 'antd';
 import md5 from 'js-md5';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -37,28 +37,20 @@ const AdminNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/userset/admin/put');
-        axios.put(url, {
+
+        put('/userset/admin/put', {
             tenantCode: getTenantCode(),
             loginName: loginName,
             loginPass: md5(loginPass),
             roleCode: roleCode,
             orgName: orgName,
             comment: comment
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -87,33 +79,23 @@ const AdminNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/admin/{segment}/{segment}/get', [getTenantCode(), props.loginName4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/admin/get', {  
+            tenantCode: getTenantCode(),
+            loginName: props.loginName4Edit
+        }).then(resp => {
+            let model = resp.model;
             setLoginName(model.loginName);
             // setLoginPass(model.loginPass);
             setRoleCode(model.roleCode);
             setOrgName(model.orgName);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchOrgList4Select = () => {
-        let url4OrgStruc = genGetUrlByParams('/userset/org/list', {tenantCode: getTenantCode()});
-        axios.get(url4OrgStruc, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/org/list', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
             setOrgList((prev => {
                 let orgListTmp = [];
                 model.forEach(item => {
@@ -124,20 +106,13 @@ const AdminNewModal = (props) => {
                 })
                 return orgListTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchRoleList4Select = () => {
-        let url4Role = genGetUrlByParams('/userset/role/list', {tenantCode: getTenantCode()});
-        axios.get(url4Role, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/role/list', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
             setRoleList((prev => {
                 let roleListTmp = [];
                 model.forEach(item => {
@@ -148,9 +123,6 @@ const AdminNewModal = (props) => {
                 })
                 return roleListTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Modal, Space, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespModel, getRespErrorMsg, getJwtToken, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -34,27 +34,19 @@ const TenantNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/userset/tenant/put');
-        axios.put(url, {
+
+        put('/userset/tenant/put', {
             tenantCode: tenantCode,
             tenantName: tenantName,
             contactPerson: contactPerson,
             contactPhone: contactPhone,
             comment: comment
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -81,22 +73,15 @@ const TenantNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/userset/tenant/{segment}/get', [props.tenantCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/userset/tenant/get', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
             setTenantCode(model.tenantCode);
             setTenantName(model.tenantName);
             setContactPerson(model.contactPerson);
             setContactPhone(model.contactPhone);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }, [props.tenantCode4Edit]);
  
