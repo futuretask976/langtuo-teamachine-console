@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { isBlankArray, genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { getTenantCode, isBlankArray } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const WarningRuleListBlock = (props) => {
     // 样式相关
@@ -19,20 +19,14 @@ const WarningRuleListBlock = (props) => {
 
     // 初始化动作相关
     const fetchListData = () => {
-        let url = genGetUrlByParams('/ruleset/warning/search', {
+        get('/ruleset/warning/search', {  
             tenantCode: getTenantCode(),
             warningRuleCode: props.warningRuleCode4Search,
             warningRuleName: props.warningRuleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -47,9 +41,6 @@ const WarningRuleListBlock = (props) => {
                     return tmp;
                 }));
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -116,22 +107,16 @@ const WarningRuleListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/delete', [getTenantCode(), warningRuleCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/ruleset/warning/delete', {
+            tenantCode: getTenantCode(),
+            warningRuleCode: warningRuleCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

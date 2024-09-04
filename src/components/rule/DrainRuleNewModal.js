@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Select, Space, Switch, Table, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankStr, isBlankArray, isRespSuccess } from '../../js/common.js';
+import { isBlankArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const DrainRuleNewModal = (props) => {
     // 对话框相关
@@ -11,27 +11,19 @@ const DrainRuleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/drain/put');
-        axios.put(url, {
+
+        put('/ruleset/drain/put', {
             tenantCode: getTenantCode(),
             drainRuleCode: drainRuleCode,
             drainRuleName: drainRuleName,
             defaultRule: defaultRule,
             toppingRuleList: toppingRuleList
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -56,14 +48,11 @@ const DrainRuleNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/get', [getTenantCode(), props.drainRuleCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/ruleset/drain/get', {  
+            tenantCode: getTenantCode(),
+            drainRuleCode: props.drainRuleCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setDrainRuleCode(model.drainRuleCode);
             setDrainRuleName(model.drainRuleName);
             setDefaultRule(model.defaultRule);
@@ -75,9 +64,6 @@ const DrainRuleNewModal = (props) => {
                 });
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -91,16 +77,10 @@ const DrainRuleNewModal = (props) => {
     const [flushSec, setFlushSec] = useState(0);
     const [flushWeight, setFlushWeight] = useState(0);
     const fetchToppingList4Select = () => {
-        let url = genGetUrlByParams('/drinkset/topping/list', {
+        get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setToppingList4Select((prev => {
                 let toppingList4SelectTmp = [];
                 model.forEach(item => {
@@ -114,9 +94,6 @@ const DrainRuleNewModal = (props) => {
                 })
                 return toppingList4SelectTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

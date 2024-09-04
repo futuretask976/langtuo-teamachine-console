@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Select, Switch, Tabs } from 'antd';
-import axios from 'axios';
 
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, handleRespError, isRespSuccess, isBlankObj } from '../../js/common.js';
+import { isArray, isBlankStr, getTenantCode, isBlankObj } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const CleanRuleNewModal = (props) => {
     // 对话框相关
@@ -13,8 +13,8 @@ const CleanRuleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/clean/put');
-        axios.put(url, {
+
+        put('/ruleset/clean/put', {
             tenantCode: getTenantCode(),
             cleanRuleCode: cleanRuleCode,
             cleanRuleName: cleanRuleName,
@@ -22,20 +22,12 @@ const CleanRuleNewModal = (props) => {
             permitBatch: permitBatch,
             exceptToppingCodeList: exceptToppingCodeList,
             cleanRuleStepList: cleanRuleStepList
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -60,30 +52,21 @@ const CleanRuleNewModal = (props) => {
 
     // 初始化动作相关
     const fetchToppingList4Select = () => {
-        let url = genGetUrlByParams('/drinkset/topping/list', {
+        get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setToppingList4Select((prev => {
-            let toppingList4SelectTmp = [];
-            model.forEach(item => {
-                let toppingTmp = {...item};
-                toppingTmp.key = item.toppingCode;
-                toppingTmp.label = item.toppingName;
-                toppingTmp.value = item.toppingCode;
-                toppingList4SelectTmp.push(toppingTmp);
-            })
-            return toppingList4SelectTmp;
-        }));
-        })
-        .catch(error => {
-            handleRespError(error);
+                let toppingList4SelectTmp = [];
+                model.forEach(item => {
+                    let toppingTmp = {...item};
+                    toppingTmp.key = item.toppingCode;
+                    toppingTmp.label = item.toppingName;
+                    toppingTmp.value = item.toppingCode;
+                    toppingList4SelectTmp.push(toppingTmp);
+                })
+                return toppingList4SelectTmp;
+            }));
         });
     }
     const fetchCleanRule4Edit = () => {
@@ -91,14 +74,11 @@ const CleanRuleNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/get', [getTenantCode(), props.cleanRuleCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/ruleset/clean/get', {  
+            tenantCode: getTenantCode(),
+            cleanRuleCode: props.cleanRuleCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setCleanRuleCode(model.cleanRuleCode);
             setCleanRuleName(model.cleanRuleName);
             setPermitRemind(model.permitRemind);
@@ -121,9 +101,6 @@ const CleanRuleNewModal = (props) => {
                 });
                 setStepIndex(model.cleanRuleStepList.length);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

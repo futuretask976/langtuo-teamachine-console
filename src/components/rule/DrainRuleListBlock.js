@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, getJwtToken, getTenantCode, handleRespError, isBlankArray, isRespSuccess } from '../../js/common.js';
+import { getTenantCode, isBlankArray } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const DrainRuleListBlock = (props) => {
     // 样式相关
@@ -17,20 +17,14 @@ const DrainRuleListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/ruleset/drain/search', {
+        get('/ruleset/drain/search', {  
             tenantCode: getTenantCode(),
             drainRuleCode: props.drainRuleCode4Search,
             drainRuleName: props.drainRuleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -45,9 +39,6 @@ const DrainRuleListBlock = (props) => {
                     return tmp;
                 }));
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -120,22 +111,16 @@ const DrainRuleListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/delete', [getTenantCode(), drainRuleCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/ruleset/drain/delete', {
+            tenantCode: getTenantCode(),
+            drainRuleCode: drainRuleCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

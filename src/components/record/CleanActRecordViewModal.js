@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, DatePicker, Input, InputNumber, Modal, Radio, Space, Col, Row } from 'antd';
-import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, getRespModel, handleRespError, isBlankStr, getJwtToken, getTenantCode } from '../../js/common.js';
+import { isBlankStr, getTenantCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
 
@@ -38,14 +38,11 @@ const CleanActRecordViewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/recordset/clean/{segment}/{segment}/get', [getTenantCode(), props.idempotentMark4View]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/recordset/clean/get', {  
+            tenantCode: getTenantCode(),
+            idempotentMark: props.idempotentMark4View
+        }).then(resp => {
+            let model = resp.model;
             setMachineCode(model.machineCode);
             setShopName(model.shopName);
             setShopGroupName(model.shopGroupName);
@@ -60,9 +57,6 @@ const CleanActRecordViewModal = (props) => {
             setSoakMin(model.soakMin);
             setFlushIntervalMin(model.flushIntervalMin);
             setFlushSec(model.flushSec);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

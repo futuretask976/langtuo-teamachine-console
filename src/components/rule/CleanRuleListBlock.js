@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, getTenantCode, getJwtToken, handleRespError, isRespSuccess } from '../../js/common.js';
+import { getTenantCode } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const CleanRuleListBlock = (props) => {
     // 样式相关
@@ -17,20 +17,14 @@ const CleanRuleListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/ruleset/clean/search', {
+        get('/ruleset/clean/search', {  
             tenantCode: getTenantCode(),
             cleanRuleCode: props.cleanRuleCode4Search,
             cleanRuleName: props.cleanRuleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -43,9 +37,6 @@ const CleanRuleListBlock = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -124,22 +115,16 @@ const CleanRuleListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/delete', [getTenantCode(), cleanRuleCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/ruleset/clean/delete', {
+            tenantCode: getTenantCode(),
+            cleanRuleCode: cleanRuleCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

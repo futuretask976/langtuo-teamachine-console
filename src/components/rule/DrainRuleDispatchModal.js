@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Transfer, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const DrainRuleDispatchModal = (props) => {
     // 对话框相关
@@ -11,25 +11,17 @@ const DrainRuleDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/drain/dispatch/put');
-        axios.put(url, {
+
+        put('/ruleset/drain/dispatch/put', {
             tenantCode: getTenantCode(),
             drainRuleCode: drainRuleCode,
             shopGroupCodeList: targetKeys
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -53,14 +45,11 @@ const DrainRuleDispatchModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/drain/dispatch/{segment}/{segment}/get', [getTenantCode(), props.drainRuleCode4Dispatch]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/ruleset/drain/dispatch/get', {  
+            tenantCode: getTenantCode(),
+            drainRuleCode: props.drainRuleCode4Dispatch
+        }).then(resp => {
+            let model = resp.model;
             setTargetKeys(prev => {
                 let tmp = [];
                 if (isArray(model.shopGroupCodeList)) {
@@ -70,22 +59,13 @@ const DrainRuleDispatchModal = (props) => {
                 }
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchShopGroupList4Transfer = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/listbyadminorg', {
+        get('/shopset/shop/group/listbyadminorg', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setShopGroupList4Transfer(prev => {
                 let tmp = [];
                 model.forEach(item => {
@@ -94,9 +74,6 @@ const DrainRuleDispatchModal = (props) => {
                 })
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

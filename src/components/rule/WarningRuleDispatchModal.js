@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Transfer, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const WarningRuleDispatchModal = (props) => {
     // 对话框相关
@@ -11,25 +11,17 @@ const WarningRuleDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/warning/dispatch/put');
-        axios.put(url, {
+
+        put('/ruleset/drain/warning/put', {
             tenantCode: getTenantCode(),
             warningRuleCode: warningRuleCode,
             shopGroupCodeList: targetKeys
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -53,14 +45,11 @@ const WarningRuleDispatchModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/warning/dispatch/{segment}/{segment}/get', [getTenantCode(), props.warningRuleCode4Dispatch]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/ruleset/warning/dispatch/get', {  
+            tenantCode: getTenantCode(),
+            warningRuleCode: props.warningRuleCode4Dispatch
+        }).then(resp => {
+            let model = resp.model;
             setTargetKeys(prev => {
                 let tmp = [];
                 if (isArray(model.shopGroupCodeList)) {
@@ -70,22 +59,13 @@ const WarningRuleDispatchModal = (props) => {
                 }
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchShopGroupList4Transfer = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/listbyadminorg', {
+        get('/shopset/shop/group/listbyadminorg', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setShopGroupList4Transfer(prev => {
                 let tmp = [];
                 model.forEach(item => {
@@ -94,9 +74,6 @@ const WarningRuleDispatchModal = (props) => {
                 })
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Radio, Space, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, getJwtToken, genPostUrl, getRespErrorMsg, getRespModel, getTenantCode, handleRespError, isBlankStr, isRespSuccess } from '../../js/common.js';
+import { isBlankStr, getTenantCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -13,8 +13,8 @@ const WarningRuleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/ruleset/warning/put');
-        axios.put(url, {
+
+        put('/ruleset/warning/put', {
             tenantCode: getTenantCode(),
             comment: comment,
             warningRuleCode: warningRuleCode,
@@ -23,20 +23,12 @@ const WarningRuleNewModal = (props) => {
             warningContent: warningContent,
             thresholdMode: thresholdMode,
             threshold: threshold
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -63,14 +55,11 @@ const WarningRuleNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/get', [getTenantCode(), props.warningRuleCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/ruleset/warning/get', {  
+            tenantCode: getTenantCode(),
+            warningRuleCode: props.warningRuleCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setWarningRuleCode(model.warningRuleCode);
             setWarningRuleName(model.warningRuleName);
             setWarningType(model.warningType);
@@ -78,9 +67,6 @@ const WarningRuleNewModal = (props) => {
             setThresholdMode(model.thresholdMode);
             setThreshold(model.threshold);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }, [props.warningRuleCode4Edit]);
  

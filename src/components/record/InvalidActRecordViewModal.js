@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, DatePicker, Input, InputNumber, Modal, Space, Col, Row } from 'antd';
-import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, getRespModel, handleRespError, getTenantCode, getJwtToken } from '../../js/common.js';
+import { isBlankStr, getTenantCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
 
@@ -31,14 +31,11 @@ const InvalidActRecordViewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/recordset/invalid/{segment}/{segment}/get', [getTenantCode(), props.idempotentMark4View]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/recordset/invalid/get', {  
+            tenantCode: getTenantCode(),
+            idempotentMark: props.idempotentMark4View
+        }).then(resp => {
+            let model = resp.model;
             setMachineCode(model.machineCode);
             setShopGroupName(model.shopGroupName);
             setShopName(model.shopName);
@@ -46,9 +43,6 @@ const InvalidActRecordViewModal = (props) => {
             setToppingName(model.toppingName);
             setPipelineNum(model.pipelineNum);
             setInvalidAmount(model.invalidAmount);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

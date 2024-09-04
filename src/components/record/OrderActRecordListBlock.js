@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, isBlankArray, getRespModel, handleRespError, getTenantCode, getJwtToken } from '../../js/common.js';
+import { isBlankArray, getTenantCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 const OrderActRecordListBlock = (props) => {
     // 样式相关
@@ -17,20 +17,14 @@ const OrderActRecordListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/recordset/order/search', {
+        get('/recordset/invalid/search', {  
             tenantCode: getTenantCode(),
             shopGroupCodeList: [props.shopGroupCode4Search],
             shopCodeList: [props.shopCode4Search],
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -45,9 +39,6 @@ const OrderActRecordListBlock = (props) => {
                     return tmp;
                 }));
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

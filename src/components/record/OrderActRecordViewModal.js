@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, DatePicker, Input, Modal, Select, Space, Table, Col, Row } from 'antd';
-import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, getRespModel, handleRespError, isArray, getTenantCode, getJwtToken } from '../../js/common.js';
+import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
 
@@ -32,14 +32,11 @@ const OrderActRecordViewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/recordset/order/{segment}/{segment}/get', [getTenantCode(), props.idempotentMark4View]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/recordset/order/get', {  
+            tenantCode: getTenantCode(),
+            idempotentMark: props.idempotentMark4View
+        }).then(resp => {
+            let model = resp.model;
             setMachineCode(model.machineCode);
             setShopGroupName(model.shopGroupName);
             setShopName(model.shopName);
@@ -56,9 +53,6 @@ const OrderActRecordViewModal = (props) => {
             if (isArray(model.orderToppingActRecordList)) {
                 setToppingRecList(model.orderToppingActRecordList);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
