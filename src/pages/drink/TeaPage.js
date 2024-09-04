@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button, Flex, Input, Layout, Col, Row } from 'antd';
 import { DownCircleOutlined, FormOutlined, SearchOutlined, UpCircleOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getTenantCode, isBlankObj, isValidCode, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, getTenantCode, isValidCode, isValidName } from '../../js/common.js';
+import { get4Export } from '../../js/request4Export.js'
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -79,37 +79,16 @@ const TeaPage = () => {
         setOpenNewModal(true);
     }
     const onExportByExcel = ()=> {
-        let url = genGetUrlByParams('/drinkset/tea/{segment}/export', {
+        get4Export('/drinkset/tea/export', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': localStorage.getItem('jwtToken')
-            },
-            responseType: 'blob'
-        })
-        .then(resp => {
-            const url4Export = window.URL.createObjectURL(new Blob([resp.data]));
+        }).then(resp => {
+            const url4Export = window.URL.createObjectURL(new Blob([resp]));
             const link4Export = document.createElement('a');
             link4Export.href = url4Export;
             link4Export.setAttribute('download', 'export.xlsx');
             document.body.appendChild(link4Export);
             link4Export.click();
             document.body.removeChild(link4Export);
-        })
-        .catch(errorResp => {
-            if (isBlankObj(errorResp) || isBlankObj(errorResp.response)) {
-                navigate('/error?msg=' + encodeURI('网络请求出现异常！'));
-            }
-        
-            let resp = errorResp.response;
-            if (resp.status == 401) {
-                navigate('/login?msg=' + encodeURI('认证失败，需要重新登录！'));
-            } else if (resp.status == 403) {
-                alert("授权失败，请咨询管理员授权！");
-            } else {
-                navigate('/error?msg=' + encodeURI('出现未知错误！'));
-            }
         });
     }
 
