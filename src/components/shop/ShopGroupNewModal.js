@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Space, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, Modal, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankStr, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { isBlankStr, getTenantCode, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -26,26 +26,18 @@ const ShopGroupNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/shopset/shop/group/put');
-        axios.put(url, {
+
+        put('/shopset/shop/group/put', {
             shopGroupCode: shopGroupCode,
             shopGroupName: shopGroupName,
             comment: comment,
             tenantCode: getTenantCode()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -63,26 +55,23 @@ const ShopGroupNewModal = (props) => {
     const [shopGroupCode, setShopGroupCode] = useState(isBlankStr(props.shopGroupCode4Edit) ? '' : props.shopGroupCode4Edit);
     const [shopGroupName, setShopGroupName] = useState('');
     const [comment, setComment] = useState('');
-    useEffect(() => {
+    const fetchShopGroup4Edit = () => {
         if (isBlankStr(props.shopGroupCode4Edit)) {
             return;
         }
 
-        let url = genGetUrlBySegs('/shopset/shop/group/{segment}/{segment}/get', [getTenantCode(), props.shopGroupCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/shopset/shop/group/get', {  
+            tenantCode: getTenantCode(),
+            shopGroupCode: props.shopGroupCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setShopGroupCode(model.shopGroupCode);
             setShopGroupName(model.shopGroupName);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
+    }
+    useEffect(() => {
+        fetchShopGroup4Edit();
     }, [props.shopGroupCode4Edit]);
  
     return (

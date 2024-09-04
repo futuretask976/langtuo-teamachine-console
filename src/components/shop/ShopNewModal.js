@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import '../../css/common.css';
 import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -30,27 +31,19 @@ const ShopNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/shopset/shop/put');
-        axios.put(url, {
+
+        put('/shopset/shop/put', {
             shopCode: shopCode,
             shopName: shopName,
             shopGroupCode: shopGroupCode,
             comment: comment,
             tenantCode: getTenantCode()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -78,35 +71,23 @@ const ShopNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/shopset/shop/{segment}/{segment}/get', [getTenantCode(), props.shopCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/shopset/shop/get', {  
+            tenantCode: getTenantCode(),
+            shopCode: props.shopCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setShopCode(model.shopCode);
             setShopName(model.shopName);
             setShopGroupCode(model.shopGroupCode);
             setShopGroupName(model.shopGroupName);
             setComment(model.comment);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchShopGroupList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/list', {
+        get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setShopGroupList((prev => {
                 let shopGroupListTmp = [];
                 model.forEach(item => {
@@ -117,9 +98,6 @@ const ShopNewModal = (props) => {
                 })
                 return shopGroupListTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
