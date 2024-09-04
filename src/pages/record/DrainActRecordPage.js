@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Button, Flex, Layout, Select, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getRespModel, handleRespError, getJwtToken, getTenantCode } from '../../js/common.js';
+import { getTenantCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 import HeaderBar from '../../components/HeaderBar'
 import SiderMenu from '../../components/SiderMenu'
@@ -38,61 +38,42 @@ const DrainActRecordPage = (props) => {
     const [shopList4Select, setShopList4Select] = useState([]);
     const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
     const fetchShopList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/listbyadminorg', {
+        get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let shopList = Array.from(resp.model);
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                model.forEach(item => {
+                shopList.forEach(item => {
                     shopListTmp.push({
                         label: item.shopName,
                         value: item.shopCode
                     });
-            })
-            return shopListTmp;
-        }));
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
+                });
+            }));
         });
     }
     const fetchShopGroupList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/listbyadminorg', {
+        get('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let shopGroupList = Array.from(resp.model);
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                model.forEach(item => {
+                shopGroupList.forEach(item => {
                     shopGroupListTmp.push({
                         label: item.shopGroupName,
                         value: item.shopGroupCode
                     });
-            })
-            return shopGroupListTmp;
-        }));
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
+                })
+                return shopGroupListTmp;
+            }));
         });
     }
     useEffect(() => {

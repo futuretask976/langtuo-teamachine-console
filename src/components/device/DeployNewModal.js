@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, genPostUrl, getRespErrorMsg, getRespModel, getTenantCode, handleRespError, isBlankStr, isRespSuccess, isValidCode } from '../../js/common.js';
+import { getTenantCode, isBlankStr, isValidCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const DeployNewModal = (props) => {
     // 路由组件
@@ -32,28 +32,21 @@ const DeployNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/deviceset/deploy/put');
-        axios.put(url, {
+
+
+        put('/deviceset/deploy/put', {
             tenantCode: getTenantCode(),
             deployCode: deployCode,
             modelCode: modelCode,
             machineCode: machineCode,
             shopCode: shopCode,
             state: state
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response, navigate));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
 
         setTimeout(() => {
@@ -78,16 +71,10 @@ const DeployNewModal = (props) => {
 
     // 初始化动作相关
     const fetchShopList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/listbyadminorg', {
+        get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        })
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let model = resp.model;
             setShopList4Select((prev => {
                 let shopListTmp = [];
                 model.forEach(item => {
@@ -98,22 +85,13 @@ const DeployNewModal = (props) => {
                 });
                 return shopListTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
     const fetchModelList4Select= () => {
-        let url = genGetUrlByParams('/deviceset/model/list', {
+        get('/deviceset/model/list', {
             tenantCode: getTenantCode()
-        })
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let model = resp.model;
             setModelList4Select((prev => {
                 let modelListTmp = [];
                 model.forEach(item => {
@@ -124,9 +102,6 @@ const DeployNewModal = (props) => {
                 });
                 return modelListTmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
     const fetchDeploy4Edit = () => {
@@ -134,21 +109,15 @@ const DeployNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/get', [getTenantCode(), props.deployCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        get('/deviceset/deploy/get', {
+            tenantCode: getTenantCode(),
+            deployCode: props.deployCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setDeployCode(model.deployCode);
             setModelCode(model.modelCode);
             setMachineCode(model.machineCode);
             setShopCode(model.shopCode);
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
     useEffect(() => {
@@ -161,37 +130,19 @@ const DeployNewModal = (props) => {
 
     // 输入相关
     const onClickDeployCodeGen = (e) => {
-        let url = genGetUrlByParams('/deviceset/deploy/deploycode/generate', {
+        get('/deviceset/deploy/deploycode/generate', {
             tenantCode: getTenantCode()
-        })
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let model = resp.model;
             setDeployCode(model);
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
     const onClickMachineCodeGen = (e) => {
-        let url = genGetUrlByParams('/deviceset/deploy/machinecode/generate', {
+        get('/deviceset/deploy/machinecode/generate', {
             tenantCode: getTenantCode()
-        })
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let model = resp.model;
             setMachineCode(model);
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
  

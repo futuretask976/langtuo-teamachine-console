@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getJwtToken, getRespErrorMsg, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { getTenantCode } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const DeployListBlock = (props) => {
     // 路由组件
@@ -21,22 +21,16 @@ const DeployListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/deviceset/deploy/search', {
+        get('/deviceset/deploy/search', {
             deployCode: props.deployCode4Search,
-            machineCode: props.machineCode4Search,
+            machineCode: '',
             shopName: props.shopName4Search,
             state: props.state4Search,
             tenantCode: getTenantCode(),
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -49,9 +43,6 @@ const DeployListBlock = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
     useEffect(() => {
@@ -128,22 +119,16 @@ const DeployListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/deploy/{segment}/{segment}/delete', [getTenantCode(), deployCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/deviceset/deploy/delete', {
+            tenantCode: getTenantCode(),
+            deployCode: deployCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response, navigate))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DatePicker, Input, Modal, Select, Space, Switch, Col, Row } from 'antd';
-import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getRespModel, getTenantCode, isBlankStr, handleRespError, isRespSuccess, isArray, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, getTenantCode, isBlankStr, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
 
@@ -19,8 +19,8 @@ const MachineDeployNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/deviceset/machine/update');
-        axios.put(url, {
+
+        put('/deviceset/machine/update', {
             machineCode: machineCode,
             machineName: machineName,
             screenCode: screenCode,
@@ -29,20 +29,12 @@ const MachineDeployNewModal = (props) => {
             validUntil: new Date(validUntil),
             maintainUntil: new Date(maintainUntil),
             tenantCode: getTenantCode()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -73,14 +65,11 @@ const MachineDeployNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/machine/{segment}/{segment}/get', [getTenantCode(), props.machineCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/deviceset/machine/get', {
+            tenantCode: getTenantCode(),
+            machineCode: props.machineCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setMachineCode(model.machineCode);
             setMachineName(model.machineName);
             setScreenCode(model.screenCode);
@@ -89,35 +78,23 @@ const MachineDeployNewModal = (props) => {
             setValidUntil(dateToYMDHMS(new Date(model.validUntil)));
             setMaintainUntil(dateToYMDHMS(new Date(model.maintainUntil)));
             setShopCode(model.shopCode);
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchShopList4Select = () => {
-        let url = genGetUrlByParams('/shopset/shop/list', {tenantCode: getTenantCode()});
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
-            if (isArray(model)) {
-                setShopList4Select(prev => {
-                    let tmp = [];
-                    model.forEach(item => {
-                        tmp.push({
-                            label: item.shopName,
-                            value: item.shopCode
-                        });
-                    })
-                    return tmp;
+        get('/shopset/shop/listbyadminorg', {
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
+            setShopList4Select((prev => {
+                let shopListTmp = [];
+                model.forEach(item => {
+                    shopListTmp.push({
+                        label: item.shopName,
+                        value: item.shopCode
+                    });
                 });
-            }
-        })
-        .catch(error => {
-            handleRespError(error);
+                return shopListTmp;
+            }));
         });
     }
     useEffect(() => {

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Button, Image, Input, Select, Space } from 'antd';
-import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { genGetUrl, genPostUrl, getRespModel, handleRespError, isValidCode, putLoginName, putTenantCode } from '../js/common';
+import { isValidCode, putLoginName, putTenantCode } from '../js/common';
+import { get, post } from '../js/request.js';
 import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
@@ -24,15 +24,12 @@ function LoginPage() {
 
     // 初始化动作相关
     const fetchTenantList4Select = () => {
-        let url = genGetUrl('/userset/tenant/list');
-        axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            let model = getRespModel(response, navigate);
+        get('/userset/tenant/list', {
+        }).then(resp => {
+            let tenantList = Array.from(resp.model);
             setTenantList4Select((prev => {
                 let tmp = [];
-                model.forEach(item => {
+                tenantList.forEach(item => {
                     tmp.push({
                         label: item.tenantName,
                         value: item.tenantCode
@@ -40,102 +37,34 @@ function LoginPage() {
                 })
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error, navigate);
         });
     }
     const onlyTest = () => {
-        // let url = genGetUrlBySegs('/deviceset/model/{segment}/get', ['GX_TEAMACHINE_01']);
-        // axios.get(url, {
-        //     headers: {
-        //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': 'machine_001',
-        //         'Deploy-Code': 'fmzxpo'
-        //     }
-        // })
-        // .then(response => {
-        //     let model = getRespModel(response);
-        //     console.log('$$$$$ onlyTest modelList=', model);
-        // })
-        // .catch(error => {
-        //     console.log('$$$$$ onlyTest error=', error);
+        // get('/deviceset/model/get', {
+        //     modelCode: 'GX_TEAMACHINE_01'
+        // }).then(resp => {
+        //     console.log('$$$$$ resp=', resp);
         // });
 
-        // let url2 = genGetUrlBySegs('/drinkset/accuracy/{segment}/list', ['tenant_001']);
-        // axios.get(url2, {
-        //     headers: {
-        //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': 'machine_001',
-        //         'Deploy-Code': 'fmzxpo'
-        //     }
-        // })
-        // .then(response => {
-        //     let model = getRespModel(response);
-        //     console.log('$$$$$ onlyTest accuracyList=', model);
-        // })
-        // .catch(error => {
-        //     console.log('$$$$$ onlyTest error=', error);
+        // get('/drinkset/accuracy/list', {
+        //     tenantCode: 'tenant_001'
+        // }).then(resp => {
+        //     console.log('$$$$$ resp=', resp);
         // });
 
-        // let url3 = genGetUrlBySegs('/menuset/menu/{segment}/{segment}/{segment}/trigger', ['tenant_001', 'shop_001', 'machine033']);
-        // axios.get(url3, {
-        //     headers: {
-        //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': 'machine_001',
-        //         'Deploy-Code': 'fmzxpo'
-        //     }
-        // })
-        // .then(response => {
-        //     console.log('$$$$$ onlyTest response=', response);
-        // })
-        // .catch(error => {
-        //     console.log('$$$$$ onlyTest error=', error);
+        // get('/menuset/menu/trigger', {
+        //     tenantCode: 'tenant_001',
+        //     shopCode: 'shop_001',
+        //     machineCode: 'machine033'
+        // }).then(resp => {
+        //     console.log('$$$$$ resp=', resp);
         // });
 
-        // let url4 = genGetUrlBySegs('/ruleset/drain/{segment}/{segment}/listbyshop', ['tenant_001', 'shop_001']);
-        // axios.get(url4, {
-        //     headers: {
-        //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': 'machine_001',
-        //         'Deploy-Code': 'fmzxpo'
-        //     }
-        // })
-        // .then(response => {
-        //     console.log('$$$$$ onlyTest response=', response);
-        // })
-        // .catch(error => {
-        //     console.log('$$$$$ onlyTest error=', error);
-        // });
-
-        // let url5 = genGetUrlBySegs('/ruleset/clean/{segment}/{segment}/listbyshop', ['tenant_001', 'shop_001']);
-        // axios.get(url5, {
-        //     headers: {
-        //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': 'machine_001',
-        //         'Deploy-Code': 'fmzxpo'
-        //     }
-        // })
-        // .then(response => {
-        //     console.log('$$$$$ onlyTest response=', response);
-        // })
-        // .catch(error => {
-        //     console.log('$$$$$ onlyTest error=', error);
-        // });
-
-        // let url6 = genGetUrlBySegs('/ruleset/warning/{segment}/{segment}/listbyshop', ['tenant_001', 'shop_001']);
-        // axios.get(url6, {
-        //     headers: {
-        //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': 'machine_001',
-        //         'Deploy-Code': 'fmzxpo'
-        //     }
-        // })
-        // .then(response => {
-        //     console.log('$$$$$ onlyTest response=', response);
-        // })
-        // .catch(error => {
-        //     console.log('$$$$$ onlyTest error=', error);
+        // get('/ruleset/drain/listbyshop', {
+        //     tenantCode: 'tenant_001',
+        //     shopCode: 'shop_001',
+        // }).then(resp => {
+        //     console.log('$$$$$ resp=', resp);
         // });
     }
     useEffect(() => {
@@ -154,18 +83,13 @@ function LoginPage() {
         }
 
         let postData = 'username=' + userName + "&password=" + md5(password) + "&tenantCode=" + tenantCode;
-        axios.post(genPostUrl('/login-processing'), postData, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        post('/login-processing', postData)
+        .then(resp => {
+            let model = resp.model;
             putTenantCode(tenantCode);
             setToken(model.jwtToken);
             putLoginName(model.loginName);
             navigate('/index');
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     };
 

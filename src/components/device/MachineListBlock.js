@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, handleRespError, isRespSuccess, getJwtToken, getTenantCode } from '../../js/common.js';
+import { getTenantCode } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const MachineListBlock = (props) => {
     // 样式相关
@@ -17,7 +17,7 @@ const MachineListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/deviceset/machine/search', {
+        get('/deviceset/machine/search', {
             screenCode: props.screenCode4Search,
             elecBoardCode: props.elecBoardCode4Search,
             modelCode: props.modelCode4Search,
@@ -25,23 +25,14 @@ const MachineListBlock = (props) => {
             pageNum: pageNum,
             pageSize: pageSize,
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
             setList((prev => {
                 return model.list
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -128,28 +119,22 @@ const MachineListBlock = (props) => {
     const onClickEdit = (e, deployCode) => {
         props.onClickEdit(deployCode);
     }
-    const onClickDelete = (e, deployCode) => {
+    const onClickDelete = (e, machineCode) => {
         let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
         if (!confirmRtn) {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/machine/{segment}/delete', [deployCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/deviceset/machine/delete', {
+            tenantCode: getTenantCode(),
+            machineCode: machineCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 
