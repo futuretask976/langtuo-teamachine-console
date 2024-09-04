@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Transfer, Col, Row } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, getJwtToken, getRespModel, getTenantCode, handleRespError, isRespSuccess } from '../../js/common.js';
+import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const MenuDispatchModal = (props) => {
     // 对话框相关
@@ -11,25 +11,17 @@ const MenuDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        let url = genPostUrl('/menuset/menu/dispatch/put');
-        axios.put(url, {
-            tenantCode: 'tenant_001',
+
+        put('/menuset/menu/dispatch/put', {
+            tenantCode: getTenantCode(),
             menuCode: menuCode,
             shopGroupCodeList: targetKeys
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
-                alert("保存成功")
+        }).then(resp => {
+            if (resp.success) {
+                alert("保存成功");
             } else {
-                alert("保存失败，请重试，或联系管理员处理")
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -53,15 +45,11 @@ const MenuDispatchModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/menuset/menu/dispatch/{segment}/{segment}/get', [getTenantCode(), props.menuCode4Dispatch]);
-        axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/menuset/menu/dispatch/get', {  
+            tenantCode: getTenantCode(),
+            menuCode: props.menuCode4Dispatch
+        }).then(resp => {
+            let model = resp.model;
             setTargetKeys(prev => {
                 let tmp = [];
                 if (isArray(model.shopGroupCodeList)) {
@@ -71,23 +59,13 @@ const MenuDispatchModal = (props) => {
                 }
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchShopGroupList4Transfer = () => {
-        let url = genGetUrlByParams('/shopset/shop/group/list', {
+        get('/shopset/shop/group/list', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setShopGroupList4Transfer(prev => {
                 let tmp = [];
                 model.forEach(item => {
@@ -96,9 +74,6 @@ const MenuDispatchModal = (props) => {
                 })
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

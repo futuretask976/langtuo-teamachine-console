@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getTenantCode, getRespErrorMsg, getRespModel, getJwtToken, genPostUrl, handleRespError, isBlankStr, isBlankArray, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isBlankArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -30,27 +30,20 @@ const SeriesNewModal = (props) => {
         }
 
         setLoading(true);
-        axios.put(genPostUrl('/menuset/series/put'), {
+
+        put('/menuset/series/put', {
             tenantCode: getTenantCode(),
             comment: comment,
             seriesCode: seriesCode,
             seriesName: seriesName,
             imgLink: imgLink,
             seriesTeaRelList: convertToSeriesTeaRel()
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -78,30 +71,23 @@ const SeriesNewModal = (props) => {
             return;
         }
 
-        try {
-            const response = await axios.get(genGetUrlBySegs('/menuset/series/{segment}/{segment}/get', [getTenantCode(), props.seriesCode4Edit]), {
-                headers: {
-                    'Authorization': getJwtToken()
-                }
-            });
-            let model = getRespModel(response);
+        get('/menuset/series/get', {  
+            tenantCode: getTenantCode(),
+            seriesCode: props.seriesCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setSeriesCode(model.seriesCode);
             setSeriesName(model.seriesName);
             setImgLink(model.imgLink);
             setComment(model.comment);
             setTeaCodeList(convertToTeaCodeList(model.seriesTeaRelList));
-        } catch (error) {
-            handleRespError(error);
-        }
+        });
     }
     const fetchTeaList4Select = () => {
-        axios.get(genGetUrlByParams('/drinkset/tea/list', {tenantCode: getTenantCode()}), {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/drinkset/tea/list', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
             setTeaList4Select(() => {
                 let tmp = [];
                 model.forEach(item => {
@@ -111,9 +97,6 @@ const SeriesNewModal = (props) => {
                 })
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

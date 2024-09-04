@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DatePicker, Input, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, isBlankStr, genGetUrlByParams, genGetUrlBySegs, genPostUrl, isBlankArray, getRespErrorMsg, getTenantCode, getJwtToken, getRespModel, handleRespError, isEmptyArray, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, isBlankStr, isBlankArray, getTenantCode, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 const { TextArea } = Input;
 
@@ -31,8 +31,8 @@ const MenuNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/menuset/menu/put');
-        axios.put(url, {
+
+        put('/menuset/menu/put', {
             tenantCode: getTenantCode(),
             comment: comment,
             menuCode: menuCode,
@@ -40,21 +40,12 @@ const MenuNewModal = (props) => {
             imgLink: imgLink,
             validFrom: new Date(validFrom),
             menuSeriesRelList: convertToMenuSeriesRel()
-        }, {
-            // withCredentials: true // 这会让axios在请求中携带cookies
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -83,14 +74,11 @@ const MenuNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/menuset/menu/{segment}/{segment}/get', [getTenantCode(), props.menuCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/menuset/menu/get', {  
+            tenantCode: getTenantCode(),
+            menuCode: props.menuCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setMenuCode(model.menuCode);
             setMenuName(model.menuName);
             setImgLink(model.imgLink);
@@ -99,22 +87,13 @@ const MenuNewModal = (props) => {
             setSeriesCodeList(prev => {
                 return convertToSeriesCodeList(model.menuSeriesRelList);
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     const fetchSeriesList4Select = () => {
-        let url = genGetUrlByParams('/menuset/series/list', {
+        get('/menuset/series/list', {  
             tenantCode: getTenantCode()
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setSeriesList4Select(prev => {
                 let tmp = [];
                 model.forEach(item => {
@@ -124,9 +103,6 @@ const MenuNewModal = (props) => {
                 })
                 return tmp;
             });
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getTenantCode, getJwtToken, getRespModel, handleRespError, isRespSuccess } from '../../js/common.js';
+import { getTenantCode } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const SeriesListBlock = (props) => {
     // 样式相关
@@ -17,20 +17,14 @@ const SeriesListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/menuset/series/search', {
+        get('/menuset/series/search', {  
             tenantCode: getTenantCode(),
             seriesCode: props.seriesCode4Search,
             seriesName: props.seriesName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -43,9 +37,6 @@ const SeriesListBlock = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -109,22 +100,16 @@ const SeriesListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/menuset/series/{segment}/{segment}/delete', [getTenantCode(), seriesCode]);
-        axios.delete(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/menuset/series/delete', {
+            tenantCode: getTenantCode(),
+            seriesCode: seriesCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 
