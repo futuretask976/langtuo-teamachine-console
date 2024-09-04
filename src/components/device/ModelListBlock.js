@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, getRespErrorMsg, getRespModel, handleRespError, isRespSuccess, getJwtToken } from '../../js/common.js';
+import { get, del } from '../../js/request.js';
 
 const ModelListBlock = (props) => {
     // 样式相关
@@ -17,18 +16,12 @@ const ModelListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        let url = genGetUrlByParams('/deviceset/model/search', {
+        get('/deviceset/model/search', {
             modelCode: props.modelCode4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        });
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        }).then(resp => {
+            let model = resp.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -41,9 +34,6 @@ const ModelListBlock = (props) => {
                 });
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
@@ -108,20 +98,15 @@ const ModelListBlock = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/model/{segment}/delete', [modelCode]);
-        axios.delete(url, {
-            withCredentials: true // 这会让axios在请求中携带cookies
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        del('/deviceset/model/delete', {
+            modelCode: modelCode
+        }).then(resp => {
+            if (resp.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + getRespErrorMsg(response))
+                alert('删除失败：' + resp.errorMsg)
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
 

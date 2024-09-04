@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Space, Switch, Col, Row } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlBySegs, genPostUrl, getRespErrorMsg, getRespModel, getJwtToken, handleRespError, isArray, isEmptyArray, isBlankStr, isRespSuccess, isValidCode } from '../../js/common.js';
+import { isArray, isBlankStr, isEmptyArray, isValidCode } from '../../js/common.js';
+import { get, put } from '../../js/request.js';
 
 const ModelNewModal = (props) => {
     // 对话框相关
@@ -21,25 +21,17 @@ const ModelNewModal = (props) => {
         }
 
         setLoading(true);
-        let url = genPostUrl('/deviceset/model/put');
-        axios.put(url, {
+
+        put('/deviceset/model/put', {
             modelCode: modelCode,
             enableFlowAll: enableFlowAll,
             pipelineList: pipelineList
-        }, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            if (isRespSuccess(response)) {
+        }).then(resp => {
+            if (resp.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + getRespErrorMsg(response));
+                alert('保存失败：' + resp.errorMsg);
             }
-        })
-        .catch(error => {
-            handleRespError(error);
         });
 
         setTimeout(() => {
@@ -63,14 +55,10 @@ const ModelNewModal = (props) => {
             return;
         }
 
-        let url = genGetUrlBySegs('/deviceset/model/{segment}/get', [props.modelCode4Edit]);
-        axios.get(url, {
-            headers: {
-                'Authorization': getJwtToken()
-            }
-        })
-        .then(response => {
-            let model = getRespModel(response);
+        get('/deviceset/model/get', {
+            modelCode: props.modelCode4Edit
+        }).then(resp => {
+            let model = resp.model;
             setModelCode(model.modelCode);
             setEnableFlowAll(model.enableFlowAll);
             setPipelineList((prev => {
@@ -84,9 +72,6 @@ const ModelNewModal = (props) => {
                 }
                 return tmp;
             }));
-        })
-        .catch(error => {
-            handleRespError(error);
         });
     }
     useEffect(() => {
