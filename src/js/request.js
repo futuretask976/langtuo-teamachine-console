@@ -29,9 +29,9 @@ instance.interceptors.response.use(
     (error) => {
         let message = error.message;
         let status = error.response.status;
-        if (status === 401) {
+        if (status == '401') {
             window.location.href = CONSOLE_CONTEXT_PATH + '/login?msg=' + encodeURI('登录验证失败，请重新登录！');
-        } if (status === 403) {
+        } if (status == '403') {
             window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
         } else {
             window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);

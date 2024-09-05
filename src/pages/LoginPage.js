@@ -40,11 +40,11 @@ function LoginPage() {
         });
     }
     const onlyTest = () => {
-        get('/deviceset/model/get', {
-            modelCode: 'GX_TEAMACHINE_01'
-        }).then(resp => {
-            console.log('$$$$$ resp=', resp);
-        });
+        // get('/deviceset/model/get', {
+        //     modelCode: 'GX_TEAMACHINE_01'
+        // }).then(resp => {
+        //     console.log('$$$$$ resp=', resp);
+        // });
 
         // get('/drinkset/accuracy/list', {
         //     tenantCode: 'tenant_001'
