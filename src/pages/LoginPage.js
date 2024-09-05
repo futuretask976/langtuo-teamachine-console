@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Button, Image, Input, Select, Space } from 'antd';
+import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
@@ -39,37 +40,28 @@ function LoginPage() {
             }));
         });
     }
-    const onlyTest = () => {
-        // get('/deviceset/model/get', {
-        //     modelCode: 'GX_TEAMACHINE_01'
-        // }).then(resp => {
-        //     console.log('$$$$$ resp=', resp);
-        // });
-
-        // get('/drinkset/accuracy/list', {
-        //     tenantCode: 'tenant_001'
-        // }).then(resp => {
-        //     console.log('$$$$$ resp=', resp);
-        // });
-
-        // get('/menuset/menu/trigger', {
-        //     tenantCode: 'tenant_001',
-        //     shopCode: 'shop_001',
-        //     machineCode: 'machine033'
-        // }).then(resp => {
-        //     console.log('$$$$$ resp=', resp);
-        // });
-
-        // get('/ruleset/drain/listbyshop', {
-        //     tenantCode: 'tenant_001',
-        //     shopCode: 'shop_001',
-        // }).then(resp => {
-        //     console.log('$$$$$ resp=', resp);
-        // });
+    const onClickTest = () => {
+        axios.put('http://localhost:8080/teamachinebackend/deviceset/machine/activate', {
+            deployCode: '30rqiy', 
+            machineCode: 'machine_333', 
+            elecBoardCode: '647dd18c5733f815', 
+            screenCode: '647dd18c5733f815'
+        }, {
+            // headers: {
+            //     'Tenant-Code': 'tenant_001',
+            //     'Machine-Code': 'machine_001',
+            //     'Deploy-Code': '30rqiy'
+            // }
+        })
+        .then(response => {
+            console.log('$$$$$ response=', response)
+        })
+        .catch(error => {
+            console.log('$$$$$ error=', error)
+        });
     }
     useEffect(() => {
         fetchTenantList4Select();
-        onlyTest();
     }, []);
 
     const onClickLogin = () => {
@@ -130,9 +122,14 @@ function LoginPage() {
                         </div>
                     </div>
                     <div className="flex-row-cont">
-                        <Button type="primary" onClick={onClickLogin}>
-                            登录
-                        </Button>
+                        <Space>
+                            <Button type="primary" onClick={onClickLogin}>
+                                登录
+                            </Button>
+                            <Button type="primary" onClick={onClickTest}>
+                                临时测试用（请不要点击）
+                            </Button>
+                        </Space>
                     </div>
                 </Space>
                 {/* <div className="flex-col-cont" style={{height: 200, width: '30%', border: '1px solid red'}}>
