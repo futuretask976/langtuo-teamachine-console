@@ -43,15 +43,15 @@ const OrderActRecordViewModal = (props) => {
             setOrderGmtCreated(model.orderGmtCreated);
             setOuterOrderId(model.outerOrderId);
             setState(model.state);
-            if (isArray(model.orderSpecItemActRecordList)) {
+            if (isArray(model.specItemList)) {
                 let specItemsTmp = '';
-                model.orderSpecItemActRecordList.forEach(specItem => {
+                model.specItemList.forEach(specItem => {
                     specItemsTmp = specItemsTmp + "，" + specItem.specItemName;
                 });
                 setSpecItems(specItemsTmp.substring(1));
             }
-            if (isArray(model.orderToppingActRecordList)) {
-                setToppingRecList(model.orderToppingActRecordList);
+            if (isArray(model.toppingList)) {
+                setToppingRecList(model.toppingList);
             }
         });
     }
