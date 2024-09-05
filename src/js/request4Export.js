@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { BASEBACKEND_BASE_URL_URL, TIMEOUT } from './config';
+import { BACKEND_BASE_URL, TIMEOUT } from './config';
 
 const instance4Export = axios.create({
     baseURL: BACKEND_BASE_URL,
