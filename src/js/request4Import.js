@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import { BASE_URL, TIMEOUT} from './config';
+import { BACKEND_BASE_URL, TIMEOUT } from './config';
 
 const instance4Import = axios.create({
-    baseURL:BASE_URL,
-    timeout:TIMEOUT
+    baseURL: BACKEND_BASE_URL,
+    timeout: TIMEOUT
 });
 
 // 请求拦截器

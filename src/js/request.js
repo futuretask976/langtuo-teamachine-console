@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import { BASE_URL, CONTEXT_PATH, TIMEOUT} from './config';
+import { BACKEND_BASE_URL, CONSOLE_CONTEXT_PATH, TIMEOUT} from './config';
 
 const instance = axios.create({
-    baseURL:BASE_URL,
-    timeout:TIMEOUT
+    baseURL: BACKEND_BASE_URL,
+    timeout: TIMEOUT
 });
 
 // 请求拦截器
@@ -26,7 +26,7 @@ instance.interceptors.response.use(
         return response;
     },
     (error) => {
-        window.location.href = CONTEXT_PATH + '/error?msg=发生位置错误，请联系管理员！';
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生位置错误，请联系管理员！';
         // 处理一些错误，如网络错误、服务器错误等
         return Promise.reject(error);
     }
