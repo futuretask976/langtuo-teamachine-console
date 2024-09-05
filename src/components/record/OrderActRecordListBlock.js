@@ -17,7 +17,7 @@ const OrderActRecordListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        get('/recordset/invalid/search', {  
+        get('/recordset/order/search', {  
             tenantCode: getTenantCode(),
             shopGroupCode: props.shopGroupCode4Search,
             shopCode: props.shopCode4Search,
