@@ -29,7 +29,14 @@ instance.interceptors.response.use(
     (error) => {
         let message = error.message;
         let status = error.response.status;
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
+        if (status === 401) {
+            window.location.href = CONSOLE_CONTEXT_PATH + '/login?msg=' + encodeURI('登录验证失败，请重新登录！');
+        } if (status === 403) {
+            window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
+        } else {
+            window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
+        }
+
         // 处理一些错误，如网络错误、服务器错误等
         return Promise.reject(error);
     }
