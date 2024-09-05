@@ -22,11 +22,14 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
     (response) => {
+        console.log('$$$$$ responseInter response=', response);
         // 在响应返回后进行一些额外的处理
         return response;
     },
     (error) => {
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生未知错误，请联系管理员！';
+        let message = error.message;
+        let status = error.response.status;
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
         // 处理一些错误，如网络错误、服务器错误等
         return Promise.reject(error);
     }
