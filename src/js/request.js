@@ -26,7 +26,7 @@ instance.interceptors.response.use(
         return response;
     },
     (error) => {
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生位置错误，请联系管理员！';
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生未知错误，请联系管理员！';
         // 处理一些错误，如网络错误、服务器错误等
         return Promise.reject(error);
     }
