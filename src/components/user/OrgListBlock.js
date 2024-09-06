@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isArray } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankObj } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
+
+import EditableTree from '../../components/EditableTree'
 
 const OrgListBlock = (props) => {
     // 样式相关
@@ -43,6 +45,7 @@ const OrgListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
+        fetchListByDepth();
     }, [props.orgName4Search, pageNum]);
 
     // 表格展示数据相关
@@ -106,25 +109,69 @@ const OrgListBlock = (props) => {
             if (resp.success) {
                 alert('删除成功');
                 fetchListData();
+                fetchListByDepth();
             } else {
                 alert('删除失败：' + resp.errorMsg)
             }
         });
     }
 
+    // 数据初始化相关
+    const [orgStrucTree, setOrgStrucTree] = useState([]);
+    const fetchListByDepth = () => {
+        get('/userset/org/listbydepth', {  
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let model = resp.model;
+            if (!isBlankObj(model)) {
+                setOrgStrucTree(prev => {
+                    let orgStrucTreeTmp = [];
+                    orgStrucTreeTmp.push(convertOrgNode(model));
+                    return orgStrucTreeTmp;
+                })
+            }
+        });
+    }
+    useEffect(() => {
+        fetchListByDepth();
+    }, []);
+
+    const convertOrgNode = (orgNode) => {
+        let childrenTmp = [];
+        if (!isBlankObj(orgNode) && isArray(orgNode.children)) {
+            orgNode.children.forEach(item => {
+                childrenTmp.push(convertOrgNode(item));
+            })
+        }
+
+        let treeNode = {
+            key: orgNode.orgName,
+            parentKey: orgNode.parentOrgName,
+            isEditable: false,
+            children: childrenTmp
+        };
+        return treeNode;
+    }
+
     return (
-        <div style={{ background: colorBgContainer, height: '100%' }}>
-            <Table
-                pagination={{
-                    pageNum,
-                    total,
-                    pageSize,
-                    onChange: (page) => setPageNum(page),
-                }}
-                columns={columns} 
-                dataSource={list}
-                rowKey={record => record.orgName} />
+        <div className="flex-row-cont" style={{height: '100%', width: '100%'}}>
+            <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', height: '100%', width: '25%', border: '0px solid red'}}>
+                <EditableTree orgStrucTree={orgStrucTree} />
+            </div>
+            <div style={{ background: colorBgContainer, height: '100%', width: '75%'}}>
+                <Table
+                    pagination={{
+                        pageNum,
+                        total,
+                        pageSize,
+                        onChange: (page) => setPageNum(page),
+                    }}
+                    columns={columns} 
+                    dataSource={list}
+                    rowKey={record => record.orgName} />
+            </div>
         </div>
+        
     )
 };
 

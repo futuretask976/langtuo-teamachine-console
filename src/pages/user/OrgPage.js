@@ -10,7 +10,6 @@ import SiderMenu from '../../components/SiderMenu'
 import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import OrgListBlock from '../../components/user/OrgListBlock'
-import OrgViewModal from '../../components/user/OrgViewModal'
 import OrgNewModal from '../../components/user/OrgNewModal'
 
 const { Content } = Layout;
@@ -41,9 +40,6 @@ const OrgPage = () => {
         refreshList();
     }
     const [openViewModal, setOpenViewModal] = useState(false);
-    const onClickView = () => {
-        setOpenViewModal(true);
-    };
     const onCloseViewModal = () => {
         setOpenViewModal(false);
     }
@@ -102,11 +98,6 @@ const OrgPage = () => {
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickView} style={{width: '90%'}}>查看架构</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
                                             <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>新增架构</Button>
                                         </div>
                                     </Col>
@@ -126,10 +117,6 @@ const OrgPage = () => {
 
             {openNewModal && (
                 <OrgNewModal orgName4Edit={orgName4Edit} onClose={onCloseNewModal} />
-            )}
-
-            {openViewModal && (
-                <OrgViewModal onClose={onCloseViewModal} />
             )}
         </>
     )
