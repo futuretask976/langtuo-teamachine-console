@@ -41,17 +41,32 @@ function LoginPage() {
         });
     }
     const onClickTest = () => {
-        axios.put('http://localhost:8080/teamachinebackend/deviceset/machine/activate', {
-            deployCode: '30rqiy', 
-            machineCode: 'machine_333', 
-            elecBoardCode: '647dd18c5733f815', 
-            screenCode: '647dd18c5733f815'
+        // axios.put('http://localhost:8080/teamachinebackend/deviceset/machine/activate', {
+        //     deployCode: 'Rb1x0DQCYieDRrcrApmv', 
+        //     machineCode: '20240904000004', 
+        //     elecBoardCode: '647dd18c5733f815', 
+        //     screenCode: '647dd18c5733f815'
+        // }, {
+        //     headers: {
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': '202408140011',
+        //         'Deploy-Code': 'Rb1x0DQCYieDRrcrApmv'
+        //     }
+        // })
+        // .then(response => {
+        //     console.log('$$$$$ response=', response)
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ error=', error)
+        // });
+
+        axios.get('https://langtuo.cartisan.top:446/teamachinebackend/mqtt/test', {
         }, {
-            // headers: {
-            //     'Tenant-Code': 'tenant_001',
-            //     'Machine-Code': 'machine_001',
-            //     'Deploy-Code': '30rqiy'
-            // }
+            headers: {
+                'Tenant-Code': 'tenant_001',
+                'Machine-Code': 'kw4un3',
+                'Deploy-Code': '20240904000000'
+            }
         })
         .then(response => {
             console.log('$$$$$ response=', response)

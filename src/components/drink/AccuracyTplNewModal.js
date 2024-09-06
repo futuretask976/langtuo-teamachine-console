@@ -103,18 +103,13 @@ const AccuracyTplNewModal = (props) => {
         <>
             <Modal
                 centered
-                open={open}
-                title="新建/编辑模板"
-                onOk={onClickOK}
+                loading={loading}
                 onCancel={onClickCancel}
-                width={500}
+                onOk={onClickOK}
+                open={open}
                 style={{border: '0px solid red'}}
-                footer={[
-                    <Button key="back" onClick={onClickCancel}>取消</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                        提交
-                    </Button>,
-                ]}
+                title="新建/编辑模板"
+                width={600}
             >
                 <div style={{height: 350, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>

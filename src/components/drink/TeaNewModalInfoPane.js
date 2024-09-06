@@ -147,7 +147,7 @@ const TeaNewModalInfoPane = (props) => {
     };
     const OssUpload = async (option) => {
         const { file, onSuccess, onProgress, onError } = option;
-        const folder = "teamachine";
+        const folder = "teamachine/tea";
         const url = uploadPath(folder, file);
         let data = null;
         try {
@@ -162,7 +162,6 @@ const TeaNewModalInfoPane = (props) => {
                 file,
             );
         } catch (e) {
-            // message.error(e.message);
             onError(e);
         }
     };
@@ -195,9 +194,9 @@ const TeaNewModalInfoPane = (props) => {
             }
             if (info.file.status === "done") {
                 message.success(`${info.file.name} 文件上传成功`);
-                console.log('$$$$$ info.file.response.name=', info.file.response.name);
-                console.log('$$$$$ info.file.status=done, info=', info);
-                console.log('$$$$$ info.file.status=done, fileList=', fileList);
+                // console.log('$$$$$ info.file.response.name=', info.file.response.name);
+                // console.log('$$$$$ info.file.status=done, info=', info);
+                // console.log('$$$$$ info.file.status=done, fileList=', fileList);
                 setImgLink(info.file.response.name);
             } else if (info.file.status === "error") {
                 info.fileList = info.fileList.filter(
