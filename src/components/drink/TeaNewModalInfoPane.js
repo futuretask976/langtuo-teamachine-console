@@ -23,7 +23,7 @@ const TeaNewModalInfoPane = (props) => {
         const data = await getOSSToken();
         const parseMast = {
             bucket: data.bucketName,
-            region: 'oss-cn-hangzhou',
+            region: data.region,
             accessKeyId: data.accessKeyId,
             accessKeySecret: data.accessKeySecret,
             stsToken: data.securityToken,
