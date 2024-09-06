@@ -183,12 +183,11 @@ const TeaNewModal = (props) => {
     return (
         <Modal
             centered
-            open={open}
-            title="新建茶品"
             onCancel={onClickCancel}
-            width={1000}
+            open={open}
             style={{border: '0px solid red'}}
-            footer={[]}
+            title="新建/编辑茶品"
+            width={1000}
         >
             <div className='flex-row-cont' style={{flexDirection: 'column', height: 450, width: '100%'}}>
                 <Steps current={curStep} items={steps} />

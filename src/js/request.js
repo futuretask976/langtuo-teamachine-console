@@ -22,7 +22,7 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
     (response) => {
-        console.log('$$$$$ responseInter response=', response);
+        // console.log('$$$$$ responseInter response=', response);
         // 在响应返回后进行一些额外的处理
         return response;
     },

@@ -10,27 +10,53 @@ import { get } from '../../js/request.js';
 const { TextArea } = Input;
 
 const TeaNewModalInfoPane = (props) => {
-    // oss 相关
-    const ossClient = new OSS({
-        region: "oss-cn-hangzhou", //你的oss服务器所在区域
-        accessKeyId: "LTAI5tRoDh1tQPDtLTof7QZu",
-        accessKeySecret: "SdFJQodAC8Zi6ljLIYlJ9ChP5eRul9",
-        bucket: "miya-bucket2", // oss上你的bucket名称
-    });
-    const getPresignedUrl = (objectName) => { 
+    // OSS 相关
+    const getOSSToken = async () => {
+        const model = await get('/securityset/oss/token/get', {
+        }).then(resp => {
+            let model = resp.model;
+            return model;
+        });
+        return model;
+    }
+    const getAliOssClient = async () => {
+        const data = await getOSSToken();
+        const parseMast = {
+            bucket: data.bucketName,
+            region: 'oss-cn-hangzhou',
+            accessKeyId: data.accessKeyId,
+            accessKeySecret: data.accessKeySecret,
+            stsToken: data.securityToken,
+            expiration: data.expiration,
+            refreshSTSToken: async () => {
+                const info = await getOSSToken()
+                return {
+                    accessKeyId: info.accessKeyId,
+                    accessKeySecret: info.accessKeySecret,
+                    stsToken: info.securityToken
+                }
+            },
+            // 刷新临时访问凭证的时间间隔，单位为毫秒，在过期前一分钟刷新
+            // 过期时间是后端配的，这里配合后端把时间写死也可以，例如 15 分钟过期，10 分钟就可以刷新一次
+            refreshSTSTokenInterval: new Date(data.expiration) - new Date() - 1000 * 60
+        }
+        return new OSS(parseMast) // 调用OSS依赖
+    }
+    const getPresignedUrl = async (objectName) => {
         if (isBlankStr(objectName)) {
             return '';
-        }      
+        }
+
+        const ossClient = await getAliOssClient();
         try {
-          // 生成预签名URL
-          const url = ossClient.signatureUrl(objectName, {
-            expires: 3600, // URL有效时长，单位为秒，默认为3600秒
-            method: 'GET', // 允许的HTTP方法，默认为'GET'
-          });
-          console.log(url);
-          return url;
+            // 生成预签名URL
+            const url = ossClient.signatureUrl(objectName, {
+                expires: 3600, // URL有效时长，单位为秒，默认为3600秒
+                method: 'GET', // 允许的HTTP方法，默认为'GET'
+            });
+            return url;
         } catch (e) {
-          console.error(e);
+            console.error(e);
         }
         return '';
     }
@@ -97,7 +123,8 @@ const TeaNewModalInfoPane = (props) => {
         if (isBlankObj(props.tea4Edit.imgLink)) {
             return [];
         }
-        return [{url: getPresignedUrl(props.tea4Edit.imgLink)}];
+        // return [{url: getPresignedUrl(props.tea4Edit.imgLink)}];
+        return [{url: props.tea4Edit.imgLink}];
     });
     const [imgLink, setImgLink] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
@@ -149,6 +176,8 @@ const TeaNewModalInfoPane = (props) => {
         const { file, onSuccess, onProgress, onError } = option;
         const folder = "teamachine/tea";
         const url = uploadPath(folder, file);
+
+        const ossClient = await getAliOssClient();
         let data = null;
         try {
             data = await ossClient.multipartUpload(url, file, {

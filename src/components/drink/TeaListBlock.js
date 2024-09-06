@@ -132,7 +132,7 @@ const TeaListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey='id' />
+                rowKey='teaCode' />
         </div>
     )
 };

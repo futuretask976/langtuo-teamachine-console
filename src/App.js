@@ -47,10 +47,8 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(getJwtToken());
     useEffect(() => {
         if (isBlankStr(token)) {
-            console.log("$$$$$ to deleteJwtToken token=", token);
             deleteJwtToken();
         } else {
-            console.log("$$$$$ to putJwtToken token=", token);
             putJwtToken(token);
         }
     }, [token]);
@@ -228,7 +226,6 @@ const Routes = () => {
 
 const PublicRoute = () => {
     const { token } = useContext(AuthContext);
-    console.log("$$$$$ PublicRoute entering=", token);
   
     // 如果已经登录，则直接渲染目标组件
     return <Outlet />;
@@ -236,7 +233,6 @@ const PublicRoute = () => {
 
 const AuthenticatedOnlyRoute = () => {
     const { token } = useContext(AuthContext);
-    console.log("$$$$$ AuthenticatedOnlyRoute entering=", token);
   
     // 判断用户是否有登录
     if (!token) {
