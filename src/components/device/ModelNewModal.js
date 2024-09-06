@@ -139,11 +139,11 @@ const ModelNewModal = (props) => {
             centered
             confirmLoading={loading}
             open={open}
-            onOk={onClickOK} 
             onCancel={onClickCancel} 
+            onOk={onClickOK} 
             style={{border: '0px solid red'}} 
             title="新建/编辑型号" 
-            width="750"
+            width={750}
         >
             <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
                 <div className="flex-col-cont" style={{height: 45, width: '100%'}}>
