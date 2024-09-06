@@ -117,14 +117,13 @@ const TeaNewModalInfoPane = (props) => {
         return props.tea4Edit.comment;
     });
     const [fileList, setFileList] = useState(() => {
-        if (isBlankObj(props.tea4Edit)) {
-            return [];
+        if (!isBlankObj(props.tea4Edit) && !isBlankObj(props.tea4Edit.imgLink)) {
+            getPresignedUrl(props.tea4Edit.imgLink)
+            .then(presignedUrl => {
+                setFileList([{url: presignedUrl}]);
+            });
         }
-        if (isBlankObj(props.tea4Edit.imgLink)) {
-            return [];
-        }
-        // return [{url: getPresignedUrl(props.tea4Edit.imgLink)}];
-        return [{url: props.tea4Edit.imgLink}];
+        return [];
     });
     const [imgLink, setImgLink] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
