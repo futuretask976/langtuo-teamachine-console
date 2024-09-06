@@ -1,39 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import { Button, Input, Col, Row } from 'antd';
 import { DownCircleOutlined, FormOutlined, SearchOutlined, UpCircleOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { genGetUrlByParams, getTenantCode, isValidCode, isValidName } from '../../js/common.js';
+import { getTenantCode, isValidCode, isValidName } from '../../js/common.js';
 import { get4Export } from '../../js/request4Export.js'
 
-import HeaderBar from '../../components/HeaderBar'
-import SiderMenu from '../../components/SiderMenu'
-import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import TeaListBlock from '../../components/drink/TeaListBlock'
 import TeaNewModal from '../../components/drink/TeaNewModal'
 import TeaUploadModal from '../../components/drink/TeaUploadModal'
 
-const { Content } = Layout;
-
 const TeaPage = () => {
-    // 路由组件
-    const navigate = useNavigate();
-
-    // 导航菜单 + 面包屑相关
-    const openMenu = ['drinkSet'];
-    const selectedMenu = ['teaMgt'];
+    // 面包屑相关
     const breadcrumbPath = ['控制台', '饮品', '茶品管理'];
-
-    // 页面样式相关
-    const layoutStyle = {
-        height: 1000,
-        overflow: 'hidden',
-        width: 'calc(100% - 5px)',
-        maxWidth: 'calc(100% - 5px)',
-        border: '0px solid red',
-    };
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -100,66 +80,53 @@ const TeaPage = () => {
 
     return (
         <>
-            <Flex gap="middle" justify="center" wrap="wrap">
-                <Layout style={layoutStyle}>
-                    <HeaderBar />
-                    <Layout>
-                        <SiderMenu openMenu={openMenu} selectedMenu={selectedMenu} />
-                        <Layout>
-                            <Content style={{ margin: '0px 5px 0px 5px' }}>
-                                <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-                                <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-                                <Row style={{backgroundColor: '#fff'}}>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>茶品编码：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="茶品编码" onChange={(e) => teaCode4SearchTmp = e.target.value} style={{width: '95%'}} />
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>茶品名称：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="茶品名称" onChange={(e) => teaName4SearchTmp = e.target.value} style={{width: '95%'}} />
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>新建茶品</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '90%'}}>导入</Button>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-                                <div>&nbsp;</div>
-                                <TeaListBlock key={refreshListKey} teaCode4Search={teaCode4Search} teaName4Search={teaName4Search} onClickEdit={onClickEdit} />
-                            </Content>
-                        </Layout>
-                    </Layout>
-                    <FooterBar />
-                </Layout>
-            </Flex>
+            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#fff'}}>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>茶品编码：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="茶品编码" onChange={(e) => teaCode4SearchTmp = e.target.value} style={{width: '95%'}} />
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>茶品名称：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="茶品名称" onChange={(e) => teaName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>新建茶品</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '90%'}}>导入</Button>
+                    </div>
+                </Col>
+            </Row>
+            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
+            <div>&nbsp;</div>
+            <TeaListBlock key={refreshListKey} teaCode4Search={teaCode4Search} teaName4Search={teaName4Search} onClickEdit={onClickEdit} />
 
             {openNewModal && (
                 <TeaNewModal onClose={onCloseNewModal} teaCode4Edit={teaCode4Edit} />

@@ -1,34 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import { Button, Input, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
 
-import HeaderBar from '../../components/HeaderBar'
-import SiderMenu from '../../components/SiderMenu'
-import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import WarningRuleListBlock from '../../components/rule/WarningRuleListBlock'
 import WarningRuleNewModal from '../../components/rule/WarningRuleNewModal'
 import WarningRuleDispatchModal from '../../components/rule/WarningRuleDispatchModal'
 
-const { Content } = Layout;
-
 const WarningRulePage = (props) => {
-    // 导航菜单 + 面包屑相关
-    const openMenu = ['ruleSet'];
-    const selectedMenu = ['warningRuleMgt'];
+    // 面包屑相关
     const breadcrumbPath = ['控制台', '食安规则', '预警规则管理'];
-
-    // 页面样式相关
-    const layoutStyle = {
-        height: 1000,
-        overflow: 'hidden',
-        width: 'calc(100% - 5px)',
-        maxWidth: 'calc(100% - 5px)',
-        border: '0px solid red',
-    };
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -87,55 +71,42 @@ const WarningRulePage = (props) => {
 
     return (
         <>
-            <Flex gap="middle" justify="center" wrap="wrap">
-                <Layout style={layoutStyle}>
-                    <HeaderBar />
-                    <Layout>
-                        <SiderMenu openMenu={openMenu} selectedMenu={selectedMenu} />
-                        <Layout>
-                            <Content style={{ margin: '0px 5px 0px 5px' }}>
-                                <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-                                <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-                                <Row style={{backgroundColor: '#fff'}}>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{ justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>规则编码：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <Input placeholder="规则编码" onChange={(e) => warningRuleCode4SearchTmp = e.target.value}/>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>规则名称：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <Input placeholder="规则名称" onChange={(e) => warningRuleName4SearchTmp = e.target.value}/>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont" style={{height: '100%'}}>
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont" style={{height: '100%'}}>
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建规则</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={6}>
-                                        &nbsp;
-                                    </Col>
-                                </Row>
-                                <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-                                <div>&nbsp;</div>
-                                <WarningRuleListBlock key={refreshListKey} warningRuleCode4Search={warningRuleCode4Search} warningRuleName4Search={warningRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
-                            </Content>
-                        </Layout>
-                    </Layout>
-                    <FooterBar />
-                </Layout>
-            </Flex>
+            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#fff'}}>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{ justifyContent: 'flex-end', height: '100%'}}>
+                        <span>规则编码：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <Input placeholder="规则编码" onChange={(e) => warningRuleCode4SearchTmp = e.target.value}/>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>规则名称：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <Input placeholder="规则名称" onChange={(e) => warningRuleName4SearchTmp = e.target.value}/>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont" style={{height: '100%'}}>
+                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont" style={{height: '100%'}}>
+                        <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建规则</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={6}>
+                    &nbsp;
+                </Col>
+            </Row>
+            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
+            <div>&nbsp;</div>
+            <WarningRuleListBlock key={refreshListKey} warningRuleCode4Search={warningRuleCode4Search} warningRuleName4Search={warningRuleName4Search} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch}/>
 
             {openNewModal && (
                 <WarningRuleNewModal modalTitle='新建规则' warningRuleCode4Edit={warningRuleCode4Edit} onClose={onCloseNewModal}/>

@@ -1,33 +1,17 @@
 import React, { useState } from 'react';
-import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import { Button, Input, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
 
-import HeaderBar from '../../components/HeaderBar'
-import SiderMenu from '../../components/SiderMenu'
-import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import MachineListBlock from '../../components/device/MachineListBlock'
 import MachineNewModal from '../../components/device/MachineNewModal'
 
-const { Content } = Layout;
-
 const MachinePage = () => {
-    // 导航菜单 + 面包屑相关
-    const openMenu = ['deviceSet'];
-    const selectedMenu = ['machineMgt'];
+    // 面包屑相关
     const breadcrumbPath = ['控制台', '设备', '机器管理'];
-
-    // 页面样式相关
-    const layoutStyle = {
-        height: 1000,
-        overflow: 'hidden',
-        width: 'calc(100% - 5px)',
-        maxWidth: 'calc(100% - 5px)',
-        border: '0px solid red',
-    };
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -85,77 +69,64 @@ const MachinePage = () => {
 
     return (
         <>
-            <Flex gap="middle" justify="center" wrap="wrap">
-                <Layout style={layoutStyle}>
-                    <HeaderBar />
-                    <Layout>
-                        <SiderMenu openMenu={openMenu} selectedMenu={selectedMenu} />
-                        <Layout>
-                            <Content style={{ margin: '0px 5px 0px 5px' }}>
-                                <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-                                <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-                                <Row style={{backgroundColor: '#fff'}}>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>屏幕编码：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={5}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="屏幕编码" onChange={(e) => screenCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>控制板编码：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={5}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="控制板编码" onChange={(e) => elecBoardCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>机器型号：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={5}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="机器型号" onChange={(e) => modelCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-                                <Row style={{backgroundColor: '#fff'}}>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>店铺名称：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={5}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value} style={{width: '95%'}}/>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={17}>
-                                        &nbsp;
-                                    </Col>
-                                </Row>
-                                <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-                                <div>&nbsp;</div>
-                                <MachineListBlock key={refreshListKey} screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} modelCode4Search={modelCode4Search} shopName4Search={shopName4Search} onClickEdit={onClickEdit} />
-                            </Content>
-                        </Layout>
-                    </Layout>
-                    <FooterBar />
-                </Layout>
-            </Flex>
+            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#fff'}}>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>屏幕编码：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={5}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="屏幕编码" onChange={(e) => screenCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>控制板编码：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={5}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="控制板编码" onChange={(e) => elecBoardCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>机器型号：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={5}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="机器型号" onChange={(e) => modelCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                    </div>
+                </Col>
+            </Row>
+            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#fff'}}>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>店铺名称：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={5}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={17}>
+                    &nbsp;
+                </Col>
+            </Row>
+            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
+            <div>&nbsp;</div>
+            <MachineListBlock key={refreshListKey} screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} modelCode4Search={modelCode4Search} shopName4Search={shopName4Search} onClickEdit={onClickEdit} />
 
             {openNewModal && (
                 <MachineNewModal onClose={onCloseNewModal} machineCode4Edit={machineCode4Edit} />

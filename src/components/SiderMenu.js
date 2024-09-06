@@ -14,9 +14,19 @@ function getItem(label, key, icon, children) {
     };
 }
 
-const SiderMenu = (props) => {
+const SiderMenu4Frame = (props) => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
+
+    const siderStyle = {
+        backgroundColor: '#FFFFFF',
+        height: "100%",
+        lineHeight: '240px',
+        overflow: 'auto',
+        paddingInline: 0,
+        textAlign: 'left',
+        border: '0px solid yellow'
+    };
 
     const menuItems = [
         getItem('概况', 'indexMgt', <PieChartOutlined />),
@@ -62,79 +72,17 @@ const SiderMenu = (props) => {
         ]),
     ];
 
-    const siderStyle = {
-        backgroundColor: '#FFFFFF',
-        height: "100%",
-        lineHeight: '240px',
-        overflow: 'auto',
-        paddingInline: 0,
-        textAlign: 'left',
-        border: '0px solid yellow'
-    };
-
     const onMenuItemClick = (e) => {
-        if (e.key == 'indexMgt') {
-            navigate('/index');
-        } else if (e.key == 'tenantMgt') {
-            navigate('/userset/tenant');
-        } else if (e.key == 'orgMgt') {
-            navigate('/userset/org');
-        } else if (e.key == 'roleMgt') {
-            navigate('/userset/role');
-        } else if (e.key == 'adminMgt') {
-            navigate('/userset/admin');
-        } else if (e.key == 'shopGroupMgt') {
-            navigate('/shopset/group');
-        } else if (e.key == 'shopMgt') {
-            navigate('/shopset/shop');
-        } else if (e.key == 'modelMgt') {
-            navigate('/deviceset/model');
-        } else if (e.key == 'deployMgt') {
-            navigate('/deviceset/deploy');
-        } else if (e.key == 'machineMgt') {
-            navigate('/deviceset/machine');
-        } else if (e.key == 'toppingTypeMgt') {
-            navigate('/drinkset/topping/type');
-        } else if (e.key == 'toppingMgt') {
-            navigate('/drinkset/topping');
-        } else if (e.key == 'specMgt') {
-            navigate('/drinkset/spec');
-        } else if (e.key == 'teaTypeMgt') {
-            navigate('/drinkset/tea/type');
-        } else if (e.key == 'teaMgt') {
-            navigate('/drinkset/tea');
-        } else if (e.key == 'toppingAccuracyTplMgt') {
-            navigate('/drinkset/topping/accuracy/template');
-        } else if (e.key == 'seriesMgt') {
-            navigate('/menuset/series');
-        } else if (e.key == 'menuMgt') {
-            navigate('/menuset/menu');
-        } else if (e.key == 'drainRuleMgt') {
-            navigate('/ruleset/drain');
-        } else if (e.key == 'cleanRuleMgt') {
-            navigate('/ruleset/clean');
-        } else if (e.key == 'warningRuleMgt') {
-            navigate('/ruleset/warning');
-        } else if (e.key == 'invalidActRecordMgt') {
-            navigate('/recordset/invalid');
-        } else if (e.key == 'supplyActRecordMgt') {
-            navigate('/recordset/supply');
-        } else if (e.key == 'drainActRecordMgt') {
-            navigate('/recordset/drain');
-        } else if (e.key == 'cleanActRecordMgt') {
-            navigate('/recordset/clean');
-        } else if (e.key == 'orderActRecordMgt') {
-            navigate('/recordset/order');
-        }
+        props.onMenuItemClick(e.key);
     };
 
     return (
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle} width="200">
             {/* <div className="demo-logo-vertical" /> */}
-            <Menu theme="light" defaultOpenKeys={props.openMenu} defaultSelectedKeys={props.selectedMenu} mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
+            <Menu theme="light" mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
         </Sider>
     )
 };
 
-export default SiderMenu;
+export default SiderMenu4Frame;
 

@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import { Button, Flex, Input, Layout, Col, Row } from 'antd';
+import { Button, Input, Layout, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidName } from '../../js/common';
 
-import HeaderBar from '../../components/HeaderBar'
-import SiderMenu from '../../components/SiderMenu'
-import FooterBar from '../../components/FooterBar'
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import AdminListBlock from '../../components/user/AdminListBlock'
 import AdminNewModal from '../../components/user/AdminNewModal'
 
-const { Content } = Layout;
-
 const AdminPage = () => {
-    // 导航菜单 + 面包屑相关
-    const openMenu = ['userSet'];
-    const selectedMenu = ['adminMgt'];
+    // 面包屑相关
     const breadcrumbPath = ['控制台', '用户', '管理员管理'];
 
     // 页面样式相关
@@ -74,59 +67,46 @@ const AdminPage = () => {
 
     return (
         <>
-            <Flex gap="middle" justify="center" wrap="wrap">
-                <Layout style={layoutStyle}>
-                    <HeaderBar />
-                    <Layout>
-                        <SiderMenu openMenu={openMenu} selectedMenu={selectedMenu} />
-                        <Layout>
-                            <Content style={{ margin: '0px 5px 0px 5px' }}>
-                                <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-                                <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-                                <Row style={{backgroundColor: '#fff'}}>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>登录名称：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="登录名称" onChange={(e) => loginName4SearchTmp = e.target.value} style={{width: '95%'}} />
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={2}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>角色名称：</span>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={4}>
-                                        <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                            <Input placeholder="角色名称" onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={3}>
-                                        <div className="flex-row-cont">
-                                            <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建管理员</Button>
-                                        </div>
-                                    </Col>
-                                    <Col className="gutter-row" span={6}>
-                                        &nbsp;
-                                    </Col>
-                                </Row>
-                                <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-                                <div>&nbsp;</div>
-                                <AdminListBlock key={refreshListKey} loginName4Search={loginName4Search} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
-                            </Content>
-                        </Layout>
-                    </Layout>
-                    <FooterBar />
-                </Layout>
-            </Flex>
+            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#fff'}}>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>登录名称：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="登录名称" onChange={(e) => loginName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={2}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <span>角色名称：</span>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Input placeholder="角色名称" onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={3}>
+                    <div className="flex-row-cont">
+                        <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建管理员</Button>
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={6}>
+                    &nbsp;
+                </Col>
+            </Row>
+            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
+            <div>&nbsp;</div>
+            <AdminListBlock key={refreshListKey} loginName4Search={loginName4Search} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
 
             {openNewModal && (
                 <AdminNewModal onClose={onCloseNewModal} loginName4Edit={loginName4Edit} />

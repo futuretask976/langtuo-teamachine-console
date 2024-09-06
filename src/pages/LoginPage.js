@@ -1,21 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Button, Image, Input, Select, Space } from 'antd';
 import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { isValidCode, putLoginName, putTenantCode } from '../js/common';
+import { isValidCode, putLoginName, putJwtToken, putTenantCode } from '../js/common';
 import { get, post } from '../js/request.js';
-import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
     // 路由组件
     const navigate = useNavigate();
-
-    // 上下文初始化
-    const { setToken } = useContext(AuthContext);
 
     // 数据初始化
     const [userName, setUserName] = useState('');
@@ -94,7 +90,7 @@ function LoginPage() {
         .then(resp => {
             let model = resp.model;
             putTenantCode(tenantCode);
-            setToken(model.jwtToken);
+            putJwtToken(model.jwtToken);
             putLoginName(model.loginName);
             navigate('/index');
         });
