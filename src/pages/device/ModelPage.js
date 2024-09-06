@@ -56,7 +56,7 @@ const ModelPage = () => {
             <Row style={{backgroundColor: '#fff'}}>
                 <Col className="gutter-row" span={2}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
+                        <span>型号编码：</span>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
