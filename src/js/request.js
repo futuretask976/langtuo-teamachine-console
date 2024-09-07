@@ -45,7 +45,7 @@ instance.interceptors.response.use(
                 window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
             }
         }
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生网络错误，请联系管理员处理: ' + encodeURI(message);
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生网络错误，请联系管理员处理: ' + encodeURI(error.message);
 
         // 处理一些错误，如网络错误、服务器错误等
         // return Promise.reject(error);
