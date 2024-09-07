@@ -4,13 +4,7 @@ import { Space, Tree } from 'antd';
 const EditableTree = (props) => { 
     return (
         <Tree
-            autoExpandParent={true}
-            blockNode={true}
-            draggable={true}
-            onSelect={(curNodeKey) => {
-                console.log("curNodeKey =" + curNodeKey);
-            }}
-            showIcon={true}
+            defaultExpandAll
             titleRender={(node) => {
                 return (
                     <div>
