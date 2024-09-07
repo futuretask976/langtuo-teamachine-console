@@ -27,18 +27,24 @@ instance.interceptors.response.use(
         return response;
     },
     (error) => {
-        let message = error.message;
-        let status = error.response.status;
-        if (status == '401') {
-            window.location.href = CONSOLE_CONTEXT_PATH + '/login?msg=' + encodeURI('登录验证失败，请重新登录！');
-        } if (status == '403') {
-            window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
-        } else {
-            window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
+        if (error != undefined && error != null) {
+            let message = error.message;
+            if (message != undefined && message != null) {
+                if (error.response != undefined && error.response != null) {
+                    let status = error.response.status;
+                    if (status == '401') {
+                        window.location.href = CONSOLE_CONTEXT_PATH + '/login?msg=' + encodeURI('登录验证失败，请重新登录！');
+                    } if (status == '403') {
+                        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
+                    }
+                }
+                window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
+            }
         }
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生网络错误，请联系管理员处理！';
 
         // 处理一些错误，如网络错误、服务器错误等
-        return Promise.reject(error);
+        // return Promise.reject(error);
     }
 );
 

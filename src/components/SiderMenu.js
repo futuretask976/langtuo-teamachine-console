@@ -79,7 +79,7 @@ const SiderMenu4Frame = (props) => {
     return (
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle} width="200">
             {/* <div className="demo-logo-vertical" /> */}
-            <Menu theme="light" mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
+            <Menu theme="light" defaultSelectedKeys={['indexMgt']} mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
         </Sider>
     )
 };
