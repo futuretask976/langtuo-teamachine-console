@@ -27,8 +27,12 @@ instance.interceptors.response.use(
         return response;
     },
     (error) => {
+        // console.log('$$$$$ error != undefined: ', error != undefined);
+        // console.log('$$$$$ error != null: ', error != null);
         if (error != undefined && error != null) {
             let message = error.message;
+            // console.log('$$$$$ message != undefined: ', message != undefined);
+            // console.log('$$$$$ message != null: ', message != null);
             if (message != undefined && message != null) {
                 if (error.response != undefined && error.response != null) {
                     let status = error.response.status;
@@ -41,7 +45,7 @@ instance.interceptors.response.use(
                 window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
             }
         }
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生网络错误，请联系管理员处理！';
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生网络错误，请联系管理员处理: ' + encodeURI(message);
 
         // 处理一些错误，如网络错误、服务器错误等
         // return Promise.reject(error);
