@@ -111,7 +111,7 @@ const ShopNewModal = (props) => {
         <Modal
             centered
             open={open}
-            title="新建店铺"
+            title="新建/编辑店铺"
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={500}
@@ -132,7 +132,7 @@ const ShopNewModal = (props) => {
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="店铺编码" value={shopCode} onChange={(e) => setShopCode(e.target.value)}/>
+                            <Input placeholder="店铺编码" disabled={!isBlankStr(props.shopCode4Edit)} value={shopCode} onChange={(e) => setShopCode(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>

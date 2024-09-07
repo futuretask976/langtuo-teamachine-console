@@ -94,7 +94,7 @@ const ShopGroupNewModal = (props) => {
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
-                            <Input placeholder="店铺组编码" value={shopGroupCode} onChange={(e) => setShopGroupCode(e.target.value)}/>
+                            <Input placeholder="店铺组编码" disabled={!isBlankStr(props.shopGroupCode4Edit)} value={shopGroupCode} onChange={(e) => setShopGroupCode(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
