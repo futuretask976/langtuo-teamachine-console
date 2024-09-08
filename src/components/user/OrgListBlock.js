@@ -76,15 +76,19 @@ const OrgListBlock = (props) => {
             render: (_, { orgName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
-                        return (
-                            <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>编辑</a>
-                        );
-                    }
-                    if (action == 'delete') {
-                        return (
-                            <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>删除</a>
-                        );
+                    if (orgName == '总公司') {
+                        return;
+                    } else {
+                        if (action == 'edit') {
+                            return (
+                                <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>编辑</a>
+                            );
+                        }
+                        if (action == 'delete') {
+                            return (
+                                <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>删除</a>
+                            );
+                        }
                     }
                 })}
                 </Space>

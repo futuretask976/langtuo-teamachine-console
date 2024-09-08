@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Space, Tree } from 'antd';
  
-const EditableTree = (props) => { 
+const EditableTree = (props) => {
+    const [expandedKeys, setExpandedKeys] = useState([]);
+
+    const initDefaultExpandedKeys = () => {
+        let tmp = [];
+        let loop = (data) => {
+            data.map((item, index) => {
+                tmp.push(item.key);
+                if (item.children && item.children.length > 0) {
+                    loop(item.children)
+                }
+            })
+        }
+        loop(props.orgStrucTree);
+        setExpandedKeys(tmp);
+    }
+    useEffect(() => {
+        initDefaultExpandedKeys();
+    }, props.orgStrucTree);
+
     return (
         <Tree
-            defaultExpandAll
+            expandedKeys={expandedKeys} 
             titleRender={(node) => {
                 return (
                     <div>
