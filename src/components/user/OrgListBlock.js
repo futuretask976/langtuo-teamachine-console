@@ -159,9 +159,10 @@ const OrgListBlock = (props) => {
 
     return (
         <div className="flex-row-cont" style={{height: '100%', width: '100%'}}>
-            <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', height: '100%', width: '25%', border: '0px solid red'}}>
+            <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', height: '100%', width: '24%', border: '0px solid red'}}>
                 <EditableTree orgStrucTree={orgStrucTree} />
             </div>
+            <div style={{width: '1%'}}>&nbsp;</div>
             <div style={{ background: colorBgContainer, height: '100%', width: '75%'}}>
                 <Table
                     pagination={{

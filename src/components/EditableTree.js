@@ -23,7 +23,7 @@ const EditableTree = (props) => {
 
     return (
         <Tree
-            expandedKeys={expandedKeys} 
+            defaultExpandedKeys={expandedKeys} 
             titleRender={(node) => {
                 return (
                     <div>
