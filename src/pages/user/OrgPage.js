@@ -61,7 +61,7 @@ const OrgPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="组织名称" onChange={(e) => orgName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="组织名称" allowClear onChange={(e) => orgName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

@@ -95,7 +95,7 @@ const ShopPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="店铺名称" allowClear onChange={(e) => shopName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>

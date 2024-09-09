@@ -68,7 +68,7 @@ const SpecPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="规格编码" onChange={(e) => specCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="规格编码" allowClear onChange={(e) => specCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +78,7 @@ const SpecPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="规格名称" onChange={(e) => specName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="规格名称" allowClear onChange={(e) => specName4SearchTmp = e.target.value} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

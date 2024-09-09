@@ -90,7 +90,7 @@ const TeaPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="茶品编码" onChange={(e) => teaCode4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="茶品编码" allowClear onChange={(e) => teaCode4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -100,7 +100,7 @@ const TeaPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="茶品名称" onChange={(e) => teaName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="茶品名称" allowClear onChange={(e) => teaName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

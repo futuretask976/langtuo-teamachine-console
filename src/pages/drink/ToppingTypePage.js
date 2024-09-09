@@ -68,7 +68,7 @@ const ToppingTypePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料类型编码" onChange={(e) => toppingTypeCode4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="物料类型编码" allowClear onChange={(e) => toppingTypeCode4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +78,7 @@ const ToppingTypePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料类型名称" onChange={(e) => toppingTypeName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="物料类型名称" allowClear onChange={(e) => toppingTypeName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

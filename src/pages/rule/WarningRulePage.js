@@ -80,7 +80,7 @@ const WarningRulePage = (props) => {
                     </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                    <Input placeholder="规则编码" onChange={(e) => warningRuleCode4SearchTmp = e.target.value}/>
+                    <Input placeholder="规则编码" allowClear onChange={(e) => warningRuleCode4SearchTmp = e.target.value}/>
                 </Col>
                 <Col className="gutter-row" span={2}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -88,7 +88,7 @@ const WarningRulePage = (props) => {
                     </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                    <Input placeholder="规则名称" onChange={(e) => warningRuleName4SearchTmp = e.target.value}/>
+                    <Input placeholder="规则名称" allowClear onChange={(e) => warningRuleName4SearchTmp = e.target.value}/>
                 </Col>
                 <Col className="gutter-row" span={3}>
                     <div className="flex-row-cont" style={{height: '100%'}}>

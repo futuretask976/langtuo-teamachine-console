@@ -81,7 +81,7 @@ const CleanRulePage = (props) => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont">
-                        <Input placeholder="规则编码" onChange={(e) => cleanRuleCode4SearchTmp = e.target.value}/>
+                        <Input placeholder="规则编码" allowClear onChange={(e) => cleanRuleCode4SearchTmp = e.target.value}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -91,7 +91,7 @@ const CleanRulePage = (props) => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont">
-                        <Input placeholder="规则名称" onChange={(e) => cleanRuleName4SearchTmp = e.target.value}/>
+                        <Input placeholder="规则名称" allowClear onChange={(e) => cleanRuleName4SearchTmp = e.target.value}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

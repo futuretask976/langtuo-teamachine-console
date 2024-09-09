@@ -81,7 +81,7 @@ const MenuPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="菜单编码" onChange={(e) => menuCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="菜单编码" allowClear onChange={(e) => menuCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -91,7 +91,7 @@ const MenuPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="菜单名称" onChange={(e) => menuName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="菜单名称" allowClear onChange={(e) => menuName4SearchTmp = e.target.value} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

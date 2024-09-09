@@ -68,7 +68,7 @@ const TenantPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="商户名称" onChange={(e) => tenantName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="商户名称" allowClear onChange={(e) => tenantName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +78,7 @@ const TenantPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="联系人名称" onChange={(e) => contactPerson4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="联系人名称" allowClear onChange={(e) => contactPerson4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

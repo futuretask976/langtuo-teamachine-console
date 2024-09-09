@@ -77,7 +77,7 @@ const AdminPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="登录名称" onChange={(e) => loginName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="登录名称" allowClear onChange={(e) => loginName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -87,7 +87,7 @@ const AdminPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="角色名称" onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="角色名称" allowClear onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>
