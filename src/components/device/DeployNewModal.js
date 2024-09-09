@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankStr, isValidCode } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr, isValidCode } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const DeployNewModal = (props) => {
@@ -36,11 +36,11 @@ const DeployNewModal = (props) => {
             machineCode: machineCode,
             shopCode: shopCode,
             state: state
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -68,16 +68,17 @@ const DeployNewModal = (props) => {
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setShopList4Select((prev => {
                 let shopListTmp = [];
-                model.forEach(item => {
-                    shopListTmp.push({
-                        label: item.shopName,
-                        value: item.shopCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        shopListTmp.push({
+                            label: item.shopName,
+                            value: item.shopCode
+                        });
                     });
-                });
+                }
                 return shopListTmp;
             }));
         });
@@ -85,16 +86,17 @@ const DeployNewModal = (props) => {
     const fetchModelList4Select= () => {
         get('/deviceset/model/list', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setModelList4Select((prev => {
                 let modelListTmp = [];
-                model.forEach(item => {
-                    modelListTmp.push({
-                        label: item.modelCode,
-                        value: item.modelCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        modelListTmp.push({
+                            label: item.modelCode,
+                            value: item.modelCode
+                        });
                     });
-                });
+                }
                 return modelListTmp;
             }));
         });
@@ -107,8 +109,8 @@ const DeployNewModal = (props) => {
         get('/deviceset/deploy/get', {
             tenantCode: getTenantCode(),
             deployCode: props.deployCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setDeployCode(model.deployCode);
             setModelCode(model.modelCode);
             setMachineCode(model.machineCode);
@@ -144,18 +146,13 @@ const DeployNewModal = (props) => {
     return (
         <Modal
             centered
-            open={open}
-            title="新建/编辑部署码"
-            onOk={onClickOK}
+            confirmLoading={loading}
             onCancel={onClickCancel}
-            width={500}
+            onOk={onClickOK}
+            open={open}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑部署码"
+            width={500}
         >
             <div style={{height: 200, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
@@ -167,7 +164,7 @@ const DeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="部署编码" value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
+                                <Input placeholder="部署编码" allowClear value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>
@@ -179,7 +176,7 @@ const DeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" value={machineCode} onChange={(e) => setMachineCode(e.target.value)} disabled={true}/>
+                                <Input placeholder="机器编码" allowClear value={machineCode} onChange={(e) => setMachineCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>

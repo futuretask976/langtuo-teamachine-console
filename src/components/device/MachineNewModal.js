@@ -3,7 +3,7 @@ import { DatePicker, Input, Modal, Select, Space, Switch, Col, Row } from 'antd'
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, getTenantCode, isBlankStr, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, getTenantCode, isArray, isBlankStr, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
@@ -29,11 +29,11 @@ const MachineDeployNewModal = (props) => {
             validUntil: new Date(validUntil),
             maintainUntil: new Date(maintainUntil),
             tenantCode: getTenantCode()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -68,8 +68,8 @@ const MachineDeployNewModal = (props) => {
         get('/deviceset/machine/get', {
             tenantCode: getTenantCode(),
             machineCode: props.machineCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setMachineCode(model.machineCode);
             setMachineName(model.machineName);
             setScreenCode(model.screenCode);
@@ -83,16 +83,17 @@ const MachineDeployNewModal = (props) => {
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setShopList4Select((prev => {
                 let shopListTmp = [];
-                model.forEach(item => {
-                    shopListTmp.push({
-                        label: item.shopName,
-                        value: item.shopCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        shopListTmp.push({
+                            label: item.shopName,
+                            value: item.shopCode
+                        });
                     });
-                });
+                }
                 return shopListTmp;
             }));
         });
@@ -133,7 +134,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" value={machineCode} disabled={true} />
+                                <Input placeholder="机器编码" allowClear value={machineCode} disabled={true} />
                             </div>
                         </Col>
                     </Row>
@@ -145,7 +146,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器名称" value={machineName} onChange={(e) => setMachineName(e.target.value)}/>
+                                <Input placeholder="机器名称" allowClear value={machineName} onChange={(e) => setMachineName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -157,7 +158,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" value={screenCode} disabled={true} onChange={(e) => setScreenCode(e.target.value)}/>
+                                <Input placeholder="机器编码" allowClear value={screenCode} disabled={true} onChange={(e) => setScreenCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -169,7 +170,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="电控板编码" value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
+                                <Input placeholder="电控板编码" allowClear value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>

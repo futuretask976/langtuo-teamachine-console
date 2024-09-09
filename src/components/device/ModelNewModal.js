@@ -26,11 +26,11 @@ const ModelNewModal = (props) => {
             modelCode: modelCode,
             enableFlowAll: enableFlowAll,
             pipelineList: pipelineList
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -57,8 +57,8 @@ const ModelNewModal = (props) => {
 
         get('/deviceset/model/get', {
             modelCode: props.modelCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setModelCode(model.modelCode);
             setEnableFlowAll(model.enableFlowAll);
             setPipelineList((prev => {
