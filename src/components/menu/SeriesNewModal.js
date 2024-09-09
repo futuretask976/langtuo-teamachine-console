@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -38,11 +38,11 @@ const SeriesNewModal = (props) => {
             seriesName: seriesName,
             imgLink: imgLink,
             seriesTeaRelList: convertToSeriesTeaRel()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -74,8 +74,8 @@ const SeriesNewModal = (props) => {
         get('/menuset/series/get', {  
             tenantCode: getTenantCode(),
             seriesCode: props.seriesCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setSeriesCode(model.seriesCode);
             setSeriesName(model.seriesName);
             setImgLink(model.imgLink);
@@ -86,15 +86,16 @@ const SeriesNewModal = (props) => {
     const fetchTeaList4Select = () => {
         get('/drinkset/tea/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(rrespDataesp => {
             setTeaList4Select(() => {
                 let tmp = [];
-                model.forEach(item => {
-                    item.label = item.teaName;
-                    item.value = item.teaCode;
-                    tmp.push(item);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        item.label = item.teaName;
+                        item.value = item.teaCode;
+                        tmp.push(item);
+                    });
+                }
                 return tmp;
             });
         });

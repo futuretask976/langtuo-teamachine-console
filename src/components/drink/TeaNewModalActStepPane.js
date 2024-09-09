@@ -24,17 +24,18 @@ const TeaNewModalActStepPane = (props) => {
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setToppingList4Select((prev => {
                 let toppingList4SelectTmp = [];
-                model.forEach(item => {
-                    let toppingTmp = {...item};
-                    toppingTmp.key = item.toppingCode;
-                    toppingTmp.label = item.toppingName;
-                    toppingTmp.value = item.toppingCode;
-                    toppingList4SelectTmp.push(toppingTmp);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        let toppingTmp = {...item};
+                        toppingTmp.key = item.toppingCode;
+                        toppingTmp.label = item.toppingName;
+                        toppingTmp.value = item.toppingCode;
+                        toppingList4SelectTmp.push(toppingTmp);
+                    });
+                }
                 return toppingList4SelectTmp;
             }));
         });

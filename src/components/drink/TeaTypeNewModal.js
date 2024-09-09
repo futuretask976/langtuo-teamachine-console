@@ -32,11 +32,11 @@ const TeaTypeNewModal = (props) => {
             teaTypeName: teaTypeName,
             comment: comment,
             tenantCode: getTenantCode()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -63,8 +63,8 @@ const TeaTypeNewModal = (props) => {
         get('/drinkset/tea/type/get', {
             tenantCode: getTenantCode(),
             teaTypeCode: props.teaTypeCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setTeaTypeCode(model.teaTypeCode);
             setTeaTypeName(model.teaTypeName);
             setComment(model.comment);
@@ -100,7 +100,7 @@ const TeaTypeNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="类型编码" value={teaTypeCode} disabled={isBlankStr(props.teaTypeCode4Edit) ? false : true} onChange={(e) => setTeaTypeCode(e.target.value)}/>
+                                <Input placeholder="类型编码" allowClear value={teaTypeCode} disabled={isBlankStr(props.teaTypeCode4Edit) ? false : true} onChange={(e) => setTeaTypeCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -112,7 +112,7 @@ const TeaTypeNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="类型名称" value={teaTypeName} onChange={(e) => setTeaTypeName(e.target.value)}/>
+                                <Input placeholder="类型名称" allowClear value={teaTypeName} onChange={(e) => setTeaTypeName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -124,7 +124,7 @@ const TeaTypeNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={6} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                <TextArea rows={6} placeholder="备注" allowClear maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>

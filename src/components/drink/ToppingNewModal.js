@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, InputNumber, Modal, Radio, Select, Space, Switch, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankObj, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankObj, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -51,11 +51,11 @@ const ToppingNewModal = (props) => {
             flowSpeed: flowSpeed,
             comment: comment,
             tenantCode: getTenantCode()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -110,16 +110,17 @@ const ToppingNewModal = (props) => {
     const fetchToppingTypeListData = () => {
         get('/drinkset/topping/type/list', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setToppingTypeList((prev => {
                 let tmp = [];
-                model.forEach(function(item) {
-                    tmp.push({
-                        label: item.toppingTypeName,
-                        value: item.toppingTypeCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(function(item) {
+                        tmp.push({
+                            label: item.toppingTypeName,
+                            value: item.toppingTypeCode
+                        });
                     });
-                });
+                }
                 return tmp;
             }));
         });
@@ -148,7 +149,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={20}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="物料编码" value={toppingCode} onChange={(e) => setToppingCode(e.target.value)} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
+                            <Input placeholder="物料编码" allowClear value={toppingCode} onChange={(e) => setToppingCode(e.target.value)} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
                         </div>
                     </Col>
                 </Row>
@@ -165,7 +166,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={20}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="物料名称" value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
+                            <Input placeholder="物料名称" allowClear value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
                         </div>
                     </Col>
                 </Row>

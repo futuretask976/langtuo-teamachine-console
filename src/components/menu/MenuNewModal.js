@@ -3,7 +3,7 @@ import { DatePicker, Input, Modal, Select, Space, Col, Row } from 'antd';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, isBlankStr, isBlankArray, getTenantCode, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, isBlankStr, isBlankArray, getTenantCode, isEmptyArray, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -40,11 +40,11 @@ const MenuNewModal = (props) => {
             imgLink: imgLink,
             validFrom: new Date(validFrom),
             menuSeriesRelList: convertToMenuSeriesRel()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -77,8 +77,8 @@ const MenuNewModal = (props) => {
         get('/menuset/menu/get', {  
             tenantCode: getTenantCode(),
             menuCode: props.menuCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setMenuCode(model.menuCode);
             setMenuName(model.menuName);
             setImgLink(model.imgLink);
@@ -92,15 +92,16 @@ const MenuNewModal = (props) => {
     const fetchSeriesList4Select = () => {
         get('/menuset/series/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setSeriesList4Select(prev => {
-                let tmp = [];
-                model.forEach(item => {
-                    item.label = item.seriesName;
-                    item.value = item.seriesCode;
-                    tmp.push(item);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        item.label = item.seriesName;
+                        item.value = item.seriesCode;
+                        tmp.push(item);
+                    });
+                }
                 return tmp;
             });
         });

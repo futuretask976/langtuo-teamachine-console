@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Space, Table, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isEmptyArray, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isEmptyArray, isBlankStr, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 import SpecItemNewModal from '../../components/drink/SpecItemNewModal'
@@ -39,11 +39,11 @@ const SpecNewModal = (props) => {
             specCode: specCode,
             specName: specName,
             specItemList: specItemList
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -71,22 +71,24 @@ const SpecNewModal = (props) => {
         get('/drinkset/spec/get', {
             tenantCode: getTenantCode(),
             specCode: props.specCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setSpecCode(model.specCode);
             setSpecName(model.specName);
             setComment(model.comment);
             setSpecItemList(prev => {
                 let tmp = [];
-                model.specItemList.forEach(item => {
-                    tmp.push({
-                        key: item.id,
-                        specItemCode: item.specItemCode,
-                        specItemName: item.specItemName,
-                        outerSpecItemCode: item.outerSpecItemCode,
-                        actions: ['edit', 'delete']
+                if (isArray(model.specItemList)) {
+                    model.specItemList.forEach(item => {
+                        tmp.push({
+                            key: item.id,
+                            specItemCode: item.specItemCode,
+                            specItemName: item.specItemName,
+                            outerSpecItemCode: item.outerSpecItemCode,
+                            actions: ['edit', 'delete']
+                        });
                     });
-                });
+                }
                 return tmp;
             });
         });
@@ -219,7 +221,7 @@ const SpecNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="规格编码" disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={(e) => setSpecCode(e.target.value)} />
+                                    <Input placeholder="规格编码" allowClear disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={(e) => setSpecCode(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
@@ -231,7 +233,7 @@ const SpecNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="规格名称" value={specName} onChange={(e) => setSpecName(e.target.value)} />
+                                    <Input placeholder="规格名称" allowClear value={specName} onChange={(e) => setSpecName(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>

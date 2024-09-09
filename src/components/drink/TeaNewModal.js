@@ -69,11 +69,11 @@ const TeaNewModal = (props) => {
             comment: tea.comment,
             teaUnitList: tea.teaUnitList,
             actStepList: tea.actStepList
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -128,8 +128,8 @@ const TeaNewModal = (props) => {
         get('/drinkset/tea/get', {
             tenantCode: getTenantCode(),
             teaCode: props.teaCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setTea(prev => {
                 return {...model};
             });

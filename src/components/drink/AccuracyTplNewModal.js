@@ -24,11 +24,11 @@ const AccuracyTplNewModal = (props) => {
             underAmount: underAmount,
             toppingCodeList: toppingCodeList,
             comment: comment
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -63,8 +63,8 @@ const AccuracyTplNewModal = (props) => {
         get('/drinkset/accuracy/get', {
             tenantCode: getTenantCode(),
             templateCode: props.templateCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setTemplateCode(model.templateCode);
             setTemplateName(model.templateName);
             setOverMode(model.overMode);
@@ -78,16 +78,17 @@ const AccuracyTplNewModal = (props) => {
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setToppingList4Select(prev => {
                 let tmp = [];
-                model.forEach(topping => {
-                    tmp.push({
-                        label: topping.toppingName,
-                        value: topping.toppingCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(topping => {
+                        tmp.push({
+                            label: topping.toppingName,
+                            value: topping.toppingCode
+                        });
                     });
-                });
+                }
                 return tmp;
             });
         });

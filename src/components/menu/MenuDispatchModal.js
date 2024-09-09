@@ -16,11 +16,11 @@ const MenuDispatchModal = (props) => {
             tenantCode: getTenantCode(),
             menuCode: menuCode,
             shopGroupCodeList: targetKeys
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -48,9 +48,9 @@ const MenuDispatchModal = (props) => {
         get('/menuset/menu/dispatch/get', {  
             tenantCode: getTenantCode(),
             menuCode: props.menuCode4Dispatch
-        }).then(resp => {
-            let model = resp.model;
-            setTargetKeys(prev => {
+        }).then(respData => {
+            let model = respData.model;
+            setTargetKeys(respData => {
                 let tmp = [];
                 if (isArray(model.shopGroupCodeList)) {
                     model.shopGroupCodeList.forEach(shopGroupCode => {
@@ -64,14 +64,15 @@ const MenuDispatchModal = (props) => {
     const fetchShopGroupList4Transfer = () => {
         get('/shopset/shop/group/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setShopGroupList4Transfer(prev => {
                 let tmp = [];
-                model.forEach(item => {
-                    item.key = item.shopGroupCode;
-                    tmp.push(item);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        item.key = item.shopGroupCode;
+                        tmp.push(item);
+                    });
+                }
                 return tmp;
             });
         });
@@ -106,18 +107,13 @@ const MenuDispatchModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="菜单分发"
-            onOk={onClickOK}
             onCancel={onClickCancel}
-            width={600}
+            onOk={onClickOK}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="菜单分发"
+            width={600}
         >
             <div style={{height: 425, width: '100%'}}>
                 <Row style={{width: '100%'}}>

@@ -32,11 +32,11 @@ const ToppingTypeNewModal = (props) => {
             toppingTypeName: toppingTypeName,
             comment: comment,
             tenantCode: getTenantCode()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -63,8 +63,8 @@ const ToppingTypeNewModal = (props) => {
         get('/drinkset/topping/type/get', {
             tenantCode: getTenantCode(),
             toppingTypeCode: props.toppingTypeCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setToppingTypeCode(model.toppingTypeCode);
             setToppingTypeName(model.toppingTypeName);
             setComment(model.comment);

@@ -19,31 +19,32 @@ const TeaNewModalSpecPane = (props) => {
     const fetchSpecList4Select = () => {
         get('/drinkset/spec/list', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setSpecList4Select((prev => {
                 let tmp = [];
-                model.forEach(item => {
-                    let specTmp = {
-                        key: item.specCode,
-                        specName: item.specName,
-                        specCode: item.specCode,
-                        label: item.specName,
-                        value: item.specCode
-                    };
-                    let specItemListTmp = [];
-                    if (isArray(item.specItemList)) {
-                        item.specItemList.forEach(specItem => {
-                            specItemListTmp.push({
-                                specItemCode: specItem.specItemCode,
-                                specItemName: specItem.specItemName,
-                                outerSpecItemCode: specItem.outerSpecItemCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        let specTmp = {
+                            key: item.specCode,
+                            specName: item.specName,
+                            specCode: item.specCode,
+                            label: item.specName,
+                            value: item.specCode
+                        };
+                        let specItemListTmp = [];
+                        if (isArray(item.specItemList)) {
+                            item.specItemList.forEach(specItem => {
+                                specItemListTmp.push({
+                                    specItemCode: specItem.specItemCode,
+                                    specItemName: specItem.specItemName,
+                                    outerSpecItemCode: specItem.outerSpecItemCode
+                                });
                             });
-                        });
-                    }
-                    specTmp.specItemList = specItemListTmp;
-                    tmp.push(specTmp);
-                })
+                        }
+                        specTmp.specItemList = specItemListTmp;
+                        tmp.push(specTmp);
+                    });
+                }
                 return tmp;
             }));
         });
