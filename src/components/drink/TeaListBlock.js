@@ -51,13 +51,13 @@ const TeaListBlock = (props) => {
             title: '茶品编码',
             dataIndex: 'teaCode',
             key: 'teaTypeCode',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '茶品名称',
             dataIndex: 'teaName',
             key: 'teaTypeName',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '状态',
@@ -76,7 +76,7 @@ const TeaListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '20%',
+            width: '15%',
             render: (_, { teaCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

@@ -51,13 +51,13 @@ const AccuracyTplListBlock = (props) => {
             title: '模板编码',
             dataIndex: 'templateCode',
             key: 'templateCode',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '模板名称',
             dataIndex: 'templateName',
             key: 'templateName',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '状态',
@@ -70,13 +70,13 @@ const AccuracyTplListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
-            width: '40%',
+            width: '25%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
-            width: '10%',
+            width: '15%',
             render: (_, { templateCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
