@@ -3,7 +3,7 @@ import { Input, Modal, Select, Space, Col, Row } from 'antd';
 import md5 from 'js-md5';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -45,11 +45,11 @@ const AdminNewModal = (props) => {
             roleCode: roleCode,
             orgName: orgName,
             comment: comment
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -82,8 +82,8 @@ const AdminNewModal = (props) => {
         get('/userset/admin/get', {  
             tenantCode: getTenantCode(),
             loginName: props.loginName4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setLoginName(model.loginName);
             // setLoginPass(model.loginPass);
             setRoleCode(model.roleCode);
@@ -94,16 +94,17 @@ const AdminNewModal = (props) => {
     const fetchOrgList4Select = () => {
         get('/userset/org/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setOrgList((prev => {
                 let orgListTmp = [];
-                model.forEach(item => {
-                    orgListTmp.push({
-                        label: item.orgName,
-                        value: item.orgName
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        orgListTmp.push({
+                            label: item.orgName,
+                            value: item.orgName
+                        });
                     });
-                })
+                }
                 return orgListTmp;
             }));
         });
@@ -111,16 +112,17 @@ const AdminNewModal = (props) => {
     const fetchRoleList4Select = () => {
         get('/userset/role/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setRoleList((prev => {
                 let roleListTmp = [];
-                model.forEach(item => {
-                    roleListTmp.push({
-                        label: item.roleName,
-                        value: item.roleCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        roleListTmp.push({
+                            label: item.roleName,
+                            value: item.roleCode
+                        });
                     });
-                })
+                }
                 return roleListTmp;
             }));
         });

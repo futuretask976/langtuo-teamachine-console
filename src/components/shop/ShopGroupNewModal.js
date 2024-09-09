@@ -32,11 +32,11 @@ const ShopGroupNewModal = (props) => {
             shopGroupName: shopGroupName,
             comment: comment,
             tenantCode: getTenantCode()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -63,8 +63,8 @@ const ShopGroupNewModal = (props) => {
         get('/shopset/shop/group/get', {  
             tenantCode: getTenantCode(),
             shopGroupCode: props.shopGroupCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setShopGroupCode(model.shopGroupCode);
             setShopGroupName(model.shopGroupName);
             setComment(model.comment);

@@ -30,17 +30,18 @@ const WarningRuleListBlock = (props) => {
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
-            if (isArray(model.list)) {
-                setList((prev => {
-                    let tmp = [];
+            setList((prev => {
+                let tmp = [];
+                if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
                         ite.key = ite.id;
                         ite.actions = ["edit", "delete", "dispatch"];
                         tmp.push(ite);
                     });
-                    return tmp;
-                }));
-            }
+                }
+                return tmp;
+            }));
+            
         });
     }
     useEffect(() => {

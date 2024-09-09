@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const ShopGroupListBlock = (props) => {
@@ -22,18 +22,20 @@ const ShopGroupListBlock = (props) => {
             shopGroupName: props.shopGroupName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
             setList((prev => {
                 let tmp = [];
-                model.list.forEach(function(ite) {
-                    ite.key = ite.id;
-                    ite.actions = ["edit", "delete"];
-                    tmp.push(ite);
-                });
+                if (isArray(model.list)) {
+                    model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                }
                 return tmp;
             }));
         });
@@ -108,12 +110,12 @@ const ShopGroupListBlock = (props) => {
         del('/shopset/shop/group/delete', {
             tenantCode: getTenantCode(),
             shopGroupCode: shopGroupCode
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + resp.errorMsg)
+                alert('删除失败：' + respData.errorMsg)
             }
         });
     }

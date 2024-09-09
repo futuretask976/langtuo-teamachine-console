@@ -23,24 +23,22 @@ const ShopListBlock = (props) => {
             shopGroupCode: props.shopGroupCode4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
-            if (isArray(model.list)) {
-                setList((prev => {
-                    let tmp = [];
+            setList((prev => {
+                let tmp = [];
+                if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
                         ite.key = ite.id;
                         ite.actions = ["edit", "delete"];
                         tmp.push(ite);
                     });
-                    return tmp;
-                }));
-            } else {
-                setList([]);
-            }
+                }
+                return tmp;
+            }));
         });
     }
     useEffect(() => {

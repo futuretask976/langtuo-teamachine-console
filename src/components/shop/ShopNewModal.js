@@ -3,7 +3,7 @@ import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
 import axios from 'axios';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -74,8 +74,8 @@ const ShopNewModal = (props) => {
         get('/shopset/shop/get', {  
             tenantCode: getTenantCode(),
             shopCode: props.shopCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setShopCode(model.shopCode);
             setShopName(model.shopName);
             setShopGroupCode(model.shopGroupCode);
@@ -87,15 +87,16 @@ const ShopNewModal = (props) => {
         get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
         }).then(resp => {
-            let model = resp.model;
             setShopGroupList((prev => {
                 let shopGroupListTmp = [];
-                model.forEach(item => {
-                    shopGroupListTmp.push({
-                        label: item.shopGroupName,
-                        value: item.shopGroupCode
+                if (isArray(resp.model)) {
+                    resp.model.forEach(item => {
+                        shopGroupListTmp.push({
+                            label: item.shopGroupName,
+                            value: item.shopGroupCode
+                        });
                     });
-                })
+                }
                 return shopGroupListTmp;
             }));
         });
@@ -110,18 +111,13 @@ const ShopNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建/编辑店铺"
-            onOk={onClickOK}
             onCancel={onClickCancel}
-            width={500}
+            onOk={onClickOK}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="新建/编辑店铺"
+            width={500}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
