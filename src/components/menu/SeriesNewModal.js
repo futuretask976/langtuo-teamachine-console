@@ -86,7 +86,7 @@ const SeriesNewModal = (props) => {
     const fetchTeaList4Select = () => {
         get('/drinkset/tea/list', {  
             tenantCode: getTenantCode()
-        }).then(rrespDataesp => {
+        }).then(respData => {
             setTeaList4Select(() => {
                 let tmp = [];
                 if (isArray(respData.model)) {

@@ -95,6 +95,7 @@ const MenuNewModal = (props) => {
         }).then(respData => {
             let model = respData.model;
             setSeriesList4Select(prev => {
+                let tmp = [];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
                         item.label = item.seriesName;
