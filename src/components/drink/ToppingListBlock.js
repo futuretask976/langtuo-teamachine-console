@@ -101,12 +101,12 @@ const ToppingListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>编辑</a>
+                            <a key={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>删除</a>
+                            <a key={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>删除</a>
                         );
                     }
                 })}
@@ -152,7 +152,7 @@ const ToppingListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.toppingCode} />
         </div>
     )
 };

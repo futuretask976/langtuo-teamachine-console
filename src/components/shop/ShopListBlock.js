@@ -81,12 +81,12 @@ const ShopListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + shopCode} onClick={(e) => onClickEdit(e, shopCode)}>编辑</a>
+                            <a key={action + '_' + shopCode} onClick={(e) => onClickEdit(e, shopCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + shopCode} onClick={(e) => onClickDelete(e, shopCode)}>删除</a>
+                            <a key={action + '_' + shopCode} onClick={(e) => onClickDelete(e, shopCode)}>删除</a>
                         );
                     }
                 })}
@@ -132,7 +132,7 @@ const ShopListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.shopCode} />
         </div>
     )
 };

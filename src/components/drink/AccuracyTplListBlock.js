@@ -82,12 +82,12 @@ const AccuracyTplListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + templateCode} onClick={(e) => onClickEdit(e, templateCode)}>编辑</a>
+                            <a key={action + '_' + templateCode} onClick={(e) => onClickEdit(e, templateCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + templateCode} onClick={(e) => onClickDelete(e, templateCode)}>删除</a>
+                            <a key={action + '_' + templateCode} onClick={(e) => onClickDelete(e, templateCode)}>删除</a>
                         );
                     }
                 })}

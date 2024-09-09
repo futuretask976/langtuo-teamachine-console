@@ -90,12 +90,12 @@ const DeployListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>编辑</a>
+                            <a key={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>删除</a>
+                            <a key={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>删除</a>
                         );
                     }
                 })}
@@ -141,7 +141,7 @@ const DeployListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.deployCode} />
         </div>
     )
 };

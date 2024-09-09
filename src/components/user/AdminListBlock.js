@@ -83,12 +83,12 @@ const AdminListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + loginName} onClick={(e) => onClickEdit(e, loginName)}>编辑</a>
+                            <a key={action + '_' + loginName} onClick={(e) => onClickEdit(e, loginName)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + loginName} onClick={(e) => onClickDelete(e, loginName)}>删除</a>
+                            <a key={action + '_' + loginName} onClick={(e) => onClickDelete(e, loginName)}>删除</a>
                         );
                     }
                 })}

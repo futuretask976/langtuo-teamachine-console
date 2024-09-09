@@ -81,12 +81,12 @@ const ToppingTypeListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + toppingTypeCode} onClick={(e) => onClickEdit(e, toppingTypeCode)}>编辑</a>
+                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickEdit(e, toppingTypeCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + toppingTypeCode} onClick={(e) => onClickDelete(e, toppingTypeCode)}>删除</a>
+                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickDelete(e, toppingTypeCode)}>删除</a>
                         );
                     }
                 })}

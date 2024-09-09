@@ -33,7 +33,6 @@ const TenantListBlock = (props) => {
                 let tmp = [];
                 if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
-                        ite.key = ite.id;
                         ite.actions = ["edit", "delete"];
                         tmp.push(ite);
                     });
@@ -88,12 +87,12 @@ const TenantListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>编辑</a>
+                            <a key={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>删除</a>
+                            <a key={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>删除</a>
                         );
                     }
                 })}

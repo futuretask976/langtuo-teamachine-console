@@ -19,7 +19,7 @@ const EditableTree = (props) => {
     }
     useEffect(() => {
         initDefaultExpandedKeys();
-    }, props.orgStrucTree);
+    }, [props.orgStrucTree]);
 
     return (
         <Tree

@@ -93,12 +93,12 @@ const MachineListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a id={action + '_' + machineCode} onClick={(e) => onClickEdit(e, machineCode)}>编辑</a>
+                            <a key={action + '_' + machineCode} onClick={(e) => onClickEdit(e, machineCode)}>编辑</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a id={action + '_' + machineCode} onClick={(e) => onClickDelete(e, machineCode)}>删除</a>
+                            <a key={action + '_' + machineCode} onClick={(e) => onClickDelete(e, machineCode)}>删除</a>
                         );
                     }
                 })}
@@ -149,7 +149,7 @@ const MachineListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={data}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.machineCode} />
         </div>
     )
 };
