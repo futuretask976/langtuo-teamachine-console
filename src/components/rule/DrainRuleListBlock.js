@@ -49,28 +49,33 @@ const DrainRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'drainRuleCode',
-            key: 'drainRuleCode'
+            key: 'drainRuleCode',
+            width: '25%',
         },
         {
             title: '规则名称',
             dataIndex: 'drainRuleName',
             key: 'drainRuleName',
+            width: '25%',
         },
         {
             title: '默认规则',
             dataIndex: 'defaultRule',
             key: 'defaultRule',
+            width: '10%',
             render: (defaultRule) => defaultRule == 1 ? '是' : '不是',
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '20%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
+            width: '20%',
             render: (_, { drainRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

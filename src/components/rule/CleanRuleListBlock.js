@@ -49,34 +49,40 @@ const CleanRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'cleanRuleCode',
-            key: 'cleanRuleCode'
+            key: 'cleanRuleCode',
+            width: '25%'
         },
         {
             title: '规则名称',
             dataIndex: 'cleanRuleName',
             key: 'cleanRuleName',
+            width: '25%'
         },
         {
-            title: '是否提前提醒',
+            title: '提前提醒',
             dataIndex: 'permitRemind',
             key: 'permitRemind',
+            width: '10%',
             render: (permitRemind) => permitRemind == 1 ? '启用' : '禁用',
         },
         {
-            title: '是否允许批量',
+            title: '允许批量',
             dataIndex: 'permitBatch',
             key: 'permitBatch',
+            width: '10%',
             render: (permitBatch) => permitBatch == 1 ? '启用' : '禁用',
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '15%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
+            width: '15%',
             render: (_, { cleanRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

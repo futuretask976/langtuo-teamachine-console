@@ -52,22 +52,26 @@ const WarningRuleListBlock = (props) => {
         {
             title: '规则编码',
             dataIndex: 'warningRuleCode',
-            key: 'warningRuleCode'
+            key: 'warningRuleCode',
+            width: '30%'
         },
         {
             title: '规则名称',
             dataIndex: 'warningRuleName',
             key: 'warningRuleName',
+            width: '30%'
         },
         {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
+            width: '25%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
+            width: '15%',
             render: (_, { warningRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
