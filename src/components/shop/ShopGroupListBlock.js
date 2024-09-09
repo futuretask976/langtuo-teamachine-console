@@ -50,19 +50,19 @@ const ShopGroupListBlock = (props) => {
             title: '店铺组编码',
             dataIndex: 'shopGroupCode',
             key: 'shopGroupCode',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '店铺数量',
             dataIndex: 'shopCount',
             key: 'shopCount',
-            width: '20%'
+            width: '15%'
         },
         {
             title: '创建时间',
@@ -74,7 +74,7 @@ const ShopGroupListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '20%',
+            width: '15%',
             render: (_, { shopGroupCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
