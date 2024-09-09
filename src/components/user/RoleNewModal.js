@@ -31,11 +31,11 @@ const RoleNewModal = (props) => {
             roleName: roleName,
             comment: comment,
             permitActCodeList: getCheckedPermitActCodeList()
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -60,8 +60,8 @@ const RoleNewModal = (props) => {
     const fetchPermitActGroupList4Select = () => {
         get('/userset/permitact/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setPermitActGroupList((prev => {
                 return model;
             }));

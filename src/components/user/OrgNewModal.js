@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankStr, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const OrgNewModal = (props) => {
@@ -21,11 +21,11 @@ const OrgNewModal = (props) => {
             tenantCode: getTenantCode(),
             orgName: orgName,
             parentOrgName: parentOrgName
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -54,8 +54,8 @@ const OrgNewModal = (props) => {
         get('/userset/org/get', {  
             tenantCode: getTenantCode(),
             orgName: props.orgName4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setOrgName(model.orgName);
             setParentOrgName(model.parentOrgName);
         });
@@ -63,16 +63,17 @@ const OrgNewModal = (props) => {
     const fetchOrgList4Select = () => {
         get('/userset/org/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setParentOrgNameOpts(prev => {
                 let tmpOpts = [];
-                model.forEach(ite => {
-                    tmpOpts.push({
-                        label: ite.orgName,
-                        value: ite.orgName
+                if (isArray(respData.model)) {
+                    respData.model.forEach(ite => {
+                        tmpOpts.push({
+                            label: ite.orgName,
+                            value: ite.orgName
+                        });
                     });
-                });
+                }
                 return tmpOpts;
             });
         });

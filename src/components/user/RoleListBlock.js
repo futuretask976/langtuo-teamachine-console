@@ -24,8 +24,8 @@ const RoleListBlock = (props) => {
             roleName: props.roleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -116,12 +116,12 @@ const RoleListBlock = (props) => {
         del('/userset/role/delete', {
             tenantCode: getTenantCode(),
             roleCode: roleCode
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + resp.errorMsg)
+                alert('删除失败：' + respData.errorMsg)
             }
         });
     }

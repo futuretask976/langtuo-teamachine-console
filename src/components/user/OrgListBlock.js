@@ -24,8 +24,8 @@ const OrgListBlock = (props) => {
             orgName: props.orgName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -109,13 +109,13 @@ const OrgListBlock = (props) => {
         del('/userset/org/delete', {
             tenantCode: getTenantCode(),
             orgName: orgName
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert('删除成功');
                 fetchListData();
                 fetchListByDepth();
             } else {
-                alert('删除失败：' + resp.errorMsg)
+                alert('删除失败：' + respData.errorMsg)
             }
         });
     }
@@ -125,15 +125,13 @@ const OrgListBlock = (props) => {
     const fetchListByDepth = () => {
         get('/userset/org/listbydepth', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
-            if (!isBlankObj(model)) {
-                setOrgStrucTree(prev => {
-                    let orgStrucTreeTmp = [];
-                    orgStrucTreeTmp.push(convertOrgNode(model));
-                    return orgStrucTreeTmp;
-                })
-            }
+        }).then(respData => {
+            let model = respData.model;
+            setOrgStrucTree(prev => {
+                let orgStrucTreeTmp = [];
+                orgStrucTreeTmp.push(convertOrgNode(model));
+                return orgStrucTreeTmp;
+            })
         });
     }
     useEffect(() => {

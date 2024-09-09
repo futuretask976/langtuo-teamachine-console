@@ -41,8 +41,8 @@ const TenantNewModal = (props) => {
             contactPerson: contactPerson,
             contactPhone: contactPhone,
             comment: comment
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
                 alert('保存失败：' + resp.errorMsg);
@@ -75,8 +75,8 @@ const TenantNewModal = (props) => {
 
         get('/userset/tenant/get', {  
             tenantCode: props.tenantCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setTenantCode(model.tenantCode);
             setTenantName(model.tenantName);
             setContactPerson(model.contactPerson);
