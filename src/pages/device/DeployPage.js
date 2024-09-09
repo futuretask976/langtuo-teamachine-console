@@ -20,14 +20,14 @@ const DeployPage = () => {
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
+        }).then(respData => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                if (isArray(resp.model)) {
-                    let shopList = Array.from(resp.model);
+                if (isArray(respData.model)) {
+                    let shopList = Array.from(respData.model);
                     shopList.forEach(item => {
                         shopListTmp.push({
                             label: item.shopName,
@@ -89,8 +89,8 @@ const DeployPage = () => {
     const onExportByExcel = ()=> {
         get4Export('/deviceset/deploy/export', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            const url4Export = window.URL.createObjectURL(new Blob([resp]));
+        }).then(respData => {
+            const url4Export = window.URL.createObjectURL(new Blob([respData]));
             const link4Export = document.createElement('a');
             link4Export.href = url4Export;
             link4Export.setAttribute('download', 'export.xlsx');
@@ -149,11 +149,15 @@ const DeployPage = () => {
                             onChange={(e) => setState4SearchTmp(e)}
                             options={[
                                 {
+                                    label: '全部',
+                                    value: ''
+                                },
+                                {
                                     label: '已部署',
-                                    value: 1
+                                    value: '1'
                                 }, {
                                     label: '未部署',
-                                    value: 0
+                                    value: '0'
                                 }
                             ]}
                         />
