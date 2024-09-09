@@ -68,7 +68,7 @@ const SeriesPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料编码" onClick={(e) => seriesCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="物料编码" onChange={(e) => seriesCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +78,7 @@ const SeriesPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料名称" onClick={(e) => seriesName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="物料名称" onChange={(e) => seriesName4SearchTmp = e.target.value} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>
