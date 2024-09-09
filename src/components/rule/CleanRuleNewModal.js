@@ -22,11 +22,11 @@ const CleanRuleNewModal = (props) => {
             permitBatch: permitBatch,
             exceptToppingCodeList: exceptToppingCodeList,
             cleanRuleStepList: cleanRuleStepList
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -54,17 +54,18 @@ const CleanRuleNewModal = (props) => {
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setToppingList4Select((prev => {
                 let toppingList4SelectTmp = [];
-                model.forEach(item => {
-                    let toppingTmp = {...item};
-                    toppingTmp.key = item.toppingCode;
-                    toppingTmp.label = item.toppingName;
-                    toppingTmp.value = item.toppingCode;
-                    toppingList4SelectTmp.push(toppingTmp);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        let toppingTmp = {...item};
+                        toppingTmp.key = item.toppingCode;
+                        toppingTmp.label = item.toppingName;
+                        toppingTmp.value = item.toppingCode;
+                        toppingList4SelectTmp.push(toppingTmp);
+                    });
+                }
                 return toppingList4SelectTmp;
             }));
         });
@@ -77,8 +78,8 @@ const CleanRuleNewModal = (props) => {
         get('/ruleset/clean/get', {  
             tenantCode: getTenantCode(),
             cleanRuleCode: props.cleanRuleCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setCleanRuleCode(model.cleanRuleCode);
             setCleanRuleName(model.cleanRuleName);
             setPermitRemind(model.permitRemind);
@@ -90,13 +91,15 @@ const CleanRuleNewModal = (props) => {
                 });
                 setCleanRuleStepPaneList(prev => {
                     let tmp = [];
-                    model.cleanRuleStepList.forEach(cleanRuleStep => {
-                        tmp.push({
-                            label: '步骤'+ (cleanRuleStep.stepIndex),
-                            children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStep} stepIndex={cleanRuleStep.stepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
-                            key: cleanRuleStep.stepIndex
+                    if (isArray(model.cleanRuleStepList)) {
+                        model.cleanRuleStepList.forEach(cleanRuleStep => {
+                            tmp.push({
+                                label: '步骤'+ (cleanRuleStep.stepIndex),
+                                children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStep} stepIndex={cleanRuleStep.stepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
+                                key: cleanRuleStep.stepIndex
+                            });
                         });
-                    });
+                    }
                     return tmp;
                 });
                 setStepIndex(model.cleanRuleStepList.length);
@@ -208,14 +211,10 @@ const CleanRuleNewModal = (props) => {
         <Modal
             centered
             open={open}
-            title={props.modalTitle}
-            onOk={onClickOK}
             onCancel={onClickCancel}
+            onOk={onClickOK}
+            title={props.modalTitle}
             width={850}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>提交</Button>
-            ]}
         >
             <div className="flex-col-cont" style={{height: 400, width: '100%'}}>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
