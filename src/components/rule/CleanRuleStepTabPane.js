@@ -163,7 +163,6 @@ const CleanRuleStepTabPane = (props) => {
         });
     };
     const onChangeCleanAgentType = (e) => {
-        // console.log('$$$$$ onChangeCleanAgentType cleanRuleStep=', cleanRuleStep)
         setCleanRuleStep(prev => {
             let tmp = {...prev};
             tmp.cleanAgentType = e;
@@ -171,7 +170,6 @@ const CleanRuleStepTabPane = (props) => {
         });
     };
     useEffect(() => {
-        // console.log('$$$$$ useEffect4Pane cleanRuleStep=', cleanRuleStep)
         props.updateCleanRuleStep(cleanRuleStep);
     }, [cleanRuleStep]);
  

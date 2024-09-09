@@ -23,11 +23,11 @@ const WarningRuleNewModal = (props) => {
             warningContent: warningContent,
             thresholdMode: thresholdMode,
             threshold: threshold
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -58,8 +58,8 @@ const WarningRuleNewModal = (props) => {
         get('/ruleset/warning/get', {  
             tenantCode: getTenantCode(),
             warningRuleCode: props.warningRuleCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setWarningRuleCode(model.warningRuleCode);
             setWarningRuleName(model.warningRuleName);
             setWarningType(model.warningType);

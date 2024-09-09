@@ -23,8 +23,8 @@ const DrainRuleListBlock = (props) => {
             drainRuleName: props.drainRuleName4Search,
             pageNum: pageNum,
             pageSize: pageSize
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
@@ -114,12 +114,12 @@ const DrainRuleListBlock = (props) => {
         del('/ruleset/drain/delete', {
             tenantCode: getTenantCode(),
             drainRuleCode: drainRuleCode
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert('删除成功');
                 fetchListData();
             } else {
-                alert('删除失败：' + resp.errorMsg)
+                alert('删除失败：' + respData.errorMsg)
             }
         });
     }

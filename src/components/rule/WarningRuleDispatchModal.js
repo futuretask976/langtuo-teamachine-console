@@ -16,11 +16,11 @@ const WarningRuleDispatchModal = (props) => {
             tenantCode: getTenantCode(),
             warningRuleCode: warningRuleCode,
             shopGroupCodeList: targetKeys
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -64,14 +64,15 @@ const WarningRuleDispatchModal = (props) => {
     const fetchShopGroupList4Transfer = () => {
         get('/shopset/shop/group/listbyadminorg', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setShopGroupList4Transfer(prev => {
                 let tmp = [];
-                model.forEach(item => {
-                    item.key = item.shopGroupCode;
-                    tmp.push(item);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        item.key = item.shopGroupCode;
+                        tmp.push(item);
+                    });
+                }
                 return tmp;
             });
         });

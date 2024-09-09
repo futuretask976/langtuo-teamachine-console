@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Select, Space, Switch, Table, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { isBlankArray, isBlankStr, getTenantCode, isArray } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const DrainRuleNewModal = (props) => {
@@ -18,11 +18,11 @@ const DrainRuleNewModal = (props) => {
             drainRuleName: drainRuleName,
             defaultRule: defaultRule,
             toppingRuleList: toppingRuleList
-        }).then(resp => {
-            if (resp.success) {
+        }).then(respData => {
+            if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert('保存失败：' + respData.errorMsg);
             }
         });
 
@@ -51,17 +51,19 @@ const DrainRuleNewModal = (props) => {
         get('/ruleset/drain/get', {  
             tenantCode: getTenantCode(),
             drainRuleCode: props.drainRuleCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setDrainRuleCode(model.drainRuleCode);
             setDrainRuleName(model.drainRuleName);
             setDefaultRule(model.defaultRule);
             setToppingRuleList(prev => {
                 let tmp = [];
-                model.toppingRuleList.forEach(item => {
-                    item.actions = ['delete'];
-                    tmp.push(item);
-                });
+                if (isArray(model.toppingRuleList)) {
+                    model.toppingRuleList.forEach(item => {
+                        item.actions = ['delete'];
+                        tmp.push(item);
+                    });
+                }
                 return tmp;
             });
         });
@@ -79,19 +81,20 @@ const DrainRuleNewModal = (props) => {
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
             setToppingList4Select((prev => {
                 let toppingList4SelectTmp = [];
-                model.forEach(item => {
-                    let toppingTmp = {...item};
-                    toppingTmp.key = item.toppingCode;
-                    toppingTmp.label = item.toppingName;
-                    toppingTmp.toppingName = item.toppingName;
-                    toppingTmp.value = item.toppingCode;
-                    toppingTmp.toppingCode = item.toppingCode;
-                    toppingList4SelectTmp.push(toppingTmp);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        let toppingTmp = {...item};
+                        toppingTmp.key = item.toppingCode;
+                        toppingTmp.label = item.toppingName;
+                        toppingTmp.toppingName = item.toppingName;
+                        toppingTmp.value = item.toppingCode;
+                        toppingTmp.toppingCode = item.toppingCode;
+                        toppingList4SelectTmp.push(toppingTmp);
+                    });
+                }
                 return toppingList4SelectTmp;
             }));
         });
