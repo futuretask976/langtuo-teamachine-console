@@ -3,7 +3,7 @@ import { Button, Input, Select, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode, isValidCode, isValidName } from '../../js/common';
+import { getTenantCode, isArray, isValidCode, isValidName } from '../../js/common';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -19,19 +19,20 @@ const ShopPage = () => {
     const fetchShopGroupList4Select = () => {
         get('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let shopGroupList = Array.from(resp.model);
+        }).then(respData => {
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                shopGroupList.forEach(item => {
-                    shopGroupListTmp.push({
-                        label: item.shopGroupName,
-                        value: item.shopGroupCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        shopGroupListTmp.push({
+                            label: item.shopGroupName,
+                            value: item.shopGroupCode
+                        });
                     });
-                })
+                }
                 return shopGroupListTmp;
             }));
         });
