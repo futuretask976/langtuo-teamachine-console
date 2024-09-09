@@ -55,7 +55,7 @@ const CleanRuleDispatchModal = (props) => {
                 if (isArray(model.shopGroupCodeList)) {
                     model.shopGroupCodeList.forEach(shopGroupCode => {
                         tmp.push(shopGroupCode);
-                    })
+                    });
                 }
                 return tmp;
             });
@@ -65,13 +65,14 @@ const CleanRuleDispatchModal = (props) => {
         get('/shopset/shop/group/listbyadminorg', {  
             tenantCode: getTenantCode()
         }).then(respData => {
-            let model = respData.model;
             setShopGroupList4Transfer(prev => {
                 let tmp = [];
-                model.forEach(item => {
-                    item.key = item.shopGroupCode;
-                    tmp.push(item);
-                })
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        item.key = item.shopGroupCode;
+                        tmp.push(item);
+                    });
+                }
                 return tmp;
             });
         });
@@ -106,18 +107,13 @@ const CleanRuleDispatchModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="清洗规格分发"
-            onOk={onClickOK}
             onCancel={onClickCancel}
-            width={600}
+            onOk={onClickOK}
             style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
+            title="清洗规格分发"
+            width={600}
         >
             <div style={{height: 425, width: '100%'}}>
                 <Row style={{width: '100%'}}>
