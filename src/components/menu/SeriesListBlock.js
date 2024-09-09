@@ -126,7 +126,7 @@ const SeriesListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.seriesCode} />
         </div>
     )
 };

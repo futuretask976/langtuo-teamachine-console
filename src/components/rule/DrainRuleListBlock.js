@@ -140,7 +140,7 @@ const DrainRuleListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.drainRuleCode} />
         </div>
     )
 };

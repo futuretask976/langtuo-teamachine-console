@@ -147,7 +147,7 @@ const CleanRuleListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.id} />
+                rowKey={record=>record.cleanRuleCode} />
         </div>
     )
 };

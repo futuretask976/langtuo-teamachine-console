@@ -205,7 +205,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Radio.Group disabled='true' onChange={(e) => setMeasureUnit(e.target.value)} value={measureUnit}>
+                            <Radio.Group disabled={true} onChange={(e) => setMeasureUnit(e.target.value)} value={measureUnit}>
                                 <Radio value={0}>克</Radio>
                                 <Radio value={1}>毫升</Radio>
                             </Radio.Group>
@@ -262,7 +262,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <InputNumber disabled='true' min={0} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
+                            <InputNumber disabled={true} min={0} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
                         </div>
                     </Col>
                     <Col className="gutter-row" span={4}>
