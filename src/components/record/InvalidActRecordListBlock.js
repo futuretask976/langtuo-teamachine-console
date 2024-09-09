@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { isBlankArray, getTenantCode } from '../../js/common.js';
+import { isArray, getTenantCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 const InvalidActRecordListBlock = (props) => {
@@ -28,17 +28,17 @@ const InvalidActRecordListBlock = (props) => {
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
-            if (!isBlankArray(model.list)) {
-                setList((prev => {
-                    let tmp = [];
+            setList((prev => {
+                let tmp = [];
+                if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
                         ite.key = ite.id;
                         ite.actions = ["view"];
                         tmp.push(ite);
                     });
-                    return tmp;
-                }));
-            }
+                }
+                return tmp;
+            }));
         });
     }
     useEffect(() => {
