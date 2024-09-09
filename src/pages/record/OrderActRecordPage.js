@@ -3,7 +3,7 @@ import { Button, Select, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -17,6 +17,30 @@ const OrderActRecordPage = (props) => {
     // 数据初始化
     const [shopList4Select, setShopList4Select] = useState([]);
     const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
+    const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
+        get('/shopset/shop/list', {
+            tenantCode: getTenantCode(),
+            shopGroupCode: selectedShopGruopCode
+        }).then(resp => {
+            setShopList4Select((prev => {
+                let shopListTmp = [{
+                    label: '全部',
+                    value: ''
+                }];
+                if (isArray(resp.model)) {
+                    let shopList = Array.from(resp.model);
+                    shopList.forEach(item => {
+                        shopListTmp.push({
+                            label: item.shopName,
+                            value: item.shopCode
+                        });
+                    });
+                }
+                return shopListTmp;
+            }));
+            setShopCode4SearchTmp('');
+        });
+    }
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
@@ -99,7 +123,10 @@ const OrderActRecordPage = (props) => {
                     <Select
                         value={shopGroupCode4SearchTmp}
                         style={{width: '95%'}}
-                        onChange={(e) => setShopGroupCode4SearchTmp(e)}
+                        onChange={(e) => {
+                            setShopGroupCode4SearchTmp(e);
+                            fetchShopListByShopGroupCode(e);
+                        }}
                         options={shopGroupList4Select}
                     />
                 </Col>
