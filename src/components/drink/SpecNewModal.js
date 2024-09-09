@@ -249,7 +249,7 @@ const SpecNewModal = (props) => {
                                     columns={specItemCols} 
                                     dataSource={specItemList}
                                     pagination={false}
-                                    rowKey={record=>record.id}
+                                    rowKey={record=>record.specItemCode}
                                     scroll={{ y: 170 }}
                                     size='small'
                                     style={{width: '100%'}} />
