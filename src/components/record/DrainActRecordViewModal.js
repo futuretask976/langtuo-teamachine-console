@@ -38,8 +38,8 @@ const DrainActRecordViewModal = (props) => {
         get('/recordset/drain/get', {  
             tenantCode: getTenantCode(),
             idempotentMark: props.idempotentMark4View
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setMachineCode(model.machineCode);
             setShopName(model.shopName);
             setShopGroupName(model.shopGroupName);

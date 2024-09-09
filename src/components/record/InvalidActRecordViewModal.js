@@ -34,8 +34,8 @@ const InvalidActRecordViewModal = (props) => {
         get('/recordset/invalid/get', {  
             tenantCode: getTenantCode(),
             idempotentMark: props.idempotentMark4View
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setMachineCode(model.machineCode);
             setShopGroupName(model.shopGroupName);
             setShopName(model.shopName);

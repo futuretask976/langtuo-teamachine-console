@@ -41,8 +41,8 @@ const CleanActRecordViewModal = (props) => {
         get('/recordset/clean/get', {  
             tenantCode: getTenantCode(),
             idempotentMark: props.idempotentMark4View
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setMachineCode(model.machineCode);
             setShopName(model.shopName);
             setShopGroupName(model.shopGroupName);

@@ -34,8 +34,8 @@ const SupplyActRecordViewModal = (props) => {
         get('/recordset/supply/get', {  
             tenantCode: getTenantCode(),
             idempotentMark: props.idempotentMark4View
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setMachineCode(model.machineCode);
             setShopGroupName(model.shopGroupName);
             setShopName(model.shopName);
@@ -117,7 +117,7 @@ const SupplyActRecordViewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="物料名称" disabled={true} value={toppingName}/>
+                                <Input placeholder="物料名称" allowClear disabled={true} value={toppingName}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
