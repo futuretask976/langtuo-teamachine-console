@@ -49,7 +49,7 @@ const ModelListBlock = (props) => {
             title: '型号名称',
             dataIndex: 'modelCode',
             key: 'modelCode',
-            width: '25%'
+            width: '35%'
         },
         {
             title: '是否支持同时出料',
@@ -68,7 +68,7 @@ const ModelListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '25%',
+            width: '15%',
             render: (_, { modelCode, actions }) => (
                 <Space size="middle">
                     {actions.map((action) => {

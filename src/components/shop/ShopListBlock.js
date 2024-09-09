@@ -51,7 +51,7 @@ const ShopListBlock = (props) => {
             title: '店铺编码',
             dataIndex: 'shopCode',
             key: 'shopCode',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '店铺名称',
@@ -75,7 +75,7 @@ const ShopListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '20%',
+            width: '15%',
             render: (_, { shopCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

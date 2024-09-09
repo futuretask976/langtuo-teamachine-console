@@ -65,7 +65,7 @@ const DeployListBlock = (props) => {
             title: '设备型号',
             dataIndex: 'modelCode',
             key: 'modelCode',
-            width: '15%'
+            width: '20%'
         },
         {
             title: '部署状态',
@@ -84,7 +84,7 @@ const DeployListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '20%',
+            width: '15%',
             render: (_, { deployCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
