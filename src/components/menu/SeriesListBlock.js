@@ -51,13 +51,13 @@ const SeriesListBlock = (props) => {
             title: '系列编码',
             dataIndex: 'seriesCode',
             key: 'seriesCode',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '系列名称',
             dataIndex: 'seriesName',
             key: 'seriesName',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '创建时间',
@@ -69,7 +69,7 @@ const SeriesListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '25%',
+            width: '15%',
             render: (_, { seriesCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

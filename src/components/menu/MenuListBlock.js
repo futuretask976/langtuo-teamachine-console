@@ -51,13 +51,13 @@ const MenuListBlock = (props) => {
             title: '菜单编码',
             dataIndex: 'menuCode',
             key: 'menuCode',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '菜单名称',
             dataIndex: 'menuName',
             key: 'menuName',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '创建时间',
@@ -69,7 +69,7 @@ const MenuListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '25%',
+            width: '15%',
             render: (_, { menuCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
