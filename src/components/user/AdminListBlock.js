@@ -53,7 +53,7 @@ const AdminListBlock = (props) => {
             title: '登录名称',
             dataIndex: 'loginName',
             key: 'loginName',
-            width: '20%'
+            width: '25%'
         },
         {
             title: '角色',
@@ -77,7 +77,7 @@ const AdminListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '20%',
+            width: '15%',
             render: (_, { loginName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

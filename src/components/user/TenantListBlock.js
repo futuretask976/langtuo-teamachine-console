@@ -52,7 +52,7 @@ const TenantListBlock = (props) => {
             title: '商户编码',
             dataIndex: 'tenantCode',
             key: 'tenantCode',
-            width: '15%'
+            width: '20%'
         },
         {
             title: '商户名称',
@@ -64,13 +64,13 @@ const TenantListBlock = (props) => {
             title: '联系人名称',
             dataIndex: 'contactPerson',
             key: 'contactPerson',
-            width: '20%',
+            width: '15%',
         },
         {
             title: '联系人电话',
             dataIndex: 'contactPhone',
             key: 'contactPhone',
-            width: '20%'
+            width: '15%'
         },
         {
             title: '创建时间',
@@ -82,7 +82,7 @@ const TenantListBlock = (props) => {
         {
             title: '操作',
             key: 'actions',
-            width: '10%',
+            width: '15%',
             render: (_, { tenantCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
