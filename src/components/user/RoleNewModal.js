@@ -75,8 +75,8 @@ const RoleNewModal = (props) => {
         get('/userset/role/get', {  
             tenantCode: getTenantCode(),
             roleCode: props.roleCode4Edit
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            let model = respData.model;
             setRoleCode(model.roleCode);
             setRoleName(model.roleName);
             setComment(model.comment);
