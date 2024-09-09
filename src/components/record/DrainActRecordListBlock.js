@@ -49,32 +49,38 @@ const DrainActRecordListBlock = (props) => {
         {
             title: '机器编码',
             dataIndex: 'machineCode',
-            key: 'machineCode'
+            key: 'machineCode',
+            width: '20%'
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
+            width: '20%'
         },
         {
             title: '排空开始时间',
             dataIndex: 'drainStartTime',
             key: 'drainStartTime',
+            width: '20%',
             render: (cleanStartTime) => new Date(cleanStartTime).toLocaleString()
         },
         {
             title: '物料名称',
             dataIndex: 'toppingName',
-            key: 'toppingName'
+            key: 'toppingName',
+            width: '15%'
         },
         {
             title: '管道序号',
             dataIndex: 'pipelineNum',
-            key: 'pipelineNum'
+            key: 'pipelineNum',
+            width: '15%'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '10%',
             render: (_, { idempotentMark, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

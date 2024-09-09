@@ -49,38 +49,45 @@ const OrderActRecordListBlock = (props) => {
         {
             title: '机器编码',
             dataIndex: 'machineCode',
-            key: 'machineCode'
+            key: 'machineCode',
+            width: '20%'
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
+            width: '15%'
         },
         {
             title: '店铺名称',
             dataIndex: 'shopName',
             key: 'shopName',
+            width: '15%'
         },
         {
             title: '状态',
             dataIndex: 'state',
             key: 'state',
+            width: '10%',
             render: (state) => state == 0 ? '未制作' : state == 1 ? '制作中' : state == 2 ? '已制作' : state == 3 ? '有异常' : '已取消'
         },
         {
             title: '外部订单号',
             dataIndex: 'outerOrderId',
-            key: 'outerOrderId'
+            key: 'outerOrderId',
+            width: '15%'
         },
         {
             title: '下单时间',
             dataIndex: 'orderGmtCreated',
             key: 'orderGmtCreated',
+            width: '15%',
             render: (orderGmtCreated) => new Date(orderGmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
+            width: '10%',
             render: (_, { idempotentMark, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {

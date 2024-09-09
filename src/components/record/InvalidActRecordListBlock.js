@@ -49,37 +49,44 @@ const InvalidActRecordListBlock = (props) => {
         {
             title: '机器编码',
             dataIndex: 'machineCode',
-            key: 'machineCode'
+            key: 'machineCode',
+            width: '20%'
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
+            width: '20%'
         },
         {
             title: '失效时间',
             dataIndex: 'invalidTime',
             key: 'invalidTime',
+            width: '15%',
             render: (invalidTime) => new Date(invalidTime).toLocaleString()
         },
         {
             title: '物料名称',
             dataIndex: 'toppingName',
-            key: 'toppingName'
+            key: 'toppingName',
+            width: '15%'
         },
         {
             title: '管道序号',
             dataIndex: 'pipelineNum',
-            key: 'pipelineNum'
+            key: 'pipelineNum',
+            width: '10%'
         },
         {
             title: '失效数量',
             dataIndex: 'invalidAmount',
-            key: 'invalidAmount'
+            key: 'invalidAmount',
+            width: '10%'
         },
         {
             title: '操作',
             key: 'actions',
+            width: '10%',
             render: (_, { idempotentMark, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
