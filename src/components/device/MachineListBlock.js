@@ -18,10 +18,10 @@ const MachineListBlock = (props) => {
     const [list, setList] = useState([]);
     const fetchListData = () => {
         get('/deviceset/machine/search', {
+            machineCode: props.machineCode4Search,
             screenCode: props.screenCode4Search,
             elecBoardCode: props.elecBoardCode4Search,
-            modelCode: props.modelCode4Search,
-            shopName: props.shopName4Search,
+            shopCode: props.shopCode4Search,
             pageNum: pageNum,
             pageSize: pageSize,
             tenantCode: getTenantCode()
@@ -37,7 +37,7 @@ const MachineListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.screenCode4Search, props.elecBoardCode4Search, props.modelCode4Search, props.shopName4Search, pageNum]);
+    }, [props.machineCode4Search, props.screenCode4Search, props.elecBoardCode4Search, props.shopCode4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [

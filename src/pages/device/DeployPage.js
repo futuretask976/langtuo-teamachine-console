@@ -3,7 +3,7 @@ import { Button, Input, Select, Col, Row } from 'antd';
 import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode, isValidCode } from '../../js/common.js';
+import { getTenantCode, isArray, isValidCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 import { get4Export } from '../../js/request4Export.js'
 
@@ -15,23 +15,26 @@ const DeployPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '设备', '预部署管理'];
 
+    // 数据初始化
     const [shopList4Select, setShopList4Select] = useState([]);
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(resp => {
-            let shopList = Array.from(resp.model);
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                shopList.forEach(item => {
-                    shopListTmp.push({
-                        label: item.shopName,
-                        value: item.shopCode
+                if (isArray(resp.model)) {
+                    let shopList = Array.from(resp.model);
+                    shopList.forEach(item => {
+                        shopListTmp.push({
+                            label: item.shopName,
+                            value: item.shopCode
+                        });
                     });
-                });
+                }
                 return shopListTmp;
             }));
         });

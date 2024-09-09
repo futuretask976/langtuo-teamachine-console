@@ -3,7 +3,7 @@ import { Button, Select, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -21,18 +21,21 @@ const CleanActRecordPage = (props) => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(resp => {
-            let shopList = Array.from(resp.model);
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                shopList.forEach(item => {
-                    shopListTmp.push({
-                        label: item.shopName,
-                        value: item.shopCode
+                if (isArray(resp.model)) {
+                    let shopList = Array.from(resp.model);
+                    shopList.forEach(item => {
+                        shopListTmp.push({
+                            label: item.shopName,
+                            value: item.shopCode
+                        });
                     });
-                });
+                }
+                return shopListTmp;
             }));
         });
     }
