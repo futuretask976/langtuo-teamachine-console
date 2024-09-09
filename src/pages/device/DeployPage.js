@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Input, Col, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Input, Select, Col, Row } from 'antd';
 import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode, isValidCode, isValidName } from '../../js/common.js';
+import { getTenantCode, isValidCode } from '../../js/common.js';
+import { get } from '../../js/request.js';
 import { get4Export } from '../../js/request4Export.js'
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -13,6 +14,31 @@ import DeployNewModal from '../../components/device/DeployNewModal'
 const DeployPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '设备', '预部署管理'];
+
+    const [shopList4Select, setShopList4Select] = useState([]);
+    const fetchShopList4Select = () => {
+        get('/shopset/shop/listbyadminorg', {
+            tenantCode: getTenantCode()
+        }).then(resp => {
+            let shopList = Array.from(resp.model);
+            setShopList4Select((prev => {
+                let shopListTmp = [{
+                    label: '全部',
+                    value: ''
+                }];
+                shopList.forEach(item => {
+                    shopListTmp.push({
+                        label: item.shopName,
+                        value: item.shopCode
+                    });
+                });
+                return shopListTmp;
+            }));
+        });
+    }
+    useEffect(() => {
+        fetchShopList4Select();
+    }, []);
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -27,27 +53,27 @@ const DeployPage = () => {
 
     // 搜索相关
     const [deployCode4Search, setDeployCode4Search] = useState('');
-    const [shopName4Search, setShopName4Search] = useState('');
+    const [shopCode4Search, setShopCode4Search] = useState('');
+    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
     const [state4Search, setState4Search] = useState('');
-    var deployCode4SearchTmp = '';
-    var shopName4SearchTmp = '';
-    var state4SearchTmp = '';
+    const [state4SearchTmp, setState4SearchTmp] = useState('');
+    let deployCode4SearchTmp = '';
     const onClickSearch = () => {
         if (!isValidCode(deployCode4SearchTmp, false)) {
             alert('部署编码不符合规则');
             return;
         }
-        if (!isValidCode(shopName4SearchTmp, false)) {
+        if (!isValidCode(shopCode4SearchTmp, false)) {
             alert('店铺名称不符合规则');
             return;
         }
-        if (!isValidName(state4SearchTmp, false)) {
+        if (!isValidCode(state4SearchTmp, false)) {
             alert('状态不符合规则');
             return;
         }
 
         setDeployCode4Search(deployCode4SearchTmp);
-        setShopName4Search(shopName4SearchTmp);
+        setShopCode4Search(shopCode4SearchTmp);
         setState4Search(state4SearchTmp);
     }
 
@@ -99,7 +125,12 @@ const DeployPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="店铺名称" onChange={(e) => shopName4SearchTmp = e.target.value}/>
+                        <Select
+                            value={shopCode4SearchTmp}
+                            style={{width: '95%'}}
+                            onChange={(e) => setShopCode4SearchTmp(e)}
+                            options={shopList4Select}
+                        />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -109,7 +140,20 @@ const DeployPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="部署状态" onChange={(e) => state4SearchTmp = e.target.value}/>
+                        <Select
+                            value={state4SearchTmp}
+                            style={{width: '95%'}}
+                            onChange={(e) => setState4SearchTmp(e)}
+                            options={[
+                                {
+                                    label: '已部署',
+                                    value: 1
+                                }, {
+                                    label: '未部署',
+                                    value: 0
+                                }
+                            ]}
+                        />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>
@@ -136,7 +180,7 @@ const DeployPage = () => {
             </Row>
             <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
             <div>&nbsp;</div>
-            <DeployListBlock key={refreshListKey} deployCode4Search={deployCode4Search} shopName4Search={shopName4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+            <DeployListBlock key={refreshListKey} deployCode4Search={deployCode4Search} shopCode4Search={shopCode4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
 
             {openNewModal && (
                 <DeployNewModal onClose={onCloseNewModal} deployCode4Edit={deployCode4Edit} />

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
@@ -7,9 +6,6 @@ import { getTenantCode } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const DeployListBlock = (props) => {
-    // 路由组件
-    const navigate = useNavigate();
-
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -24,7 +20,7 @@ const DeployListBlock = (props) => {
         get('/deviceset/deploy/search', {
             deployCode: props.deployCode4Search,
             machineCode: '',
-            shopName: props.shopName4Search,
+            shopCode: props.shopCode4Search,
             state: props.state4Search,
             tenantCode: getTenantCode(),
             pageNum: pageNum,
@@ -47,7 +43,7 @@ const DeployListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.deployCode4Search, props.shopName4Search, props.state4Search, pageNum]);
+    }, [props.deployCode4Search, props.shopCode4Search, props.state4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [
