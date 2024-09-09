@@ -19,15 +19,14 @@ const MachinePage = () => {
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
+        }).then(respData => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                if (isArray(resp.model)) {
-                    let shopList = Array.from(resp.model);
-                    shopList.forEach(item => {
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
                         shopListTmp.push({
                             label: item.shopName,
                             value: item.shopCode

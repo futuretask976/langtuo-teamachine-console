@@ -61,8 +61,8 @@ const TeaPage = () => {
     const onExportByExcel = ()=> {
         get4Export('/drinkset/tea/export', {  
             tenantCode: getTenantCode()
-        }).then(resp => {
-            const url4Export = window.URL.createObjectURL(new Blob([resp]));
+        }).then(respData => {
+            const url4Export = window.URL.createObjectURL(new Blob([respData]));
             const link4Export = document.createElement('a');
             link4Export.href = url4Export;
             link4Export.setAttribute('download', 'export.xlsx');

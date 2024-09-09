@@ -21,15 +21,14 @@ const CleanActRecordPage = (props) => {
         get('/shopset/shop/list', {
             tenantCode: getTenantCode(),
             shopGroupCode: selectedShopGruopCode
-        }).then(resp => {
+        }).then(respData => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                if (isArray(resp.model)) {
-                    let shopList = Array.from(resp.model);
-                    shopList.forEach(item => {
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
                         shopListTmp.push({
                             label: item.shopName,
                             value: item.shopCode
@@ -44,15 +43,14 @@ const CleanActRecordPage = (props) => {
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
+        }).then(respData => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                if (isArray(resp.model)) {
-                    let shopList = Array.from(resp.model);
-                    shopList.forEach(item => {
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
                         shopListTmp.push({
                             label: item.shopName,
                             value: item.shopCode
@@ -66,19 +64,20 @@ const CleanActRecordPage = (props) => {
     const fetchShopGroupList4Select = () => {
         get('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let shopGroupList = Array.from(resp.model);
+        }).then(respData => {
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
                     value: ''
                 }];
-                shopGroupList.forEach(item => {
-                    shopGroupListTmp.push({
-                        label: item.shopGroupName,
-                        value: item.shopGroupCode
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        shopGroupListTmp.push({
+                            label: item.shopGroupName,
+                            value: item.shopGroupCode
+                        });
                     });
-                })
+                }
                 return shopGroupListTmp;
             }));
         });

@@ -27,8 +27,7 @@ const DeployPage = () => {
                     value: ''
                 }];
                 if (isArray(respData.model)) {
-                    let shopList = Array.from(respData.model);
-                    shopList.forEach(item => {
+                    respData.model.forEach(item => {
                         shopListTmp.push({
                             label: item.shopName,
                             value: item.shopCode
