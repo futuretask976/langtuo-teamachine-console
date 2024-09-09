@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const ShopListBlock = (props) => {
@@ -20,7 +20,7 @@ const ShopListBlock = (props) => {
         get('/shopset/shop/search', {  
             tenantCode: getTenantCode(),
             shopName: props.shopName4Search,
-            shopGroupName: props.shopGroupName4Search,
+            shopGroupCode: props.shopGroupCode4Search,
             pageNum: pageNum,
             pageSize: pageSize
         }).then(resp => {
@@ -28,20 +28,24 @@ const ShopListBlock = (props) => {
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
-            setList((prev => {
-                let tmp = [];
-                model.list.forEach(function(ite) {
-                    ite.key = ite.id;
-                    ite.actions = ["edit", "delete"];
-                    tmp.push(ite);
-                });
-                return tmp;
-            }));
+            if (isArray(model.list)) {
+                setList((prev => {
+                    let tmp = [];
+                    model.list.forEach(function(ite) {
+                        ite.key = ite.id;
+                        ite.actions = ["edit", "delete"];
+                        tmp.push(ite);
+                    });
+                    return tmp;
+                }));
+            } else {
+                setList([]);
+            }
         });
     }
     useEffect(() => {
         fetchListData();
-    }, [props.shopName4Search, props.shopGroupName4Search, pageNum]);
+    }, [props.shopName4Search, props.shopGroupCode4Search, pageNum]);
 
     // 表格展示数据相关
     const columns = [
