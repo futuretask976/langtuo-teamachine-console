@@ -27,25 +27,28 @@ instance.interceptors.response.use(
         return response;
     },
     (error) => {
-        // console.log('$$$$$ error != undefined: ', error != undefined);
-        // console.log('$$$$$ error != null: ', error != null);
+        // console.log('$$$$$ instance.interceptors.response.use error=', error);
         if (error != undefined && error != null) {
             let message = error.message;
-            // console.log('$$$$$ message != undefined: ', message != undefined);
-            // console.log('$$$$$ message != null: ', message != null);
+            // console.log('$$$$$ instance.interceptors.response.use message=', message);
             if (message != undefined && message != null) {
                 if (error.response != undefined && error.response != null) {
                     let status = error.response.status;
+                    // console.log('$$$$$ instance.interceptors.response.use status=', status);
                     if (status == '401') {
                         window.location.href = CONSOLE_CONTEXT_PATH + '/login?msg=' + encodeURI('登录验证失败，请重新登录！');
-                    } if (status == '403') {
+                        return;
+                    } else if (status == '403') {
                         window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
+                        return;
                     }
                 }
                 window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
+                return;
             }
         }
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=发生网络错误，请联系管理员处理: ' + encodeURI(error.message);
+        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('发生未知错误，请联系管理员处理！');
+        return;
 
         // 处理一些错误，如网络错误、服务器错误等
         // return Promise.reject(error);
@@ -60,7 +63,7 @@ export const get = async (url, params) => {
         return response.data;
     } catch (error) {
         // 处理一些错误，如网络错误、服务器错误等
-        throw error;
+        // throw error;
     }
 };
 
@@ -70,7 +73,7 @@ export const post = async (url, data) => {
         return response.data;
     } catch (error) {
         // 处理一些错误，如网络错误、服务器错误等
-        throw error;
+        // throw error;
     }
 };
 
@@ -80,7 +83,7 @@ export const put = async (url, data) => {
         return response.data;
     } catch (error) {
         // 处理一些错误，如网络错误、服务器错误等
-        throw error;
+        // throw error;
     }
 };
 
@@ -92,7 +95,7 @@ export const del = async (url, params) => {
         return response.data;
     } catch (error) {
         // 处理一些错误，如网络错误、服务器错误等
-        throw error;
+        // throw error;
     }
 };
 

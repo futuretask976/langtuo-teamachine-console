@@ -5,7 +5,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { isValidCode, putLoginName, putJwtToken, putTenantCode } from '../js/common';
+import { isValidCode, putLoginName, putJwtToken, putTenantCode, isBlankObj } from '../js/common';
 import { get, post } from '../js/request.js';
 import logo from '../images/logo2.png'
 
@@ -87,12 +87,14 @@ function LoginPage() {
 
         let postData = 'username=' + userName + "&password=" + md5(password) + "&tenantCode=" + tenantCode;
         post('/login-processing', postData)
-        .then(resp => {
-            let model = resp.model;
-            putTenantCode(tenantCode);
-            putJwtToken(model.jwtToken);
-            putLoginName(model.loginName);
-            navigate('/index');
+        .then(respData => {
+            if (!isBlankObj(respData)) {
+                let model = respData.model;
+                putTenantCode(tenantCode);
+                putJwtToken(model.jwtToken);
+                putLoginName(model.loginName);
+                navigate('/index');
+            } 
         });
     };
 
