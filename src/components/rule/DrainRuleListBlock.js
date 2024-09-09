@@ -69,13 +69,13 @@ const DrainRuleListBlock = (props) => {
             title: '创建时间',
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
-            width: '20%',
+            width: '25%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
             key: 'actions',
-            width: '20%',
+            width: '15%',
             render: (_, { drainRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
