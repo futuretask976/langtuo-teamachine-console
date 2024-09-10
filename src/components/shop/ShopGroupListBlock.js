@@ -50,19 +50,25 @@ const ShopGroupListBlock = (props) => {
             title: '店铺组编码',
             dataIndex: 'shopGroupCode',
             key: 'shopGroupCode',
-            width: '25%'
+            width: '20%'
         },
         {
             title: '店铺组名称',
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
-            width: '25%'
+            width: '20%'
+        },
+        {
+            title: '组织架构',
+            dataIndex: 'orgName',
+            key: 'orgName',
+            width: '15%'
         },
         {
             title: '店铺数量',
             dataIndex: 'shopCount',
             key: 'shopCount',
-            width: '15%'
+            width: '10%'
         },
         {
             title: '创建时间',

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Modal, Space, Col, Row } from 'antd';
+import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankStr, getTenantCode, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { isBlankStr, getTenantCode, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -20,6 +20,10 @@ const ShopGroupNewModal = (props) => {
             alert('店铺组名称不符合规则');
             return;
         }
+        if (!isValidName(orgName, false)) {
+            alert('组织架构不符合规则');
+            return;
+        }
         if (!isValidComment(comment, false)) {
             alert('备注不符合规则');
             return;
@@ -30,6 +34,7 @@ const ShopGroupNewModal = (props) => {
         put('/shopset/shop/group/put', {
             shopGroupCode: shopGroupCode,
             shopGroupName: shopGroupName,
+            orgName: orgName,
             comment: comment,
             tenantCode: getTenantCode()
         }).then(respData => {
@@ -54,7 +59,9 @@ const ShopGroupNewModal = (props) => {
     // 数据初始化相关
     const [shopGroupCode, setShopGroupCode] = useState(isBlankStr(props.shopGroupCode4Edit) ? '' : props.shopGroupCode4Edit);
     const [shopGroupName, setShopGroupName] = useState('');
+    const [orgName, setOrgName] = useState('总公司');
     const [comment, setComment] = useState('');
+    const [orgList4Select, setOrgList4Select] = useState([]);
     const fetchShopGroup4Edit = () => {
         if (isBlankStr(props.shopGroupCode4Edit)) {
             return;
@@ -67,12 +74,35 @@ const ShopGroupNewModal = (props) => {
             let model = respData.model;
             setShopGroupCode(model.shopGroupCode);
             setShopGroupName(model.shopGroupName);
+            setOrgName(model.orgName);
             setComment(model.comment);
+        });
+    }
+    const fetchOrgList4Select = () => {
+        get('/userset/org/list', {  
+            tenantCode: getTenantCode()
+        }).then(respData => {
+            let model = respData.model;
+            setOrgList4Select(prev => {
+                let tmp = [];
+                if (isArray(model)) {
+                    model.forEach(org => {
+                        tmp.push({
+                            label: org.orgName,
+                            value: org.orgName
+                        });
+                    });
+                }
+                return tmp;
+            });
         });
     }
     useEffect(() => {
         fetchShopGroup4Edit();
     }, [props.shopGroupCode4Edit]);
+    useEffect(() => {
+        fetchOrgList4Select();
+    }, []);
  
     return (
         <Modal
@@ -85,7 +115,7 @@ const ShopGroupNewModal = (props) => {
             title="新建/编辑店铺组"
             width={500}
         >
-            <div style={{height: 250, width: '100%'}}>
+            <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
@@ -110,6 +140,21 @@ const ShopGroupNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>组织架构：</span></Space>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={18}>
+                            <Select
+                                value={orgName}
+                                style={{width: '100%'}}
+                                onChange={(e) => setOrgName(e)}
+                                options={orgList4Select}
+                            />
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                 <span>备注：</span>
                             </div>
                         </Col>
