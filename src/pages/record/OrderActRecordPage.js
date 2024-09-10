@@ -10,7 +10,7 @@ import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import OrderActRecordListBlock from '../../components/record/OrderActRecordListBlock'
 import OrderActRecordViewModal from '../../components/record/OrderActRecordViewModal'
 
-const OrderActRecordPage = (props) => {
+const OrderActRecordPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '动作记录', '补料记录管理'];
 

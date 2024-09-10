@@ -10,7 +10,7 @@ import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import InvalidActRecordListBlock from '../../components/record/InvalidActRecordListBlock'
 import InvalidActRecordViewModal from '../../components/record/InvalidActRecordViewModal'
 
-const InvalidActRecordPage = (props) => {
+const InvalidActRecordPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '动作记录', '废料记录管理'];
 

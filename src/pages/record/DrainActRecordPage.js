@@ -10,7 +10,7 @@ import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import DrainActRecordListBlock from '../../components/record/DrainActRecordListBlock'
 import DrainActRecordViewModal from '../../components/record/DrainActRecordViewModal'
 
-const DrainActRecordPage = (props) => {
+const DrainActRecordPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '动作记录', '排空记录管理'];
 
