@@ -7,7 +7,7 @@ import ColumnChart from '../components/ColumnChart'
 import LineChart from '../components/LineChart'
 import PieChart from '../components/PieChart'
 
-export default function SummaryPage() {
+export default function SummaryChartPage() {
     const breadcrumbPath = ['控制台', '概况'];
 
     return (

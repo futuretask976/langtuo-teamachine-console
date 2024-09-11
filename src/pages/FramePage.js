@@ -7,7 +7,7 @@ import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import FooterBar from '../components/FooterBar'
 
-import SummaryPage from './SummaryPage';
+import SummaryChartPage from './SummaryChartPage';
 // usetSet
 import TenantPage from './user/TenantPage';
 import OrgPage from './user/OrgPage';
@@ -50,7 +50,7 @@ const { Content } = Layout;
 
 const FramePage = () => {
     // 导航菜单相关
-    const [menuItem, setMenuItem] = useState('summaryMgt');
+    const [menuItem, setMenuItem] = useState('summaryChartMgt');
 
     // 页面样式相关
     const layoutStyle = {
@@ -73,8 +73,8 @@ const FramePage = () => {
                     <SiderMenu onMenuItemClick={onMenuItemClick}/>
                     <Layout>
                         <Content style={{ margin: '0px 5px 0px 5px' }}>
-                            {menuItem == 'summaryMgt' && (
-                                <SummaryPage/>
+                            {menuItem == 'summaryChartMgt' && (
+                                <SummaryChartPage/>
                             )}
                             
                             {menuItem == 'tenantMgt' && (

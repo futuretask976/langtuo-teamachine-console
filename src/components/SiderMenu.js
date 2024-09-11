@@ -27,7 +27,7 @@ const SiderMenu4Frame = (props) => {
     };
 
     const menuItems = [
-        getItem('概况', 'summaryMgt', <PieChartOutlined />),
+        getItem('概况', 'summaryChartMgt', <PieChartOutlined />),
         getItem('用户', 'userSet', <TeamOutlined />, [
             getItem('商户管理', 'tenantMgt'),
             getItem('组织架构管理', 'orgMgt'),
@@ -42,7 +42,6 @@ const SiderMenu4Frame = (props) => {
             getItem('型号管理', 'modelMgt'),
             getItem('预部署管理', 'deployMgt'),
             getItem('设备管理', 'machineMgt'),
-			// getItem('设备详情管理', '11'),
         ]),
 		getItem('饮品生产', 'drinkSet', <ExperimentOutlined />, [
             getItem('物料类型管理', 'toppingTypeMgt'),
@@ -83,7 +82,7 @@ const SiderMenu4Frame = (props) => {
     return (
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={siderStyle} width="200">
             {/* <div className="demo-logo-vertical" /> */}
-            <Menu theme="light" defaultSelectedKeys={['summaryMgt']} mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
+            <Menu theme="light" defaultSelectedKeys={['summaryChartMgt']} mode="inline" items={menuItems} onClick={onMenuItemClick} style={{height: '100%'}} />
         </Sider>
     )
 };
