@@ -53,15 +53,15 @@ const OrderActRecordListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '店铺组名称',
-            dataIndex: 'shopGroupName',
-            key: 'shopGroupName',
+            title: '茶品名称',
+            dataIndex: 'teaName',
+            key: 'teaName',
             width: '15%'
         },
         {
-            title: '店铺名称',
-            dataIndex: 'shopName',
-            key: 'shopName',
+            title: '店铺编码',
+            dataIndex: 'shopCode',
+            key: 'shopCode',
             width: '15%'
         },
         {

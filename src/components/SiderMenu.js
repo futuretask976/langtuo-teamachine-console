@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Layout, Menu } from 'antd';
-import { BorderOuterOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
+import { BorderOuterOutlined, DiffOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
@@ -69,6 +69,12 @@ const SiderMenu4Frame = (props) => {
             getItem('排空记录管理', 'drainActRecordMgt'),
 			getItem('清洗记录管理', 'cleanActRecordMgt'),
 			getItem('订单记录管理', 'orderActRecordMgt'),
+        ]),
+        getItem('日常报表', 'reportSet', <DiffOutlined />, [
+            getItem('订单-数量报表', 'orderAmtReportMgt'),
+            getItem('订单-茶品报表', 'orderTeaReportMgt'),
+            getItem('订单-规格项报表', 'orderSpecItemReportMgt'),
+            getItem('订单-物料报表', 'orderToppingReportMgt'),
         ]),
     ];
 

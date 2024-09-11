@@ -53,9 +53,9 @@ const DrainActRecordListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '店铺组名称',
-            dataIndex: 'shopGroupName',
-            key: 'shopGroupName',
+            title: '店铺编码',
+            dataIndex: 'shopCode',
+            key: 'shopCode',
             width: '20%'
         },
         {
@@ -66,9 +66,9 @@ const DrainActRecordListBlock = (props) => {
             render: (cleanStartTime) => new Date(cleanStartTime).toLocaleString()
         },
         {
-            title: '物料名称',
-            dataIndex: 'toppingName',
-            key: 'toppingName',
+            title: '物料编码',
+            dataIndex: 'toppingCode',
+            key: 'toppingCode',
             width: '15%'
         },
         {

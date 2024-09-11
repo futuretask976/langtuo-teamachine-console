@@ -67,11 +67,11 @@ const CleanActRecordViewModal = (props) => {
         <>
             <Modal
                 centered
-                open={open}
-                title="清洗记录明细"
                 onCancel={onClickCancel}
-                width={750}
+                open={open}
                 style={{border: '0px solid red'}}
+                title="查看详情"
+                width={800}
                 footer={[
                     <Button key="back" onClick={onClickCancel}>关闭</Button>,
                 ]}

@@ -5,7 +5,7 @@ import '../../css/common.css';
 import { isArray, getTenantCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
-const SupplyActRecordListBlock = (props) => {
+const OrderToppingReportListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -17,8 +17,9 @@ const SupplyActRecordListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
     const fetchListData = () => {
-        get('/recordset/supply/search', {  
+        get('/reportset/order/specitemreport/search', {  
             tenantCode: getTenantCode(),
+            orderCreatedDay: props.orderCreatedDay,
             shopGroupCode: props.shopGroupCode4Search,
             shopCode: props.shopCode4Search,
             pageNum: pageNum,
@@ -43,13 +44,19 @@ const SupplyActRecordListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
+    }, [props.orderCreatedDay, props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
 
     let columns = [
         {
-            title: '机器编码',
-            dataIndex: 'machineCode',
-            key: 'machineCode',
+            title: '统计时间',
+            dataIndex: 'orderCreatedDay',
+            key: 'orderCreatedDay',
+            width: '20%'
+        },
+        {
+            title: '店铺组编码',
+            dataIndex: 'shopGroupCode',
+            key: 'shopGroupCode',
             width: '20%'
         },
         {
@@ -59,46 +66,17 @@ const SupplyActRecordListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '补充时间',
-            dataIndex: 'supplyTime',
-            key: 'supplyTime',
-            width: '15%',
-            render: (invalidTime) => new Date(invalidTime).toLocaleString()
-        },
-        {
             title: '物料编码',
             dataIndex: 'toppingCode',
             key: 'toppingCode',
-            width: '15%'
+            width: '20%'
         },
         {
-            title: '管道序号',
-            dataIndex: 'pipelineNum',
-            key: 'pipelineNum',
-            width: '10%'
-        },
-        {
-            title: '补充数量',
-            dataIndex: 'supplyAmount',
-            key: 'supplyAmount',
-            width: '10%'
-        },
-        {
-            title: '操作',
-            key: 'actions',
-            width: '10%',
-            render: (_, { idempotentMark, actions }) => (
-                <Space size="middle">
-                {actions.map((action) => {
-                    if (action == 'view') {
-                        return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>查看</a>
-                        );
-                    }
-                })}
-                </Space>
-            ),
-        },
+            title: '数量',
+            dataIndex: 'amount',
+            key: 'amount',
+            width: '20%'
+        }
     ];
 
     // 表格操作数据相关
@@ -125,5 +103,5 @@ const SupplyActRecordListBlock = (props) => {
     )
 };
 
-export default SupplyActRecordListBlock;
+export default OrderToppingReportListBlock;
 

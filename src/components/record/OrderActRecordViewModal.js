@@ -21,6 +21,8 @@ const OrderActRecordViewModal = (props) => {
     const [shopGroupName, setShopGroupName] = useState('');
     const [shopName, setShopName] = useState('');
     const [orderGmtCreated, setOrderGmtCreated] = useState();
+    const [teaTypeName, setTeaTypeName] = useState();
+    const [teaName, setTeaName] = useState();
     const [outerOrderId, setOuterOrderId] = useState('');
     const [state, setState] = useState(0);
     const [specItems, setSpecItems] = useState('');
@@ -41,6 +43,8 @@ const OrderActRecordViewModal = (props) => {
             setShopGroupName(model.shopGroupName);
             setShopName(model.shopName);
             setOrderGmtCreated(model.orderGmtCreated);
+            setTeaTypeName(model.teaTypeName);
+            setTeaName(model.teaName);
             setOuterOrderId(model.outerOrderId);
             setState(model.state);
             if (isArray(model.specItemList)) {
@@ -85,16 +89,16 @@ const OrderActRecordViewModal = (props) => {
         <>
             <Modal
                 centered
-                open={open}
-                title="新建规则"
                 onCancel={onClickCancel}
-                width={750}
+                open={open}
                 style={{border: '0px solid red'}}
+                title="查看详情"
+                width={850}
                 footer={[
                     <Button key="back" onClick={onClickCancel}>关闭</Button>,
                 ]}
             >
-                <div style={{height: 375, width: '100%'}}>
+                <div style={{height: 400, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
@@ -155,6 +159,24 @@ const OrderActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={9}>
                                 <Input placeholder="店铺名称" disabled={true} value={shopName}/>
+                            </Col>
+                        </Row>
+                        <Row style={{width: '100%'}}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>茶品类型名称：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={9}>
+                                <Input placeholder="茶品类型名称" disabled={true} value={teaTypeName}/>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                    <span>茶品名称：</span>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={9}>
+                                <Input placeholder="茶品名称" disabled={true} value={teaName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
