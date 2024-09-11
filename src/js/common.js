@@ -1,4 +1,14 @@
 // 通用方法
+export const getYesterday = () => {
+    // 获取当前日期
+    let today = new Date();
+ 
+    // 获取昨天日期
+    let yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    return yesterday;
+}
+
 export const dateToYMDHMS = (date) => {
     function pad(number) {
       if (number < 10) {

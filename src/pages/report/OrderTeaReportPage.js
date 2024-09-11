@@ -4,7 +4,7 @@ import { HighlightOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, getTenantCode, isArray } from '../../js/common.js';
+import { dateToYMDHMS, getTenantCode, getYesterday, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -95,10 +95,10 @@ const OrderTeaReportPage = () => {
     }
 
     // 搜索相关
-    const [orderCreatedDayTmp, setOrderCreatedDayTmp] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
+    const [orderCreatedDayTmp, setOrderCreatedDayTmp] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
     const [shopGroupCode4SearchTmp, setShopGroupCode4SearchTmp] = useState('');
     const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
-    const [orderCreatedDay, setOrderCreatedDay] = useState('');
+    const [orderCreatedDay, setOrderCreatedDay] = useState(orderCreatedDayTmp);
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
     const [shopCode4Search, setShopCode4Search] = useState('');
     const onClickSearch = () => {

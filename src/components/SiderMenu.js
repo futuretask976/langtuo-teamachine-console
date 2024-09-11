@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom"; 
+import React, { useState } from 'react'; 
 import { Layout, Menu } from 'antd';
 import { BorderOuterOutlined, DiffOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
 
@@ -15,7 +14,6 @@ function getItem(label, key, icon, children) {
 }
 
 const SiderMenu4Frame = (props) => {
-    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
 
     const siderStyle = {
@@ -29,7 +27,7 @@ const SiderMenu4Frame = (props) => {
     };
 
     const menuItems = [
-        getItem('概况', 'indexMgt', <PieChartOutlined />),
+        getItem('概况', 'summaryMgt', <PieChartOutlined />),
         getItem('用户', 'userSet', <TeamOutlined />, [
             getItem('商户管理', 'tenantMgt'),
             getItem('组织架构管理', 'orgMgt'),

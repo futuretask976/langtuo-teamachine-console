@@ -8,7 +8,7 @@ import IndexTableBlock from '../components/IndexTableBlock'
 import IndexListBlock from '../components/IndexListBlock'
 import LineChart from '../components/LineChart'
 
-export default function IndexPage() {
+export default function SummaryPage() {
     const breadcrumbPath = ['控制台', '概况'];
 
     return (

@@ -7,7 +7,7 @@ import HeaderBar from '../components/HeaderBar'
 import SiderMenu from '../components/SiderMenu'
 import FooterBar from '../components/FooterBar'
 
-import IndexPage from './IndexPage';
+import SummaryPage from './SummaryPage';
 // usetSet
 import TenantPage from './user/TenantPage';
 import OrgPage from './user/OrgPage';
@@ -73,8 +73,8 @@ const FramePage = () => {
                     <SiderMenu onMenuItemClick={onMenuItemClick}/>
                     <Layout>
                         <Content style={{ margin: '0px 5px 0px 5px' }}>
-                            {menuItem == 'indexMgt' && (
-                                <IndexPage/>
+                            {menuItem == 'summaryMgt' && (
+                                <SummaryPage/>
                             )}
                             
                             {menuItem == 'tenantMgt' && (
