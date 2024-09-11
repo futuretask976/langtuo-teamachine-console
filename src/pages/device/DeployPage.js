@@ -108,8 +108,8 @@ const DeployPage = () => {
     return (
         <>
             <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#fff'}}>
+            <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#FFFFFF'}}>
                 <Col className="gutter-row" span={2}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                         <span>部署编码：</span>

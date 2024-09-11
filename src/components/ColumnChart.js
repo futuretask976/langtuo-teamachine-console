@@ -1,61 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Column } from '@ant-design/plots';
-import { forEach, groupBy } from 'lodash-es';
 
+const data = [
+    { type: '1-3秒', value: 0.16 },
+    { type: '4-10秒', value: 0.125 },
+    { type: '11-30秒', value: 0.24 },
+    { type: '31-60秒', value: 0.19 },
+    { type: '1-3分', value: 0.22 },
+    { type: '3-10分', value: 0.05 },
+    { type: '10-30分', value: 0.01 },
+    { type: '30+分', value: 0.015 },
+];
+  
 const ColumnChart = () => {
-    let [data, setData] = useState([]);
-  
-    let asyncFetch = () => {
-        fetch('https://gw.alipayobjects.com/os/antfincdn/8elHX%26irfq/stack-column-data.json')
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => {
-                console.log('fetch data failed', error);
-        });
-    };
-  
-    useEffect(() => {
-        asyncFetch();
-    }, []);
-  
-    let annotations = [];
-    forEach(groupBy(data, 'year'), (values, k) => {
-        let value = values.reduce((a, b) => a + b.value, 0);
-        annotations.push({
-            type: 'text',
-            data: [k, value],
-            style: {
-                textAlign: 'center',
-                fontSize: 14,
-                fill: 'rgba(0,0,0,0.85)',
-                text: `${value}`,
-                textBaseline: 'bottom',
-                position: 'top',
-            },
-            xField: 'year',
-            yField: 'value',
-            tooltip: false,
-        });
-    });
-  
-    let config = {
+    const config = {
         data,
-        xField: 'year',
+        xField: 'type',
         yField: 'value',
-        stack: true,
-        colorField: 'type',
-        label: {
-            text: 'value',
-            textBaseline: 'bottom',
-            position: 'inside',
-        },
-        annotations,
+        style: {
+            fill: ({ type }) => {
+            if (type === '10-30分' || type === '30+分') {
+                return '#22CBCC';
+            }
+            return '#2989FF';
+            },
+      },
+      label: {
+            text: (originData) => {
+            const val = parseFloat(originData.value);
+            if (val < 0.05) {
+                return (val * 100).toFixed(1) + '%';
+            }
+            return '';
+            },
+            offset: 10,
+      },
+      legend: false,
     };
-    return (
-        <div style={{backgroundColor: '#fff', height: 200}}>
-            <Column {...config} />
-        </div>
-    )
+    return <Column {...config} />;
 };
 
 export default ColumnChart;

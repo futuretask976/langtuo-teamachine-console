@@ -4,9 +4,8 @@ import { Col, Row } from 'antd';
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
 
 import ColumnChart from '../components/ColumnChart'
-import IndexTableBlock from '../components/IndexTableBlock'
-import IndexListBlock from '../components/IndexListBlock'
 import LineChart from '../components/LineChart'
+import PieChart from '../components/PieChart'
 
 export default function SummaryPage() {
     const breadcrumbPath = ['控制台', '概况'];
@@ -14,32 +13,26 @@ export default function SummaryPage() {
     return (
         <>
             <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <LineChart />
-            &nbsp;
-            <ColumnChart />
-            &nbsp;
-            <Row gutter={[16, 24]}>
-                <Col className="gutter-row" span={8}>
-                    <IndexListBlock />
+            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
+            <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '1px solid green'}}>
+                <Col className="gutter-row" span={12}>
+                    <div style={{height: '100%', width: '100%', border: '1px solid pink'}}>
+                        <PieChart />
+                    </div>
                 </Col>
-                <Col className="gutter-row" span={8}>
-                    <IndexListBlock />
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <IndexListBlock />
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <IndexListBlock />
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <IndexListBlock />
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <IndexListBlock />
+                <Col className="gutter-row" span={12}>
+                    <div style={{height: '100%', width: '100%', border: '1px solid pink'}}>
+                        <ColumnChart />
+                    </div>
                 </Col>
             </Row>
-            <div>&nbsp;</div>
-            <IndexTableBlock />
+            <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '1px solid green'}}>
+                <Col className="gutter-row" span={24}>
+                    <div style={{height: '100%', width: '100%', border: '1px solid pink'}}>
+                        <LineChart />
+                    </div>
+                </Col>
+            </Row>
         </>
     )
 };

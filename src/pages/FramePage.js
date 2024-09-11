@@ -50,7 +50,7 @@ const { Content } = Layout;
 
 const FramePage = () => {
     // 导航菜单相关
-    const [menuItem, setMenuItem] = useState('indexMgt');
+    const [menuItem, setMenuItem] = useState('summaryMgt');
 
     // 页面样式相关
     const layoutStyle = {
