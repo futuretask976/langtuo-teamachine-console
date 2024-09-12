@@ -16,11 +16,13 @@ const AccuracyTplListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/drinkset/accuracy/search', {
             tenantCode: getTenantCode(),
-            templateCode: isBlankStr(props.templateCode4Search) ? '' : props.templateCode4Search,
-            templateName: isBlankStr(props.templateName4Search) ? '' : props.templateName4Search,
+            templateCode: props.templateCode4Search,
+            templateName: props.templateName4Search,
             pageNum: pageNum,
             pageSize: pageSize
         }).then(respData => {
@@ -43,7 +45,7 @@ const AccuracyTplListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.templateCode4Search, props.templateName4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [
@@ -114,7 +116,7 @@ const AccuracyTplListBlock = (props) => {
             templateCode: templateCode
         }).then(respData => {
             if (respData.success) {
-                alert('删除成功');
+                alert('删除成功！');
                 fetchListData();
             } else {
                 alert('删除失败：' + respData.errorMsg)

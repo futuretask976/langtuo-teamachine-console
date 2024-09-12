@@ -78,13 +78,13 @@ const AndroidAppPage = () => {
             <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
             <Row style={{backgroundColor: '#FFFFFF'}}>
                 <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}} style={{width: '95%'}}>
                         <span>版本号：</span>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="版本号" onChange={(e) => setVersion4Search(e.target.value)}/>
+                        <Input placeholder="版本号" onChange={(e) => setVersion4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

@@ -27,20 +27,18 @@ const SpecPage = () => {
     // 搜索相关
     const [specCode4Search, setSpecCode4Search] = useState('');
     const [specName4Search, setSpecName4Search] = useState('');
-    var specName4SearchTmp = '';
-    var specCode4SearchTmp = '';
+
+    // 初始化动作
     const onClickSearch = () => {
-        if (!isValidCode(specCode4SearchTmp, false)) {
+        if (!isValidCode(specCode4Search, false)) {
             alert('规格编码不符合规则');
             return;
         }
-        if (!isValidName(specName4SearchTmp, false)) {
+        if (!isValidName(specName4Search, false)) {
             alert('规格名称不符合规则');
             return;
         }
-
-        setSpecCode4Search(specCode4SearchTmp);
-        setSpecName4Search(specName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +66,7 @@ const SpecPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="规格编码" allowClear onChange={(e) => specCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="规格编码" allowClear onChange={(e) => setSpecCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +76,7 @@ const SpecPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="规格名称" allowClear onChange={(e) => specName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="规格名称" allowClear onChange={(e) => setSpecName4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

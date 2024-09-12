@@ -27,20 +27,18 @@ const ToppingPage = () => {
     // 搜索相关
     const [toppingCode4Search, setToppingCode4Search] = useState('');
     const [toppingName4Search, setToppingName4Search] = useState('');
-    var toppingCode4SearchTmp = '';
-    var toppingName4SearchTmp = '';
+
+    // 搜索
     const onClickSearch = () => {
-        if (!isValidCode(toppingCode4SearchTmp, false)) {
+        if (!isValidCode(toppingCode4Search, false)) {
             alert('物料编码不符合规则');
             return;
         }
-        if (!isValidName(toppingName4SearchTmp, false)) {
+        if (!isValidName(toppingName4Search, false)) {
             alert('物料名称不符合规则');
             return;
         }
-
-        setToppingCode4Search(toppingCode4SearchTmp);
-        setToppingName4Search(toppingName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +66,7 @@ const ToppingPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料编码" allowClear onChange={(e) => toppingCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="物料编码" allowClear onChange={(e) => setToppingCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +76,7 @@ const ToppingPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料名称" allowClear onChange={(e) => toppingName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="物料名称" allowClear onChange={(e) => setToppingName4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

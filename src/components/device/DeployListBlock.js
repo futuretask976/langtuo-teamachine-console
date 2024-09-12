@@ -11,11 +11,13 @@ const DeployListBlock = (props) => {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    // 获取服务端数据相关
+    // 数据定义
     const [pageNum, setPageNum] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/deviceset/deploy/search', {
             deployCode: props.deployCode4Search,
@@ -45,9 +47,9 @@ const DeployListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.deployCode4Search, props.shopCode4Search, props.state4Search, pageNum]);
+    }, [pageNum]);
 
-    // 表格展示数据相关
+    // 表格展示定义
     const columns = [
         {
             title: '部署码',
@@ -104,7 +106,7 @@ const DeployListBlock = (props) => {
         },
     ];
 
-    // 表格操作数据相关
+    // 表格动作定义
     const onChangePage = (page) => {
         setPageNum(page);
     }
@@ -122,7 +124,7 @@ const DeployListBlock = (props) => {
             deployCode: deployCode
         }).then(respData => {
             if (respData.success) {
-                alert('删除成功');
+                alert('删除成功！');
                 fetchListData();
             } else {
                 alert('删除失败：' + respData.errorMsg)

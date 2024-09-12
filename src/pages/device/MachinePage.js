@@ -14,8 +14,15 @@ const MachinePage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '设备', '机器管理'];
 
-    // 数据初始化
+    // 数据定义
     const [shopList4Select, setShopList4Select] = useState([]);
+    const [machineCode4Search, setMachineCode4Search] = useState('');
+    const [screenCode4Search, setScreenCode4Search] = useState('');
+    const [elecBoardCode4Search, setElecBoardCode4Search] = useState('');
+    const [shopCode4Search, setShopCode4Search] = useState('');
+    const [machineCode4Edit, setMachineCode4Edit] = useState('');
+
+    // 初始化动作
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
@@ -50,40 +57,27 @@ const MachinePage = () => {
     }
 
     // 搜索相关
-    const [machineCode4Search, setMachineCode4Search] = useState('');
-    const [screenCode4Search, setScreenCode4Search] = useState('');
-    const [elecBoardCode4Search, setElecBoardCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
-    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
-    let machineCode4SearchTmp = '';
-    let screenCode4SearchTmp = '';
-    let elecBoardCode4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(machineCode4SearchTmp, false)) {
+        if (!isValidCode(machineCode4Search, false)) {
             alert('机器编码不符合规则');
             return;
         }
-        if (!isValidCode(screenCode4SearchTmp, false)) {
+        if (!isValidCode(screenCode4Search, false)) {
             alert('屏幕编码不符合规则');
             return;
         }
-        if (!isValidCode(elecBoardCode4SearchTmp, false)) {
+        if (!isValidCode(elecBoardCode4Search, false)) {
             alert('电控板编码不符合规则');
             return;
         }
-        if (!isValidCode(shopCode4SearchTmp, false)) {
+        if (!isValidCode(shopCode4Search, false)) {
             alert('店铺名称不符合规则');
             return;
         }
-
-        setMachineCode4Search(machineCode4SearchTmp);
-        setScreenCode4Search(screenCode4SearchTmp);
-        setElecBoardCode4Search(elecBoardCode4SearchTmp);
-        setShopCode4Search(shopCode4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
-    const [machineCode4Edit, setMachineCode4Edit] = useState('');
     const onClickEdit = (selectedMachineCode)=> {
         setMachineCode4Edit(selectedMachineCode);
         setOpenNewModal(true);
@@ -107,7 +101,7 @@ const MachinePage = () => {
                 </Col>
                 <Col className="gutter-row" span={5}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="机器编码" onChange={(e) => machineCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="机器编码" allowClear onChange={(e) => setMachineCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -117,7 +111,7 @@ const MachinePage = () => {
                 </Col>
                 <Col className="gutter-row" span={5}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="屏幕编码" onChange={(e) => screenCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="屏幕编码" allowClear onChange={(e) => setScreenCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -127,7 +121,7 @@ const MachinePage = () => {
                 </Col>
                 <Col className="gutter-row" span={5}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="控制板编码" onChange={(e) => elecBoardCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="控制板编码" allowClear onChange={(e) => setElecBoardCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>
@@ -146,9 +140,9 @@ const MachinePage = () => {
                 <Col className="gutter-row" span={5}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                         <Select
-                            value={shopCode4SearchTmp}
+                            value={shopCode4Search}
                             style={{width: '95%'}}
-                            onChange={(e) => setShopCode4SearchTmp(e)}
+                            onChange={(e) => setShopCode4Search(e)}
                             options={shopList4Select}
                         />
                     </div>

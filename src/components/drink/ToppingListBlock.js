@@ -16,6 +16,8 @@ const ToppingListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/drinkset/topping/search', {
             tenantCode: getTenantCode(),
@@ -43,7 +45,7 @@ const ToppingListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.toppingCode4Search, props.toppingName4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [

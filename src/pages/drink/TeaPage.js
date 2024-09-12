@@ -36,20 +36,16 @@ const TeaPage = () => {
     // 搜索相关
     const [teaCode4Search, setTeaCode4Search] = useState('');
     const [teaName4Search, setTeaName4Search] = useState('');
-    var teaCode4SearchTmp = '';
-    var teaName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(teaCode4SearchTmp, false)) {
+        if (!isValidCode(teaCode4Search, false)) {
             alert('茶品编码不符合规则');
             return;
         }
-        if (!isValidName(teaName4SearchTmp, false)) {
+        if (!isValidName(teaName4Search, false)) {
             alert('茶品名称不符合规则');
             return;
         }
-
-        setTeaCode4Search(teaCode4SearchTmp);
-        setTeaName4Search(teaName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -90,7 +86,7 @@ const TeaPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="茶品编码" allowClear onChange={(e) => teaCode4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="茶品编码" allowClear onChange={(e) => setTeaCode4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -100,7 +96,7 @@ const TeaPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="茶品名称" allowClear onChange={(e) => teaName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="茶品名称" allowClear onChange={(e) => setTeaName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

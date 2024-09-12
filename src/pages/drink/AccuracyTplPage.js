@@ -27,20 +27,16 @@ const AccuracyTplPage = () => {
     // 搜索相关
     const [templateCode4Search, setTemplateCode4Search] = useState('');
     const [templateName4Search, setTemplateName4Search] = useState('');
-    var templateCode4SearchTmp = '';
-    var templateName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(templateCode4SearchTmp, false)) {
+        if (!isValidCode(templateCode4Search, false)) {
             alert('模板编码不符合规则');
             return;
         }
-        if (!isValidName(templateName4SearchTmp, false)) {
+        if (!isValidName(templateName4Search, false)) {
             alert('模板名称不符合规则');
             return;
         }
-
-        setTemplateCode4Search(templateCode4SearchTmp);
-        setTemplateName4Search(templateName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +64,7 @@ const AccuracyTplPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="规格编码" allowClear onChange={(e) => templateCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="规格编码" allowClear onChange={(e) => setTemplateCode4Search(e.target.value)}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +74,7 @@ const AccuracyTplPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="规格名称" allowClear onChange={(e) => templateName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="规格名称" allowClear onChange={(e) => setTemplateName4Search(e.target.value)}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

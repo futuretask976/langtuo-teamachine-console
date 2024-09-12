@@ -56,27 +56,21 @@ const DeployPage = () => {
     // 搜索相关
     const [deployCode4Search, setDeployCode4Search] = useState('');
     const [shopCode4Search, setShopCode4Search] = useState('');
-    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
     const [state4Search, setState4Search] = useState('');
-    const [state4SearchTmp, setState4SearchTmp] = useState('');
-    let deployCode4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(deployCode4SearchTmp, false)) {
+        if (!isValidCode(deployCode4Search, false)) {
             alert('部署编码不符合规则');
             return;
         }
-        if (!isValidCode(shopCode4SearchTmp, false)) {
+        if (!isValidCode(shopCode4Search, false)) {
             alert('店铺名称不符合规则');
             return;
         }
-        if (!isValidCode(state4SearchTmp, false)) {
+        if (!isValidCode(state4Search, false)) {
             alert('状态不符合规则');
             return;
         }
-
-        setDeployCode4Search(deployCode4SearchTmp);
-        setShopCode4Search(shopCode4SearchTmp);
-        setState4Search(state4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -117,7 +111,7 @@ const DeployPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="部署编码" onChange={(e) => deployCode4SearchTmp = e.target.value}/>
+                        <Input placeholder="部署编码" allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -128,9 +122,9 @@ const DeployPage = () => {
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                         <Select
-                            value={shopCode4SearchTmp}
+                            value={shopCode4Search}
                             style={{width: '95%'}}
-                            onChange={(e) => setShopCode4SearchTmp(e)}
+                            onChange={(e) => setShopCode4Search(e)}
                             options={shopList4Select}
                         />
                     </div>
@@ -143,9 +137,9 @@ const DeployPage = () => {
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                         <Select
-                            value={state4SearchTmp}
+                            value={state4Search}
                             style={{width: '95%'}}
-                            onChange={(e) => setState4SearchTmp(e)}
+                            onChange={(e) => setState4Search(e)}
                             options={[
                                 {
                                     label: '全部',

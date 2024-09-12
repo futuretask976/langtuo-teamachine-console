@@ -27,20 +27,18 @@ const ToppingTypePage = () => {
     // 搜索相关
     const [toppingTypeCode4Search, setToppingTypeCode4Search] = useState('');
     const [toppingTypeName4Search, setToppingTypeName4Search] = useState('');
-    var toppingTypeCode4SearchTmp = '';
-    var toppingTypeName4SearchTmp = '';
+
+    // 搜索
     const onClickSearch = () => {
-        if (!isValidCode(toppingTypeCode4SearchTmp, false)) {
+        if (!isValidCode(toppingTypeCode4Search, false)) {
             alert('物料类型编码不符合规则');
             return;
         }
-        if (!isValidName(toppingTypeName4SearchTmp, false)) {
+        if (!isValidName(toppingTypeName4Search, false)) {
             alert('物料类型名称不符合规则');
             return;
         }
-
-        setToppingTypeCode4Search(toppingTypeCode4SearchTmp);
-        setToppingTypeName4Search(toppingTypeName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +66,7 @@ const ToppingTypePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料类型编码" allowClear onChange={(e) => toppingTypeCode4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="物料类型编码" allowClear onChange={(e) => setToppingTypeCode4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +76,7 @@ const ToppingTypePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料类型名称" allowClear onChange={(e) => toppingTypeName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="物料类型名称" allowClear onChange={(e) => setToppingTypeName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

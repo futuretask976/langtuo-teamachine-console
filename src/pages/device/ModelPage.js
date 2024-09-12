@@ -26,14 +26,12 @@ const ModelPage = () => {
 
     // 搜索相关
     const [modelCode4Search, setModelCode4Search] = useState('');
-    var modelCode4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(modelCode4SearchTmp, false)) {
+        if (!isValidCode(modelCode4Search, false)) {
             alert('型号编码不符合规则');
             return;
         }
-
-        setModelCode4Search(modelCode4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -61,7 +59,7 @@ const ModelPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="型号编码" onChange={(e) => modelCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="型号编码" allowClear onChange={(e) => setModelCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

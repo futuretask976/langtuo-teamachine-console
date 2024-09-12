@@ -27,20 +27,18 @@ const TeaTypePage = () => {
     // 搜索相关
     const [teaTypeCode4Search, setTeaTypeCode4Search] = useState('');
     const [teaTypeName4Search, setTeaTypeName4Search] = useState('');
-    var teaTypeCode4SearchTmp = '';
-    var teaTypeName4SearchTmp = '';
+
+    // 搜索
     const onClickSearch = () => {
-        if (!isValidCode(teaTypeCode4SearchTmp, false)) {
+        if (!isValidCode(teaTypeCode4Search, false)) {
             alert('茶品类型编码不符合规则');
             return;
         }
-        if (!isValidName(teaTypeName4SearchTmp, false)) {
+        if (!isValidName(teaTypeName4Search, false)) {
             alert('茶品类型名称不符合规则');
             return;
         }
-
-        setTeaTypeCode4Search(teaTypeCode4SearchTmp);
-        setTeaTypeName4Search(teaTypeName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +66,7 @@ const TeaTypePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="类型编码" allowClear onChange={(e) => teaTypeCode4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="类型编码" allowClear onChange={(e) => setTeaTypeCode4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +76,7 @@ const TeaTypePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="类型名称" allowClear onChange={(e) => teaTypeName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="类型名称" allowClear onChange={(e) => setTeaTypeName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

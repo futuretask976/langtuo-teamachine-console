@@ -37,7 +37,7 @@ const MachineListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.machineCode4Search, props.screenCode4Search, props.elecBoardCode4Search, props.shopCode4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [

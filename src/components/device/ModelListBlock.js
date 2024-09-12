@@ -16,6 +16,8 @@ const ModelListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/deviceset/model/search', {
             modelCode: props.modelCode4Search,
@@ -41,7 +43,7 @@ const ModelListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.modelCode4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [
