@@ -46,7 +46,7 @@ const WarningRuleListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.warningRuleCode4Search, props.warningRuleName4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {

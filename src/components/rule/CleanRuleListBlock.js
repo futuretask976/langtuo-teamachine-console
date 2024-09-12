@@ -16,6 +16,8 @@ const CleanRuleListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/ruleset/clean/search', {  
             tenantCode: getTenantCode(),
@@ -43,7 +45,7 @@ const CleanRuleListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.cleanRuleCode4Search, props.cleanRuleName4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {

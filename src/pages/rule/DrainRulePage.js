@@ -35,20 +35,16 @@ const DrainRulePage = (props) => {
     // 搜索相关
     const [drainRuleCode4Search, setDrainRuleCode4Search] = useState('');
     const [drainRuleName4Search, setDrainRuleName4Search] = useState('');
-    var drainRuleCode4SearchTmp = '';
-    var drainRuleName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(drainRuleCode4SearchTmp, false)) {
+        if (!isValidCode(drainRuleCode4Search, false)) {
             alert('排空规则编码不符合规则');
             return;
         }
-        if (!isValidName(drainRuleName4SearchTmp, false)) {
+        if (!isValidName(drainRuleName4Search, false)) {
             alert('排空规则名称不符合规则');
             return;
         }
-
-        setDrainRuleCode4Search(drainRuleCode4SearchTmp);
-        setDrainRuleName4Search(drainRuleName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -81,7 +77,7 @@ const DrainRulePage = (props) => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont">
-                        <Input placeholder="规则编码" allowClear onChange={(e) => drainRuleCode4SearchTmp = e.target.value}/>
+                        <Input placeholder="规则编码" allowClear onChange={(e) => setDrainRuleCode4Search(e.target.value)}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -91,7 +87,7 @@ const DrainRulePage = (props) => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont">
-                        <Input placeholder="规则名称" allowClear onChange={(e) => drainRuleName4SearchTmp = e.target.value}/>
+                        <Input placeholder="规则名称" allowClear onChange={(e) => setDrainRuleName4Search(e.target.value)}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

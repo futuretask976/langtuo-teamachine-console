@@ -35,20 +35,16 @@ const CleanRulePage = (props) => {
     // 搜索相关
     const [cleanRuleCode4Search, setCleanRuleCode4Search] = useState('');
     const [cleanRuleName4Search, setCleanRuleName4Search] = useState('');
-    var cleanRuleCode4SearchTmp = '';
-    var cleanRuleName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(cleanRuleCode4SearchTmp, false)) {
+        if (!isValidCode(cleanRuleCode4Search, false)) {
             alert('清洁规则编码不符合规则');
             return;
         }
-        if (!isValidName(cleanRuleName4SearchTmp, false)) {
+        if (!isValidName(cleanRuleName4Search, false)) {
             alert('清洁规则名称不符合规则');
             return;
         }
-
-        setCleanRuleCode4Search(cleanRuleCode4SearchTmp);
-        setCleanRuleName4Search(cleanRuleName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -81,7 +77,7 @@ const CleanRulePage = (props) => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont">
-                        <Input placeholder="规则编码" allowClear onChange={(e) => cleanRuleCode4SearchTmp = e.target.value}/>
+                        <Input placeholder="规则编码" allowClear onChange={(e) => setCleanRuleCode4Search(e.target.value)}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -91,7 +87,7 @@ const CleanRulePage = (props) => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont">
-                        <Input placeholder="规则名称" allowClear onChange={(e) => cleanRuleName4SearchTmp = e.target.value}/>
+                        <Input placeholder="规则名称" allowClear onChange={(e) => setCleanRuleName4Search(e.target.value)}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

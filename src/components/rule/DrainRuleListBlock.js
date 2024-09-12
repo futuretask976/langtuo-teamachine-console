@@ -16,6 +16,8 @@ const DrainRuleListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/ruleset/drain/search', {  
             tenantCode: getTenantCode(),
@@ -43,7 +45,7 @@ const DrainRuleListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.drainRuleCode4Search, props.drainRuleName4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {
@@ -121,7 +123,7 @@ const DrainRuleListBlock = (props) => {
             drainRuleCode: drainRuleCode
         }).then(respData => {
             if (respData.success) {
-                alert('删除成功');
+                alert('删除成功！');
                 fetchListData();
             } else {
                 alert('删除失败：' + respData.errorMsg)

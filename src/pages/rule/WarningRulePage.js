@@ -33,22 +33,18 @@ const WarningRulePage = (props) => {
     }
 
     // 搜索相关
-    var warningRuleCode4SearchTmp = '';
-    var warningRuleName4SearchTmp = '';
     const [warningRuleCode4Search, setWarningRuleCode4Search] = useState('');
     const [warningRuleName4Search, setWarningRuleName4Search] = useState('');
     const onClickSearch = () => {
-        if (!isValidCode(warningRuleCode4SearchTmp, false)) {
+        if (!isValidCode(warningRuleCode4Search, false)) {
             alert('预警规则编码不符合规则');
             return;
         }
-        if (!isValidName(warningRuleName4SearchTmp, false)) {
+        if (!isValidName(warningRuleName4Search, false)) {
             alert('预警规则名称不符合规则');
             return;
         }
-
-        setWarningRuleCode4Search(warningRuleCode4SearchTmp);
-        setWarningRuleName4Search(warningRuleName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -80,7 +76,7 @@ const WarningRulePage = (props) => {
                     </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                    <Input placeholder="规则编码" allowClear onChange={(e) => warningRuleCode4SearchTmp = e.target.value}/>
+                    <Input placeholder="规则编码" allowClear onChange={(e) => setWarningRuleCode4Search(e.target.value)}/>
                 </Col>
                 <Col className="gutter-row" span={2}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -88,7 +84,7 @@ const WarningRulePage = (props) => {
                     </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                    <Input placeholder="规则名称" allowClear onChange={(e) => warningRuleName4SearchTmp = e.target.value}/>
+                    <Input placeholder="规则名称" allowClear onChange={(e) => setWarningRuleName4Search(e.target.value)}/>
                 </Col>
                 <Col className="gutter-row" span={3}>
                     <div className="flex-row-cont" style={{height: '100%'}}>
