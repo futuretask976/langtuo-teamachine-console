@@ -120,6 +120,20 @@ export const isValidComment = (input, required) => {
     return false;
 };
 
+export const isValidVersion = (input, required) => {
+    if (isBlankStr(input)) {
+        if (!required) {
+            return true;
+        }
+    } else {
+        let isValid = /^\d+(\.\d+){1,2}$/.test(input);
+        if (isValid) {
+            return true;
+        }
+    }
+    return false;
+};
+
 // http response 处理
 export const deleteCookie = (name) => {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';

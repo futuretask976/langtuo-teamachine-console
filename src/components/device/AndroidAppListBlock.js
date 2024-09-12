@@ -1,8 +1,8 @@
-import React, { useEffect, useState, version } from 'react';
+import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isArray } from '../../js/common.js';
+import { isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const AndroidAppListBlock = (props) => {
@@ -96,18 +96,17 @@ const AndroidAppListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onClickEdit = (e, deployCode) => {
-        props.onClickEdit(deployCode);
+    const onClickEdit = (e, version) => {
+        props.onClickEdit(version);
     }
-    const onClickDelete = (e, deployCode) => {
+    const onClickDelete = (e, version) => {
         let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
         if (!confirmRtn) {
             return;
         }
 
-        del('/deviceset/deploy/delete', {
-            tenantCode: getTenantCode(),
-            deployCode: deployCode
+        del('/deviceset/android/app/delete', {
+            version: version
         }).then(respData => {
             if (respData.success) {
                 alert('删除成功');

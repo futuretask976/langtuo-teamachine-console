@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Input, Modal, Space, Spin, Upload, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Input, Modal, Space, Spin, Upload, message } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
 import OSS from 'ali-oss';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankObj, isBlankStr } from '../../js/common.js';
+import { isBlankStr, isValidComment, isValidVersion } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const AndroidAppUploadModal = (props) => {
@@ -63,6 +63,18 @@ const AndroidAppUploadModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidVersion(version, true)) {
+            alert('版本号不符合规则');
+            return;
+        }
+        if (isBlankStr(ossPath)) {
+            alert('请上传 apk 文件');
+            return;
+        }
+        if (!isValidComment(comment, false)) {
+            alert('备注不符合规则');
+            return;
+        }
 
         setLoading(true);
 
@@ -94,6 +106,25 @@ const AndroidAppUploadModal = (props) => {
     const [ossPath, setOssPath] = useState('');
     const [comment, setComment] = useState('');
     const [fileList, setFileList] = useState([]);
+
+    // 初始化动作
+    const fetchAndroidAppVersion = () => {
+        if (isBlankStr(props.version4Edit)) {
+            return;
+        }
+
+        get('/deviceset/android/app/get', {
+            version: props.version4Edit
+        }).then(respData => {
+            let model = respData.model;
+            setVersion(model.version);
+            setComment(model.comment);
+            setOssPath(model.ossPath);
+        });
+    }
+    useEffect(() => {
+        fetchAndroidAppVersion();
+    }, [props.version4Edit]);
 
     // 上传文件相关
     // 上一个组件传来的修改资源URL的函数，可用于展示远程的资源
@@ -211,7 +242,7 @@ const AndroidAppUploadModal = (props) => {
                 </div>
                 <div className="flex-row-cont" style={{height: 120, width: '100%', border: '0px solid green'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>文件上传：</span></Space>
+                        <Space size='small'><span>文件上传：</span></Space>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
                         {show === true ? (

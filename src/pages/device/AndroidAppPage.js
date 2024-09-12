@@ -49,7 +49,7 @@ const AndroidAppPage = () => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setDeployCode4Edit('');
+        setVersion4Edit('');
         refreshList();
     }
 
@@ -60,23 +60,10 @@ const AndroidAppPage = () => {
     }
 
     // 表格操作相关
-    const [deployCode4Edit, setDeployCode4Edit] = useState('');
-    const onClickEdit = (selectedDeployCode)=> {
-        setDeployCode4Edit(selectedDeployCode);
+    const [version4Edit, setVersion4Edit] = useState('');
+    const onClickEdit = (selectedVersion)=> {
+        setVersion4Edit(selectedVersion);
         setOpenNewModal(true);
-    }
-    const onExportByExcel = ()=> {
-        get4Export('/deviceset/deploy/export', {  
-            tenantCode: getTenantCode()
-        }).then(respData => {
-            const url4Export = window.URL.createObjectURL(new Blob([respData]));
-            const link4Export = document.createElement('a');
-            link4Export.href = url4Export;
-            link4Export.setAttribute('download', 'export.xlsx');
-            document.body.appendChild(link4Export);
-            link4Export.click();
-            document.body.removeChild(link4Export);
-        });
     }
 
     // 刷新列表相关
@@ -113,10 +100,10 @@ const AndroidAppPage = () => {
             </Row>
             <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
             <div>&nbsp;</div>
-            <AndroidAppListBlock key={refreshListKey} version4Search={version4Search}/>
+            <AndroidAppListBlock key={refreshListKey} onClickEdit={onClickEdit} version4Search={version4Search}/>
 
             {openNewModal && (
-                <AndroidAppUploadModal onClose={onCloseNewModal}/>
+                <AndroidAppUploadModal onClose={onCloseNewModal} version4Edit={version4Edit}/>
             )}
         </>
     )
