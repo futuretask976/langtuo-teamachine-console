@@ -24,21 +24,21 @@ const OrderToppingReportPage = () => {
             shopGroupCode: selectedShopGruopCode
         }).then(respData => {
             setShopList4Select((prev => {
-                let shopListTmp = [{
+                let shopList = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopListTmp.push({
+                        shopList.push({
                             label: item.shopName,
                             value: item.shopCode
                         });
                     });
                 }
-                return shopListTmp;
+                return shopList;
             }));
-            setShopCode4SearchTmp('');
+            setShopCode4Search('');
         });
     }
     const fetchShopList4Select = () => {
@@ -46,19 +46,19 @@ const OrderToppingReportPage = () => {
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopList4Select((prev => {
-                let shopListTmp = [{
+                let shopList = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopListTmp.push({
+                        shopList.push({
                             label: item.shopName,
                             value: item.shopCode
                         });
                     });
                 }
-                return shopListTmp;
+                return shopList;
             }));
         });
     }
@@ -67,19 +67,19 @@ const OrderToppingReportPage = () => {
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopGroupList4Select((prev => {
-                let shopGroupListTmp = [{
+                let shopGroupList = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopGroupListTmp.push({
+                        shopGroupList.push({
                             label: item.shopGroupName,
                             value: item.shopGroupCode
                         });
                     });
                 }
-                return shopGroupListTmp;
+                return shopGroupList;
             }));
         });
     }
@@ -95,17 +95,18 @@ const OrderToppingReportPage = () => {
     }
 
     // 搜索相关
-    const [orderCreatedDayTmp, setOrderCreatedDayTmp] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
-    const [shopGroupCode4SearchTmp, setShopGroupCode4SearchTmp] = useState('');
-    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
-    const [orderCreatedDay, setOrderCreatedDay] = useState(orderCreatedDayTmp);
+    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
     const [shopCode4Search, setShopCode4Search] = useState('');
     const onClickSearch = () => {
-        setOrderCreatedDay(orderCreatedDayTmp);
-        setShopGroupCode4Search(shopGroupCode4SearchTmp);
-        setShopCode4Search(shopCode4SearchTmp);
+        refreshList();
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -119,10 +120,10 @@ const OrderToppingReportPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <Select
-                        value={shopGroupCode4SearchTmp}
+                        value={shopGroupCode4Search}
                         style={{width: '95%'}}
                         onChange={(e) => {
-                            setShopGroupCode4SearchTmp(e);
+                            setShopGroupCode4Search(e);
                             fetchShopListByShopGroupCode(e);
                         }}
                         options={shopGroupList4Select}
@@ -135,9 +136,9 @@ const OrderToppingReportPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <Select
-                        value={shopCode4SearchTmp}
+                        value={shopCode4Search}
                         style={{width: '95%'}}
-                        onChange={(e) => setShopCode4SearchTmp(e)}
+                        onChange={(e) => setShopCode4Search(e)}
                         options={shopList4Select}
                     />
                 </Col>
@@ -152,9 +153,9 @@ const OrderToppingReportPage = () => {
                             format: 'YYYY-MM-DD',
                             type: 'mask',
                         }}
-                        onChange={(e, dateString) => setOrderCreatedDayTmp(dateString)}
+                        onChange={(e, dateString) => setOrderCreatedDay(dateString)}
                         style={{width: '100%'}}
-                        value={dayjs(orderCreatedDayTmp, 'YYYY-MM-DD')}
+                        value={dayjs(orderCreatedDay, 'YYYY-MM-DD')}
                     />
                 </Col>
                 <Col className="gutter-row" span={3}>
@@ -170,7 +171,7 @@ const OrderToppingReportPage = () => {
             </Row>
             <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
             <div>&nbsp;</div>
-            <OrderSpecItemReportListBlock orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
+            <OrderSpecItemReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
 
             {openViewModal && (
                 <OrderSpecItemReportGenModal onClose={onCloseViewModal}/>

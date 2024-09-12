@@ -16,12 +16,12 @@ const OrderAmtReportListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/reportset/order/amtreport/search', {  
             tenantCode: getTenantCode(),
             orderCreatedDay: props.orderCreatedDay,
-            shopGroupCode: props.shopGroupCode4Search,
-            shopCode: props.shopCode4Search,
             pageNum: pageNum,
             pageSize: pageSize
         }).then(respData => {
@@ -44,7 +44,7 @@ const OrderAmtReportListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.orderCreatedDay, props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {
@@ -64,9 +64,6 @@ const OrderAmtReportListBlock = (props) => {
     // 表格操作数据相关
     const onChangePage = (page) => {
         setPageNum(page);
-    }
-    const onClickView = (e, idempotentMark) => {
-        props.onClickView(idempotentMark);
     }
 
     return (

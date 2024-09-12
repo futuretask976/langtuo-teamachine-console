@@ -44,7 +44,7 @@ const OrderSpecItemReportListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.orderCreatedDay, props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {

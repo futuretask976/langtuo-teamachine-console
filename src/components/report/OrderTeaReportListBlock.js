@@ -16,6 +16,8 @@ const OrderTeaReportListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/reportset/order/teareport/search', {  
             tenantCode: getTenantCode(),
@@ -44,7 +46,7 @@ const OrderTeaReportListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.orderCreatedDay, props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {

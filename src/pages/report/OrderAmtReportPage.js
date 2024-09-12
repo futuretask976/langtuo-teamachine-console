@@ -15,79 +15,6 @@ const OrderAmtReportPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '日常报表', '订单-数量报表'];
 
-    // 数据初始化
-    const [shopList4Select, setShopList4Select] = useState([]);
-    const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
-    const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
-        get('/shopset/shop/list', {
-            tenantCode: getTenantCode(),
-            shopGroupCode: selectedShopGruopCode
-        }).then(respData => {
-            setShopList4Select((prev => {
-                let shopListTmp = [{
-                    label: '全部',
-                    value: ''
-                }];
-                if (isArray(respData.model)) {
-                    respData.model.forEach(item => {
-                        shopListTmp.push({
-                            label: item.shopName,
-                            value: item.shopCode
-                        });
-                    });
-                }
-                return shopListTmp;
-            }));
-            setShopCode4SearchTmp('');
-        });
-    }
-    const fetchShopList4Select = () => {
-        get('/shopset/shop/listbyadminorg', {
-            tenantCode: getTenantCode()
-        }).then(respData => {
-            setShopList4Select((prev => {
-                let shopListTmp = [{
-                    label: '全部',
-                    value: ''
-                }];
-                if (isArray(respData.model)) {
-                    respData.model.forEach(item => {
-                        shopListTmp.push({
-                            label: item.shopName,
-                            value: item.shopCode
-                        });
-                    });
-                }
-                return shopListTmp;
-            }));
-        });
-    }
-    const fetchShopGroupList4Select = () => {
-        get('/shopset/shop/group/listbyadminorg', {
-            tenantCode: getTenantCode()
-        }).then(respData => {
-            setShopGroupList4Select((prev => {
-                let shopGroupListTmp = [{
-                    label: '全部',
-                    value: ''
-                }];
-                if (isArray(respData.model)) {
-                    respData.model.forEach(item => {
-                        shopGroupListTmp.push({
-                            label: item.shopGroupName,
-                            value: item.shopGroupCode
-                        });
-                    });
-                }
-                return shopGroupListTmp;
-            }));
-        });
-    }
-    useEffect(() => {
-        fetchShopList4Select();
-        fetchShopGroupList4Select();
-    }, []);
-
     // 新建对话框相关
     const [openViewModal, setOpenViewModal] = useState(false);
     const onCloseViewModal = () => {
@@ -95,17 +22,16 @@ const OrderAmtReportPage = () => {
     }
 
     // 搜索相关
-    const [orderCreatedDayTmp, setOrderCreatedDayTmp] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
-    const [shopGroupCode4SearchTmp, setShopGroupCode4SearchTmp] = useState('');
-    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
-    const [orderCreatedDay, setOrderCreatedDay] = useState(orderCreatedDayTmp);
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
+    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
     const onClickSearch = () => {
-        setOrderCreatedDay(orderCreatedDayTmp);
-        setShopGroupCode4Search(shopGroupCode4SearchTmp);
-        setShopCode4Search(shopCode4SearchTmp);
+        refreshList();
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -123,9 +49,9 @@ const OrderAmtReportPage = () => {
                             format: 'YYYY-MM-DD',
                             type: 'mask',
                         }}
-                        onChange={(e, dateString) => setOrderCreatedDayTmp(dateString)}
+                        onChange={(e, dateString) => setOrderCreatedDay(dateString)}
                         style={{width: '100%'}}
-                        value={dayjs(orderCreatedDayTmp, 'YYYY-MM-DD')}
+                        value={dayjs(orderCreatedDay, 'YYYY-MM-DD')}
                     />
                 </Col>
                 <Col className="gutter-row" span={3}>
@@ -144,7 +70,7 @@ const OrderAmtReportPage = () => {
             </Row>
             <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
             <div>&nbsp;</div>
-            <OrderAmtReportListBlock orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
+            <OrderAmtReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay}/>
 
             {openViewModal && (
                 <OrderAmtReportGenModal onClose={onCloseViewModal}/>
