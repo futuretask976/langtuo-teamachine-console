@@ -16,6 +16,8 @@ const ShopListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/shopset/shop/search', {  
             tenantCode: getTenantCode(),
@@ -43,7 +45,7 @@ const ShopListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.shopName4Search, props.shopGroupCode4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [

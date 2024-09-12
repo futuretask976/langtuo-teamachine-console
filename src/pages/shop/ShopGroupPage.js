@@ -25,15 +25,13 @@ const ShopGroupPage = () => {
     }
 
     // 搜索相关
-    var shopGroupName4SearchTmp = '';
     const [shopGroupName4Search, setShopGroupName4Search] = useState('');
     const onClickSearch = () => {
-        if (!isValidName(shopGroupName4SearchTmp, false)) {
+        if (!isValidName(shopGroupName4Search, false)) {
             alert('店铺组名称不符合规则');
             return;
         }
-
-        setShopGroupName4Search(shopGroupName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -61,7 +59,7 @@ const ShopGroupPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="店铺组名称" allowClear onChange={(e) => shopGroupName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="店铺组名称" allowClear onChange={(e) => setShopGroupName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

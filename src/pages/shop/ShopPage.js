@@ -21,19 +21,19 @@ const ShopPage = () => {
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopGroupList4Select((prev => {
-                let shopGroupListTmp = [{
+                let shopGroupList = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopGroupListTmp.push({
+                        shopGroupList.push({
                             label: item.shopGroupName,
                             value: item.shopGroupCode
                         });
                     });
                 }
-                return shopGroupListTmp;
+                return shopGroupList;
             }));
         });
     }
@@ -55,20 +55,16 @@ const ShopPage = () => {
     // 搜索相关
     const [shopName4Search, setShopName4Search] = useState('');
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
-    const [shopGroupCode4SearchTmp, setShopGroupCode4SearchTmp] = useState('');
-    var shopName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidCode(shopGroupCode4SearchTmp, false)) {
+        if (!isValidCode(shopGroupCode4Search, false)) {
             alert('店铺组名称不符合规则');
             return;
         }
-        if (!isValidName(shopName4SearchTmp, false)) {
+        if (!isValidName(shopName4Search, false)) {
             alert('店铺名称不符合规则');
             return;
         }
-
-        setShopName4Search(shopName4SearchTmp);
-        setShopGroupCode4Search(shopGroupCode4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -96,7 +92,7 @@ const ShopPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="店铺名称" allowClear onChange={(e) => shopName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="店铺名称" allowClear onChange={(e) => setShopName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -107,9 +103,9 @@ const ShopPage = () => {
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                         <Select
-                            value={shopGroupCode4SearchTmp}
+                            value={shopGroupCode4Search}
                             style={{width: '95%'}}
-                            onChange={(e) => setShopGroupCode4SearchTmp(e)}
+                            onChange={(e) => setShopGroupCode4Search(e)}
                             options={shopGroupList4Select}
                         />
                     </div>
