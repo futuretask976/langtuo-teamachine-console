@@ -18,6 +18,8 @@ const OrgListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作相关
     const fetchListData = () => {
         get('/userset/org/search', {  
             tenantCode: getTenantCode(),
@@ -46,7 +48,7 @@ const OrgListBlock = (props) => {
     useEffect(() => {
         fetchListData();
         fetchListByDepth();
-    }, [props.orgName4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [

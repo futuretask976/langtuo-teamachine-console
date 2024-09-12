@@ -36,20 +36,16 @@ const AdminPage = () => {
     // 搜索相关
     const [roleName4Search, setRoleName4Search] = useState('');
     const [loginName4Search, setLoginName4Search] = useState('');
-    var roleName4SearchTmp = '';
-    var loginName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(loginName4SearchTmp, false)) {
+        if (!isValidName(loginName4Search, false)) {
             alert('登录名称不符合规则');
             return;
         }
-        if (!isValidName(roleName4SearchTmp, false)) {
+        if (!isValidName(roleName4Search, false)) {
             alert('角色名称不符合规则');
             return;
         }
-
-        setRoleName4Search(roleName4SearchTmp);
-        setLoginName4Search(loginName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -77,7 +73,7 @@ const AdminPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="登录名称" allowClear onChange={(e) => loginName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="登录名称" allowClear onChange={(e) => setLoginName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -87,7 +83,7 @@ const AdminPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="角色名称" allowClear onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="角色名称" allowClear onChange={(e) => setRoleName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

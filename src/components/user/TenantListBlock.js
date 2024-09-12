@@ -43,7 +43,7 @@ const TenantListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.tenantName4Search, props.contactPerson4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [

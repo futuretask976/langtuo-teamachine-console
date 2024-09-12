@@ -45,7 +45,7 @@ const AdminListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.loginName4Search, props.roleName4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [

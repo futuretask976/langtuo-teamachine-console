@@ -27,20 +27,18 @@ const TenantPage = () => {
     // 搜索相关
     const [tenantName4Search, setTenantName4Search] = useState('');
     const [contactPerson4Search, setContactPerson4Search] = useState('');
-    var tenantName4SearchTmp = '';
-    var contactPerson4SearchTmp = '';
+
+    // 初始化动作
     const onClickSearch = () => {
-        if (!isValidName(tenantName4SearchTmp, false)) {
+        if (!isValidName(tenantName4Search, false)) {
             alert('商户名称不符合规则');
             return;
         }
-        if (!isValidName(contactPerson4SearchTmp, false)) {
+        if (!isValidName(contactPerson4Search, false)) {
             alert('联系人名称不符合规则');
             return;
         }
-
-        setTenantName4Search(tenantName4SearchTmp);
-        setContactPerson4Search(contactPerson4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +66,7 @@ const TenantPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="商户名称" allowClear onChange={(e) => tenantName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="商户名称" allowClear onChange={(e) => setTenantName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +76,7 @@ const TenantPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="联系人名称" allowClear onChange={(e) => contactPerson4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="联系人名称" allowClear onChange={(e) => setContactPerson4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

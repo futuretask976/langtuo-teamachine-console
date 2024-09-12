@@ -35,14 +35,12 @@ const RolePage = () => {
 
     // 搜索相关
     const [roleName4Search, setRoleName4Search] = useState('');
-    var roleName4SearchTmp = '';
     const onClickSearch = () => {
-        if (!isValidName(roleName4SearchTmp, false)) {
+        if (!isValidName(roleName4Search, false)) {
             alert('角色名称不符合规则');
             return;
         }
-
-        setRoleName4Search(roleName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -70,7 +68,7 @@ const RolePage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="角色名称" allowClear onChange={(e) => roleName4SearchTmp = e.target.value} style={{width: '95%'}} />
+                        <Input placeholder="角色名称" allowClear onChange={(e) => setRoleName4Search(e.target.value)} style={{width: '95%'}} />
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

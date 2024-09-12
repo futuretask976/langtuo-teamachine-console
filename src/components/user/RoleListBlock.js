@@ -44,7 +44,7 @@ const RoleListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.roleName4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [
