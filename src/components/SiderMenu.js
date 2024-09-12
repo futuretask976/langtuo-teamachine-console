@@ -42,6 +42,7 @@ const SiderMenu4Frame = (props) => {
             getItem('型号管理', 'modelMgt'),
             getItem('预部署管理', 'deployMgt'),
             getItem('设备管理', 'machineMgt'),
+            getItem('安卓应用管理', 'androidAppMgt'),
         ]),
 		getItem('饮品生产', 'drinkSet', <ExperimentOutlined />, [
             getItem('物料类型管理', 'toppingTypeMgt'),

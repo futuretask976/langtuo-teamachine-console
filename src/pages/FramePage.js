@@ -20,6 +20,7 @@ import ShopPage from './shop/ShopPage';
 import ModelPage from './device/ModelPage';
 import DeployPage from './device/DeployPage';
 import MachinePage from './device/MachinePage';
+import AndroidAppPage from './device/AndroidAppPage';
 // drinkSet
 import ToppingTypePage from './drink/ToppingTypePage';
 import ToppingPage from './drink/ToppingPage';
@@ -105,6 +106,9 @@ const FramePage = () => {
                             )}
                             {menuItem == 'machineMgt' && (
                                 <MachinePage/>
+                            )}
+                            {menuItem == 'androidAppMgt' && (
+                                <AndroidAppPage/>
                             )}
 
                             {menuItem == 'toppingTypeMgt' && (
