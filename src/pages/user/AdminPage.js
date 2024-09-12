@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Input, Layout, Col, Row } from 'antd';
+import { Button, Input, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
@@ -12,15 +12,6 @@ import AdminNewModal from '../../components/user/AdminNewModal'
 const AdminPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '用户', '管理员管理'];
-
-    // 页面样式相关
-    const layoutStyle = {
-        height: 1000,
-        overflow: 'hidden',
-        width: 'calc(100% - 5px)',
-        maxWidth: 'calc(100% - 5px)',
-        border: '0px solid red',
-    };
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
