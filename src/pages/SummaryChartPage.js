@@ -25,7 +25,9 @@ export default function SummaryChartPage() {
             tenantCode: getTenantCode()
         }).then(respData => {
             let model = respData.model;
-            setTeaAmtData(model);
+            if (isArray(model)) {
+                setTeaAmtData(model);
+            }
         });
     }
     const fetchSpecItemAmtData = () => {
@@ -33,7 +35,9 @@ export default function SummaryChartPage() {
             tenantCode: getTenantCode()
         }).then(respData => {
             let model = respData.model;
-            setspecItemAmtData(model);
+            if (isArray(model)) {
+                setspecItemAmtData(model);
+            }
         });
     }
     const fetchToppingAmtData = () => {
@@ -41,7 +45,9 @@ export default function SummaryChartPage() {
             tenantCode: getTenantCode()
         }).then(respData => {
             let model = respData.model;
-            settoppingAmtData(model);
+            if (isArray(model)) {
+                settoppingAmtData(model);
+            }
         });
     }
     useEffect(() => {
