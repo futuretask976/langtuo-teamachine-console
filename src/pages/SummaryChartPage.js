@@ -9,6 +9,7 @@ import ShopMachineColumnChart from '../components/ShopMachineColumnChart'
 import OrderAmtLineChart from '../components/OrderAmtLineChart'
 import DeployPieChart from '../components/DeployPieChart'
 import OrgShopBarChart from '../components/OrgShopBarChart'
+import TeaAmtByDayLineChart from '../components/TeaAmtByDayLineChart'
 
 export default function SummaryChartPage() {
     const breadcrumbPath = ['控制台', '概况'];
@@ -76,13 +77,19 @@ export default function SummaryChartPage() {
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
-                <Col className="gutter-row" style={{paddingLeft: 5}} span={24}>
+                <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
                     <span>订单数量趋势（过去 14 天）：</span>
+                </Col>
+                <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
+                    <span>茶品数量趋势（过去 14 天）：</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
-                <Col className="gutter-row" span={24}>
+                <Col className="gutter-row" span={12}>
                     <OrderAmtLineChart />
+                </Col>
+                <Col className="gutter-row" span={12}>
+                    <TeaAmtByDayLineChart />
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 240, width: '100%', border: '0px solid green'}}>
