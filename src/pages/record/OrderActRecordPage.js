@@ -37,7 +37,7 @@ const OrderActRecordPage = () => {
                 }
                 return shopListTmp;
             }));
-            setShopCode4SearchTmp('');
+            setShopCode4Search('');
         });
     }
     const fetchShopList4Select = () => {
@@ -95,13 +95,10 @@ const OrderActRecordPage = () => {
     }
 
     // 搜索相关
-    const [shopGroupCode4SearchTmp, setShopGroupCode4SearchTmp] = useState('');
-    const [shopCode4SearchTmp, setShopCode4SearchTmp] = useState('');
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
     const [shopCode4Search, setShopCode4Search] = useState('');
     const onClickSearch = () => {
-        setShopGroupCode4Search(shopGroupCode4SearchTmp);
-        setShopCode4Search(shopCode4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -110,6 +107,12 @@ const OrderActRecordPage = () => {
         setIdempotentMark4View(selectedIdempotentMark);
         setOpenViewModal(true);
     }
+
+    // 刷新列表相关
+    const [refreshListKey, setRefreshListKey] = useState(0);
+    const refreshList = () => {
+        setRefreshListKey(refreshListKey + 1);
+    };
 
     return (
         <>
@@ -123,10 +126,10 @@ const OrderActRecordPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <Select
-                        value={shopGroupCode4SearchTmp}
+                        value={shopGroupCode4Search}
                         style={{width: '95%'}}
                         onChange={(e) => {
-                            setShopGroupCode4SearchTmp(e);
+                            setShopGroupCode4Search(e);
                             fetchShopListByShopGroupCode(e);
                         }}
                         options={shopGroupList4Select}
@@ -139,9 +142,9 @@ const OrderActRecordPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <Select
-                        value={shopCode4SearchTmp}
+                        value={shopCode4Search}
                         style={{width: '95%'}}
-                        onChange={(e) => setShopCode4SearchTmp(e)}
+                        onChange={(e) => setShopCode4Search(e)}
                         options={shopList4Select}
                     />
                 </Col>
@@ -156,7 +159,7 @@ const OrderActRecordPage = () => {
             </Row>
             <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
             <div>&nbsp;</div>
-            <OrderActRecordListBlock shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
+            <OrderActRecordListBlock key={refreshListKey} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
 
             {openViewModal && (
                 <OrderActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>

@@ -16,6 +16,8 @@ const InvalidActRecordListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/recordset/invalid/search', {  
             tenantCode: getTenantCode(),
@@ -43,7 +45,7 @@ const InvalidActRecordListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {

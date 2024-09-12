@@ -43,7 +43,7 @@ const SupplyActRecordListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.shopGroupCode4Search, props.shopCode4Search, pageNum]);
+    }, [pageNum]);
 
     let columns = [
         {

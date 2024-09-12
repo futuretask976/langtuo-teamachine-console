@@ -27,20 +27,18 @@ const SeriesPage = () => {
     // 搜索相关
     const [seriesCode4Search, setSeriesCode4Search] = useState('');
     const [seriesName4Search, setSeriesName4Search] = useState('');
-    var seriesCode4SearchTmp = '';
-    var seriesName4SearchTmp = '';
+
+    // 搜索
     const onClickSearch = () => {
-        if (!isValidCode(seriesCode4SearchTmp, false)) {
+        if (!isValidCode(seriesCode4Search, false)) {
             alert('系列编码不符合规则');
             return;
         }
-        if (!isValidName(seriesName4SearchTmp, false)) {
+        if (!isValidName(seriesName4Search, false)) {
             alert('系列名称不符合规则');
             return;
         }
-
-        setSeriesCode4Search(seriesCode4SearchTmp);
-        setSeriesName4Search(seriesName4SearchTmp);
+        refreshList();
     }
 
     // 表格操作相关
@@ -68,7 +66,7 @@ const SeriesPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料编码" allowClear onChange={(e) => seriesCode4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="物料编码" allowClear onChange={(e) => setSeriesCode4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={2}>
@@ -78,7 +76,7 @@ const SeriesPage = () => {
                 </Col>
                 <Col className="gutter-row" span={4}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="物料名称" allowClear onChange={(e) => seriesName4SearchTmp = e.target.value} style={{width: '95%'}}/>
+                        <Input placeholder="物料名称" allowClear onChange={(e) => setSeriesName4Search(e.target.value)} style={{width: '95%'}}/>
                     </div>
                 </Col>
                 <Col className="gutter-row" span={3}>

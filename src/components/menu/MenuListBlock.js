@@ -16,6 +16,8 @@ const MenuListBlock = (props) => {
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 初始化动作
     const fetchListData = () => {
         get('/menuset/menu/search', {  
             tenantCode: getTenantCode(),
@@ -43,7 +45,7 @@ const MenuListBlock = (props) => {
     }
     useEffect(() => {
         fetchListData();
-    }, [props.menuCode4Search, props.menuName4Search, pageNum]);
+    }, [pageNum]);
 
     // 表格展示数据相关
     const columns = [
