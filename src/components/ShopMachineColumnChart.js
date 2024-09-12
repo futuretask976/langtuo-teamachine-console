@@ -19,12 +19,11 @@ const ShopMachineColumnChart = () => {
                 if (isArray(model)) {
                     model.forEach(item => {
                         tmp.push({
-                            type: item.shopCode,
+                            type: item.shopName,
                             value: item.amount
                         });
                     });
                 }
-                console.log('$$$$$ fetchShopMachineData tmp=', tmp);
                 return tmp;
             });
         });

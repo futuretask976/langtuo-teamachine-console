@@ -101,7 +101,7 @@ export default function SummaryChartPage() {
                             </div>
                             {teaAmtData.map((teaAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
-                                    <div><span>{teaAmt.teaCode}</span></div>
+                                    <div><span>{teaAmt.teaName}</span></div>
                                     <div><span>{teaAmt.amount}</span></div>
                                 </div>
                             ))}
@@ -112,7 +112,7 @@ export default function SummaryChartPage() {
                             </div>
                             {specItemAmtData.map((specItemAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
-                                    <div><span>{specItemAmt.specItemCode}</span></div>
+                                    <div><span>{specItemAmt.specItemName}</span></div>
                                     <div><span>{specItemAmt.amount}</span></div>
                                 </div>
                             ))}
@@ -123,7 +123,7 @@ export default function SummaryChartPage() {
                             </div>
                             {toppingAmtData.map((toppingAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
-                                    <div><span>{toppingAmt.toppingCode}</span></div>
+                                    <div><span>{toppingAmt.toppingName}</span></div>
                                     <div><span>{toppingAmt.amount}</span></div>
                                 </div>
                             ))}

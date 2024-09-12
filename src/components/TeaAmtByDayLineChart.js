@@ -36,7 +36,7 @@ const TeaAmtByDayLineChart = () => {
         sizeField: 'amount',
         shapeField: 'trail',
         legend: { size: false },
-        colorField: 'teaCode',
+        colorField: 'teaName',
     };
 
     // 页面刷新
