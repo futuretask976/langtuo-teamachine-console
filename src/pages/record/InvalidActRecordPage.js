@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Select, Col, Row } from 'antd';
+import { Button, Select, Space, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
@@ -118,50 +118,56 @@ const InvalidActRecordPage = () => {
 
     return (
         <>
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#FFFFFF'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{ justifyContent: 'flex-end', height: '100%'}}>
-                        <span>店铺组编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <Select
-                        value={shopGroupCode4Search}
-                        style={{width: '95%'}}
-                        onChange={(e) => {
-                            setShopGroupCode4Search(e);
-                            fetchShopListByShopGroupCode(e);
-                        }}
-                        options={shopGroupList4Select}
-                    />
-                </Col>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>店铺编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <Select
-                        value={shopCode4Search}
-                        style={{width: '95%'}}
-                        onChange={(e) => setShopCode4Search(e)}
-                        options={shopList4Select}
-                    />
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont" style={{height: '100%'}}>
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={9}>
-                    &nbsp;
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            <InvalidActRecordListBlock key={refreshListKey} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
+            <Space className="full-square" direction="vertical" size={15}>
+                <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
+                    <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                </div>
+                <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 50}}>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>店铺组编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={shopGroupCode4Search}
+                                    style={{width: '95%'}}
+                                    onChange={(e) => {
+                                        setShopGroupCode4Search(e);
+                                        fetchShopListByShopGroupCode(e);
+                                    }}
+                                    options={shopGroupList4Select}
+                                />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>店铺编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={shopCode4Search}
+                                    style={{width: '95%'}}
+                                    onChange={(e) => setShopCode4Search(e)}
+                                    options={shopList4Select}
+                                />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height" style={{height: '100%'}}>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
+                    <InvalidActRecordListBlock key={refreshListKey} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search} onClickView={onClickView}/>
+                </div>
+            </Space>
 
             {openViewModal && (
                 <InvalidActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
