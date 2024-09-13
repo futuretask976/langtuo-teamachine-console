@@ -5,7 +5,7 @@ import '../../css/common.css';
 import { getTenantCode, isArray, isBlankObj } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
-import EditableTree from '../../components/EditableTree'
+import OrgTree from './OrgTree'
 
 const OrgListBlock = (props) => {
     // 样式相关
@@ -123,7 +123,7 @@ const OrgListBlock = (props) => {
     }
 
     // 数据初始化相关
-    const [orgStrucTree, setOrgStrucTree] = useState([]);
+    const [orgStrucTree, setOrgStrucTree] = useState();
     const fetchListByDepth = () => {
         get('/userset/org/listbydepth', {  
             tenantCode: getTenantCode()
@@ -159,11 +159,11 @@ const OrgListBlock = (props) => {
 
     return (
         <div className="flex-row-cont" style={{height: '100%', width: '100%'}}>
-            <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', height: '100%', width: '24%', border: '0px solid red'}}>
-                <EditableTree orgStrucTree={orgStrucTree} />
+            <div className="flex-col-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', width: '24.5%'}}>
+                <OrgTree orgStrucTree={orgStrucTree} />
             </div>
-            <div style={{width: '1%'}}>&nbsp;</div>
-            <div style={{ background: colorBgContainer, height: '100%', width: '75%'}}>
+            <div style={{width: '0.5%'}}>&nbsp;</div>
+            <div className="full-height" style={{ background: colorBgContainer, width: '75%'}}>
                 <Table
                     pagination={{
                         pageNum,
