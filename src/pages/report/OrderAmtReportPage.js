@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Select, Col, Row } from 'antd';
+import React, { useState } from 'react';
+import { Button, DatePicker, Space, Col, Row } from 'antd';
 import { HighlightOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, getTenantCode, getYesterday, isArray } from '../../js/common.js';
-import { get } from '../../js/request.js';
+import { getYesterday } from '../../js/common.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import OrderAmtReportListBlock from '../../components/report/OrderAmtReportListBlock'
@@ -35,42 +34,46 @@ const OrderAmtReportPage = () => {
 
     return (
         <>
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#FFFFFF'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>日期选择：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <DatePicker
-                        format={{
-                            format: 'YYYY-MM-DD',
-                            type: 'mask',
-                        }}
-                        onChange={(e, dateString) => setOrderCreatedDay(dateString)}
-                        style={{width: '100%'}}
-                        value={dayjs(orderCreatedDay, 'YYYY-MM-DD')}
-                    />
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont" style={{height: '100%'}}>
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont" style={{height: '100%'}}>
-                        <Button type="primary" icon={<HighlightOutlined />} onClick={(e) => setOpenViewModal(true)} style={{width: '90%'}}>生成报表</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={12}>
-                    &nbsp;
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            <OrderAmtReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay}/>
+            <Space className="full-square" direction="vertical" size={15}>
+                <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
+                    <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                </div>
+                <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 50}}>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>日期选择：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <DatePicker
+                                    format={{
+                                        format: 'YYYY-MM-DD',
+                                        type: 'mask',
+                                    }}
+                                    onChange={(e, dateString) => setOrderCreatedDay(dateString)}
+                                    style={{width: '100%'}}
+                                    value={dayjs(orderCreatedDay, 'YYYY-MM-DD')}
+                                />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height" style={{height: '100%'}}>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height" style={{height: '100%'}}>
+                                <Button type="primary" icon={<HighlightOutlined />} onClick={(e) => setOpenViewModal(true)} style={{width: '90%'}}>生成报表</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
+                    <OrderAmtReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay}/>
+                </div>
+            </Space>
 
             {openViewModal && (
                 <OrderAmtReportGenModal onClose={onCloseViewModal}/>
