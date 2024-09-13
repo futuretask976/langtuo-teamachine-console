@@ -81,39 +81,6 @@ const ModelPage = () => {
                     <ModelListBlock key={refreshListKey} modelCode4Search={modelCode4Search} onClickEdit={onClickEdit} />
                 </div>
             </Space>
-            
-            
-            
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#fff'}}>
-                <Col className="gutter-row full-height" span={2}>
-                    <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>型号编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row full-height" span={4}>
-                    <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="型号编码" allowClear onChange={(e) => setModelCode4Search(e.target.value)} style={{width: '95%'}}/>
-                    </div>
-                </Col>
-                <Col className="gutter-row full-height" span={3}>
-                    <div className="flex-row-cont full-height">
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row full-height" span={3}>
-                    <div className="flex-row-cont full-height">
-                        <Button type="primary" icon={<FormOutlined />} onClick={onCreateNewModelModal} style={{width: '90%'}}>新建型号</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row full-height" span={12}>
-                    &nbsp;
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            
 
             {openNewModal && (
                 <ModelNewModal onClose={onCloseNewModelModal} modelCode4Edit={modelCode4Edit} />
