@@ -56,12 +56,11 @@ function LoginPage() {
         //     console.log('$$$$$ error=', error)
         // });
 
-        axios.get('https://langtuo.cartisan.top:446/teamachinebackend/mqtt/test', {
-        }, {
+        axios.get('http://localhost:8080/teamachinebackend/securityset/oss/token/get', {
             headers: {
                 'Tenant-Code': 'tenant_001',
-                'Machine-Code': 'kw4un3',
-                'Deploy-Code': '20240904000000'
+                'Machine-Code': 'machine_333',
+                'Deploy-Code': '30rqiy'
             }
         })
         .then(response => {
