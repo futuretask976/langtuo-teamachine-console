@@ -11,7 +11,6 @@ const CleanRuleDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-
         put('/ruleset/clean/dispatch/put', {
             tenantCode: getTenantCode(),
             cleanRuleCode: cleanRuleCode,
@@ -22,13 +21,10 @@ const CleanRuleDispatchModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

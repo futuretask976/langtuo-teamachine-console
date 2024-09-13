@@ -7,6 +7,7 @@ import '../../css/common.css';
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import AndroidAppListBlock from '../../components/device/AndroidAppListBlock'
 import AndroidAppUploadModal from '../../components/device/AndroidAppUploadModal'
+import AndroidAppDispatchModal from '../../components/device/AndroidAppDispatchModal'
 
 const AndroidAppPage = () => {
     // 面包屑相关
@@ -23,17 +24,29 @@ const AndroidAppPage = () => {
         refreshList();
     }
 
+    // 分发对话框相关
+    const [openDispatchModal, setOpenDispatchModal] = useState(false);
+    const onCloseDispatchModal = () => {
+        setOpenDispatchModal(false);
+        setVersion4Dispatch(undefined);
+    }
+
     // 搜索相关
-    const [version4Search, setVersion4Search] = useState('');
+    const [version4Search, setVersion4Search] = useState();
     const onClickSearch = () => {
         refreshList();
     }
 
     // 表格操作相关
-    const [version4Edit, setVersion4Edit] = useState('');
+    const [version4Edit, setVersion4Edit] = useState();
     const onClickEdit = (selectedVersion)=> {
         setVersion4Edit(selectedVersion);
         setOpenNewModal(true);
+    }
+    const [version4Dispatch, setVersion4Dispatch] = useState();
+    const onClickDispatch = (selectedVersion)=> {
+        setVersion4Dispatch(selectedVersion);
+        setOpenDispatchModal(true);
     }
 
     // 刷新列表相关
@@ -73,12 +86,16 @@ const AndroidAppPage = () => {
                     </Row>
                 </div>
                 <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
-                    <AndroidAppListBlock key={refreshListKey} onClickEdit={onClickEdit} version4Search={version4Search}/>
+                    <AndroidAppListBlock key={refreshListKey} onClickEdit={onClickEdit} onClickDispatch={onClickDispatch} version4Search={version4Search}/>
                 </div>
             </Space>
 
             {openNewModal && (
                 <AndroidAppUploadModal onClose={onCloseNewModal} version4Edit={version4Edit}/>
+            )}
+
+            {openDispatchModal && (
+                <AndroidAppDispatchModal onClose={onCloseDispatchModal} version4Dispatch={version4Dispatch} />
             )}
         </>
     )

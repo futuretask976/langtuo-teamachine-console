@@ -57,7 +57,6 @@ const TeaNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/drinkset/tea/put', {
             tenantCode: getTenantCode(),
             teaCode: tea.teaCode,
@@ -75,13 +74,10 @@ const TeaNewModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

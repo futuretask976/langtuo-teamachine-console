@@ -117,7 +117,7 @@ const MenuListBlock = (props) => {
             menuCode: menuCode
         }).then(resp => {
             if (resp.success) {
-                alert('删除成功');
+                alert('删除成功！');
                 fetchListData();
             } else {
                 alert('删除失败：' + resp.errorMsg)

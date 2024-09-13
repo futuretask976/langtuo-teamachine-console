@@ -23,17 +23,14 @@ const OrgNewModal = (props) => {
             parentOrgName: parentOrgName
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

@@ -5,16 +5,16 @@ import '../../css/common.css';
 import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
-const MenuDispatchModal = (props) => {
+const AndroidAppDispatchModal = (props) => {
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
 
-        put('/menuset/menu/dispatch/put', {
+        put('/deviceset/android/app/dispatch/put', {
             tenantCode: getTenantCode(),
-            menuCode: menuCode,
+            version: version,
             shopGroupCodeList: targetKeys
         }).then(respData => {
             if (respData.success) {
@@ -36,18 +36,18 @@ const MenuDispatchModal = (props) => {
     };
 
     // 数据初始化相关
-    const [menuCode, setMenuCode] = useState(isBlankStr(props.menuCode4Dispatch) ? '' : props.menuCode4Dispatch);
+    const [version, setVersion] = useState(isBlankStr(props.version4Dispatch) ? '' : props.version4Dispatch);
     const [shopGroupList4Transfer, setShopGroupList4Transfer] = useState([]);
 
     // 赋值初始化相关
     const fetchMenuDispatch4Edit = () => {
-        if (isBlankStr(props.menuCode4Dispatch)) {
+        if (isBlankStr(props.version4Dispatch)) {
             return;
         }
 
-        get('/menuset/menu/dispatch/get', {  
+        get('/deviceset/android/app/dispatch/get', {  
             tenantCode: getTenantCode(),
-            menuCode: props.menuCode4Dispatch
+            version: props.version4Dispatch
         }).then(respData => {
             let model = respData.model;
             setTargetKeys(respData => {
@@ -143,4 +143,4 @@ const MenuDispatchModal = (props) => {
     );
 };
  
-export default MenuDispatchModal;
+export default AndroidAppDispatchModal;

@@ -34,7 +34,6 @@ const TenantNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/userset/tenant/put', {
             tenantCode: tenantCode,
             tenantName: tenantName,
@@ -43,17 +42,14 @@ const TenantNewModal = (props) => {
             comment: comment
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

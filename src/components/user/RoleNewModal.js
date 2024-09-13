@@ -24,7 +24,6 @@ const RoleNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/userset/role/put', {
             tenantCode: getTenantCode(),
             roleCode: roleCode,
@@ -33,17 +32,14 @@ const RoleNewModal = (props) => {
             permitActCodeList: getCheckedPermitActCodeList()
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

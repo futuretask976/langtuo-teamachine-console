@@ -13,7 +13,6 @@ const WarningRuleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-
         put('/ruleset/warning/put', {
             tenantCode: getTenantCode(),
             comment: comment,
@@ -25,17 +24,14 @@ const WarningRuleNewModal = (props) => {
             threshold: threshold
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

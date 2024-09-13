@@ -30,7 +30,6 @@ const SeriesNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/menuset/series/put', {
             tenantCode: getTenantCode(),
             comment: comment,
@@ -44,13 +43,10 @@ const SeriesNewModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

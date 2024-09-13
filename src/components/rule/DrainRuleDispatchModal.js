@@ -11,7 +11,6 @@ const DrainRuleDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-
         put('/ruleset/drain/dispatch/put', {
             tenantCode: getTenantCode(),
             drainRuleCode: drainRuleCode,
@@ -22,13 +21,10 @@ const DrainRuleDispatchModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

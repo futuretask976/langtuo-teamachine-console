@@ -26,7 +26,6 @@ const TeaTypeNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/drinkset/tea/type/put', {
             teaTypeCode: teaTypeCode,
             teaTypeName: teaTypeName,
@@ -38,13 +37,10 @@ const TeaTypeNewModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

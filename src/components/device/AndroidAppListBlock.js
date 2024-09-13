@@ -116,22 +116,8 @@ const AndroidAppListBlock = (props) => {
             }
         });
     }
-    const onClickDispatch = (e, version) => {
-        let confirmRtn = window.confirm("分发后不可追回，确定要分发吗？");
-        if (!confirmRtn) {
-            return;
-        }
-
-        get('/deviceset/android/app/dispatch', {
-            version: version
-        }).then(respData => {
-            if (respData.success) {
-                alert('分发触发成功！');
-                fetchListData();
-            } else {
-                alert('分发触发失败：' + respData.errorMsg)
-            }
-        });
+    const onClickDispatch = (e, menuCode) => {
+        props.onClickDispatch(menuCode);
     }
 
     return (

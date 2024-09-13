@@ -28,7 +28,6 @@ const DeployNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/deviceset/deploy/put', {
             tenantCode: getTenantCode(),
             deployCode: deployCode,
@@ -42,13 +41,10 @@ const DeployNewModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

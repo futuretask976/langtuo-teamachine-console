@@ -32,7 +32,6 @@ const SpecNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/drinkset/spec/put', {
             tenantCode: getTenantCode(),
             comment: comment,
@@ -45,13 +44,10 @@ const SpecNewModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

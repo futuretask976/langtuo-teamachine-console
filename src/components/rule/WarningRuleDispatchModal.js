@@ -11,24 +11,20 @@ const WarningRuleDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-
         put('/ruleset/drain/warning/put', {
             tenantCode: getTenantCode(),
             warningRuleCode: warningRuleCode,
             shopGroupCodeList: targetKeys
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

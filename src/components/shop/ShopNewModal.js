@@ -31,7 +31,6 @@ const ShopNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/shopset/shop/put', {
             shopCode: shopCode,
             shopName: shopName,
@@ -40,17 +39,14 @@ const ShopNewModal = (props) => {
             tenantCode: getTenantCode()
         }).then(resp => {
             if (resp.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + resp.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();

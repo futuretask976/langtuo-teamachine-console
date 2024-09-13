@@ -29,7 +29,7 @@ const MenuPage = () => {
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
-        setMenuCode4Dispatch('');
+        setMenuCode4Dispatch(undefined);
     }
 
     // 搜索相关
@@ -50,12 +50,12 @@ const MenuPage = () => {
     }
 
     // 表格操作相关
-    const [menuCode4Edit, setMenuCode4Edit] = useState('');
+    const [menuCode4Edit, setMenuCode4Edit] = useState();
     const onClickEdit = (selectedMenuCode)=> {
         setMenuCode4Edit(selectedMenuCode);
         setOpenNewModal(true);
     }
-    const [menuCode4Dispatch, setMenuCode4Dispatch] = useState('');
+    const [menuCode4Dispatch, setMenuCode4Dispatch] = useState();
     const onClickDispatch = (selectedMenuCode)=> {
         setMenuCode4Dispatch(selectedMenuCode);
         setOpenDispatchModal(true);

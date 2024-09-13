@@ -21,7 +21,6 @@ const ModelNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/deviceset/model/put', {
             modelCode: modelCode,
             enableFlowAll: enableFlowAll,
@@ -32,13 +31,10 @@ const ModelNewModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
-            props.onClose();
             setLoading(false);
+            props.onClose();
             setOpen(false);
-        }, 1000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();
