@@ -191,6 +191,7 @@ const AndroidAppUploadModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             onCancel={onClickCancel}
             onOk={onClickOK}
             open={open}
