@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Input, Col, Row } from 'antd';
+import { Button, Input, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
@@ -49,36 +49,38 @@ const ShopGroupPage = () => {
 
     return (
         <>
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#fff'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>店铺组名称：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="店铺组名称" allowClear onChange={(e) => setShopGroupName4Search(e.target.value)} style={{width: '95%'}} />
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建门店组</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={12}>
-                    &nbsp;
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            <ShopGroupListBlock key={refreshListKey} shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
+            <Space className="full-square" direction="vertical" size={15}>
+                <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
+                    <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                </div>
+                <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 50}}>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>店铺组名称：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="店铺组名称" allowClear onChange={(e) => setShopGroupName4Search(e.target.value)} style={{width: '95%'}} />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建门店组</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
+                    <ShopGroupListBlock key={refreshListKey} shopGroupName4Search={shopGroupName4Search} onClickEdit={onClickEdit} />
+                </div>
+            </Space>
 
             {openNewModal && (
                 <ShopGroupNewModal onClose={onCloseNewModal} shopGroupCode4Edit={shopGroupCode4Edit} />
