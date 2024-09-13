@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, Select, Col, Row } from 'antd';
-import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Button, Input, Space, Col, Row } from 'antd';
+import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode, isArray, isValidCode } from '../../js/common.js';
-import { get } from '../../js/request.js';
-import { get4Export } from '../../js/request4Export.js'
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import AndroidAppListBlock from '../../components/device/AndroidAppListBlock'
@@ -14,33 +11,6 @@ import AndroidAppUploadModal from '../../components/device/AndroidAppUploadModal
 const AndroidAppPage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '设备', '预部署管理'];
-
-    // 数据初始化
-    const [shopList4Select, setShopList4Select] = useState([]);
-    const fetchShopList4Select = () => {
-        get('/shopset/shop/listbyadminorg', {
-            tenantCode: getTenantCode()
-        }).then(respData => {
-            setShopList4Select((prev => {
-                let shopListTmp = [{
-                    label: '全部',
-                    value: ''
-                }];
-                if (isArray(respData.model)) {
-                    respData.model.forEach(item => {
-                        shopListTmp.push({
-                            label: item.shopName,
-                            value: item.shopCode
-                        });
-                    });
-                }
-                return shopListTmp;
-            }));
-        });
-    }
-    useEffect(() => {
-        fetchShopList4Select();
-    }, []);
 
     // 新建对话框相关
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -74,33 +44,38 @@ const AndroidAppPage = () => {
 
     return (
         <>
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#FFFFFF'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}} style={{width: '95%'}}>
-                        <span>版本号：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="版本号" onChange={(e) => setVersion4Search(e.target.value)} style={{width: '95%'}}/>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建版本</Button>
-                    </div>
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            <AndroidAppListBlock key={refreshListKey} onClickEdit={onClickEdit} version4Search={version4Search}/>
+            <Space className="full-square" direction="vertical" size={15}>
+                <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
+                    <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                </div>
+                <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 50}}>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <span>版本号：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="版本号" onChange={(e) => setVersion4Search(e.target.value)} style={{width: '95%'}}/>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建版本</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
+                    <AndroidAppListBlock key={refreshListKey} onClickEdit={onClickEdit} version4Search={version4Search}/>
+                </div>
+            </Space>
 
             {openNewModal && (
                 <AndroidAppUploadModal onClose={onCloseNewModal} version4Edit={version4Edit}/>

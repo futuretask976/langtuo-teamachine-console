@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Select, Col, Row } from 'antd';
+import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
@@ -101,86 +101,90 @@ const DeployPage = () => {
 
     return (
         <>
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#FFFFFF'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#FFFFFF'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>部署编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="部署编码" allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>店铺名称：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Select
-                            value={shopCode4Search}
-                            style={{width: '95%'}}
-                            onChange={(e) => setShopCode4Search(e)}
-                            options={shopList4Select}
-                        />
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>部署状态：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Select
-                            value={state4Search}
-                            style={{width: '95%'}}
-                            onChange={(e) => setState4Search(e)}
-                            options={[
-                                {
-                                    label: '全部',
-                                    value: ''
-                                },
-                                {
-                                    label: '已部署',
-                                    value: '1'
-                                }, {
-                                    label: '未部署',
-                                    value: '0'
-                                }
-                            ]}
-                        />
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建部署码</Button>
-                    </div>
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#fff'}}>
-                <Col className="gutter-row" span={21}>
-                    &nbsp;
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
-                    </div>
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            <DeployListBlock key={refreshListKey} deployCode4Search={deployCode4Search} shopCode4Search={shopCode4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+            <Space className="full-square" direction="vertical" size={15}>
+                <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
+                    <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                </div>
+                <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 90}}>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>部署编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="部署编码" allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>店铺名称：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={shopCode4Search}
+                                    style={{width: '95%'}}
+                                    onChange={(e) => setShopCode4Search(e)}
+                                    options={shopList4Select}
+                                />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>部署状态：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={state4Search}
+                                    style={{width: '95%'}}
+                                    onChange={(e) => setState4Search(e)}
+                                    options={[
+                                        {
+                                            label: '全部',
+                                            value: ''
+                                        },
+                                        {
+                                            label: '已部署',
+                                            value: '1'
+                                        }, {
+                                            label: '未部署',
+                                            value: '0'
+                                        }
+                                    ]}
+                                />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建部署码</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row" span={21}>
+                            &nbsp;
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 700}}>
+                    <DeployListBlock key={refreshListKey} deployCode4Search={deployCode4Search} shopCode4Search={shopCode4Search} state4Search={state4Search} onClickEdit={onClickEdit} />
+                </div>
+            </Space>            
 
             {openNewModal && (
                 <DeployNewModal onClose={onCloseNewModal} deployCode4Edit={deployCode4Edit} />

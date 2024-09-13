@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Select, Col, Row } from 'antd';
+import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
@@ -91,69 +91,73 @@ const MachinePage = () => {
 
     return (
         <>
-            <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
-            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#fff'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>机器编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="机器编码" allowClear onChange={(e) => setMachineCode4Search(e.target.value)} style={{width: '95%'}}/>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>屏幕编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="屏幕编码" allowClear onChange={(e) => setScreenCode4Search(e.target.value)} style={{width: '95%'}}/>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>控制板编码：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Input placeholder="控制板编码" allowClear onChange={(e) => setElecBoardCode4Search(e.target.value)} style={{width: '95%'}}/>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={3}>
-                    <div className="flex-row-cont">
-                        <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
-                    </div>
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
-            <Row style={{backgroundColor: '#fff'}}>
-                <Col className="gutter-row" span={2}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                        <span>店铺名称：</span>
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                        <Select
-                            value={shopCode4Search}
-                            style={{width: '95%'}}
-                            onChange={(e) => setShopCode4Search(e)}
-                            options={shopList4Select}
-                        />
-                    </div>
-                </Col>
-                <Col className="gutter-row" span={17}>
-                    &nbsp;
-                </Col>
-            </Row>
-            <Row style={{backgroundColor: '#fff', borderRadius: 0, margin: '0px 0px'}}>&nbsp;</Row>
-            <div>&nbsp;</div>
-            <MachineListBlock key={refreshListKey} machineCode4Search={machineCode4Search} screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} shopCode4Search={shopCode4Search} onClickEdit={onClickEdit} />
+            <Space className="full-square" direction="vertical" size={15}>
+                <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
+                    <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
+                </div>
+                <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 90}}>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>机器编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={5}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="机器编码" allowClear onChange={(e) => setMachineCode4Search(e.target.value)} style={{width: '95%'}}/>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>屏幕编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={5}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="屏幕编码" allowClear onChange={(e) => setScreenCode4Search(e.target.value)} style={{width: '95%'}}/>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>控制板编码：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={5}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder="控制板编码" allowClear onChange={(e) => setElecBoardCode4Search(e.target.value)} style={{width: '95%'}}/>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={3}>
+                            <div className="flex-row-cont full-height">
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row className="full-width" style={{height: 40}}>
+                        <Col className="gutter-row full-height" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>店铺名称：</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={5}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={shopCode4Search}
+                                    style={{width: '95%'}}
+                                    onChange={(e) => setShopCode4Search(e)}
+                                    options={shopList4Select}
+                                />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row full-height" span={17}>
+                            &nbsp;
+                        </Col>
+                    </Row>
+                </div>
+                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 700}}>
+                    <MachineListBlock key={refreshListKey} machineCode4Search={machineCode4Search} screenCode4Search={screenCode4Search} elecBoardCode4Search={elecBoardCode4Search} shopCode4Search={shopCode4Search} onClickEdit={onClickEdit} />
+                </div>
+            </Space>
 
             {openNewModal && (
                 <MachineNewModal onClose={onCloseNewModal} machineCode4Edit={machineCode4Edit} />
