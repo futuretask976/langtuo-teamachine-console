@@ -40,24 +40,6 @@ const AndroidAppUploadModal = (props) => {
         }
         return new OSS(parseMast) // 调用OSS依赖
     }
-    const getPresignedUrl = async (objectName) => {
-        if (isBlankStr(objectName)) {
-            return '';
-        }
-
-        const ossClient = await getAliOssClient();
-        try {
-            // 生成预签名URL
-            const url = ossClient.signatureUrl(objectName, {
-                expires: 3600, // URL有效时长，单位为秒，默认为3600秒
-                method: 'GET', // 允许的HTTP方法，默认为'GET'
-            });
-            return url;
-        } catch (e) {
-            console.error(e);
-        }
-        return '';
-    }
 
     // 对话框相关
     const [loading, setLoading] = useState(false);
@@ -77,7 +59,6 @@ const AndroidAppUploadModal = (props) => {
         }
 
         setLoading(true);
-
         put('/deviceset/android/app/put', {
             version: version,
             ossPath: ossPath,
@@ -88,13 +69,10 @@ const AndroidAppUploadModal = (props) => {
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
-        });
-
-        setTimeout(() => {
             setLoading(false);
             props.onClose();
             setOpen(false);
-        }, 3000);
+        });
     };
     const onClickCancel = () => {
         props.onClose();
@@ -130,8 +108,13 @@ const AndroidAppUploadModal = (props) => {
     // 上一个组件传来的修改资源URL的函数，可用于展示远程的资源
     const [show, changeShow] = useState(false);
     const uploadPath = (path, file) => {
-        return `${path}/${file.name.split(".")[0]}-${file.uid}.${
-            file.type.split("/")[1]
+        // console.log('$$$$$ uploadAndroidApk file=', file);
+        // console.log('$$$$$ uploadAndroidApk file.name=', file.name);
+        // console.log('$$$$$ uploadAndroidApk file.type=', file.type);
+        // console.log('$$$$$ uploadAndroidApk file.uid=', file.uid);
+        let nameArr = file.name.split(".");
+        return `${path}/${nameArr[0]}-${file.uid}.${
+            nameArr[nameArr.length - 1]
         }`;
     };
     const OssUpload = async (option) => {
