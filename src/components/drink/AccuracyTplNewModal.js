@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const AccuracyTplNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -52,7 +52,7 @@ const AccuracyTplNewModal = (props) => {
     const [comment, setComment] = useState();
     const [toppingList4Select, setToppingList4Select] = useState();
 
-    // 初始化动作定义
+    // 初始化定义
     const fetchTemplate4Edit = () => {
         if (isBlankStr(props.templateCode4Edit)) {
             return;
@@ -93,10 +93,8 @@ const AccuracyTplNewModal = (props) => {
     }
     useEffect(() => {
         fetchToppingList4Select();
-    }, []);
-    useEffect(() => {
         fetchTemplate4Edit();
-    }, [props.templateCode4Edit]);
+    }, []);
  
     return (
         <>

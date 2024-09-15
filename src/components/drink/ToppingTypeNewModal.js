@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const ToppingTypeNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -27,10 +27,10 @@ const ToppingTypeNewModal = (props) => {
 
         setLoading(true);
         put('/drinkset/topping/type/put', {
+            tenantCode: getTenantCode(),
+            comment: comment,
             toppingTypeCode: toppingTypeCode,
             toppingTypeName: toppingTypeName,
-            comment: comment,
-            tenantCode: getTenantCode(),
             putNew: putNew
         }).then(respData => {
             if (respData.success) {

@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const TeaTypeNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -27,10 +27,10 @@ const TeaTypeNewModal = (props) => {
 
         setLoading(true);
         put('/drinkset/tea/type/put', {
+            tenantCode: getTenantCode(),
+            comment: comment,
             teaTypeCode: teaTypeCode,
             teaTypeName: teaTypeName,
-            comment: comment,
-            tenantCode: getTenantCode(),
             putNew: putNew
         }).then(respData => {
             if (respData.success) {

@@ -12,7 +12,7 @@ import TeaNewModalSpecPane from '../../components/drink/TeaNewModalSpecPane'
 import TeaNewModalAdjustRulePane from '../../components/drink/TeaNewModalAdjustRulePane'
 
 const TeaNewModal = (props) => {
-    // 样式相关
+    // 样式定义
     const { token } = theme.useToken();
     const contentStyle = {
         backgroundColor: token.colorFillAlter,
@@ -23,10 +23,11 @@ const TeaNewModal = (props) => {
         marginTop: 5
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.teaCode4Edit == undefined ? true : false;
+    const [tea, setTea] = useState();
 
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickSubmit = () => {
@@ -62,13 +63,13 @@ const TeaNewModal = (props) => {
         setLoading(true);
         put('/drinkset/tea/put', {
             tenantCode: getTenantCode(),
+            comment: tea.comment,
             teaCode: tea.teaCode,
             teaName: tea.teaName,
             teaTypeCode: tea.teaTypeCode,
             outerTeaCode: tea.outerTeaCode,
             state: tea.state,
             imgLink: tea.imgLink,
-            comment: tea.comment,
             teaUnitList: tea.teaUnitList,
             actStepList: tea.actStepList,
             putNew: putNew
@@ -88,7 +89,7 @@ const TeaNewModal = (props) => {
         setOpen(false);
     };
 
-    // 步骤相关
+    // 步骤定义
     const [showStepPane, setShowStepPane] = useState(false);
     const [curStep, setCurStep] = useState(0);
     const onClickNextStep = () => {
@@ -114,11 +115,9 @@ const TeaNewModal = (props) => {
           title: '规则设定'
         }
     ];
+    
 
-    // 变量初始化相关
-    const [tea, setTea] = useState();
-
-    // 赋值初始化相关
+    // 初始化定义
     const fetchTea4Edit = () => {
         if (isBlankStr(props.teaCode4Edit)) {
             setTea({});
@@ -137,14 +136,14 @@ const TeaNewModal = (props) => {
     }
     useEffect(() => {
         fetchTea4Edit();
-    }, [props.teaCode4Edit]);
+    }, []);
     useEffect(() => {
         if (!isBlankObj(tea)) {
             setShowStepPane(true);
         }
     }, [tea]);
 
-    // hook 相关
+    // 输入定义
     const updateInfo = (teaCode, teaName, outerTeaCode, teaTypeCode, state, comment, imgLink) => {
         setTea(prev => {
             let tmp = {...prev};

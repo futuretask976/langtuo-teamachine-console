@@ -10,7 +10,7 @@ import SpecItemNewModal from '../../components/drink/SpecItemNewModal'
 const { TextArea } = Input;
 
 const SpecNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -55,7 +55,7 @@ const SpecNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.specCode4Edit == undefined ? true : false;
     const [specCode, setSpecCode] = useState();
     const [specName, setSpecName] = useState();
@@ -95,9 +95,9 @@ const SpecNewModal = (props) => {
     }
     useEffect(() => {
         fetchSpec4Edit();
-    }, [props.specCode4Edit]);
+    }, []);
 
-    // 子规格相关
+    // 子规格定义
     const [specItemCode4Edit, setSpecItemCode4Edit] = useState('');
     const [specItemName4Edit, setSpecItemName4Edit] = useState('');
     const [outerSpecItemCode4Edit, setOuterSpecItemCode4Edit] = useState('');
