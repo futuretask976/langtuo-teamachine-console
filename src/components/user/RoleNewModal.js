@@ -29,7 +29,8 @@ const RoleNewModal = (props) => {
             roleCode: roleCode,
             roleName: roleName,
             comment: comment,
-            permitActCodeList: getCheckedPermitActCodeList()
+            permitActCodeList: getCheckedPermitActCodeList(),
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -47,10 +48,11 @@ const RoleNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [roleCode, setRoleCode] = useState(isBlankStr(props.roleCode4Edit) ? '' : props.roleCode4Edit);
-    const [roleName, setRoleName] = useState('');
-    const [comment, setComment] = useState('');
-    const [permitActGroupList, setPermitActGroupList] = useState([]);
+    const putNew = props.roleCode4Edit == undefined ? true : false;
+    const [roleCode, setRoleCode] = useState();
+    const [roleName, setRoleName] = useState();
+    const [comment, setComment] = useState();
+    const [permitActGroupList, setPermitActGroupList] = useState();
 
     // 初始化动作相关
     const fetchPermitActGroupList4Select = () => {

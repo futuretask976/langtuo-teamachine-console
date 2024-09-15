@@ -37,10 +37,11 @@ const SpecNewModal = (props) => {
             comment: comment,
             specCode: specCode,
             specName: specName,
-            specItemList: specItemList
+            specItemList: specItemList,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -55,10 +56,13 @@ const SpecNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [specCode, setSpecCode] = useState(isBlankStr(props.specCode4Edit) ? '' : props.specCode4Edit);
-    const [specName, setSpecName] = useState('');
-    const [comment, setComment] = useState('');
-    const [specItemList, setSpecItemList] = useState([]);
+    const putNew = props.specCode4Edit == undefined ? true : false;
+    const [specCode, setSpecCode] = useState();
+    const [specName, setSpecName] = useState();
+    const [comment, setComment] = useState();
+    const [specItemList, setSpecItemList] = useState();
+
+    // 初始化定义
     const fetchSpec4Edit = () => {
         if (isBlankStr(props.specCode4Edit)) {
             return;

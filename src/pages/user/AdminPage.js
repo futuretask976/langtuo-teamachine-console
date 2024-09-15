@@ -20,13 +20,13 @@ const AdminPage = () => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setLoginName4Edit('');
+        setLoginName4Edit(undefined);
         refreshList();
     }
 
     // 搜索相关
-    const [roleName4Search, setRoleName4Search] = useState('');
-    const [loginName4Search, setLoginName4Search] = useState('');
+    const [roleName4Search, setRoleName4Search] = useState();
+    const [loginName4Search, setLoginName4Search] = useState();
     const onClickSearch = () => {
         if (!isValidName(loginName4Search, false)) {
             alert('登录名称不符合规则');

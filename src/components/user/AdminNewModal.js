@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Modal, Select, Space, Col, Row } from 'antd';
+import { Input, Modal, Select, Space, Switch, Col, Row } from 'antd';
 import md5 from 'js-md5';
 
 import '../../css/common.css';
@@ -37,14 +37,14 @@ const AdminNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/userset/admin/put', {
             tenantCode: getTenantCode(),
             loginName: loginName,
             loginPass: md5(loginPass),
             roleCode: roleCode,
             orgName: orgName,
-            comment: comment
+            comment: comment,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -62,13 +62,15 @@ const AdminNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [loginName, setLoginName] = useState(isBlankStr(props.loginName4Edit) ? '' : props.loginName4Edit);
-    const [loginPass, setLoginPass] = useState('');
-    const [roleCode, setRoleCode] = useState('');
-    const [orgName, setOrgName] = useState('');
-    const [comment, setComment] = useState('');
-    const [orgList, setOrgList] = useState([]);
-    const [roleList, setRoleList] = useState([]);
+    const putNew = props.loginName4Edit == undefined ? true : false;
+    const [toUpdatePass, setToUpdatePass] = useState(putNew);
+    const [loginName, setLoginName] = useState();
+    const [loginPass, setLoginPass] = useState();
+    const [roleCode, setRoleCode] = useState();
+    const [orgName, setOrgName] = useState();
+    const [comment, setComment] = useState();
+    const [orgList, setOrgList] = useState();
+    const [roleList, setRoleList] = useState();
 
     // 赋值初始化相关
     const fetchAdmin4Edit = () => {
@@ -82,7 +84,6 @@ const AdminNewModal = (props) => {
         }).then(respData => {
             let model = respData.model;
             setLoginName(model.loginName);
-            // setLoginPass(model.loginPass);
             setRoleCode(model.roleCode);
             setOrgName(model.orgName);
             setComment(model.comment);
@@ -140,11 +141,10 @@ const AdminNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
             title="新建/编辑管理员"
             width={500}
         >
-            <div style={{height: 350, width: '100%'}}>
+            <div style={{height: 375, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
@@ -156,20 +156,6 @@ const AdminNewModal = (props) => {
                             <Input placeholder="管理员登录名称" disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={(e) => setLoginName(e.target.value)}/>
                         </Col>
                     </Row>
-
-                    {isBlankStr(props.loginName4Edit) && (
-                        <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={7}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>管理员登录密码：</span></Space>
-                                </div>
-                            </Col>
-                            <Col className="gutter-row" span={17}>
-                                <Input.Password placeholder="管理员登录密码" value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
-                            </Col>
-                        </Row>
-                    )}
-
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -202,12 +188,37 @@ const AdminNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                 <span>备注：</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
                             <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={7}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <Space size='small'><span>是否更新密码：</span></Space>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={17}>
+                            <Switch checkedChildren="更新" unCheckedChildren="不更新" checked={toUpdatePass} disabled={putNew} onChange={(e) => setToUpdatePass(e)} />
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={7}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <Space size='small'>
+                                    {toUpdatePass && (
+                                        <span style={{color: 'red'}}>*</span>
+                                    )}
+                                    <span>管理员登录密码：</span>
+                                </Space>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={17}>
+                            <Input.Password placeholder="管理员登录密码" disabled={!toUpdatePass} value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
                         </Col>
                     </Row>
                 </Space>

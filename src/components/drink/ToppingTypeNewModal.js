@@ -30,10 +30,11 @@ const ToppingTypeNewModal = (props) => {
             toppingTypeCode: toppingTypeCode,
             toppingTypeName: toppingTypeName,
             comment: comment,
-            tenantCode: getTenantCode()
+            tenantCode: getTenantCode(),
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -47,10 +48,13 @@ const ToppingTypeNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
-    const [toppingTypeCode, setToppingTypeCode] = useState(isBlankStr(props.toppingTypeCode4Edit) ? '' : props.toppingTypeCode4Edit);
-    const [toppingTypeName, setToppingTypeName] = useState('');
-    const [comment, setComment] = useState('');
+    // 数据定义
+    const putNew = props.toppingTypeCode4Edit == undefined ? true : false;
+    const [toppingTypeCode, setToppingTypeCode] = useState();
+    const [toppingTypeName, setToppingTypeName] = useState();
+    const [comment, setComment] = useState();
+
+    // 初始化定义
     const fetchToppingType4Edit = () => {
         if (isBlankStr(props.toppingTypeCode4Edit)) {
             return;

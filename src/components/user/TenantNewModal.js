@@ -39,7 +39,8 @@ const TenantNewModal = (props) => {
             tenantName: tenantName,
             contactPerson: contactPerson,
             contactPhone: contactPhone,
-            comment: comment
+            comment: comment,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -57,11 +58,12 @@ const TenantNewModal = (props) => {
     };
 
     // 数据定义相关
-    const [tenantCode, setTenantCode] = useState(isBlankStr(props.tenantCode4Edit) ? '' : props.tenantCode4Edit);
-    const [tenantName, setTenantName] = useState('');
-    const [contactPerson, setContactPerson] = useState('');
-    const [contactPhone, setContactPhone] = useState('');
-    const [comment, setComment] = useState('');
+    const putNew = props.tenantCode4Edit == undefined ? true : false;
+    const [tenantCode, setTenantCode] = useState();
+    const [tenantName, setTenantName] = useState();
+    const [contactPerson, setContactPerson] = useState();
+    const [contactPhone, setContactPhone] = useState();
+    const [comment, setComment] = useState();
 
     // 初始化动作相关
     useEffect(() => {

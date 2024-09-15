@@ -21,7 +21,8 @@ const CleanRuleNewModal = (props) => {
             permitRemind: permitRemind,
             permitBatch: permitBatch,
             exceptToppingCodeList: exceptToppingCodeList,
-            cleanRuleStepList: cleanRuleStepList
+            cleanRuleStepList: cleanRuleStepList,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -39,15 +40,16 @@ const CleanRuleNewModal = (props) => {
     };
 
     // 基础数据初始化相关
-    const [cleanRuleCode, setCleanRuleCode] = useState(isBlankStr(props.cleanRuleCode4Edit) ? '' : props.cleanRuleCode4Edit);
-    const [cleanRuleName, setCleanRuleName] = useState('');
+    const putNew = props.cleanRuleCode4Edit == undefined ? true : false;
+    const [cleanRuleCode, setCleanRuleCode] = useState();
+    const [cleanRuleName, setCleanRuleName] = useState();
     const [permitRemind, setPermitRemind] = useState(0);
     const [permitBatch, setPermitBatch] = useState(0);
-    const [exceptToppingCodeList, setExceptToppingCodeList] = useState([]);
-    const [cleanRuleStepList, setCleanRuleStepList] = useState([]);
-    const [toppingList4Select, setToppingList4Select] = useState([]);
+    const [exceptToppingCodeList, setExceptToppingCodeList] = useState();
+    const [cleanRuleStepList, setCleanRuleStepList] = useState();
+    const [toppingList4Select, setToppingList4Select] = useState();
 
-    // 初始化动作相关
+    // 初始化动作定义
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()

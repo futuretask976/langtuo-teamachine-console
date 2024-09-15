@@ -23,6 +23,9 @@ const TeaNewModal = (props) => {
         marginTop: 5
     };
 
+    // 数据初始化相关
+    const putNew = props.teaCode4Edit == undefined ? true : false;
+
     // 对话框相关
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
@@ -67,10 +70,11 @@ const TeaNewModal = (props) => {
             imgLink: tea.imgLink,
             comment: tea.comment,
             teaUnitList: tea.teaUnitList,
-            actStepList: tea.actStepList
+            actStepList: tea.actStepList,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }

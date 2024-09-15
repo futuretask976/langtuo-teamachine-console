@@ -16,11 +16,11 @@ const OrgNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/userset/org/put', {
             tenantCode: getTenantCode(),
             orgName: orgName,
-            parentOrgName: parentOrgName
+            parentOrgName: parentOrgName,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -38,9 +38,10 @@ const OrgNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [orgName, setOrgName] = useState(isBlankStr(props.orgName4Edit) ? '' : props.orgName4Edit);
+    const putNew = props.orgName4Edit == undefined ? true : false;
+    const [orgName, setOrgName] = useState();
     const [parentOrgName, setParentOrgName] = useState('总公司');
-    const [parentOrgNameOpts, setParentOrgNameOpts] = useState([]);
+    const [parentOrgNameOpts, setParentOrgNameOpts] = useState();
 
     // 初始化动作相关
     const fetchOrg4Edit = () => {
@@ -76,10 +77,8 @@ const OrgNewModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchOrg4Edit();
-    }, [props.orgName4Edit]);
-    useEffect(() => {
         fetchOrgList4Select();
+        fetchOrg4Edit();
     }, []);
  
     return (

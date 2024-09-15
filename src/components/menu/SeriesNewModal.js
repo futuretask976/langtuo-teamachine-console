@@ -36,7 +36,8 @@ const SeriesNewModal = (props) => {
             seriesCode: seriesCode,
             seriesName: seriesName,
             imgLink: imgLink,
-            seriesTeaRelList: convertToSeriesTeaRel()
+            seriesTeaRelList: convertToSeriesTeaRel(),
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -54,12 +55,13 @@ const SeriesNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [seriesCode, setSeriesCode] = useState(isBlankStr(props.seriesCode4Edit) ? '' : props.seriesCode4Edit);
-    const [seriesName, setSeriesName] = useState('');
-    const [imgLink, setImgLink] = useState('');
-    const [comment, setComment] = useState('');
-    const [teaCodeList, setTeaCodeList] = useState([]);
-    const [teaList4Select, setTeaList4Select] = useState([]);
+    const putNew = props.seriesCode4Edit == undefined ? true : false;
+    const [seriesCode, setSeriesCode] = useState();
+    const [seriesName, setSeriesName] = useState();
+    const [imgLink, setImgLink] = useState();
+    const [comment, setComment] = useState();
+    const [teaCodeList, setTeaCodeList] = useState();
+    const [teaList4Select, setTeaList4Select] = useState();
 
     // 初始化动作相关
     const fetchSeries4Edit = async () => {

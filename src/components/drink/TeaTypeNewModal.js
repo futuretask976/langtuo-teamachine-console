@@ -30,10 +30,11 @@ const TeaTypeNewModal = (props) => {
             teaTypeCode: teaTypeCode,
             teaTypeName: teaTypeName,
             comment: comment,
-            tenantCode: getTenantCode()
+            tenantCode: getTenantCode(),
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -48,9 +49,12 @@ const TeaTypeNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [teaTypeCode, setTeaTypeCode] = useState(isBlankStr(props.teaTypeCode4Edit) ? '' : props.teaTypeCode4Edit);
-    const [teaTypeName, setTeaTypeName] = useState('');
-    const [comment, setComment] = useState('');
+    const putNew = props.teaTypeCode4Edit == undefined ? true : false;
+    const [teaTypeCode, setTeaTypeCode] = useState();
+    const [teaTypeName, setTeaTypeName] = useState();
+    const [comment, setComment] = useState();
+
+    // 初始化定义
     const fetchTeaType4Edit = () => {
         if (isBlankStr(props.teaTypeCode4Edit)) {
             return;

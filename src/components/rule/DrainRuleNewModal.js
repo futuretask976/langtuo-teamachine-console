@@ -16,7 +16,8 @@ const DrainRuleNewModal = (props) => {
             drainRuleCode: drainRuleCode,
             drainRuleName: drainRuleName,
             defaultRule: defaultRule,
-            toppingRuleList: toppingRuleList
+            toppingRuleList: toppingRuleList,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -34,11 +35,12 @@ const DrainRuleNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [drainRuleCode, setDrainRuleCode] = useState(isBlankStr(props.drainRuleCode4Edit) ? '' : props.drainRuleCode4Edit);
-    const [drainRuleName, setDrainRuleName] = useState('');
+    const putNew = props.drainRuleCode4Edit == undefined ? true : false;
+    const [drainRuleCode, setDrainRuleCode] = useState();
+    const [drainRuleName, setDrainRuleName] = useState();
     const [defaultRule, setDefaultRule] = useState(0);
 
-    // 初始化动作相关
+    // 初始化动作定义
     const fetchDrainRule4Edit = () => {
         if (isBlankStr(props.drainRuleCode4Edit)) {
             return;

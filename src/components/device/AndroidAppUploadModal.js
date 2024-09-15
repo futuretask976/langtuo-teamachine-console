@@ -63,6 +63,7 @@ const AndroidAppUploadModal = (props) => {
             version: version,
             ossPath: ossPath,
             comment: comment,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -80,10 +81,11 @@ const AndroidAppUploadModal = (props) => {
     };
 
     // 数据定义
-    const [version, setVersion] = useState('');
-    const [ossPath, setOssPath] = useState('');
-    const [comment, setComment] = useState('');
-    const [fileList, setFileList] = useState([]);
+    const putNew = props.version4Edit == undefined ? true : false;
+    const [version, setVersion] = useState();
+    const [ossPath, setOssPath] = useState();
+    const [comment, setComment] = useState();
+    const [fileList, setFileList] = useState();
 
     // 初始化动作
     const fetchAndroidAppVersion = () => {

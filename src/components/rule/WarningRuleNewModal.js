@@ -21,7 +21,8 @@ const WarningRuleNewModal = (props) => {
             warningType: warningType,
             warningContent: warningContent,
             thresholdMode: thresholdMode,
-            threshold: threshold
+            threshold: threshold,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -39,13 +40,16 @@ const WarningRuleNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [warningRuleCode, setWarningRuleCode] = useState(isBlankStr(props.warningRuleCode4Edit) ? '' : props.warningRuleCode4Edit);
-    const [warningRuleName, setWarningRuleName] = useState('');
+    const putNew = props.warningRuleCode4Edit == undefined ? true : false;
+    const [warningRuleCode, setWarningRuleCode] = useState();
+    const [warningRuleName, setWarningRuleName] = useState();
     const [warningType, setWarningType] = useState(0);
     const [warningContent, setWarningContent] = useState(0);
     const [thresholdMode, setThresholdMode] = useState(0);
     const [threshold, setThreshold] = useState(0);
-    const [comment, setComment] = useState('');
+    const [comment, setComment] = useState();
+
+    // 初始化动作定义
     useEffect(() => {
         if (isBlankStr(props.warningRuleCode4Edit)) {
             return;

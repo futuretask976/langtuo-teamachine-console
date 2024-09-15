@@ -31,11 +31,12 @@ const ShopGroupNewModal = (props) => {
 
         setLoading(true);
         put('/shopset/shop/group/put', {
+            tenantCode: getTenantCode(),
+            comment: comment,
             shopGroupCode: shopGroupCode,
             shopGroupName: shopGroupName,
             orgName: orgName,
-            comment: comment,
-            tenantCode: getTenantCode()
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
@@ -53,11 +54,14 @@ const ShopGroupNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [shopGroupCode, setShopGroupCode] = useState(isBlankStr(props.shopGroupCode4Edit) ? '' : props.shopGroupCode4Edit);
-    const [shopGroupName, setShopGroupName] = useState('');
+    const putNew = props.shopGroupCode4Edit == undefined ? true : false;
+    const [comment, setComment] = useState();
+    const [shopGroupCode, setShopGroupCode] = useState();
+    const [shopGroupName, setShopGroupName] = useState();
     const [orgName, setOrgName] = useState('总公司');
-    const [comment, setComment] = useState('');
-    const [orgList4Select, setOrgList4Select] = useState([]);
+    const [orgList4Select, setOrgList4Select] = useState();
+
+    // 初始化动作定义
     const fetchShopGroup4Edit = () => {
         if (isBlankStr(props.shopGroupCode4Edit)) {
             return;
@@ -95,8 +99,6 @@ const ShopGroupNewModal = (props) => {
     }
     useEffect(() => {
         fetchShopGroup4Edit();
-    }, [props.shopGroupCode4Edit]);
-    useEffect(() => {
         fetchOrgList4Select();
     }, []);
  

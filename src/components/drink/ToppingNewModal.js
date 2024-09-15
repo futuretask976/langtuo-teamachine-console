@@ -38,7 +38,6 @@ const ToppingNewModal = (props) => {
         }
 
         setLoading(true);
-
         put('/drinkset/topping/put', {
             toppingCode: toppingCode,
             toppingName: toppingName,
@@ -50,10 +49,11 @@ const ToppingNewModal = (props) => {
             convertCoefficient: convertCoefficient,
             flowSpeed: flowSpeed,
             comment: comment,
-            tenantCode: getTenantCode()
+            tenantCode: getTenantCode(),
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -67,17 +67,20 @@ const ToppingNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
-    const [toppingCode, setToppingCode] = useState(isBlankStr(props.toppingCode4Edit) ? '' : props.toppingCode4Edit);
-    const [toppingName, setToppingName] = useState('');
-    const [toppingTypeCode, setToppingTypeCode] = useState('');
+    // 数据定义
+    const putNew = props.toppingCode4Edit == undefined ? true : false;
+    const [toppingCode, setToppingCode] = useState();
+    const [toppingName, setToppingName] = useState();
+    const [toppingTypeCode, setToppingTypeCode] = useState();
     const [measureUnit, setMeasureUnit] = useState(0);
     const [state, setState] = useState(1);
     const [validHourPeriod, setValidHourPeriod] = useState(0);
     const [cleanHourPeriod, setCleanHourPeriod] = useState(0);
     const [convertCoefficient, setConvertCoefficient] = useState(0.0);
     const [flowSpeed, setFlowSpeed] = useState(1);
-    const [comment, setComment] = useState('');
+    const [comment, setComment] = useState();
+
+    // 初始化定义
     const fetchTopping4Edit = () => {
         if (isBlankStr(props.toppingCode4Edit)) {
             return;

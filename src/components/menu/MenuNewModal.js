@@ -38,7 +38,8 @@ const MenuNewModal = (props) => {
             menuName: menuName,
             imgLink: imgLink,
             validFrom: new Date(validFrom),
-            menuSeriesRelList: convertToMenuSeriesRel()
+            menuSeriesRelList: convertToMenuSeriesRel(),
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -56,13 +57,14 @@ const MenuNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [menuCode, setMenuCode] = useState(isBlankStr(props.menuCode4Edit) ? '' : props.menuCode4Edit);
-    const [menuName, setMenuName] = useState('');
-    const [imgLink, setImgLink] = useState('');
-    const [comment, setComment] = useState('');
+    const putNew = props.menuCode4Edit == undefined ? true : false;
+    const [menuCode, setMenuCode] = useState();
+    const [menuName, setMenuName] = useState();
+    const [imgLink, setImgLink] = useState();
+    const [comment, setComment] = useState();
     const [validFrom, setValidFrom] = useState(dateToYMDHMS(new Date()));
-    const [seriesCodeList, setSeriesCodeList] = useState([]);
-    const [seriesList4Select, setSeriesList4Select] = useState([]);
+    const [seriesCodeList, setSeriesCodeList] = useState();
+    const [seriesList4Select, setSeriesList4Select] = useState();
 
     // 赋值初始化相关
     const fetchMenu4Edit = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Select, Space, Col, Row } from 'antd';
+import { Input, InputNumber, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
 import { getTenantCode, isArray, isBlankStr } from '../../js/common.js';
@@ -13,9 +13,9 @@ const AccuracyTplNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-
         put('/drinkset/accuracy/put', {
             tenantCode: getTenantCode(),
+            comment: comment,
             templateCode: templateCode,
             templateName: templateName,
             overMode: overMode,
@@ -23,10 +23,10 @@ const AccuracyTplNewModal = (props) => {
             underMode: underMode,
             underAmount: underAmount,
             toppingCodeList: toppingCodeList,
-            comment: comment
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -40,18 +40,19 @@ const AccuracyTplNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
-    const [templateCode, setTemplateCode] = useState(isBlankStr(props.templateCode4Edit) ? '' : props.templateCode4Edit);
-    const [templateName, setTemplateName] = useState('');
+    // 数据定义
+    const putNew = props.templateCode4Edit == undefined ? true : false;
+    const [templateCode, setTemplateCode] = useState();
+    const [templateName, setTemplateName] = useState();
     const [overMode, setOverMode] = useState(0);
     const [overAmount, setOverAmount] = useState(0);
     const [underMode, setUnderMode] = useState(0);
     const [underAmount, setUnderAmount] = useState(0);
-    const [toppingCodeList, setToppingCodeList] = useState([]);
-    const [comment, setComment] = useState('');
-    const [toppingList4Select, setToppingList4Select] = useState([]);
+    const [toppingCodeList, setToppingCodeList] = useState();
+    const [comment, setComment] = useState();
+    const [toppingList4Select, setToppingList4Select] = useState();
 
-    // 初始化动作相关
+    // 初始化动作定义
     const fetchTemplate4Edit = () => {
         if (isBlankStr(props.templateCode4Edit)) {
             return;

@@ -32,11 +32,12 @@ const ShopNewModal = (props) => {
 
         setLoading(true);
         put('/shopset/shop/put', {
+            tenantCode: getTenantCode(),
+            comment: comment,
             shopCode: shopCode,
             shopName: shopName,
             shopGroupCode: shopGroupCode,
-            comment: comment,
-            tenantCode: getTenantCode()
+            putNew: putNew
         }).then(resp => {
             if (resp.success) {
                 alert("保存成功！");
@@ -54,12 +55,12 @@ const ShopNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [shopCode, setShopCode] = useState(isBlankStr(props.shopCode4Edit) ? '' : props.shopCode4Edit);
-    const [shopName, setShopName] = useState('');
-    const [shopGroupCode, setShopGroupCode] = useState('');
-    const [shopGroupName, setShopGroupName] = useState('');
-    const [comment, setComment] = useState('');
-    const [shopGroupList, setShopGroupList] = useState([]);
+    const putNew = props.shopCode4Edit == undefined ? true : false;
+    const [comment, setComment] = useState();
+    const [shopCode, setShopCode] = useState();
+    const [shopName, setShopName] = useState();
+    const [shopGroupCode, setShopGroupCode] = useState();
+    const [shopGroupList, setShopGroupList] = useState();
 
     // 初始化动作相关
     const fetchShop4Edit = () => {
@@ -75,7 +76,6 @@ const ShopNewModal = (props) => {
             setShopCode(model.shopCode);
             setShopName(model.shopName);
             setShopGroupCode(model.shopGroupCode);
-            setShopGroupName(model.shopGroupName);
             setComment(model.comment);
         });
     }
@@ -99,10 +99,8 @@ const ShopNewModal = (props) => {
     }
     useEffect(() => {
         fetchShopGroupList4Select();
-    }, []);
-    useEffect(() => {
         fetchShop4Edit();
-    }, [props.shopCode4Edit]);
+    }, []);
  
     return (
         <Modal
