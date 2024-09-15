@@ -8,12 +8,11 @@ import { isArray, isBlankStr, getTenantCode, isBlankObj } from '../../js/common.
 import { get, put } from '../../js/request.js';
 
 const CleanRuleNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-
         put('/ruleset/clean/put', {
             tenantCode: getTenantCode(),
             cleanRuleCode: cleanRuleCode,
@@ -25,7 +24,7 @@ const CleanRuleNewModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -39,7 +38,7 @@ const CleanRuleNewModal = (props) => {
         setOpen(false);
     };
 
-    // 基础数据初始化相关
+    // 数据定义
     const putNew = props.cleanRuleCode4Edit == undefined ? true : false;
     const [cleanRuleCode, setCleanRuleCode] = useState();
     const [cleanRuleName, setCleanRuleName] = useState();
@@ -49,7 +48,7 @@ const CleanRuleNewModal = (props) => {
     const [cleanRuleStepList, setCleanRuleStepList] = useState();
     const [toppingList4Select, setToppingList4Select] = useState();
 
-    // 初始化动作定义
+    // 初始化定义
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()
@@ -113,7 +112,7 @@ const CleanRuleNewModal = (props) => {
     }, [props.cleanRuleCode4Edit]);
 
 
-    // 针对pane的hook相关
+    // 输入定义
     const updateCleanRuleStep = (cleanRuleStep) => {
         if (isBlankObj(cleanRuleStep)) {
             return;
@@ -144,7 +143,7 @@ const CleanRuleNewModal = (props) => {
         });
     };
 
-    // 步骤相关
+    // 步骤定义
     // 步骤从1开始，不是0，和展示保持一致
     const [stepIndex, setStepIndex] = useState(1);
     const [activeKey, setActiveKey] = useState(1);

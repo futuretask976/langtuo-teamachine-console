@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const WarningRuleNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -39,7 +39,7 @@ const WarningRuleNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.warningRuleCode4Edit == undefined ? true : false;
     const [warningRuleCode, setWarningRuleCode] = useState();
     const [warningRuleName, setWarningRuleName] = useState();
@@ -49,8 +49,8 @@ const WarningRuleNewModal = (props) => {
     const [threshold, setThreshold] = useState(0);
     const [comment, setComment] = useState();
 
-    // 初始化动作定义
-    useEffect(() => {
+    // 初始化定义
+    const fetchWarningRule4Edit = () => {
         if (isBlankStr(props.warningRuleCode4Edit)) {
             return;
         }
@@ -68,7 +68,10 @@ const WarningRuleNewModal = (props) => {
             setThreshold(model.threshold);
             setComment(model.comment);
         });
-    }, [props.warningRuleCode4Edit]);
+    }
+    useEffect(() => {
+        fetchWarningRule4Edit();
+    }, []);
  
     return (
         <>

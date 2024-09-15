@@ -6,7 +6,7 @@ import { isBlankArray, isBlankStr, getTenantCode, isArray } from '../../js/commo
 import { get, put } from '../../js/request.js';
 
 const DrainRuleNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -34,13 +34,18 @@ const DrainRuleNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.drainRuleCode4Edit == undefined ? true : false;
     const [drainRuleCode, setDrainRuleCode] = useState();
     const [drainRuleName, setDrainRuleName] = useState();
     const [defaultRule, setDefaultRule] = useState(0);
+    const [toppingList4Select, setToppingList4Select] = useState([]);
+    const [toppingCodeList4Selected, setToppingCodeList4Selected] = useState([]);
+    const [toppingRuleList, setToppingRuleList] = useState([]);
+    const [flushSec, setFlushSec] = useState(0);
+    const [flushWeight, setFlushWeight] = useState(0);
 
-    // 初始化动作定义
+    // 初始化定义
     const fetchDrainRule4Edit = () => {
         if (isBlankStr(props.drainRuleCode4Edit)) {
             return;
@@ -66,16 +71,6 @@ const DrainRuleNewModal = (props) => {
             });
         });
     }
-    useEffect(() => {
-        fetchDrainRule4Edit();
-    }, [props.drainRuleCode4Edit]);
-
-    // 物料规则相关
-    const [toppingList4Select, setToppingList4Select] = useState([]);
-    const [toppingCodeList4Selected, setToppingCodeList4Selected] = useState([]);
-    const [toppingRuleList, setToppingRuleList] = useState([]);
-    const [flushSec, setFlushSec] = useState(0);
-    const [flushWeight, setFlushWeight] = useState(0);
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {  
             tenantCode: getTenantCode()
@@ -99,9 +94,10 @@ const DrainRuleNewModal = (props) => {
     }
     useEffect(() => {
         fetchToppingList4Select();
+        fetchDrainRule4Edit();
     }, []);
 
-    // 物料规则表格相关
+    // 输入定义
     const toppingRuleCols = [
         {
             title: '物料名称',
@@ -138,8 +134,8 @@ const DrainRuleNewModal = (props) => {
             ),
         },
     ];
-    const onClickDeleteToppingRule = () => {
-        
+    const onClickDeleteToppingRule = (e, toppingCode) => {
+        alert(toppingCode);
     };
     const onClickAddToppingRule = () => {
         setToppingRuleList(prev => {
