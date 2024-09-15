@@ -26,9 +26,9 @@ const RoleNewModal = (props) => {
         setLoading(true);
         put('/userset/role/put', {
             tenantCode: getTenantCode(),
+            comment: comment,
             roleCode: roleCode,
             roleName: roleName,
-            comment: comment,
             permitActCodeList: getCheckedPermitActCodeList(),
             putNew: putNew
         }).then(respData => {
