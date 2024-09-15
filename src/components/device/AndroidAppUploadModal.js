@@ -8,7 +8,7 @@ import { isBlankStr, isValidComment, isValidVersion } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const AndroidAppUploadModal = (props) => {
-    // OSS 相关
+    // OSS 定义
     const getOSSToken = async () => {
         const model = await get('/securityset/oss/token/get', {
         }).then(resp => {
@@ -41,7 +41,7 @@ const AndroidAppUploadModal = (props) => {
         return new OSS(parseMast) // 调用OSS依赖
     }
 
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -87,7 +87,7 @@ const AndroidAppUploadModal = (props) => {
     const [comment, setComment] = useState();
     const [fileList, setFileList] = useState();
 
-    // 初始化动作
+    // 初始化定义
     const fetchAndroidAppVersion = () => {
         if (isBlankStr(props.version4Edit)) {
             return;
@@ -104,9 +104,9 @@ const AndroidAppUploadModal = (props) => {
     }
     useEffect(() => {
         fetchAndroidAppVersion();
-    }, [props.version4Edit]);
+    }, []);
 
-    // 上传文件相关
+    // 文件上传定义
     // 上一个组件传来的修改资源URL的函数，可用于展示远程的资源
     const [show, changeShow] = useState(false);
     const uploadPath = (path, file) => {

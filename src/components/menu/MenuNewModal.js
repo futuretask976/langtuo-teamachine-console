@@ -9,7 +9,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const MenuNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -56,7 +56,7 @@ const MenuNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.menuCode4Edit == undefined ? true : false;
     const [menuCode, setMenuCode] = useState();
     const [menuName, setMenuName] = useState();
@@ -66,7 +66,7 @@ const MenuNewModal = (props) => {
     const [seriesCodeList, setSeriesCodeList] = useState();
     const [seriesList4Select, setSeriesList4Select] = useState();
 
-    // 赋值初始化相关
+    // 初始化定义
     const fetchMenu4Edit = () => {
         if (isBlankStr(props.menuCode4Edit)) {
             return;
@@ -106,14 +106,12 @@ const MenuNewModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchMenu4Edit();
-    }, [props.menuCode4Edit]);
-    useEffect(() => {
         fetchSeriesList4Select();
+        fetchMenu4Edit();
     }, []);
     
 
-    // 输入相关
+    // 输入定义
     const onChangeSeriesCodeList = (e) => {
         setSeriesCodeList(prev => {
             return e;

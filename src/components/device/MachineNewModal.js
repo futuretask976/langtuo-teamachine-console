@@ -9,7 +9,7 @@ import { get, put } from '../../js/request.js';
 dayjs.locale('zh-cn');
 
 const MachineDeployNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -20,14 +20,14 @@ const MachineDeployNewModal = (props) => {
 
         setLoading(true);
         put('/deviceset/machine/update', {
+            tenantCode: getTenantCode(),
             machineCode: machineCode,
             machineName: machineName,
             screenCode: screenCode,
             elecBoardCode: elecBoardCode,
             state: state,
             validUntil: new Date(validUntil),
-            maintainUntil: new Date(maintainUntil),
-            tenantCode: getTenantCode()
+            maintainUntil: new Date(maintainUntil)
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -44,7 +44,7 @@ const MachineDeployNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const [machineCode, setMachineCode] = useState(isBlankStr(props.machineCode4Edit) ? '' : props.machineCode4Edit);
     const [machineName, setMachineName] = useState('');
     const [screenCode, setScreenCode] = useState('');
@@ -55,7 +55,7 @@ const MachineDeployNewModal = (props) => {
     const [shopCode, setShopCode] = useState('');
     const [shopList4Select, setShopList4Select] = useState([]);
 
-    // 赋值初始化相关
+    // 初始化定义
     const fetchMachine4Edit = () => {
         if (isBlankStr(props.machineCode4Edit)) {
             return;
@@ -96,12 +96,10 @@ const MachineDeployNewModal = (props) => {
     }
     useEffect(() => {
         fetchShopList4Select();
-    }, []);
-    useEffect(() => {
         fetchMachine4Edit();
-    }, [props.machineCodeCode4Edit]);
+    }, []);
 
-    // 输入相关
+    // 输入定义
     const onChangeValidUntil = (date, dateString) => {
         setValidUntil(dateString);
     }

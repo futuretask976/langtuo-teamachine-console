@@ -6,7 +6,7 @@ import { getTenantCode, isArray, isBlankStr, isValidCode } from '../../js/common
 import { get, put } from '../../js/request.js';
 
 const DeployNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -51,7 +51,7 @@ const DeployNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const [deployCode, setDeployCode] = useState(isBlankStr(props.deployCode4Edit) ? '' : props.deployCode4Edit);
     const [modelCode, setModelCode] = useState('');
     const [machineCode, setMachineCode] = useState('');
@@ -60,7 +60,7 @@ const DeployNewModal = (props) => {
     const [shopList4Select, setShopList4Select] = useState([]);
     const [modelList4Select, setModelList4Select] = useState([]);
 
-    // 初始化动作相关
+    // 初始化定义
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
@@ -116,12 +116,10 @@ const DeployNewModal = (props) => {
     useEffect(() => {
         fetchShopList4Select();
         fetchModelList4Select();
-    }, []);
-    useEffect(() => {
         fetchDeploy4Edit();
-    }, [props.deployCode4Edit]);
+    }, []);
 
-    // 输入相关
+    // 输入定义
     const onClickDeployCodeGen = (e) => {
         get('/deviceset/deploy/deploycode/generate', {
             tenantCode: getTenantCode()

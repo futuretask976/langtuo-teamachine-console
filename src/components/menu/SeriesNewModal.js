@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const SeriesNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -54,7 +54,7 @@ const SeriesNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.seriesCode4Edit == undefined ? true : false;
     const [seriesCode, setSeriesCode] = useState();
     const [seriesName, setSeriesName] = useState();
@@ -63,7 +63,7 @@ const SeriesNewModal = (props) => {
     const [teaCodeList, setTeaCodeList] = useState();
     const [teaList4Select, setTeaList4Select] = useState();
 
-    // 初始化动作相关
+    // 初始化定义
     const fetchSeries4Edit = async () => {
         if (isBlankStr(props.seriesCode4Edit)) {
             return;
@@ -100,12 +100,10 @@ const SeriesNewModal = (props) => {
     }
     useEffect(() => {
         fetchTeaList4Select();
-    }, []);
-    useEffect(() => {
         fetchSeries4Edit();
-    }, [props.seriesCode4Edit]);
+    }, []);
 
-    // 输入相关
+    // 输入定义
     const convertToSeriesTeaRel = () => {
         if (isBlankArray(teaCodeList)) {
             return [];

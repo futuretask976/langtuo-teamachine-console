@@ -7,7 +7,7 @@ import { isArray, isBlankStr, isEmptyArray, isValidCode } from '../../js/common.
 import { get, put } from '../../js/request.js';
 
 const ModelNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -41,11 +41,13 @@ const ModelNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const [modelCode, setModelCode] = useState(isBlankStr(props.modelCode4Edit) ? '' : props.modelCode4Edit);
     const [enableFlowAll, setEnableFlowAll] = useState(1);
     const [pipelineList, setPipelineList] = useState([]);
     const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
+
+    // 初始化定义
     const fetchModel4Edit = () => {
         if (isBlankStr(props.modelCode4Edit)) {
             return;
@@ -72,9 +74,9 @@ const ModelNewModal = (props) => {
     }
     useEffect(() => {
         fetchModel4Edit();
-    }, [props.modelCode4Edit]);
+    }, []);
 
-    // 输入相关
+    // 输入定义
     const onClickAddPipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
