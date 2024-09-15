@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Space, Col, Row } from 'antd';
-import axios from 'axios';
+import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { genGetUrlByParams, genGetUrlBySegs, genPostUrl, getRespErrorMsg, getJwtToken, getTenantCode, getRespModel, handleRespError, isBlankStr, isRespSuccess, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
+import { getTenantCode, isBlankStr, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
 
 const ShopNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -54,7 +53,7 @@ const ShopNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.shopCode4Edit == undefined ? true : false;
     const [comment, setComment] = useState();
     const [shopCode, setShopCode] = useState();
@@ -62,7 +61,7 @@ const ShopNewModal = (props) => {
     const [shopGroupCode, setShopGroupCode] = useState();
     const [shopGroupList, setShopGroupList] = useState();
 
-    // 初始化动作相关
+    // 初始化定义
     const fetchShop4Edit = () => {
         if (isBlankStr(props.shopCode4Edit)) {
             return;

@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const ShopGroupNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -53,7 +53,7 @@ const ShopGroupNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.shopGroupCode4Edit == undefined ? true : false;
     const [comment, setComment] = useState();
     const [shopGroupCode, setShopGroupCode] = useState();
@@ -61,7 +61,7 @@ const ShopGroupNewModal = (props) => {
     const [orgName, setOrgName] = useState('总公司');
     const [orgList4Select, setOrgList4Select] = useState();
 
-    // 初始化动作定义
+    // 初始化定义
     const fetchShopGroup4Edit = () => {
         if (isBlankStr(props.shopGroupCode4Edit)) {
             return;
