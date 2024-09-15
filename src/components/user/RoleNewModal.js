@@ -6,7 +6,7 @@ import { getTenantCode, isArray, isBlankStr, isValidCode, isValidComment, isVali
 import { get, put } from '../../js/request.js';
 
 const RoleNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -47,14 +47,14 @@ const RoleNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.roleCode4Edit == undefined ? true : false;
     const [roleCode, setRoleCode] = useState();
     const [roleName, setRoleName] = useState();
     const [comment, setComment] = useState();
     const [permitActGroupList, setPermitActGroupList] = useState();
 
-    // 初始化动作相关
+    // 初始化定义
     const fetchPermitActGroupList4Select = () => {
         get('/userset/permitact/list', {  
             tenantCode: getTenantCode()
@@ -113,7 +113,7 @@ const RoleNewModal = (props) => {
         fetchRole4Edit();
     }, [props.roleCode4Edit]);
 
-    // 表格操作相关
+    // 输入定义
     const getCheckedPermitActCodeList = () => {
         let tmp = [];
         permitActGroupList.forEach(permitActGroupItem => {

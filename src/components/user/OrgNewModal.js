@@ -6,7 +6,7 @@ import { getTenantCode, isArray, isBlankStr, isValidName } from '../../js/common
 import { get, put } from '../../js/request.js';
 
 const OrgNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -37,13 +37,13 @@ const OrgNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.orgName4Edit == undefined ? true : false;
     const [orgName, setOrgName] = useState();
     const [parentOrgName, setParentOrgName] = useState('总公司');
     const [parentOrgNameOpts, setParentOrgNameOpts] = useState();
 
-    // 初始化动作相关
+    // 初始化定义
     const fetchOrg4Edit = () => {
         if (isBlankStr(props.orgName4Edit)) {
             return;

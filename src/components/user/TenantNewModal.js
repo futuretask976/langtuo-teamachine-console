@@ -8,7 +8,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const TenantNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -57,16 +57,16 @@ const TenantNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据定义相关
+    // 数据定义
     const putNew = props.tenantCode4Edit == undefined ? true : false;
     const [tenantCode, setTenantCode] = useState();
+    const [comment, setComment] = useState();
     const [tenantName, setTenantName] = useState();
     const [contactPerson, setContactPerson] = useState();
     const [contactPhone, setContactPhone] = useState();
-    const [comment, setComment] = useState();
 
-    // 初始化动作相关
-    useEffect(() => {
+    // 初始化定义
+    const fetchTenant4Edit = () => {
         if (isBlankStr(props.tenantCode4Edit)) {
             return;
         }
@@ -81,7 +81,10 @@ const TenantNewModal = (props) => {
             setContactPhone(model.contactPhone);
             setComment(model.comment);
         });
-    }, [props.tenantCode4Edit]);
+    }
+    useEffect(() => {
+        fetchTenant4Edit();
+    }, []);
  
     return (
         <Modal

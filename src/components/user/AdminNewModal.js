@@ -9,7 +9,7 @@ import { get, put } from '../../js/request.js';
 const { TextArea } = Input;
 
 const AdminNewModal = (props) => {
-    // 对话框相关
+    // 对话框定义
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
@@ -39,11 +39,11 @@ const AdminNewModal = (props) => {
         setLoading(true);
         put('/userset/admin/put', {
             tenantCode: getTenantCode(),
+            comment: comment,
             loginName: loginName,
             loginPass: md5(loginPass),
             roleCode: roleCode,
             orgName: orgName,
-            comment: comment,
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
@@ -61,7 +61,7 @@ const AdminNewModal = (props) => {
         setOpen(false);
     };
 
-    // 数据初始化相关
+    // 数据定义
     const putNew = props.loginName4Edit == undefined ? true : false;
     const [toUpdatePass, setToUpdatePass] = useState(putNew);
     const [loginName, setLoginName] = useState();
@@ -72,7 +72,7 @@ const AdminNewModal = (props) => {
     const [orgList, setOrgList] = useState();
     const [roleList, setRoleList] = useState();
 
-    // 赋值初始化相关
+    // 初始化定义
     const fetchAdmin4Edit = () => {
         if (isBlankStr(props.loginName4Edit)) {
             return;
@@ -128,10 +128,8 @@ const AdminNewModal = (props) => {
     useEffect(() => {
         fetchOrgList4Select();
         fetchRoleList4Select();
-    }, []);
-    useEffect(() => {
         fetchAdmin4Edit();
-    }, [props.loginName4Edit]);
+    }, []);
     
  
     return (
