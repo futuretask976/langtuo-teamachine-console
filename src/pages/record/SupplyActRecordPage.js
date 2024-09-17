@@ -14,9 +14,14 @@ const SupplyActRecordPage = (props) => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '动作记录', '补料记录管理'];
 
-    // 数据初始化
+    // 数据定义
     const [shopList4Select, setShopList4Select] = useState([]);
-    const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
+    const [shopGroupList4Select, setShopGroupList4Select] = useState();
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
+    const [shopCode4Search, setShopCode4Search] = useState();
+    const [idempotentMark4View, setIdempotentMark4View] = useState();
+
+    // 动作定义
     const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
         get('/shopset/shop/list', {
             tenantCode: getTenantCode(),
@@ -82,33 +87,26 @@ const SupplyActRecordPage = (props) => {
             }));
         });
     }
+    const onClickSearch = () => {
+        refreshList();
+    }
+    const onClickView = (selectedIdempotentMark)=> {
+        setIdempotentMark4View(selectedIdempotentMark);
+        setOpenViewModal(true);
+    }
     useEffect(() => {
         fetchShopList4Select();
         fetchShopGroupList4Select();
     }, []);
 
-    // 新建对话框相关
+    // 对话框定义
     const [openViewModal, setOpenViewModal] = useState(false);
     const onCloseViewModal = () => {
         setOpenViewModal(false);
-        setIdempotentMark4View('');
+        setIdempotentMark4View(undefined);
     }
 
-    // 搜索相关
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
-    const onClickSearch = () => {
-        refreshList();
-    }
-
-    // 表格操作相关
-    const [idempotentMark4View, setIdempotentMark4View] = useState('');
-    const onClickView = (selectedIdempotentMark)=> {
-        setIdempotentMark4View(selectedIdempotentMark);
-        setOpenViewModal(true);
-    }
-
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);
