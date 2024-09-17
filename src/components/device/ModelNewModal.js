@@ -3,7 +3,7 @@ import { Button, Input, InputNumber, Modal, Space, Switch, Col, Row } from 'antd
 import { FormOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, isEmptyArray, isValidCode } from '../../js/common.js';
+import { isArray, isBlankStr, isValidCode } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const ModelNewModal = (props) => {
@@ -15,7 +15,7 @@ const ModelNewModal = (props) => {
             alert('型号编码不符合规则');
             return;
         }
-        if (isEmptyArray(pipelineList)) {
+        if (!isArray(pipelineList)) {
             alert('管道序号不能为空');
             return;
         }
@@ -24,7 +24,8 @@ const ModelNewModal = (props) => {
         put('/deviceset/model/put', {
             modelCode: modelCode,
             enableFlowAll: enableFlowAll,
-            pipelineList: pipelineList
+            pipelineList: pipelineList,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -42,9 +43,10 @@ const ModelNewModal = (props) => {
     };
 
     // 数据定义
-    const [modelCode, setModelCode] = useState(isBlankStr(props.modelCode4Edit) ? '' : props.modelCode4Edit);
+    const putNew = props.modelCode4Edit == undefined ? true : false;
+    const [modelCode, setModelCode] = useState();
     const [enableFlowAll, setEnableFlowAll] = useState(1);
-    const [pipelineList, setPipelineList] = useState([]);
+    const [pipelineList, setPipelineList] = useState();
     const [pipelineNumIdx, setPipelineNumIdx] = useState(1);
 
     // 初始化定义
@@ -56,6 +58,9 @@ const ModelNewModal = (props) => {
         get('/deviceset/model/get', {
             modelCode: props.modelCode4Edit
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             let model = respData.model;
             setModelCode(model.modelCode);
             setEnableFlowAll(model.enableFlowAll);
@@ -65,8 +70,10 @@ const ModelNewModal = (props) => {
                     model.pipelineList.forEach(function(ite) {
                         ite.key = ite.id;
                         tmp.push(ite);
+                        if (ite.pipelineNum >= pipelineNumIdx) {
+                            setPipelineNumIdx(ite.pipelineNum + 1);
+                        }
                     });
-                    
                 }
                 return tmp;
             }));
@@ -80,9 +87,11 @@ const ModelNewModal = (props) => {
     const onClickAddPipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
-            prev.forEach((pipeline, index) => (
-                tmp.push(pipeline)
-            ));
+            if (isArray(prev)) {
+                prev.forEach((pipeline, index) => (
+                    tmp.push(pipeline)
+                ));
+            }
             tmp.push({
                 pipelineNum: pipelineNumIdx,
                 enableFreeze: 0,
@@ -95,11 +104,13 @@ const ModelNewModal = (props) => {
     const onClickDeletePipeline = (e) => {
         setPipelineList((prev => {
             let tmp = [];
-            prev.forEach((ite, index) => {
-                tmp.push(ite)
-            });
-            tmp.pop();
-            setPipelineNumIdx(pipelineNumIdx - 1);
+            if (isArray(prev) && prev.length > 0) {
+                prev.forEach((ite, index) => {
+                    tmp.push(ite)
+                });
+                tmp.pop();
+                setPipelineNumIdx(pipelineNumIdx - 1);
+            }
             return tmp;
         }));
     }
@@ -180,7 +191,7 @@ const ModelNewModal = (props) => {
                     </Row>
                 </div>
                 <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 365, width: '100%', overflowY: 'scroll'}}>
-                    {pipelineList.map((pipeline, index) => (
+                    {isArray(pipelineList) && pipelineList.map((pipeline, index) => (
                         <Row id={index} style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>

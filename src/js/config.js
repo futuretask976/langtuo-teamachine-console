@@ -1,6 +1,6 @@
 export const CONSOLE_CONTEXT_PATH = '/teamachineconsole'
 
-export const TIMEOUT = 5000;
+export const TIMEOUT = 10000;
 
 export const OSS_CONFIG_BUCKET = 'miya-bucket2';
 export const OSS_CONFIG_REGION = 'oss-cn-hangzhou';

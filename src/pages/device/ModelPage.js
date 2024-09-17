@@ -10,22 +10,25 @@ import ModelListBlock from '../../components/device/ModelListBlock'
 import ModelNewModal from '../../components/device/ModelNewModal'
 
 const ModelPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '设备元数据', '设备型号管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onCreateNewModelModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModelModal = () => {
         setOpenNewModal(false);
-        setModelCode4Edit('');
+        setModelCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [modelCode4Search, setModelCode4Search] = useState('');
+    // 数据定义
+    const [modelCode4Search, setModelCode4Search] = useState();
+    const [modelCode4Edit, setModelCode4Edit] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(modelCode4Search, false)) {
             alert('型号编码不符合规则');
@@ -33,9 +36,6 @@ const ModelPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [modelCode4Edit, setModelCode4Edit] = useState('');
     const onClickEdit = (selectedModelCode)=> {
         setModelCode4Edit(selectedModelCode);
         setOpenNewModal(true);

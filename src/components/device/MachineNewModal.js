@@ -25,6 +25,7 @@ const MachineDeployNewModal = (props) => {
             machineName: machineName,
             screenCode: screenCode,
             elecBoardCode: elecBoardCode,
+            modelCode: modelCode,
             state: state,
             validUntil: new Date(validUntil),
             maintainUntil: new Date(maintainUntil)
@@ -45,15 +46,18 @@ const MachineDeployNewModal = (props) => {
     };
 
     // 数据定义
-    const [machineCode, setMachineCode] = useState(isBlankStr(props.machineCode4Edit) ? '' : props.machineCode4Edit);
-    const [machineName, setMachineName] = useState('');
-    const [screenCode, setScreenCode] = useState('');
-    const [elecBoardCode, setElecBoardCode] = useState('');
+    const [shopList4Select, setShopList4Select] = useState();
+    const [modelList4Select, setModelList4Select] = useState();
+    const putNew = props.machineCode4Edit == undefined ? true : false;
+    const [machineCode, setMachineCode] = useState();
+    const [machineName, setMachineName] = useState();
+    const [screenCode, setScreenCode] = useState();
+    const [elecBoardCode, setElecBoardCode] = useState();
+    const [modelCode, setModelCode] = useState();
     const [state, setState] = useState(0);
-    const [validUntil, setValidUntil] = useState('');
+    const [validUntil, setValidUntil] = useState();
     const [maintainUntil, setMaintainUntil] = useState(dateToYMDHMS(new Date()));
-    const [shopCode, setShopCode] = useState('');
-    const [shopList4Select, setShopList4Select] = useState([]);
+    const [shopCode, setShopCode] = useState();
 
     // 初始化定义
     const fetchMachine4Edit = () => {
@@ -70,6 +74,7 @@ const MachineDeployNewModal = (props) => {
             setMachineName(model.machineName);
             setScreenCode(model.screenCode);
             setElecBoardCode(model.elecBoardCode);
+            setModelCode(model.modelCode);
             setState(model.state);
             setValidUntil(dateToYMDHMS(new Date(model.validUntil)));
             setMaintainUntil(dateToYMDHMS(new Date(model.maintainUntil)));
@@ -94,8 +99,27 @@ const MachineDeployNewModal = (props) => {
             }));
         });
     }
+    const fetchModelList4Select= () => {
+        get('/deviceset/model/list', {
+            tenantCode: getTenantCode()
+        }).then(respData => {
+            setModelList4Select((prev => {
+                let modelListTmp = [];
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        modelListTmp.push({
+                            label: item.modelCode,
+                            value: item.modelCode
+                        });
+                    });
+                }
+                return modelListTmp;
+            }));
+        });
+    }
     useEffect(() => {
         fetchShopList4Select();
+        fetchModelList4Select();
         fetchMachine4Edit();
     }, []);
 
@@ -165,6 +189,23 @@ const MachineDeployNewModal = (props) => {
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder="电控板编码" allowClear value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col className="gutter-row" span={5}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={19}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                                <Select
+                                    value={modelCode}
+                                    style={{width: '90%'}}
+                                    onChange={(e) => setModelCode(e)}
+                                    options={modelList4Select}
+                                />
                             </div>
                         </Col>
                     </Row>
