@@ -11,30 +11,32 @@ import DrainRuleNewModal from '../../components/rule/DrainRuleNewModal'
 import DrainRuleDispatchModal from '../../components/rule/DrainRuleDispatchModal'
 
 const DrainRulePage = (props) => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '食安规则', '营业准备管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setDrainRuleCode4Edit('');
+        setDrainRuleCode4Edit(undefined);
         refreshList();
     }
-
-    // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
-        setDrainRuleCode4Dispatch('');
+        setDrainRuleCode4Dispatch(undefined);
     }
 
-    // 搜索相关
-    const [drainRuleCode4Search, setDrainRuleCode4Search] = useState('');
-    const [drainRuleName4Search, setDrainRuleName4Search] = useState('');
+    // 数据定义
+    const [drainRuleCode4Search, setDrainRuleCode4Search] = useState();
+    const [drainRuleName4Search, setDrainRuleName4Search] = useState();
+    const [drainRuleCode4Edit, setDrainRuleCode4Edit] = useState();
+    const [drainRuleCode4Dispatch, setDrainRuleCode4Dispatch] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(drainRuleCode4Search, false)) {
             alert('排空规则编码不符合规则');
@@ -46,14 +48,11 @@ const DrainRulePage = (props) => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [drainRuleCode4Edit, setDrainRuleCode4Edit] = useState('');
     const onClickEdit = (selectedDrainRuleCode)=> {
         setDrainRuleCode4Edit(selectedDrainRuleCode);
         setOpenNewModal(true);
     }
-    const [drainRuleCode4Dispatch, setDrainRuleCode4Dispatch] = useState('');
+    
     const onClickDispatch = (selectedDrainRuleCode)=> {
         setDrainRuleCode4Dispatch(selectedDrainRuleCode);
         setOpenDispatchModal(true);

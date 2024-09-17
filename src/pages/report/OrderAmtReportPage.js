@@ -11,22 +11,24 @@ import OrderAmtReportListBlock from '../../components/report/OrderAmtReportListB
 import OrderAmtReportGenModal from '../../components/report/OrderAmtReportGenModal'
 
 const OrderAmtReportPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '日常报表', '订单-数量报表'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openViewModal, setOpenViewModal] = useState(false);
     const onCloseViewModal = () => {
         setOpenViewModal(false);
     }
 
-    // 搜索相关
+    // 数据定义
     const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
+
+    // 动作定义
     const onClickSearch = () => {
         refreshList();
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

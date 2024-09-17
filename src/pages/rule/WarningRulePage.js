@@ -11,30 +11,32 @@ import WarningRuleNewModal from '../../components/rule/WarningRuleNewModal'
 import WarningRuleDispatchModal from '../../components/rule/WarningRuleDispatchModal'
 
 const WarningRulePage = (props) => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '食安规则', '预警规则管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setWarningRuleCode4Edit('');
+        setWarningRuleCode4Edit(undefined);
         refreshList();
     }
-
-    // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
-        setWarningRuleCode4Dispatch('');
+        setWarningRuleCode4Dispatch(undefined);
     }
 
-    // 搜索相关
-    const [warningRuleCode4Search, setWarningRuleCode4Search] = useState('');
-    const [warningRuleName4Search, setWarningRuleName4Search] = useState('');
+    // 数据定义
+    const [warningRuleCode4Search, setWarningRuleCode4Search] = useState();
+    const [warningRuleName4Search, setWarningRuleName4Search] = useState();
+    const [warningRuleCode4Edit, setWarningRuleCode4Edit] = useState();
+    const [warningRuleCode4Dispatch, setWarningRuleCode4Dispatch] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(warningRuleCode4Search, false)) {
             alert('预警规则编码不符合规则');
@@ -46,14 +48,11 @@ const WarningRulePage = (props) => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [warningRuleCode4Edit, setWarningRuleCode4Edit] = useState('');
     const onClickEdit = (selectedWarningRuleCode)=> {
         setWarningRuleCode4Edit(selectedWarningRuleCode);
         setOpenNewModal(true);
     }
-    const [warningRuleCode4Dispatch, setWarningRuleCode4Dispatch] = useState('');
+    
     const onClickDispatch = (selectedWarningRuleCode)=> {
         setWarningRuleCode4Dispatch(selectedWarningRuleCode);
         setOpenDispatchModal(true);

@@ -11,10 +11,10 @@ import CleanRuleNewModal from '../../components/rule/CleanRuleNewModal'
 import CleanRuleDispatchModal from '../../components/rule/CleanRuleDispatchModal'
 
 const CleanRulePage = (props) => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '食安规则', '清洗规则管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
@@ -24,17 +24,19 @@ const CleanRulePage = (props) => {
         setCleanRuleCode4Edit('');
         refreshList();
     }
-
-    // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
         setCleanRuleCode4Dispatch('');
     }
 
-    // 搜索相关
-    const [cleanRuleCode4Search, setCleanRuleCode4Search] = useState('');
-    const [cleanRuleName4Search, setCleanRuleName4Search] = useState('');
+    // 数据定义
+    const [cleanRuleCode4Search, setCleanRuleCode4Search] = useState();
+    const [cleanRuleName4Search, setCleanRuleName4Search] = useState();
+    const [cleanRuleCode4Edit, setCleanRuleCode4Edit] = useState();
+    const [cleanRuleCode4Dispatch, setCleanRuleCode4Dispatch] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(cleanRuleCode4Search, false)) {
             alert('清洁规则编码不符合规则');
@@ -46,14 +48,11 @@ const CleanRulePage = (props) => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [cleanRuleCode4Edit, setCleanRuleCode4Edit] = useState('');
     const onClickEdit = (selectedCleanRuleCode)=> {
         setCleanRuleCode4Edit(selectedCleanRuleCode);
         setOpenNewModal(true);
     }
-    const [cleanRuleCode4Dispatch, setCleanRuleCode4Dispatch] = useState('');
+    
     const onClickDispatch = (selectedCleanRuleCode)=> {
         setCleanRuleCode4Dispatch(selectedCleanRuleCode);
         setOpenDispatchModal(true);

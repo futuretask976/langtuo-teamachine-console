@@ -4,7 +4,7 @@ import { HighlightOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, getTenantCode, getYesterday, isArray } from '../../js/common.js';
+import { getTenantCode, getYesterday, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -12,12 +12,23 @@ import OrderSpecItemReportListBlock from '../../components/report/OrderSpecItemR
 import OrderSpecItemReportGenModal from '../../components/report/OrderSpecItemReportGenModal'
 
 const OrderToppingReportPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '日常报表', '订单-规格项报表'];
 
-    // 数据初始化
+    // 对话框定义
+    const [openViewModal, setOpenViewModal] = useState(false);
+    const onCloseViewModal = () => {
+        setOpenViewModal(false);
+    }
+
+    // 数据定义
     const [shopList4Select, setShopList4Select] = useState([]);
     const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
+    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
+    const [shopCode4Search, setShopCode4Search] = useState('');
+
+    // 动作定义
     const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
         get('/shopset/shop/list', {
             tenantCode: getTenantCode(),
@@ -83,26 +94,15 @@ const OrderToppingReportPage = () => {
             }));
         });
     }
+    const onClickSearch = () => {
+        refreshList();
+    }
     useEffect(() => {
         fetchShopList4Select();
         fetchShopGroupList4Select();
     }, []);
 
-    // 新建对话框相关
-    const [openViewModal, setOpenViewModal] = useState(false);
-    const onCloseViewModal = () => {
-        setOpenViewModal(false);
-    }
-
-    // 搜索相关
-    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
-    const onClickSearch = () => {
-        refreshList();
-    }
-
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);
