@@ -52,13 +52,14 @@ const DeployNewModal = (props) => {
     };
 
     // 数据定义
-    const [deployCode, setDeployCode] = useState(isBlankStr(props.deployCode4Edit) ? '' : props.deployCode4Edit);
-    const [modelCode, setModelCode] = useState('');
-    const [machineCode, setMachineCode] = useState('');
-    const [shopCode, setShopCode] = useState('');
-    const [state, setState] = useState(0);
-    const [shopList4Select, setShopList4Select] = useState([]);
-    const [modelList4Select, setModelList4Select] = useState([]);
+    const putNew = useState(props.deployCode4Edit == undefined ? true : false);
+    const [deployCode, setDeployCode] = useState();
+    const [modelCode, setModelCode] = useState();
+    const [machineCode, setMachineCode] = useState();
+    const [shopCode, setShopCode] = useState();
+    const state = useState(0);
+    const [shopList4Select, setShopList4Select] = useState();
+    const [modelList4Select, setModelList4Select] = useState();
 
     // 初始化定义
     const fetchShopList4Select = () => {

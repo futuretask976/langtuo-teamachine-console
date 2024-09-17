@@ -37,7 +37,11 @@ const DeployListBlock = (props) => {
                 if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
                         ite.key = ite.id;
-                        ite.actions = ["edit", "delete"];
+                        if (ite.state == 0) {
+                            ite.actions = ["edit", "delete"];
+                        } else {
+                            ite.actions = [];
+                        }
                         tmp.push(ite);
                     });
                 }
@@ -55,7 +59,13 @@ const DeployListBlock = (props) => {
             title: '部署码',
             dataIndex: 'deployCode',
             key: 'deployCode',
-            width: '25%'
+            width: '20%'
+        },
+        {
+            title: '机器编码',
+            dataIndex: 'machineCode',
+            key: 'machineCode',
+            width: '20%'
         },
         {
             title: '归属门店',
@@ -75,13 +85,6 @@ const DeployListBlock = (props) => {
             key: 'state',
             width: '10%',
             render: (state) => state == 0 ? '未部署' : '已部署'
-        },
-        {
-            title: '生成时间',
-            dataIndex: 'gmtCreated',
-            key: 'gmtCreated',
-            width: '15%',
-            render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: '操作',
