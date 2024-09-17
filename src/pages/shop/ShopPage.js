@@ -11,11 +11,27 @@ import ShopListBlock from '../../components/shop/ShopListBlock'
 import ShopNewModal from '../../components/shop/ShopNewModal'
 
 const ShopPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '店铺', '店铺管理'];
 
-    // 数据初始化
-    const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
+    // 对话框定义
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const onOpenNewModal = () => {
+        setOpenNewModal(true);
+    };
+    const onCloseNewModal = () => {
+        setOpenNewModal(false);
+        setShopCode4Edit(undefined);
+        refreshList();
+    }
+
+    // 数据定义
+    const [shopGroupList4Select, setShopGroupList4Select] = useState();
+    const [shopName4Search, setShopName4Search] = useState();
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
+    const [shopCode4Edit, setShopCode4Edit] = useState();
+
+    // 动作定义
     const fetchShopGroupList4Select = () => {
         get('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
@@ -37,24 +53,6 @@ const ShopPage = () => {
             }));
         });
     }
-    useEffect(() => {
-        fetchShopGroupList4Select();
-    }, []);
-
-    // 新建对话框相关
-    const [openNewModal, setOpenNewModal] = useState(false);
-    const onOpenNewModal = () => {
-        setOpenNewModal(true);
-    };
-    const onCloseNewModal = () => {
-        setOpenNewModal(false);
-        setShopCode4Edit('');
-        refreshList();
-    }
-
-    // 搜索相关
-    const [shopName4Search, setShopName4Search] = useState('');
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
     const onClickSearch = () => {
         if (!isValidCode(shopGroupCode4Search, false)) {
             alert('店铺组名称不符合规则');
@@ -66,15 +64,15 @@ const ShopPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [shopCode4Edit, setShopCode4Edit] = useState('');
     const onClickEdit = (selectedShopCode)=> {
         setShopCode4Edit(selectedShopCode);
         setOpenNewModal(true);
     }
+    useEffect(() => {
+        fetchShopGroupList4Select();
+    }, []);
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

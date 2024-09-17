@@ -10,22 +10,25 @@ import ShopGroupListBlock from '../../components/shop/ShopGroupListBlock'
 import ShopGroupNewModal from '../../components/shop/ShopGroupNewModal'
 
 const ShopGroupPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '店铺', '店铺组管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setShopGroupCode4Edit('');
+        setShopGroupCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
+    // 数据定义
     const [shopGroupName4Search, setShopGroupName4Search] = useState('');
+    const [shopGroupCode4Edit, setShopGroupCode4Edit] = useState('');
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidName(shopGroupName4Search, false)) {
             alert('店铺组名称不符合规则');
@@ -33,15 +36,12 @@ const ShopGroupPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [shopGroupCode4Edit, setShopGroupCode4Edit] = useState('');
     const onClickEdit = (selectedShopGroupCode)=> {
         setShopGroupCode4Edit(selectedShopGroupCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

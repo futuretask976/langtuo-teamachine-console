@@ -21,13 +21,13 @@ const CleanRulePage = (props) => {
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setCleanRuleCode4Edit('');
+        setCleanRuleCode4Edit(undefined);
         refreshList();
     }
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
-        setCleanRuleCode4Dispatch('');
+        setCleanRuleCode4Dispatch(undefined);
     }
 
     // 数据定义
