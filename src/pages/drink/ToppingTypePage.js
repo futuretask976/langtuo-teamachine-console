@@ -10,25 +10,26 @@ import ToppingTypeListBlock from '../../components/drink/ToppingTypeListBlock'
 import ToppingTypeNewModal from '../../components/drink/ToppingTypeNewModal'
 
 const ToppingTypePage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '饮品', '物料类型管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setToppingTypeCode4Edit('');
+        setToppingTypeCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
+    // 数据定义
     const [toppingTypeCode4Search, setToppingTypeCode4Search] = useState();
     const [toppingTypeName4Search, setToppingTypeName4Search] = useState();
+    const [toppingTypeCode4Edit, setToppingTypeCode4Edit] = useState();
 
-    // 搜索
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(toppingTypeCode4Search, false)) {
             alert('物料类型编码不符合规则');
@@ -40,15 +41,12 @@ const ToppingTypePage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [toppingTypeCode4Edit, setToppingTypeCode4Edit] = useState();
     const onClickEdit = (selectedToppingTypeCode)=> {
         setToppingTypeCode4Edit(selectedToppingTypeCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

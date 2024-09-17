@@ -10,23 +10,26 @@ import AccuracyTplListBlock from '../../components/drink/AccuracyTplListBlock'
 import AccuracyTplNewModal from '../../components/drink/AccuracyTplNewModal'
 
 const AccuracyTplPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '饮品', '规格管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setTemplateCode4Edit('');
+        setTemplateCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [templateCode4Search, setTemplateCode4Search] = useState('');
-    const [templateName4Search, setTemplateName4Search] = useState('');
+    // 数据定义
+    const [templateCode4Search, setTemplateCode4Search] = useState();
+    const [templateName4Search, setTemplateName4Search] = useState();
+    const [templateCode4Edit, setTemplateCode4Edit] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(templateCode4Search, false)) {
             alert('模板编码不符合规则');
@@ -38,15 +41,12 @@ const AccuracyTplPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [templateCode4Edit, setTemplateCode4Edit] = useState('');
     const onClickEdit = (selectedTemplateCode)=> {
         setTemplateCode4Edit(selectedTemplateCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

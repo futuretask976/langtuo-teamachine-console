@@ -10,25 +10,26 @@ import TenantListBlock from '../../components/user/TenantListBlock'
 import TenantNewModal from '../../components/user/TenantNewModal'
 
 const TenantPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '用户', '商户管理'];
     
-    // 新建型号对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onClickNew = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setTenantCode4Edit('');
+        setTenantCode4Edit(undefined);
         refreshList();
     }
     
-    // 搜索相关
-    const [tenantName4Search, setTenantName4Search] = useState('');
-    const [contactPerson4Search, setContactPerson4Search] = useState('');
+    // 数据定义
+    const [tenantName4Search, setTenantName4Search] = useState();
+    const [contactPerson4Search, setContactPerson4Search] = useState();
+    const [tenantCode4Edit, setTenantCode4Edit] = useState();
 
-    // 初始化动作
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidName(tenantName4Search, false)) {
             alert('商户名称不符合规则');
@@ -40,15 +41,12 @@ const TenantPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [tenantCode4Edit, setTenantCode4Edit] = useState('');
     const onClickEdit = (selectedTenantCode)=> {
         setTenantCode4Edit(selectedTenantCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

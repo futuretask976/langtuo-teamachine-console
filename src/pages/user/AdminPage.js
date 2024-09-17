@@ -10,10 +10,10 @@ import AdminListBlock from '../../components/user/AdminListBlock'
 import AdminNewModal from '../../components/user/AdminNewModal'
 
 const AdminPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '用户', '管理员管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
@@ -24,9 +24,12 @@ const AdminPage = () => {
         refreshList();
     }
 
-    // 搜索相关
+    // 数据定义
     const [roleName4Search, setRoleName4Search] = useState();
     const [loginName4Search, setLoginName4Search] = useState();
+    const [loginName4Edit, setLoginName4Edit] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidName(loginName4Search, false)) {
             alert('登录名称不符合规则');
@@ -38,15 +41,12 @@ const AdminPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [loginName4Edit, setLoginName4Edit] = useState('');
     const onClickEdit = (selectedLoginName)=> {
         setLoginName4Edit(selectedLoginName);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

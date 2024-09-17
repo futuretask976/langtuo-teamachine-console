@@ -10,22 +10,29 @@ import RoleListBlock from '../../components/user/RoleListBlock'
 import RoleNewModal from '../../components/user/RoleNewModal'
 
 const RolePage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '用户', '角色管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setRoleCode4Edit('');
+        setRoleCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [roleName4Search, setRoleName4Search] = useState('');
+    // 数据定义
+    const [roleName4Search, setRoleName4Search] = useState();
+    const [roleCode4Edit, setRoleCode4Edit] = useState();
+
+    // 动作定义
+    const onClickEdit = (selectedRoleCode)=> {
+        setRoleCode4Edit(selectedRoleCode);
+        setOpenNewModal(true);
+    }
     const onClickSearch = () => {
         if (!isValidName(roleName4Search, false)) {
             alert('角色名称不符合规则');
@@ -34,14 +41,7 @@ const RolePage = () => {
         refreshList();
     }
 
-    // 表格操作相关
-    const [roleCode4Edit, setRoleCode4Edit] = useState('');
-    const onClickEdit = (selectedRoleCode)=> {
-        setRoleCode4Edit(selectedRoleCode);
-        setOpenNewModal(true);
-    }
-
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

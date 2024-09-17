@@ -10,25 +10,26 @@ import TeaTypeListBlock from '../../components/drink/TeaTypeListBlock'
 import TeaTypeNewModal from '../../components/drink/TeaTypeNewModal'
 
 const TeaTypePage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '饮品', '茶品类型管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setTeaTypeCode4Edit('');
+        setTeaTypeCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [teaTypeCode4Search, setTeaTypeCode4Search] = useState('');
-    const [teaTypeName4Search, setTeaTypeName4Search] = useState('');
+    // 数据定义
+    const [teaTypeCode4Search, setTeaTypeCode4Search] = useState();
+    const [teaTypeName4Search, setTeaTypeName4Search] = useState();
+    const [teaTypeCode4Edit, setTeaTypeCode4Edit] = useState();
 
-    // 搜索
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(teaTypeCode4Search, false)) {
             alert('茶品类型编码不符合规则');
@@ -40,15 +41,12 @@ const TeaTypePage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [teaTypeCode4Edit, setTeaTypeCode4Edit] = useState('');
     const onClickEdit = (selectedTeaTypeCode)=> {
         setTeaTypeCode4Edit(selectedTeaTypeCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

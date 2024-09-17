@@ -10,22 +10,25 @@ import OrgListBlock from '../../components/user/OrgListBlock'
 import OrgNewModal from '../../components/user/OrgNewModal'
 
 const OrgPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '用户', '组织架构管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onClickNew = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setOrgName4Edit('');
+        setOrgName4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [orgName4Search, setOrgName4Search] = useState('');
+    // 数据定义
+    const [orgName4Search, setOrgName4Search] = useState();
+    const [orgName4Edit, setOrgName4Edit] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidName(orgName4Search, false)) {
             alert('组织名称不符合规则');
@@ -33,15 +36,12 @@ const OrgPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [orgName4Edit, setOrgName4Edit] = useState('');
     const onClickEdit = (selectedOrgName)=> {
         setOrgName4Edit(selectedOrgName);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

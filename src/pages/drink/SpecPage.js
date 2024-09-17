@@ -10,25 +10,26 @@ import SpecListBlock from '../../components/drink/SpecListBlock'
 import SpecNewModal from '../../components/drink/SpecNewModal'
 
 const SpecPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '饮品', '规格管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setSpecCode4Edit('');
+        setSpecCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [specCode4Search, setSpecCode4Search] = useState('');
-    const [specName4Search, setSpecName4Search] = useState('');
+    // 数据定义
+    const [specCode4Search, setSpecCode4Search] = useState();
+    const [specName4Search, setSpecName4Search] = useState();
+    const [specCode4Edit, setSpecCode4Edit] = useState();
 
-    // 初始化动作
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(specCode4Search, false)) {
             alert('规格编码不符合规则');
@@ -40,15 +41,12 @@ const SpecPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [specCode4Edit, setSpecCode4Edit] = useState('');
     const onClickEdit = (selectedSpecCode)=> {
         setSpecCode4Edit(selectedSpecCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);
