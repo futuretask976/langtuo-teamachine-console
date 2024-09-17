@@ -10,25 +10,26 @@ import SeriesListBlock from '../../components/menu/SeriesListBlock'
 import SeriesNewModal from '../../components/menu/SeriesNewModal'
 
 const SeriesPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '菜单', '系列管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setSeriesCode4Edit('');
+        setSeriesCode4Edit(undefined);
         refreshList();
     }
 
-    // 搜索相关
-    const [seriesCode4Search, setSeriesCode4Search] = useState('');
-    const [seriesName4Search, setSeriesName4Search] = useState('');
+    // 数据定义
+    const [seriesCode4Search, setSeriesCode4Search] = useState();
+    const [seriesName4Search, setSeriesName4Search] = useState();
+    const [seriesCode4Edit, setSeriesCode4Edit] = useState();
 
-    // 搜索
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(seriesCode4Search, false)) {
             alert('系列编码不符合规则');
@@ -40,15 +41,12 @@ const SeriesPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [seriesCode4Edit, setSeriesCode4Edit] = useState('');
     const onClickEdit = (selectedSeriesCode)=> {
         setSeriesCode4Edit(selectedSeriesCode);
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

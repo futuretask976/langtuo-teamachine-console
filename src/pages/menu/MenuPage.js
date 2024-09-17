@@ -11,32 +11,36 @@ import MenuNewModal from '../../components/menu/MenuNewModal'
 import MenuDispatchModal from '../../components/menu/MenuDispatchModal'
 
 const MenuPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '菜单', '菜单管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setMenuCode4Edit('');
+        setMenuCode4Edit(undefined);
         refreshList();
     }
-
-    // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
+    const onClickDispatch = (selectedMenuCode)=> {
+        setMenuCode4Dispatch(selectedMenuCode);
+        setOpenDispatchModal(true);
+    }
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
         setMenuCode4Dispatch(undefined);
     }
 
-    // 搜索相关
-    const [menuCode4Search, setMenuCode4Search] = useState('');
-    const [menuName4Search, setMenuName4Search] = useState('');
-    
-    // 搜索
+    // 数据定义
+    const [menuCode4Search, setMenuCode4Search] = useState();
+    const [menuName4Search, setMenuName4Search] = useState();
+    const [menuCode4Edit, setMenuCode4Edit] = useState();
+    const [menuCode4Dispatch, setMenuCode4Dispatch] = useState();
+
+    // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(menuCode4Search, false)) {
             alert('菜单编码不符合规则');
@@ -48,20 +52,12 @@ const MenuPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [menuCode4Edit, setMenuCode4Edit] = useState();
     const onClickEdit = (selectedMenuCode)=> {
         setMenuCode4Edit(selectedMenuCode);
         setOpenNewModal(true);
     }
-    const [menuCode4Dispatch, setMenuCode4Dispatch] = useState();
-    const onClickDispatch = (selectedMenuCode)=> {
-        setMenuCode4Dispatch(selectedMenuCode);
-        setOpenDispatchModal(true);
-    }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);
