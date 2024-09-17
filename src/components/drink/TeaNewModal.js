@@ -182,6 +182,7 @@ const TeaNewModal = (props) => {
     return (
         <Modal
             centered
+            footer={()=>{}}
             onCancel={onClickCancel}
             open={open}
             style={{border: '0px solid red'}}
