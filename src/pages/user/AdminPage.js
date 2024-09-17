@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Input, Space, Col, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { isValidName } from '../../js/common';
+import { getTenantCode, isArray, isValidCode, isValidName } from '../../js/common.js';
+import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import AdminListBlock from '../../components/user/AdminListBlock'
@@ -25,7 +26,8 @@ const AdminPage = () => {
     }
 
     // 数据定义
-    const [roleName4Search, setRoleName4Search] = useState();
+    const [roleList4Select, setRoleList4Select] = useState();
+    const [roleCode4Search, setRoleCode4Search] = useState();
     const [loginName4Search, setLoginName4Search] = useState();
     const [loginName4Edit, setLoginName4Edit] = useState();
 
@@ -35,16 +37,43 @@ const AdminPage = () => {
             alert('登录名称不符合规则');
             return;
         }
-        if (!isValidName(roleName4Search, false)) {
-            alert('角色名称不符合规则');
+        if (!isValidCode(roleCode4Search, false)) {
+            alert('角色不符合规则');
             return;
         }
         refreshList();
+    }
+    const fetchRoleList4Select = () => {
+        get('/userset/role/list', {
+            tenantCode: getTenantCode()
+        }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
+            setRoleList4Select((prev => {
+                let roleListTmp = [{
+                    label: '全部',
+                    value: ''
+                }];
+                if (isArray(respData.model)) {
+                    respData.model.forEach(item => {
+                        roleListTmp.push({
+                            label: item.roleName,
+                            value: item.roleCode
+                        });
+                    });
+                }
+                return roleListTmp;
+            }));
+        });
     }
     const onClickEdit = (selectedLoginName)=> {
         setLoginName4Edit(selectedLoginName);
         setOpenNewModal(true);
     }
+    useEffect(() => {
+        fetchRoleList4Select();
+    }, []);
 
     // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
@@ -77,7 +106,12 @@ const AdminPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="角色名称" allowClear onChange={(e) => setRoleName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Select
+                                    value={roleCode4Search}
+                                    style={{width: '95%'}}
+                                    onChange={(e) => setRoleCode4Search(e)}
+                                    options={roleList4Select}
+                                />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
@@ -93,7 +127,7 @@ const AdminPage = () => {
                     </Row>
                 </div>
                 <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
-                    <AdminListBlock key={refreshListKey} loginName4Search={loginName4Search} roleName4Search={roleName4Search} onClickEdit={onClickEdit} />
+                    <AdminListBlock key={refreshListKey} loginName4Search={loginName4Search} roleCode4Search={roleCode4Search} onClickEdit={onClickEdit} />
                 </div>
             </Space>            
 

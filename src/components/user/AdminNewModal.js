@@ -41,7 +41,7 @@ const AdminNewModal = (props) => {
             tenantCode: getTenantCode(),
             comment: comment,
             loginName: loginName,
-            loginPass: md5(loginPass),
+            loginPass: toUpdatePass ? md5(loginPass) : undefined,
             roleCode: roleCode,
             orgName: orgName,
             putNew: putNew

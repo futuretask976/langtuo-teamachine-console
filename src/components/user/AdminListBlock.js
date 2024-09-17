@@ -22,10 +22,13 @@ const AdminListBlock = (props) => {
         get('/userset/admin/search', {  
             tenantCode: getTenantCode(),
             loginName: props.loginName4Search,
-            roleName: props.roleName4Search,
+            roleCode: props.roleCode4Search,
             pageNum: pageNum,
             pageSize: pageSize
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);

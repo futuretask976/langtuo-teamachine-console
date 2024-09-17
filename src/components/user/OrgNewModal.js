@@ -14,6 +14,10 @@ const OrgNewModal = (props) => {
             alert('组织名称不符合规则');
             return;
         }
+        if (orgName == parentOrgName) {
+            alert('父组织名称不能是自己');
+            return;
+        }
 
         setLoading(true);
         put('/userset/org/put', {

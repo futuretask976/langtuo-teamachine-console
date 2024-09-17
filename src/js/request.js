@@ -36,10 +36,12 @@ instance.interceptors.response.use(
                     let status = error.response.status;
                     // console.log('$$$$$ instance.interceptors.response.use status=', status);
                     if (status == '401') {
-                        window.location.href = CONSOLE_CONTEXT_PATH + '/login?msg=' + encodeURI('登录验证失败，请重新登录！');
+                        alert('登录验证失败，请重新登录！');
+                        window.location.href = CONSOLE_CONTEXT_PATH + '/login';
                         return;
                     } else if (status == '403') {
-                        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
+                        // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
+                        alert('授权验证失败，请联系管理员授权！');
                         return;
                     }
                 }
@@ -47,7 +49,8 @@ instance.interceptors.response.use(
                 return;
             }
         }
-        window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('发生未知错误，请联系管理员处理！');
+        // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('发生未知错误，请联系管理员处理！');
+        alert('发生未知错误，请联系管理员处理！');
         return;
 
         // 处理一些错误，如网络错误、服务器错误等

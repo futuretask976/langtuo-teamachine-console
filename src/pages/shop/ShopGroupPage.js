@@ -25,8 +25,8 @@ const ShopGroupPage = () => {
     }
 
     // 数据定义
-    const [shopGroupName4Search, setShopGroupName4Search] = useState('');
-    const [shopGroupCode4Edit, setShopGroupCode4Edit] = useState('');
+    const [shopGroupName4Search, setShopGroupName4Search] = useState();
+    const [shopGroupCode4Edit, setShopGroupCode4Edit] = useState();
 
     // 动作定义
     const onClickSearch = () => {
