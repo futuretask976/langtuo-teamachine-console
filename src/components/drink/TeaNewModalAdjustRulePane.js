@@ -220,7 +220,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             dataIndex: 'adjustAmount',
             key: 'adjustAmount',
             render: (_, { adjustAmount, toppingCode }) => (
-                <InputNumber min={1} max={10000} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" value={adjustAmount}/>
+                <InputNumber min={0} max={9999} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" value={adjustAmount}/>
             ),
         },
         {
