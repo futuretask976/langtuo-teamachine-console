@@ -34,7 +34,8 @@ const DeployNewModal = (props) => {
             modelCode: modelCode,
             machineCode: machineCode,
             shopCode: shopCode,
-            state: state
+            state: state,
+            putNew: putNew
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功");
@@ -52,12 +53,12 @@ const DeployNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = useState(props.deployCode4Edit == undefined ? true : false);
+    const putNew = props.deployCode4Edit == undefined ? true : false;
     const [deployCode, setDeployCode] = useState();
     const [modelCode, setModelCode] = useState();
     const [machineCode, setMachineCode] = useState();
     const [shopCode, setShopCode] = useState();
-    const state = useState(0);
+    const state = 0;
     const [shopList4Select, setShopList4Select] = useState();
     const [modelList4Select, setModelList4Select] = useState();
 

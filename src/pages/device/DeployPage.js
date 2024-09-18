@@ -12,11 +12,28 @@ import DeployListBlock from '../../components/device/DeployListBlock'
 import DeployNewModal from '../../components/device/DeployNewModal'
 
 const DeployPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '设备', '预部署管理'];
 
-    // 数据初始化
-    const [shopList4Select, setShopList4Select] = useState([]);
+    // 对话框定义
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const onOpenNewModal = () => {
+        setOpenNewModal(true);
+    };
+    const onCloseNewModal = () => {
+        setOpenNewModal(false);
+        setDeployCode4Edit(undefined);
+        refreshList();
+    }
+
+    // 数据定义
+    const [shopList4Select, setShopList4Select] = useState();
+    const [deployCode4Search, setDeployCode4Search] = useState();
+    const [shopCode4Search, setShopCode4Search] = useState();
+    const [state4Search, setState4Search] = useState();
+    const [deployCode4Edit, setDeployCode4Edit] = useState();
+
+    // 动作定义
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
@@ -38,25 +55,6 @@ const DeployPage = () => {
             }));
         });
     }
-    useEffect(() => {
-        fetchShopList4Select();
-    }, []);
-
-    // 新建对话框相关
-    const [openNewModal, setOpenNewModal] = useState(false);
-    const onOpenNewModal = () => {
-        setOpenNewModal(true);
-    };
-    const onCloseNewModal = () => {
-        setOpenNewModal(false);
-        setDeployCode4Edit('');
-        refreshList();
-    }
-
-    // 搜索相关
-    const [deployCode4Search, setDeployCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
-    const [state4Search, setState4Search] = useState('');
     const onClickSearch = () => {
         if (!isValidCode(deployCode4Search, false)) {
             alert('部署编码不符合规则');
@@ -72,9 +70,6 @@ const DeployPage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
-    const [deployCode4Edit, setDeployCode4Edit] = useState('');
     const onClickEdit = (selectedDeployCode)=> {
         setDeployCode4Edit(selectedDeployCode);
         setOpenNewModal(true);
@@ -92,8 +87,11 @@ const DeployPage = () => {
             document.body.removeChild(link4Export);
         });
     }
+    useEffect(() => {
+        fetchShopList4Select();
+    }, []);
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);
