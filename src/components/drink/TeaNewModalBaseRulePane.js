@@ -5,7 +5,7 @@ import '../../css/common.css';
 import { isArray, isNumber } from '../../js/common.js';
 
 const TeaNewModalBaseRulePane = (props) => {
-    // 数据初始化相关
+    // 数据定义
     const [actStepList, setActStepList] = useState(() => {
         if (isArray(props.actStepList4Edit)) {
             return props.actStepList4Edit;
@@ -13,7 +13,7 @@ const TeaNewModalBaseRulePane = (props) => {
         return [];
     });
 
-    // 赋值初始化
+    // 动作定义
     const convertToDataSource = () => {
         let dataSource = [];
         actStepList.forEach(actStep => {
@@ -29,8 +29,11 @@ const TeaNewModalBaseRulePane = (props) => {
         });
         return dataSource;
     };
+    useEffect(() => {
+        props.updateActStepList(actStepList);
+    }, [actStepList]);
 
-    // 表格操作相关
+    // 表格定义
     const toppingConfigCols = [
         {
             title: '步骤',
@@ -78,9 +81,6 @@ const TeaNewModalBaseRulePane = (props) => {
             return tmp;
         });
     };
-    useEffect(() => {
-        props.updateActStepList(actStepList);
-    }, [actStepList]);
 
     return (
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>

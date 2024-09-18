@@ -72,11 +72,11 @@ const ToppingNewModal = (props) => {
     const [toppingCode, setToppingCode] = useState();
     const [toppingName, setToppingName] = useState();
     const [toppingTypeCode, setToppingTypeCode] = useState();
-    const [measureUnit, setMeasureUnit] = useState(0);
+    const [measureUnit, setMeasureUnit] = useState(1);
     const [state, setState] = useState(1);
-    const [validHourPeriod, setValidHourPeriod] = useState(0);
-    const [cleanHourPeriod, setCleanHourPeriod] = useState(0);
-    const [convertCoefficient, setConvertCoefficient] = useState(0.0);
+    const [validHourPeriod, setValidHourPeriod] = useState(1);
+    const [cleanHourPeriod, setCleanHourPeriod] = useState(1);
+    const [convertCoefficient, setConvertCoefficient] = useState(1.0);
     const [flowSpeed, setFlowSpeed] = useState(1);
     const [comment, setComment] = useState();
 
@@ -262,7 +262,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <InputNumber disabled={true} min={0} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
+                            <InputNumber disabled={true} min={1} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
                         </div>
                     </Col>
                     <Col className="gutter-row" span={4}>
@@ -272,7 +272,7 @@ const ToppingNewModal = (props) => {
                     </Col>
                     <Col className="gutter-row" span={8}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Space><InputNumber min={0} max={99} value={flowSpeed} onChange={(e) => setFlowSpeed(e)} /><span>档</span></Space>
+                            <Space><InputNumber min={1} max={9999} value={flowSpeed} onChange={(e) => setFlowSpeed(e)} /><span>档</span></Space>
                         </div>
                     </Col>
                 </Row>

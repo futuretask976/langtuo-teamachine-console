@@ -6,7 +6,8 @@ import { isArray, getTenantCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 const TeaNewModalActStepPane = (props) => {
-    // 状态变量初始化相关
+    // 数据定义
+    const [toppingList4Select, setToppingList4Select] = useState();
     const [actStepList, setActStepList] = useState(() => {
         if (isArray(props.actStepList4Edit)) {
             return props.actStepList4Edit;
@@ -20,7 +21,9 @@ const TeaNewModalActStepPane = (props) => {
         }
         return stepIndex + 1;
     });
-    const [toppingList4Select, setToppingList4Select] = useState([]);
+    
+
+    // 动作定义
     const fetchToppingList4Select = () => {
         get('/drinkset/topping/list', {
             tenantCode: getTenantCode()
@@ -40,48 +43,6 @@ const TeaNewModalActStepPane = (props) => {
             }));
         });
     }
-    useEffect(() => {
-        fetchToppingList4Select();
-    }, []);
-
-    // 物料表格展示相关
-    const actStepListCols = [
-        {
-            title: '步骤',
-            dataIndex: 'stepIndex',
-            key: 'stepIndex',
-            width: '10%'
-        },
-        {
-            title: '物料',
-            dataIndex: 'toppingList4Select',
-            key: 'toppingList4Select',
-            width: '90%',
-            render: (_, {stepIndex, toppingBaseRuleList}) => (
-                <Select
-                    placeholder="请选择"
-                    mode="multiple"
-                    onChange={(e) => onChangeToppingCodeList(e, stepIndex)}
-                    options={toppingList4Select}
-                    size="middle"
-                    style={{width: '100%'}}
-                    value={convertToSelectedToppingCodeList(toppingBaseRuleList)}
-                />
-            ),
-        }
-    ];
-    const convertToSelectedToppingCodeList = (toppingBaseRuleList) => {
-        let tmp = [];
-        if (!isArray(toppingBaseRuleList)) {
-            return tmp;
-        }
-        toppingBaseRuleList.forEach(item => {
-            tmp.push(item.toppingCode);
-        })
-        return tmp;
-    }
-
-    // 输入相关
     const onClickAddStep = (e) => {
         setActStepList((prev => {
             let tmp = [];
@@ -139,8 +100,48 @@ const TeaNewModalActStepPane = (props) => {
         return found;
     }
     useEffect(() => {
+        fetchToppingList4Select();
+    }, []);
+    useEffect(() => {
         props.updateActStepList(actStepList);
     }, [actStepList]);
+
+    // 表格定义
+    const actStepListCols = [
+        {
+            title: '步骤',
+            dataIndex: 'stepIndex',
+            key: 'stepIndex',
+            width: '10%'
+        },
+        {
+            title: '物料',
+            dataIndex: 'toppingList4Select',
+            key: 'toppingList4Select',
+            width: '90%',
+            render: (_, {stepIndex, toppingBaseRuleList}) => (
+                <Select
+                    placeholder="请选择"
+                    mode="multiple"
+                    onChange={(e) => onChangeToppingCodeList(e, stepIndex)}
+                    options={toppingList4Select}
+                    size="middle"
+                    style={{width: '100%'}}
+                    value={convertToSelectedToppingCodeList(toppingBaseRuleList)}
+                />
+            ),
+        }
+    ];
+    const convertToSelectedToppingCodeList = (toppingBaseRuleList) => {
+        let tmp = [];
+        if (!isArray(toppingBaseRuleList)) {
+            return tmp;
+        }
+        toppingBaseRuleList.forEach(item => {
+            tmp.push(item.toppingCode);
+        })
+        return tmp;
+    }
 
     return (
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>

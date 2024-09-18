@@ -17,10 +17,9 @@ const SpecItemNewModal = (props) => {
             return;
         }
         if (!isValidCode(outerSpecItemCode, true)) {
-            alert('外部规格项编码不符合规则');
+            alert('外部规格项编码不符合规则aa' + outerSpecItemCode + 'bb');
             return;
         }
-
         props.onClickSubmitSpecItem(specItemCode, specItemName, outerSpecItemCode);
     };
     const onClickCancel = () => {
@@ -29,9 +28,9 @@ const SpecItemNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [specItemCode, setSpecItemCode] = useState(isBlankStr(props.specItemCode4Edit) ? '' : props.specItemCode4Edit);
-    const [specItemName, setSpecItemName] = useState(isBlankStr(props.specItemName4Edit) ? '' : props.specItemName4Edit);
-    const [outerSpecItemCode, setOuterSpecItemCode] = useState(isBlankStr(props.outerSpecItemCode4Edit) ? '' : props.outerSpecItemCode4Edit);
+    const [specItemCode, setSpecItemCode] = useState(props.specItemCode4Edit);
+    const [specItemName, setSpecItemName] = useState(props.specItemName4Edit);
+    const [outerSpecItemCode, setOuterSpecItemCode] = useState(props.outerSpecItemCode4Edit);
 
     // 输入相关
     const onChangeSpecItemCode = (e) => {

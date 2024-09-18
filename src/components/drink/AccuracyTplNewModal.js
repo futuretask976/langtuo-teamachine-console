@@ -45,9 +45,9 @@ const AccuracyTplNewModal = (props) => {
     const [templateCode, setTemplateCode] = useState();
     const [templateName, setTemplateName] = useState();
     const [overMode, setOverMode] = useState(0);
-    const [overAmount, setOverAmount] = useState(0);
+    const [overAmount, setOverAmount] = useState(1);
     const [underMode, setUnderMode] = useState(0);
-    const [underAmount, setUnderAmount] = useState(0);
+    const [underAmount, setUnderAmount] = useState(1);
     const [toppingCodeList, setToppingCodeList] = useState();
     const [comment, setComment] = useState();
     const [toppingList4Select, setToppingList4Select] = useState();
@@ -168,7 +168,7 @@ const AccuracyTplNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={8}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <InputNumber min={1} max={10000} size="small" value={overAmount} onChange={(e) => setOverAmount(e)}/>
+                                    <InputNumber min={1} max={9999} size="small" value={overAmount} onChange={(e) => setOverAmount(e)}/>
                                 </div>
                             </Col>
                         </Row>
@@ -206,7 +206,7 @@ const AccuracyTplNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={8}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <InputNumber min={1} max={10000} size="small" value={underAmount} onChange={(e) => setUnderAmount(e)}/>
+                                    <InputNumber min={1} max={9999} size="small" value={underAmount} onChange={(e) => setUnderAmount(e)}/>
                                 </div>
                             </Col>
                         </Row>

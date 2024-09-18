@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, Modal, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankStr, getTenantCode, isValidCode, isValidComment } from '../../js/common.js';
+import { isBlankStr, getTenantCode, isValidCode, isValidName, isValidComment } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -13,11 +13,11 @@ const TeaTypeNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(teaTypeCode, true)) {
-            alert('茶品类型名称不符合规则');
+            alert('茶品类型编码不符合规则');
             return;
         }
-        if (!isValidCode(teaTypeName, true)) {
-            alert('茶品类型编码不符合规则');
+        if (!isValidName(teaTypeName, true)) {
+            alert('茶品类型名称不符合规则');
             return;
         }
         if (!isValidComment(comment, false)) {

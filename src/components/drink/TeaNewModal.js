@@ -40,11 +40,11 @@ const TeaNewModal = (props) => {
             return;
         }
         if (!isValidCode(tea.outerTeaCode, true)) {
-            alert('外部茶品编码不符合规则');
+            alert('外部茶品编码不符合规则' + tea.outerTeaCode + 'bb');
             return;
         }
         if (!isValidCode(tea.teaTypeCode, true)) {
-            alert('茶品类型编码不符合规则');
+            alert('茶品类型编码不符合规则AA' + tea.teaTypeCode + 'bb');
             return;
         }
         if (!isValidComment(tea.comment, false)) {
@@ -115,7 +115,6 @@ const TeaNewModal = (props) => {
           title: '规则设定'
         }
     ];
-    
 
     // 初始化定义
     const fetchTea4Edit = () => {
@@ -163,6 +162,10 @@ const TeaNewModal = (props) => {
             tmp.actStepList = actStepList;
             return tmp;
         });
+        if (actStepList != tea.actStepList) {
+            updateSpecRuleList(undefined);
+            updateTeaUnitList(undefined);
+        }
     };
     const updateSpecRuleList = (specRuleList) => {
         setTea(prev => {
@@ -193,7 +196,7 @@ const TeaNewModal = (props) => {
                 <Steps current={curStep} items={steps} />
                 <div style={contentStyle}>
                     {showStepPane && curStep == 0 && (
-                        <TeaNewModalInfoPane tea4Edit={tea} updateInfo={updateInfo} />
+                        <TeaNewModalInfoPane putNew={putNew} tea4Edit={tea} updateInfo={updateInfo} />
                     )}
                     {showStepPane && curStep == 1 && (
                         <TeaNewModalActStepPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />

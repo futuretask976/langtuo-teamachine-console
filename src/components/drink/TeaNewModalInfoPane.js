@@ -10,7 +10,7 @@ import { get } from '../../js/request.js';
 const { TextArea } = Input;
 
 const TeaNewModalInfoPane = (props) => {
-    // OSS 相关
+    // OSS 定义
     const getOSSToken = async () => {
         const model = await get('/securityset/oss/token/get', {
         }).then(resp => {
@@ -61,58 +61,58 @@ const TeaNewModalInfoPane = (props) => {
         return '';
     }
 
-    // 状态变量初始化相关
+    // 数据定义
     const [teaCode, setTeaCode] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.teaCode)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.teaCode;
     });
     const [teaName, setTeaName] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.teaName)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.teaName;
     });
     const [outerTeaCode, setOuterTeaCode] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.outerTeaCode)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.outerTeaCode;
     });
     const [teaTypeCode, setTeaTypeCode] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.teaTypeCode)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.teaTypeCode;
     });
     const [state, setState] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.state)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.state;
     });
     const [comment, setComment] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.comment)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.comment;
     });
@@ -127,14 +127,16 @@ const TeaNewModalInfoPane = (props) => {
     });
     const [imgLink, setImgLink] = useState(() => {
         if (isBlankObj(props.tea4Edit)) {
-            return '';
+            return undefined;
         }
         if (isBlankObj(props.tea4Edit.imgLink)) {
-            return '';
+            return undefined;
         }
         return props.tea4Edit.imgLink;
     });
-    const [teaTypeList4Select, setTeaTypeList4Select] = useState([]);
+    const [teaTypeList4Select, setTeaTypeList4Select] = useState();
+
+    // 动作定义
     const fetchTeaTypeList4Select = () => {
         get('/drinkset/tea/type/list', {
             tenantCode: getTenantCode()
@@ -157,7 +159,7 @@ const TeaNewModalInfoPane = (props) => {
         fetchTeaTypeList4Select();
     }, []);
 
-    // 输入相关
+    // 输入定义
     useEffect(() => {
         props.updateInfo(teaCode, teaName, outerTeaCode, teaTypeCode, state, comment, imgLink);
     }, [teaCode, teaName, outerTeaCode, teaTypeCode, state, comment, imgLink]);
@@ -249,7 +251,7 @@ const TeaNewModalInfoPane = (props) => {
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品编码：</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder="茶品编码" onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
+                    <Input placeholder="茶品编码" disabled={!props.putNew} onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
                     <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品名称：</span></Space>
