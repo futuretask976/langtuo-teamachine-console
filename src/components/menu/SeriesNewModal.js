@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Modal, Select, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isArray, isBlankArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -105,7 +105,7 @@ const SeriesNewModal = (props) => {
 
     // 输入定义
     const convertToSeriesTeaRel = () => {
-        if (isBlankArray(teaCodeList)) {
+        if (isEmptyArray(teaCodeList)) {
             return [];
         }
         let tmp = [];
@@ -118,7 +118,7 @@ const SeriesNewModal = (props) => {
         return tmp;
     }
     const convertToTeaCodeList = (seriesTeaRelList) => {
-        if (isBlankArray(seriesTeaRelList)) {
+        if (isEmptyArray(seriesTeaRelList)) {
             return [];
         }
         let tmp = [];
@@ -137,7 +137,7 @@ const SeriesNewModal = (props) => {
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
             title="新建/编辑系列"
-            width={550}
+            width={625}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
@@ -168,7 +168,7 @@ const SeriesNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>包含茶品：</span>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>包含茶品：</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>

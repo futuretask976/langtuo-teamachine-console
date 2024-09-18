@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankArray } from '../../js/common.js';
+import { getTenantCode, isEmptyArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const DrainRuleListBlock = (props) => {
@@ -30,7 +30,7 @@ const DrainRuleListBlock = (props) => {
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);
-            if (!isBlankArray(model.list)) {
+            if (!isEmptyArray(model.list)) {
                 setList((prev => {
                     let tmp = [];
                     model.list.forEach(function(ite) {

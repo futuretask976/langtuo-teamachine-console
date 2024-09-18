@@ -3,7 +3,7 @@ import { DatePicker, Input, Modal, Select, Space, Col, Row } from 'antd';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, isBlankStr, isBlankArray, getTenantCode, isEmptyArray, isValidCode, isValidComment, isValidName, isArray } from '../../js/common.js';
+import { dateToYMDHMS, getTenantCode, isArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const { TextArea } = Input;
@@ -121,7 +121,7 @@ const MenuNewModal = (props) => {
         setValidFrom(dateString);
     }
     const convertToMenuSeriesRel = () => {
-        if (isBlankArray(seriesCodeList)) {
+        if (isEmptyArray(seriesCodeList)) {
             return [];
         }
         let tmp = [];
@@ -134,7 +134,7 @@ const MenuNewModal = (props) => {
         return tmp;
     }
     const convertToSeriesCodeList = (menuSeriesRelList) => {
-        if (isBlankArray(menuSeriesRelList)) {
+        if (isEmptyArray(menuSeriesRelList)) {
             return [];
         }
         let tmp = [];

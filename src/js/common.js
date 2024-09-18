@@ -48,16 +48,6 @@ export const isEmptyArray = (arr) => {
     }
 };
 
-export const isBlankArray = (arr) => {
-    if (arr == undefined || arr == null || !arr instanceof Array) {
-        return true;
-    } else if (arr.length == 0) {
-        return true;
-    } else {
-        return false;
-    }
-};
-
 export const isBlankObj = (obj) => {
     if (obj == undefined || obj == null) {
         return true;

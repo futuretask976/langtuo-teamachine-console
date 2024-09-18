@@ -39,14 +39,14 @@ const CleanRuleNewModal = (props) => {
     };
 
     // 数据定义
+    const [toppingList4Select, setToppingList4Select] = useState();
     const putNew = props.cleanRuleCode4Edit == undefined ? true : false;
     const [cleanRuleCode, setCleanRuleCode] = useState();
     const [cleanRuleName, setCleanRuleName] = useState();
     const [permitRemind, setPermitRemind] = useState(0);
     const [permitBatch, setPermitBatch] = useState(0);
     const [exceptToppingCodeList, setExceptToppingCodeList] = useState();
-    const [cleanRuleStepList, setCleanRuleStepList] = useState();
-    const [toppingList4Select, setToppingList4Select] = useState();
+    const [cleanRuleStepList, setCleanRuleStepList] = useState([]);
 
     // 初始化定义
     const fetchToppingList4Select = () => {

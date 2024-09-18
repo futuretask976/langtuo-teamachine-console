@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, InputNumber, Modal, Select, Space, Switch, Table, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isBlankArray, isBlankStr, getTenantCode, isArray } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr, isEmptyArray, isValidCode, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const DrainRuleNewModal = (props) => {
@@ -10,6 +10,19 @@ const DrainRuleNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(drainRuleCode, true)) {
+            alert('规则编码不符合规则');
+            return;
+        }
+        if (!isValidName(drainRuleName, true)) {
+            alert('规则名称不符合规则');
+            return;
+        }
+        if (isEmptyArray(toppingRuleList)) {
+            alert('物料列表不符合规则');
+            return;
+        }
+
         setLoading(true);
         put('/ruleset/drain/put', {
             tenantCode: getTenantCode(),
@@ -42,8 +55,8 @@ const DrainRuleNewModal = (props) => {
     const [toppingList4Select, setToppingList4Select] = useState([]);
     const [toppingCodeList4Selected, setToppingCodeList4Selected] = useState([]);
     const [toppingRuleList, setToppingRuleList] = useState([]);
-    const [flushSec, setFlushSec] = useState(0);
-    const [flushWeight, setFlushWeight] = useState(0);
+    const [flushSec, setFlushSec] = useState(1);
+    const [flushWeight, setFlushWeight] = useState(1);
 
     // 初始化定义
     const fetchDrainRule4Edit = () => {
@@ -160,7 +173,7 @@ const DrainRuleNewModal = (props) => {
         });
     }
     const inToppingRuleList = (toppingCode, toppingRuleList) => {
-        if (isBlankArray(toppingRuleList)) {
+        if (isEmptyArray(toppingRuleList)) {
             return false;
         }
         let alreadyIn = false;
@@ -193,20 +206,13 @@ const DrainRuleNewModal = (props) => {
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 width={800}
-                style={{border: '0px solid red'}}
-                footer={[
-                    <Button key="back" onClick={onClickCancel}>取消</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                        提交
-                    </Button>,
-                ]}
             >
                 <div style={{height: 500, width: '100%'}}>
                     <Space direction='vertical' size={20}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规则编码：</span>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规则编码：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -214,7 +220,7 @@ const DrainRuleNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规则名称：</span>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规则名称：</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -262,7 +268,7 @@ const DrainRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
-                                <InputNumber min={0} max={999} onChange={(e) => setFlushSec(e)} value={flushSec}/>
+                                <InputNumber min={1} max={9999} onChange={(e) => setFlushSec(e)} value={flushSec}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -270,11 +276,11 @@ const DrainRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
-                                <InputNumber min={0} max={999} onChange={(e) => setFlushWeight(e)} value={flushWeight}/>
+                                <InputNumber min={1} max={9999} onChange={(e) => setFlushWeight(e)} value={flushWeight}/>
                             </Col>
                             <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}>
-                                    <Button onClick={onClickAddToppingRule} type='primary'>新增物料规则</Button>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button onClick={onClickAddToppingRule} type='primary'>新增物料规则</Button></Space>
                                 </div>
                             </Col>
                         </Row>
