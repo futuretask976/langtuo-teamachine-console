@@ -22,6 +22,34 @@ const TeaNewModalAdjustRulePane = (props) => {
 
     // 规格项组合初始化定义
     const genTeaUnitList = () => {
+        const getArrbyArr = (targetArr) => {
+            var ans = [{teaUnitName: '', teaUnitCode: ''}];
+            for (let i = 0; i < targetArr.length; ++i) {
+                ans = getValuebyArr(ans, targetArr[i]);
+            }
+            return ans;
+        }
+        const getValuebyArr = (arr1, arr2) => {
+            var ans = [];
+            for (let i = 0; i < arr1.length; ++i) {
+                let v1 = arr1[i];
+                for (let j = 0; j < arr2.length; ++j) {
+                    let v2 = arr2[j];
+                    if (v1.teaUnitName.length > 0) {
+                        ans.push({
+                            teaUnitName: v1.teaUnitName + '-' + v2.specItemName,
+                            teaUnitCode: v1.teaUnitCode + '-' + v2.specItemCode
+                        });
+                    } else {
+                        ans.push({
+                            teaUnitName: v2.specItemName,
+                            teaUnitCode: v2.specItemCode
+                        });
+                    }
+                };
+            };
+            return ans;
+        }
         const genToppingAdjustRuleList = () => {
             let toppingAdjustRuleList = [];
             props.actStepList4Edit.forEach(actStep => {
@@ -40,7 +68,23 @@ const TeaNewModalAdjustRulePane = (props) => {
             });
             return toppingAdjustRuleList;
         }
-        const isTeaUnitListEqual = (teaUnitList1, teaUnitList2) => {
+        const genSpecItemRuleLists = () => {
+            let specItemRuleLists = [];
+            if (isArray(props.specRuleList4Edit)) {
+                props.specRuleList4Edit.forEach(specRule => {
+                    let specItemRuleListTmp = [];
+                    specRule.specItemRuleList.forEach(specItemRule => {
+                        if (specItemRule.selected == 1) {
+                            specItemRule.specCode = specRule.specCode;
+                            specItemRuleListTmp.push(specItemRule);
+                        }
+                    })
+                    specItemRuleLists.push(specItemRuleListTmp);
+                });
+            }
+            return specItemRuleLists;
+        }
+        const isEqualTeaUnitList = (teaUnitList1, teaUnitList2) => {
             let length1 = teaUnitList1.length;
             let length2 = teaUnitList2.length;
             if (length1 != length2) {
@@ -55,63 +99,20 @@ const TeaNewModalAdjustRulePane = (props) => {
             }
             return true;
         }
-        const doGenTeaUnitList = (specItemRuleLists, index, combo, resultList) => {
-            if (combo == null || combo == undefined) {
-                combo = [];
-            }
-            if (index == specItemRuleLists.length) {
-                let specItemRuleListTmp = [];
-                let teaUnitCode = '';
-                let teaUnitName = '';
-                combo.sort((a, b) => a.specCode.localeCompare(b.specCode));
-                combo.forEach(f => {
-                    specItemRuleListTmp.push(f);
-                    teaUnitCode = teaUnitCode + '-' + f.specItemCode;
-                    teaUnitName = teaUnitName + '-' + f.specItemName;
-                })
-                resultList.push({
-                    teaUnitCode: teaUnitCode.slice(1),
-                    teaUnitName: teaUnitName.slice(1),
-                    specItemRuleList: specItemRuleListTmp,
-                    backgroundColor: '#FFFFFF'
-                });
-                return;
-            }
-    
-            let list = specItemRuleLists[index];
-            list.forEach(s => {
-                combo.push(s);
-                doGenTeaUnitList(specItemRuleLists, index + 1, combo, resultList);
-                combo.pop();
-            });
-        }
 
         // 从specRuleList过滤出上一步选中的specItem，放到specItemRuleLists中
-        let specItemRuleLists = [];
-        props.specRuleList4Edit.forEach(specRule => {
-            let specItemRuleListTmp = [];
-            specRule.specItemRuleList.forEach(specItemRule => {
-                if (specItemRule.selected == 1) {
-                    specItemRule.specCode = specRule.specCode;
-                    specItemRuleListTmp.push(specItemRule);
-                }
-            })
-            specItemRuleLists.push(specItemRuleListTmp);
-        });
-        alert('$$$$$ genTeaUnitList specItemRuleLists=' + specItemRuleLists.length);
+        let specItemRuleLists = genSpecItemRuleLists();
 
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
-        let teaUnitListTmp = [];
-        doGenTeaUnitList(specItemRuleLists, 0, null, teaUnitListTmp);
+        let teaUnitListTmp = getArrbyArr(specItemRuleLists);
         teaUnitListTmp.forEach(teaUnit => {
             teaUnit.toppingAdjustRuleList = genToppingAdjustRuleList();
         });
-        alert('$$$$$ genTeaUnitList teaUnitListTmp=' + teaUnitListTmp.length);
         
         setTeaUnitList(prev => {
             prev.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
             teaUnitListTmp.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
-            if (isTeaUnitListEqual(prev, teaUnitListTmp)) {
+            if (isEqualTeaUnitList(prev, teaUnitListTmp)) {
                 return prev;
             } else {
                 return teaUnitListTmp;
