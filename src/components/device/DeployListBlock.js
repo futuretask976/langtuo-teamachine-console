@@ -28,6 +28,9 @@ const DeployListBlock = (props) => {
             pageNum: pageNum,
             pageSize: pageSize
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
@@ -36,7 +39,6 @@ const DeployListBlock = (props) => {
                 let tmp = [];
                 if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
-                        ite.key = ite.id;
                         if (ite.state == 0) {
                             ite.actions = ["edit", "delete"];
                         } else {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const MachineListBlock = (props) => {
@@ -31,7 +31,14 @@ const MachineListBlock = (props) => {
             setPageSize(model.pageSize);
             setTotal(model.total);
             setList((prev => {
-                return model.list
+                let tmp = [];
+                if (isArray(model.list)) {
+                    model.list.forEach(function(ite) {
+                        ite.actions = ["edit"];
+                        tmp.push(ite);
+                    });
+                }
+                return tmp;
             }));
         });
     }
@@ -106,11 +113,6 @@ const MachineListBlock = (props) => {
             ),
         }
     ];
-    let data = list;
-    data.forEach(function(ite) {
-        ite.key = ite.modelCode;
-        ite.actions = ["edit", "delete"];
-    });
 
     // 表格操作数据相关
     const onChangePage = (page) => {
@@ -148,7 +150,7 @@ const MachineListBlock = (props) => {
                     onChange: (page)=>onChangePage(page),
                 }}
                 columns={columns} 
-                dataSource={data}
+                dataSource={list}
                 rowKey={record=>record.machineCode} />
         </div>
     )

@@ -3,7 +3,7 @@ import { DatePicker, Input, Modal, Select, Space, Switch, Col, Row } from 'antd'
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { dateToYMDHMS, getTenantCode, isArray, isBlankStr, isValidName } from '../../js/common.js';
+import { dateToYMDHMS, getTenantCode, isArray, isBlankObj, isBlankStr, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
@@ -30,8 +30,11 @@ const MachineDeployNewModal = (props) => {
             validUntil: new Date(validUntil),
             maintainUntil: new Date(maintainUntil)
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             if (respData.success) {
-                alert("保存成功");
+                alert("保存成功！");
             } else {
                 alert('保存失败：' + respData.errorMsg);
             }
@@ -48,15 +51,14 @@ const MachineDeployNewModal = (props) => {
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState();
     const [modelList4Select, setModelList4Select] = useState();
-    const putNew = props.machineCode4Edit == undefined ? true : false;
     const [machineCode, setMachineCode] = useState();
     const [machineName, setMachineName] = useState();
     const [screenCode, setScreenCode] = useState();
     const [elecBoardCode, setElecBoardCode] = useState();
     const [modelCode, setModelCode] = useState();
     const [state, setState] = useState(0);
-    const [validUntil, setValidUntil] = useState();
-    const [maintainUntil, setMaintainUntil] = useState(dateToYMDHMS(new Date()));
+    const [validUntil, setValidUntil] = useState(dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+    const [maintainUntil, setMaintainUntil] = useState(dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'));
     const [shopCode, setShopCode] = useState();
 
     // 初始化定义
@@ -76,8 +78,8 @@ const MachineDeployNewModal = (props) => {
             setElecBoardCode(model.elecBoardCode);
             setModelCode(model.modelCode);
             setState(model.state);
-            setValidUntil(dateToYMDHMS(new Date(model.validUntil)));
-            setMaintainUntil(dateToYMDHMS(new Date(model.maintainUntil)));
+            setValidUntil(isBlankObj(model.validUntil) ? validUntil : dateToYMDHMS(new Date(model.validUntil)));
+            setMaintainUntil(isBlankObj(model.maintainUntil) ? maintainUntil : dateToYMDHMS(new Date(model.maintainUntil)));
             setShopCode(model.shopCode);
         });
     }
@@ -138,11 +140,10 @@ const MachineDeployNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
-            title="编辑机器信息01"
+            title="编辑机器信息"
             width={500}
         >
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 400, width: '100%'}}>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 450, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>

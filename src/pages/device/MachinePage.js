@@ -14,15 +14,23 @@ const MachinePage = () => {
     // 面包屑相关
     const breadcrumbPath = ['控制台', '设备', '机器管理'];
 
-    // 数据定义
-    const [shopList4Select, setShopList4Select] = useState([]);
-    const [machineCode4Search, setMachineCode4Search] = useState('');
-    const [screenCode4Search, setScreenCode4Search] = useState('');
-    const [elecBoardCode4Search, setElecBoardCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
-    const [machineCode4Edit, setMachineCode4Edit] = useState('');
+    // 对话框定义
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const onCloseNewModal = () => {
+        setOpenNewModal(false);
+        setMachineCode4Edit(undefined);
+        refreshList();
+    }
 
-    // 初始化动作
+    // 数据定义
+    const [shopList4Select, setShopList4Select] = useState();
+    const [machineCode4Search, setMachineCode4Search] = useState();
+    const [screenCode4Search, setScreenCode4Search] = useState();
+    const [elecBoardCode4Search, setElecBoardCode4Search] = useState();
+    const [shopCode4Search, setShopCode4Search] = useState();
+    const [machineCode4Edit, setMachineCode4Edit] = useState();
+
+    // 初始化定义
     const fetchShopList4Select = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
@@ -44,19 +52,6 @@ const MachinePage = () => {
             }));
         });
     }
-    useEffect(() => {
-        fetchShopList4Select();
-    }, []);
-
-    // 新建对话框相关
-    const [openNewModal, setOpenNewModal] = useState(false);
-    const onCloseNewModal = () => {
-        setOpenNewModal(false);
-        setMachineCode4Edit('');
-        refreshList();
-    }
-
-    // 搜索相关
     const onClickSearch = () => {
         if (!isValidCode(machineCode4Search, false)) {
             alert('机器编码不符合规则');
@@ -76,14 +71,15 @@ const MachinePage = () => {
         }
         refreshList();
     }
-
-    // 表格操作相关
     const onClickEdit = (selectedMachineCode)=> {
         setMachineCode4Edit(selectedMachineCode);
         setOpenNewModal(true);
     }
+    useEffect(() => {
+        fetchShopList4Select();
+    }, []);
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);
