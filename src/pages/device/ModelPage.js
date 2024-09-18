@@ -41,7 +41,7 @@ const ModelPage = () => {
         setOpenNewModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

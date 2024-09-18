@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { isArray } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const AndroidAppListBlock = (props) => {
@@ -106,6 +106,7 @@ const AndroidAppListBlock = (props) => {
         }
 
         del('/deviceset/android/app/delete', {
+            tenantCode: getTenantCode(),
             version: version
         }).then(respData => {
             if (respData.success) {

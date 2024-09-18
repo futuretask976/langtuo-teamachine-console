@@ -10,46 +10,44 @@ import AndroidAppUploadModal from '../../components/device/AndroidAppUploadModal
 import AndroidAppDispatchModal from '../../components/device/AndroidAppDispatchModal'
 
 const AndroidAppPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '设备', '预部署管理'];
 
-    // 新建对话框相关
+    // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
     const onCloseNewModal = () => {
         setOpenNewModal(false);
-        setVersion4Edit('');
+        setVersion4Edit(undefined);
         refreshList();
     }
-
-    // 分发对话框相关
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {
         setOpenDispatchModal(false);
         setVersion4Dispatch(undefined);
     }
 
-    // 搜索相关
+    // 数据定义
     const [version4Search, setVersion4Search] = useState();
+    const [version4Edit, setVersion4Edit] = useState();
+    const [version4Dispatch, setVersion4Dispatch] = useState();
+    
+    // 动作定义
     const onClickSearch = () => {
         refreshList();
     }
-
-    // 表格操作相关
-    const [version4Edit, setVersion4Edit] = useState();
     const onClickEdit = (selectedVersion)=> {
         setVersion4Edit(selectedVersion);
         setOpenNewModal(true);
     }
-    const [version4Dispatch, setVersion4Dispatch] = useState();
     const onClickDispatch = (selectedVersion)=> {
         setVersion4Dispatch(selectedVersion);
         setOpenDispatchModal(true);
     }
 
-    // 刷新列表相关
+    // 刷新定义
     const [refreshListKey, setRefreshListKey] = useState(0);
     const refreshList = () => {
         setRefreshListKey(refreshListKey + 1);

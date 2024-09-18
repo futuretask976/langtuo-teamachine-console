@@ -207,7 +207,7 @@ const AndroidAppUploadModal = (props) => {
                         <Space size='small'><span style={{color: 'red'}}>*</span><span>版本号：</span></Space>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder="版本号" allowClear value={version} onChange={(e) => setVersion(e.target.value)}/>
+                        <Input placeholder="版本号" allowClear disabled={props.version4Edit == undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
