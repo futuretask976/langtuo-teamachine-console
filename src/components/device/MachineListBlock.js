@@ -6,16 +6,18 @@ import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const MachineListBlock = (props) => {
-    // 样式相关
+    // 样式定义
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    // 获取服务端数据相关
+    // 数据定义
     const [pageNum, setPageNum] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
+
+    // 动作定义
     const fetchListData = () => {
         get('/deviceset/machine/search', {
             machineCode: props.machineCode4Search,
@@ -46,7 +48,7 @@ const MachineListBlock = (props) => {
         fetchListData();
     }, [pageNum]);
 
-    // 表格展示数据相关
+    // 表格定义
     const columns = [
         {
             title: '机器编码',
@@ -113,8 +115,6 @@ const MachineListBlock = (props) => {
             ),
         }
     ];
-
-    // 表格操作数据相关
     const onChangePage = (page) => {
         setPageNum(page);
     }

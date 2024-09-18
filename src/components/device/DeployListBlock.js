@@ -6,7 +6,7 @@ import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const DeployListBlock = (props) => {
-    // 样式相关
+    // 样式定义
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -17,7 +17,7 @@ const DeployListBlock = (props) => {
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
 
-    // 初始化动作
+    // 动作定义
     const fetchListData = () => {
         get('/deviceset/deploy/search', {
             deployCode: props.deployCode4Search,
@@ -55,7 +55,7 @@ const DeployListBlock = (props) => {
         fetchListData();
     }, [pageNum]);
 
-    // 表格展示定义
+    // 表格定义
     const columns = [
         {
             title: '部署码',
@@ -110,8 +110,6 @@ const DeployListBlock = (props) => {
             ),
         },
     ];
-
-    // 表格动作定义
     const onChangePage = (page) => {
         setPageNum(page);
     }
