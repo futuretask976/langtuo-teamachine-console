@@ -53,20 +53,13 @@ const AccuracyTplListBlock = (props) => {
             title: '模板编码',
             dataIndex: 'templateCode',
             key: 'templateCode',
-            width: '25%'
+            width: '30%'
         },
         {
             title: '模板名称',
             dataIndex: 'templateName',
             key: 'templateName',
-            width: '25%'
-        },
-        {
-            title: '状态',
-            dataIndex: 'state',
-            key: 'state',
-            width: '10%',
-            render: (state) => state == 0 ? '禁用' : '启用'
+            width: '30%'
         },
         {
             title: '创建时间',

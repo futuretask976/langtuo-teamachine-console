@@ -163,7 +163,6 @@ const TeaNewModal = (props) => {
             return tmp;
         });
         if (actStepList != tea.actStepList) {
-            updateSpecRuleList(undefined);
             updateTeaUnitList(undefined);
         }
     };

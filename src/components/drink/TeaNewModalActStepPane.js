@@ -68,14 +68,17 @@ const TeaNewModalActStepPane = (props) => {
             return tmp;
         }));
     }
-    const onChangeToppingCodeList = (selecedList, stepIndex) => {
+    const onChangeToppingCodeList = (selectedToppingCodeList, stepIndex) => {
         setActStepList((prev => {
             let tmp = [];
             prev.forEach((actStep) => {
                 if (actStep.stepIndex == stepIndex) {
                     let toppingBaseRuleList = [];
-                    selecedList.forEach(toppingCode => {
-                        let toppingTmp = findToppingByCode(toppingCode);
+                    selectedToppingCodeList.forEach(selectedToppingCode => {
+                        let toppingTmp = findToppingBaseRuleByCode(selectedToppingCode, actStep.toppingBaseRuleList);
+                        if (toppingTmp == undefined) {
+                            toppingTmp = findToppingByCode(selectedToppingCode);
+                        }
                         toppingBaseRuleList.push(toppingTmp);
                     })
                     actStep.toppingBaseRuleList = toppingBaseRuleList;
@@ -88,13 +91,27 @@ const TeaNewModalActStepPane = (props) => {
         }));
     }
     const findToppingByCode = (toppingCode) => {
-        let found = {};
-        toppingList4Select.forEach(item => {
+        let toppingBaseRule = {};
+        toppingList4Select.forEach(topping => {
+            if (topping.toppingCode == toppingCode) {
+                toppingBaseRule.toppingCode = topping.toppingCode;
+                toppingBaseRule.toppingName = topping.toppingName;
+                toppingBaseRule.measureUnit = topping.measureUnit;
+                toppingBaseRule.state = topping.state;
+                toppingBaseRule.baseAmount = 0;
+            }
+        });
+        return toppingBaseRule;
+    }
+    const findToppingBaseRuleByCode = (toppingCode, toppingBaseRuleList) => {
+        let found = undefined;
+        if (!isArray(toppingBaseRuleList)) {
+            return found;
+        }
+
+        toppingBaseRuleList.forEach(item => {
             if (item.toppingCode == toppingCode) {
-                found.toppingCode = item.toppingCode;
-                found.toppingName = item.toppingName;
-                found.measureUnit = item.measureUnit;
-                found.state = item.state;
+                found = item;
             }
         });
         return found;

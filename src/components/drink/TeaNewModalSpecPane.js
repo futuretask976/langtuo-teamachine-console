@@ -6,16 +6,17 @@ import { getTenantCode, isArray } from '../../js/common';
 import { get } from '../../js/request.js';
 
 const TeaNewModalSpecPane = (props) => {
-    // 状态变量初始化相关
+    // 数据定义
+    const [specList4Select, setSpecList4Select] = useState();
     const [specRuleList, setSpecRuleList] = useState(() => {
         if (isArray(props.specRuleList4Edit)) {
             return props.specRuleList4Edit;
         }
         return [];
     });
-    const [specList4Select, setSpecList4Select] = useState([]);
+    
 
-    // 赋值初始化相关
+    // 动作定义
     const fetchSpecList4Select = () => {
         get('/drinkset/spec/list', {
             tenantCode: getTenantCode()
@@ -53,7 +54,7 @@ const TeaNewModalSpecPane = (props) => {
         fetchSpecList4Select();
     }, []);
 
-    // 表格操作相关
+    // 表格定义
     const onChangeSpec = (selectedList) => {
         setSpecRuleList(prev => {
             let specRuleListTmp = [];

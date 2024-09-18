@@ -17,13 +17,13 @@ const TeaNewModalBaseRulePane = (props) => {
     const convertToDataSource = () => {
         let dataSource = [];
         actStepList.forEach(actStep => {
-            actStep.toppingBaseRuleList.forEach(toppingItem => {
+            actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
                 dataSource.push({
                     stepIndex: actStep.stepIndex,
-                    toppingName: toppingItem.toppingName,
-                    toppingCode: toppingItem.toppingCode,
-                    measureUnit: toppingItem.measureUnit,
-                    baseAmount: isNumber(toppingItem.baseAmount) ? toppingItem.baseAmount : 0
+                    toppingName: toppingBaseRule.toppingName,
+                    toppingCode: toppingBaseRule.toppingCode,
+                    measureUnit: toppingBaseRule.measureUnit,
+                    baseAmount: toppingBaseRule.baseAmount
                 });
             })
         });
@@ -66,14 +66,14 @@ const TeaNewModalBaseRulePane = (props) => {
             ),
         }
     ];
-    const onChangeBaseAmount = (stepIndex, toppingCode, number) => {
+    const onChangeBaseAmount = (stepIndex, toppingCode, amount) => {
         setActStepList(prev => {
             let tmp = [...prev];
             tmp.forEach(actStep => {
                 if (actStep.stepIndex == stepIndex) {
                     actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
                         if (toppingBaseRule.toppingCode == toppingCode) {
-                            toppingBaseRule.baseAmount = number;
+                            toppingBaseRule.baseAmount = amount;
                         }
                     })
                 }
