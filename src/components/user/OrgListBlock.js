@@ -8,18 +8,19 @@ import { get, del } from '../../js/request.js';
 import OrgTree from './OrgTree'
 
 const OrgListBlock = (props) => {
-    // 样式相关
+    // 样式定义
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    // 获取服务端数据相关
+    // 数据定义
     const [pageNum, setPageNum] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
-    const [list, setList] = useState([]);
+    const [list, setList] = useState();
+    const [orgStrucTree, setOrgStrucTree] = useState();
 
-    // 初始化动作相关
+    // 动作定义
     const fetchListData = () => {
         get('/userset/org/search', {  
             tenantCode: getTenantCode(),
@@ -48,12 +49,45 @@ const OrgListBlock = (props) => {
             }));
         });
     }
+    const fetchListByDepth = () => {
+        get('/userset/org/listbydepth', {  
+            tenantCode: getTenantCode()
+        }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
+            let model = respData.model;
+            setOrgStrucTree(prev => {
+                let orgStrucTreeTmp = [];
+                orgStrucTreeTmp.push(convertOrgNode(model));
+                return orgStrucTreeTmp;
+            })
+        });
+    }
+    const convertOrgNode = (orgNode) => {
+        let childrenTmp = [];
+        if (!isBlankObj(orgNode) && isArray(orgNode.children)) {
+            orgNode.children.forEach(item => {
+                childrenTmp.push(convertOrgNode(item));
+            })
+        }
+
+        let treeNode = {
+            key: orgNode.orgName,
+            parentKey: orgNode.parentOrgName,
+            isEditable: false,
+            children: childrenTmp
+        };
+        return treeNode;
+    }
+    useEffect(() => {
+        fetchListByDepth();
+    }, []);
     useEffect(() => {
         fetchListData();
-        fetchListByDepth();
     }, [pageNum]);
 
-    // 表格展示数据相关
+    // 表格定义
     const columns = [
         {
             title: '组织架构名称',
@@ -100,8 +134,6 @@ const OrgListBlock = (props) => {
             ),
         },
     ];
-
-    // 表格操作数据相关
     const onClickEdit = (e, orgName) => {
         props.onClickEdit(orgName);
     }
@@ -123,44 +155,6 @@ const OrgListBlock = (props) => {
                 alert('删除失败：' + respData.errorMsg)
             }
         });
-    }
-
-    // 数据初始化相关
-    const [orgStrucTree, setOrgStrucTree] = useState();
-    const fetchListByDepth = () => {
-        get('/userset/org/listbydepth', {  
-            tenantCode: getTenantCode()
-        }).then(respData => {
-            if (respData == undefined) {
-                return;
-            }
-            let model = respData.model;
-            setOrgStrucTree(prev => {
-                let orgStrucTreeTmp = [];
-                orgStrucTreeTmp.push(convertOrgNode(model));
-                return orgStrucTreeTmp;
-            })
-        });
-    }
-    useEffect(() => {
-        fetchListByDepth();
-    }, []);
-
-    const convertOrgNode = (orgNode) => {
-        let childrenTmp = [];
-        if (!isBlankObj(orgNode) && isArray(orgNode.children)) {
-            orgNode.children.forEach(item => {
-                childrenTmp.push(convertOrgNode(item));
-            })
-        }
-
-        let treeNode = {
-            key: orgNode.orgName,
-            parentKey: orgNode.parentOrgName,
-            isEditable: false,
-            children: childrenTmp
-        };
-        return treeNode;
     }
 
     return (

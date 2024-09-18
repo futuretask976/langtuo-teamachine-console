@@ -6,16 +6,16 @@ import { isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
 const TenantListBlock = (props) => {
-    // 样式相关
+    // 样式定义
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    // 获取服务端数据相关
+    // 数据定义
     const [pageNum, setPageNum] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
-    const [list, setList] = useState([]);
+    const [list, setList] = useState();
 
     // 初始化动作相关
     const fetchListData = () => {
