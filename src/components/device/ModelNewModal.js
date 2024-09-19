@@ -192,7 +192,7 @@ const ModelNewModal = (props) => {
                 </div>
                 <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 365, width: '100%', overflowY: 'scroll'}}>
                     {isArray(pipelineList) && pipelineList.map((pipeline, index) => (
-                        <Row id={index} style={{width: '100%'}}>
+                        <Row key={index} style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
                                     <span>管道号码：</span>

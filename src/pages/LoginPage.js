@@ -56,7 +56,7 @@ function LoginPage() {
         //     console.log('$$$$$ error=', error)
         // });
 
-        axios.get('http://localhost:8080/teamachinebackend/securityset/oss/token/get', {
+        axios.get('http://localhost:8080/teamachinebackend/drinkset/spec/list?tenantCode=tenant_001', {
             headers: {
                 'Tenant-Code': 'tenant_001',
                 'Machine-Code': 'machine_333',
