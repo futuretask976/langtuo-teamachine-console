@@ -7,7 +7,7 @@ import { isBlankObj } from '../../js/common.js';
 const { TextArea } = Input;
 
 const CleanRuleStepTabPane = (props) => {
-    // 数据初始化相关
+    // 数据定义
     const [cleanRuleStep, setCleanRuleStep] = useState({
         stepIndex: props.stepIndex,
         cleanContent: 0, 
@@ -22,7 +22,7 @@ const CleanRuleStepTabPane = (props) => {
         }
     }, [props.cleanRuleStep]);
 
-    // 数据读取
+    // 动作定义
     const getCleanContent = () => {
         if (isBlankObj(cleanRuleStep)) {
             return 0;
@@ -105,7 +105,7 @@ const CleanRuleStepTabPane = (props) => {
         return cleanRuleStep.cleanAgentType;
     }
 
-    // 数据更新
+    // 初始化定义
     const onChangeCleanContent = (e) => {
         setCleanRuleStep(prev => {
             let tmp = {...prev};
@@ -214,7 +214,7 @@ const CleanRuleStepTabPane = (props) => {
                 <div className="flex-row-cont" style={{height: 42, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>冲洗时间：</div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '85%'}}>
-                        <InputNumber min={0} max={99} onChange={onChangeWashTime} value={getWashTime()}/>分钟
+                        <InputNumber min={0} max={9999} onChange={onChangeWashTime} value={getWashTime()}/>分钟
                     </div>
                 </div>
             }
@@ -222,7 +222,7 @@ const CleanRuleStepTabPane = (props) => {
                 <div className="flex-row-cont" style={{height: 42, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>浸泡时间：</div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '85%'}}>
-                        <InputNumber min={0} max={99} defaultValue={0} onChange={onChangeSoakTime} value={getSoakTime()}/>分钟 设备每隔<InputNumber min={0} max={99} onChange={onChangeSoakWashInterval} value={getSoakWashInterval()}/>分钟 冲洗<InputNumber min={0} max={99} defaultValue={0} onChange={onChangeSoakWashTime} value={getSoakWashTime()}/>秒
+                        <InputNumber min={0} max={9999} defaultValue={0} onChange={onChangeSoakTime} value={getSoakTime()}/>分钟 设备每隔<InputNumber min={0} max={99} onChange={onChangeSoakWashInterval} value={getSoakWashInterval()}/>分钟 冲洗<InputNumber min={0} max={99} defaultValue={0} onChange={onChangeSoakWashTime} value={getSoakWashTime()}/>秒
                     </div>
                 </div>
             }

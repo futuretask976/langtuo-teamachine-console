@@ -201,6 +201,7 @@ const DrainRuleNewModal = (props) => {
         <>
             <Modal
                 centered
+                confirmLoading={loading}
                 open={open}
                 title="新建规则"
                 onOk={onClickOK}

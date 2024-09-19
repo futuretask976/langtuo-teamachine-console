@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Select, Switch, Tabs } from 'antd';
+import { Input, Modal, Select, Space, Switch, Tabs } from 'antd';
 
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
-import { isArray, isBlankStr, getTenantCode, isBlankObj } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankObj, isBlankStr, isValidCode, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const CleanRuleNewModal = (props) => {
@@ -12,6 +12,15 @@ const CleanRuleNewModal = (props) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
+        if (!isValidCode(cleanRuleCode, true)) {
+            alert('规则编码不符合规则');
+            return;
+        }
+        if (!isValidName(cleanRuleName, true)) {
+            alert('规则名称不符合规则');
+            return;
+        }
+
         setLoading(true);
         put('/ruleset/clean/put', {
             tenantCode: getTenantCode(),
@@ -208,6 +217,7 @@ const CleanRuleNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
             onCancel={onClickCancel}
             onOk={onClickOK}
@@ -216,11 +226,15 @@ const CleanRuleNewModal = (props) => {
         >
             <div className="flex-col-cont" style={{height: 400, width: '100%'}}>
                 <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>规则编号：</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>规则编码：</span></Space>
+                    </div>
                     <div style={{width: '35%'}}>
                         <Input placeholder="规则编号" onChange={(e) => setCleanRuleCode(e.target.value)} value={cleanRuleCode} style={{width: '100%'}}/>
                     </div>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>规则名称：</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>规则名称：</span></Space>
+                    </div>
                     <div style={{width: '35%'}}>
                         <Input placeholder="规则名称" onChange={(e) => setCleanRuleName(e.target.value)} value={cleanRuleName}/>
                     </div>
