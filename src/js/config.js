@@ -10,5 +10,5 @@ export const OSS_CONFIG_MENU_FOLDER = 'teamachine/folder';
 
 export const BACKEND_CONTEXT_PATH = '/teamachinebackend'
 export const DEV_BACKEND_BASE_URL = 'http://localhost:8080' + BACKEND_CONTEXT_PATH;
-export const PROD_BACKEND_BASE_URL = 'https://langtuo.cartisan.top:446' + BACKEND_CONTEXT_PATH;;
-export const BACKEND_BASE_URL = DEV_BACKEND_BASE_URL; // process.env.NODE_ENV === 'dev' ? devBaseURL: prodBaseURL;
+export const PROD_BACKEND_BASE_URL = 'https://www.miyakkk.com:446' + BACKEND_CONTEXT_PATH;;
+export const BACKEND_BASE_URL = PROD_BACKEND_BASE_URL; // process.env.NODE_ENV === 'dev' ? devBaseURL: prodBaseURL;
