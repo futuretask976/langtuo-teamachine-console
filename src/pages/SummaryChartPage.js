@@ -35,6 +35,7 @@ export default function SummaryChartPage() {
             tenantCode: getTenantCode()
         }).then(respData => {
             let model = respData.model;
+            console.log('$$$$$ fetchSpecItemAmtData model=', model);
             if (isArray(model)) {
                 setspecItemAmtData(model);
             }
