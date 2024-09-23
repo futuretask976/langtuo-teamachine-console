@@ -9,6 +9,4 @@ export const OSS_CONFIG_SERIES_FOLDER = 'teamachine/series';
 export const OSS_CONFIG_MENU_FOLDER = 'teamachine/folder';
 
 export const BACKEND_CONTEXT_PATH = '/teamachinebackend'
-export const DEV_BACKEND_BASE_URL = 'http://localhost:8080' + BACKEND_CONTEXT_PATH;
-export const PROD_BACKEND_BASE_URL = 'https://www.miyakkk.com:446' + BACKEND_CONTEXT_PATH;;
-export const BACKEND_BASE_URL = DEV_BACKEND_BASE_URL; // process.env.NODE_ENV === 'dev' ? devBaseURL: prodBaseURL;
+export const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_HOST + BACKEND_CONTEXT_PATH;

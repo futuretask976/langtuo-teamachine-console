@@ -43,6 +43,10 @@ instance.interceptors.response.use(
                         // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
                         alert('授权验证失败，请联系管理员授权！');
                         return;
+                    } else if (status == '404') {
+                        // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
+                        alert('页面未找到，请联系管理员！');
+                        return;
                     }
                 }
                 window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
