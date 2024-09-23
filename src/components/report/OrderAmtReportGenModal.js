@@ -20,7 +20,6 @@ const OrderAmtReportGenModal = (props) => {
     const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
 
     const onClickOK = () => {
-        alert('aab');
         get('/reportset/order/calc', {  
             tenantCode: getTenantCode(),
             orderCreatedDay: orderCreatedDay
