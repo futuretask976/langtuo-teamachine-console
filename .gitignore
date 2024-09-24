@@ -14,7 +14,8 @@
 
 # build
 /teamachineconsole
-teamachineconsole.tar.tgz
+teamachineconsole.tar
+teamachineconsole.tar.gz
 
 # misc
 .DS_Store

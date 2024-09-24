@@ -108,8 +108,9 @@ export default function SummaryChartPage() {
                             </div>
                             {teaAmtData.map((teaAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
-                                    <div><span>{teaAmt.teaName}</span></div>
-                                    <div><span>{teaAmt.amount}</span></div>
+                                    <div style={{width:"50%"}}><span>{teaAmt.teaName}</span></div>
+                                    <div style={{width:"20%"}}>----------</div>
+                                    <div style={{textAlign: 'right', width:"30%"}}><span>{teaAmt.amount}</span></div>
                                 </div>
                             ))}
                         </div>
@@ -119,8 +120,9 @@ export default function SummaryChartPage() {
                             </div>
                             {specItemAmtData.map((specItemAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
-                                    <div><span>{specItemAmt.specItemName}</span></div>
-                                    <div><span>{specItemAmt.amount}</span></div>
+                                    <div style={{width:"50%"}}><span>{specItemAmt.specItemName}</span></div>
+                                    <div style={{width:"20%"}}>----------</div>
+                                    <div style={{textAlign: 'right', width:"30%"}}><span>{specItemAmt.amount}</span></div>
                                 </div>
                             ))}
                         </div>
@@ -130,8 +132,9 @@ export default function SummaryChartPage() {
                             </div>
                             {toppingAmtData.map((toppingAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
-                                    <div><span>{toppingAmt.toppingName}</span></div>
-                                    <div><span>{toppingAmt.amount}</span></div>
+                                    <div style={{width:"50%"}}><span>{toppingAmt.toppingName}</span></div>
+                                    <div style={{width:"20%"}}>----------</div>
+                                    <div style={{textAlign: 'right', width:"30%"}}><span>{toppingAmt.amount}</span></div>
                                 </div>
                             ))}
                         </div>

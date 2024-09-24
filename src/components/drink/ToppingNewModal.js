@@ -72,7 +72,7 @@ const ToppingNewModal = (props) => {
     const [toppingCode, setToppingCode] = useState();
     const [toppingName, setToppingName] = useState();
     const [toppingTypeCode, setToppingTypeCode] = useState();
-    const [measureUnit, setMeasureUnit] = useState(1);
+    const [measureUnit, setMeasureUnit] = useState(0);
     const [state, setState] = useState(1);
     const [validHourPeriod, setValidHourPeriod] = useState(1);
     const [cleanHourPeriod, setCleanHourPeriod] = useState(1);
