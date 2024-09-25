@@ -12,6 +12,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             tmp.forEach(teaUnit => {
                 teaUnit.backgroundColor = '#FFFFFF';
                 teaUnit.textColor = '#818181';
+                teaUnit.selected = false;
             });
             return tmp;
         }
@@ -112,28 +113,31 @@ const TeaNewModalAdjustRulePane = (props) => {
 
         // 从specRuleList过滤出上一步选中的specItem，放到specItemRuleLists中
         let specItemRuleListBySpecCode = genSpecItemRuleListBySpecCode(props.specItemRuleList4Edit);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList props.specItemRuleList4Edit=', props.specItemRuleList4Edit);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList specItemRuleListBySpecCode=', specItemRuleListBySpecCode);
 
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
         let teaUnitListTmp = getArrbyArr(specItemRuleListBySpecCode);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList teaUnitListTmp=', teaUnitListTmp);
         teaUnitListTmp.forEach(teaUnit => {
             teaUnit.toppingAdjustRuleList = genToppingAdjustRuleList();
             teaUnit.backgroundColor = '#FFFFFF';
             teaUnit.textColor = '#818181';
+            teaUnit.selected = false;
         });
         
         setTeaUnitList(prev => {
             prev.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
             teaUnitListTmp.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
+            // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList prev=', prev);
+            // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList teaUnitListTmp2=', teaUnitListTmp);
+            // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList teaUnitListEqual=', teaUnitListEqual(prev, teaUnitListTmp));
             if (teaUnitListEqual(prev, teaUnitListTmp)) {
                 return prev;
             } else {
                 return teaUnitListTmp;
             }
         });
-
-        if (teaUnitListTmp.length > 0) {
-            onClickTeaUnit(undefined, teaUnitListTmp[0].teaUnitCode);
-        }
     }
     useEffect(() => {
         genTeaUnitList();
@@ -148,7 +152,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                 if (teaUnit.teaUnitCode == teaUnitCode) {
                     teaUnit.backgroundColor = '#353535';
                     teaUnit.textColor = '#FFFFFF';
-                    teaUnit.selected = 1;
+                    teaUnit.selected = true;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
                     setCurToppingAdjustRuleList(prev => {
                         let toppingAdjustRuleList = teaUnit.toppingAdjustRuleList;
@@ -160,14 +164,31 @@ const TeaNewModalAdjustRulePane = (props) => {
                 } else {
                     teaUnit.backgroundColor = '#FFFFFF';
                     teaUnit.textColor = '#818181';
-                    teaUnit.selected = 0;
+                    teaUnit.selected = false;
                 }
                 tmp.push(teaUnit);
             });
             return tmp;
         });
     }
+    const initTeaUnitListSelected = () => {
+        console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected teaUnitList=', teaUnitList);
+        if (!isArray(teaUnitList) || teaUnitList.length <= 0) {
+            return;
+        }
+        let hasSelected = false;
+        teaUnitList.forEach(teaUnit => {
+            if (teaUnit.selected) {
+                hasSelected = true;
+            }
+        });
+        console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected hasSelected=', hasSelected);
+        if (!hasSelected) {
+            onClickTeaUnit(undefined, teaUnitList[0].teaUnitCode);
+        }
+    }
     useEffect(() => {
+        initTeaUnitListSelected();
         props.updateTeaUnitList(teaUnitList);
     }, [teaUnitList]);
 
@@ -331,7 +352,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '90%', width: '100%'}}>
                 <div style={{height: '100%', width: '29%', overflowY: 'auto'}}>
                     <Space direction='vertical' size='small' style={{height: '100%', width: '100%'}}>
-                        {isArray(teaUnitList) && teaUnitList.map(teaUnit => {
+                        {teaUnitList.map(teaUnit => {
                             return (
                                 <div style={{height: 50, width: '99%', borderRadius: 5, backgroundColor: teaUnit.backgroundColor, color: teaUnit.textColor}} onClick={(e) => onClickTeaUnit(e, teaUnit.teaUnitCode)}>
                                     <span className="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>

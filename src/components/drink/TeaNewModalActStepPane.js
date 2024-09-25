@@ -204,7 +204,7 @@ const TeaNewModalActStepPane = (props) => {
                     scroll={{ y: 250 }} 
                     size='small' 
                     style={{height: '100%', width: '100%'}} 
-                    rowKey='stepIndex'/>
+                    rowKey={stepIndex}/>
             </div>
         </div>
     );
