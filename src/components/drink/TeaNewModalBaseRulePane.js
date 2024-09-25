@@ -2,36 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Table } from 'antd';
 
 import '../../css/common.css';
-import { isArray, isNumber } from '../../js/common.js';
 
 const TeaNewModalBaseRulePane = (props) => {
     // 数据定义
-    const [actStepList, setActStepList] = useState(() => {
-        if (isArray(props.actStepList4Edit)) {
-            return props.actStepList4Edit;
-        }
-        return [];
-    });
+    const [toppingBaseRuleList, setToppingBaseRuleList] = useState(props.toppingBaseRuleList4Edit == undefined ? [] : props.toppingBaseRuleList4Edit);
 
     // 动作定义
-    const convertToDataSource = () => {
-        let dataSource = [];
-        actStepList.forEach(actStep => {
-            actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
-                dataSource.push({
-                    stepIndex: actStep.stepIndex,
-                    toppingName: toppingBaseRule.toppingName,
-                    toppingCode: toppingBaseRule.toppingCode,
-                    measureUnit: toppingBaseRule.measureUnit,
-                    baseAmount: toppingBaseRule.baseAmount
-                });
-            })
-        });
-        return dataSource;
-    };
     useEffect(() => {
-        props.updateActStepList(actStepList);
-    }, [actStepList]);
+        props.updateToppingBaseRuleList(toppingBaseRuleList);
+    }, [toppingBaseRuleList]);
 
     // 表格定义
     const toppingConfigCols = [
@@ -66,16 +45,12 @@ const TeaNewModalBaseRulePane = (props) => {
             ),
         }
     ];
-    const onChangeBaseAmount = (stepIndex, toppingCode, amount) => {
-        setActStepList(prev => {
+    const onChangeBaseAmount = (stepIndex, toppingCode, baseAmount) => {
+        setToppingBaseRuleList(prev => {
             let tmp = [...prev];
-            tmp.forEach(actStep => {
-                if (actStep.stepIndex == stepIndex) {
-                    actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
-                        if (toppingBaseRule.toppingCode == toppingCode) {
-                            toppingBaseRule.baseAmount = amount;
-                        }
-                    })
+            tmp.forEach(toppingBaseRule => {
+                if (toppingBaseRule.stepIndex == stepIndex && toppingBaseRule.toppingCode == toppingCode) {
+                    toppingBaseRule.baseAmount = baseAmount;
                 }
             });
             return tmp;
@@ -87,7 +62,7 @@ const TeaNewModalBaseRulePane = (props) => {
             <div className="flex-row-cont" style={{alignItems: 'flex-start', height: '100%', width: '98%'}}>
                 <Table 
                     columns={toppingConfigCols} 
-                    dataSource={convertToDataSource()} 
+                    dataSource={toppingBaseRuleList} 
                     pagination={false} 
                     scroll={{ y: 350 }} 
                     size='small' 

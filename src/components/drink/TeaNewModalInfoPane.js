@@ -223,7 +223,8 @@ const TeaNewModalInfoPane = (props) => {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === "done") {
-                message.success(`${info.file.name} 文件上传成功`);
+                alert("文件上传成功");
+                // message.success(`${info.file.name} 文件上传成功`);
                 // console.log('$$$$$ info.file.response.name=', info.file.response.name);
                 // console.log('$$$$$ info.file.status=done, info=', info);
                 // console.log('$$$$$ info.file.status=done, fileList=', fileList);

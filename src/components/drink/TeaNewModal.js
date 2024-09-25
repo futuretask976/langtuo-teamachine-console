@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Steps, theme } from 'antd';
 
 import '../../css/common.css';
-import { getTenantCode, isBlankObj, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
+import { arraysEqual, getTenantCode, isBlankObj, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 import TeaNewModalInfoPane from '../../components/drink/TeaNewModalInfoPane'
@@ -40,23 +40,27 @@ const TeaNewModal = (props) => {
             return;
         }
         if (!isValidCode(tea.outerTeaCode, true)) {
-            alert('外部茶品编码不符合规则' + tea.outerTeaCode + 'bb');
+            alert('外部茶品编码不符合规则' + tea.outerTeaCode);
             return;
         }
         if (!isValidCode(tea.teaTypeCode, true)) {
-            alert('茶品类型编码不符合规则AA' + tea.teaTypeCode + 'bb');
+            alert('茶品类型编码不符合规则' + tea.teaTypeCode);
             return;
         }
         if (!isValidComment(tea.comment, false)) {
             alert('备注不符合规则');
             return;
         }
-        if (isEmptyArray(tea.actStepList, true)) {
+        if (isEmptyArray(tea.toppingBaseRuleList, true)) {
             alert('茶品操作步骤不符合规则');
             return;
         }
-        if (isEmptyArray(tea.teaUnitList, true)) {
+        if (isEmptyArray(tea.specItemRuleList, true)) {
             alert('茶品规格不符合规则');
+            return;
+        }
+        if (isEmptyArray(tea.teaUnitList, true)) {
+            alert('茶品单位不符合规则');
             return;
         }
 
@@ -70,8 +74,9 @@ const TeaNewModal = (props) => {
             outerTeaCode: tea.outerTeaCode,
             state: tea.state,
             imgLink: tea.imgLink,
+            toppingBaseRuleList: tea.toppingBaseRuleList,
+            specItemRuleList: tea.specItemRuleList,
             teaUnitList: tea.teaUnitList,
-            actStepList: tea.actStepList,
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
@@ -156,20 +161,23 @@ const TeaNewModal = (props) => {
             return tmp;
         });
     };
-    const updateActStepList = (actStepList) => {
-        setTea(prev => {
-            let tmp = {...prev};
-            tmp.actStepList = actStepList;
-            return tmp;
-        });
-        if (actStepList != tea.actStepList) {
+    const updateToppingBaseRuleList = (toppingBaseRuleList) => {
+        console.log('$$$$$ teaNewModal#updateToppingBaseRuleList toppingBaseRuleList=', toppingBaseRuleList);
+        console.log('$$$$$ teaNewModal#updateToppingBaseRuleList tea.toppingBaseRuleList=', tea.toppingBaseRuleList);
+        console.log('$$$$$ teaNewModal#updateToppingBaseRuleList arraysEqual=', arraysEqual(toppingBaseRuleList, tea.toppingBaseRuleList));
+        if (!arraysEqual(toppingBaseRuleList, tea.toppingBaseRuleList)) {
             updateTeaUnitList(undefined);
         }
-    };
-    const updateSpecRuleList = (specRuleList) => {
         setTea(prev => {
             let tmp = {...prev};
-            tmp.specRuleList = specRuleList;
+            tmp.toppingBaseRuleList = toppingBaseRuleList;
+            return tmp;
+        });
+    };
+    const updateSpecItemRuleList = (specItemRuleList) => {
+        setTea(prev => {
+            let tmp = {...prev};
+            tmp.specItemRuleList = specItemRuleList;
             return tmp;
         });
     };
@@ -198,16 +206,16 @@ const TeaNewModal = (props) => {
                         <TeaNewModalInfoPane putNew={putNew} tea4Edit={tea} updateInfo={updateInfo} />
                     )}
                     {showStepPane && curStep == 1 && (
-                        <TeaNewModalActStepPane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
+                        <TeaNewModalActStepPane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} updateToppingBaseRuleList={updateToppingBaseRuleList} />
                     )}
                     {showStepPane && curStep == 2 && (
-                        <TeaNewModalBaseRulePane actStepList4Edit={tea.actStepList} updateActStepList={updateActStepList} />
+                        <TeaNewModalBaseRulePane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} updateToppingBaseRuleList={updateToppingBaseRuleList} />
                     )}
                     {showStepPane && curStep == 3 && (
-                        <TeaNewModalSpecPane specRuleList4Edit={tea.specRuleList} updateSpecRuleList={updateSpecRuleList} />
+                        <TeaNewModalSpecPane specItemRuleList4Edit={tea.specItemRuleList} updateSpecItemRuleList={updateSpecItemRuleList} />
                     )}
                     {showStepPane && curStep == 4 && (
-                        <TeaNewModalAdjustRulePane specRuleList4Edit={tea.specRuleList} actStepList4Edit={tea.actStepList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />
+                        <TeaNewModalAdjustRulePane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} specItemRuleList4Edit={tea.specItemRuleList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>

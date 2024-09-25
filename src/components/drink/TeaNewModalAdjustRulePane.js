@@ -7,6 +7,7 @@ import { isArray, isBlankObj, isNumber } from '../../js/common.js';
 const TeaNewModalAdjustRulePane = (props) => {
     // 数据定义
     const [teaUnitList, setTeaUnitList] = useState(() => {
+        console.log('$$$$$ teaNewModalAdjustPane#teaUnitList props.teaUnitList4Edit=', props.teaUnitList4Edit);
         if (isArray(props.teaUnitList4Edit)) {
             let tmp = [...props.teaUnitList4Edit];
             tmp.forEach(item => {
@@ -52,35 +53,45 @@ const TeaNewModalAdjustRulePane = (props) => {
         }
         const genToppingAdjustRuleList = () => {
             let toppingAdjustRuleList = [];
-            props.actStepList4Edit.forEach(actStep => {
-                actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
-                    toppingAdjustRuleList.push({
-                        stepIndex: actStep.stepIndex,
-                        toppingName: toppingBaseRule.toppingName,
-                        toppingCode: toppingBaseRule.toppingCode,
-                        measureUnit: toppingBaseRule.measureUnit,
-                        baseAmount: toppingBaseRule.baseAmount,
-                        actualAmount: toppingBaseRule.baseAmount,
-                        adjustType: 0,
-                        adjustMode: 0
-                    });
-                })
+            props.toppingBaseRuleList4Edit.forEach(toppingBaseRule => {
+                toppingAdjustRuleList.push({
+                    stepIndex: toppingBaseRule.stepIndex,
+                    toppingName: toppingBaseRule.toppingName,
+                    toppingCode: toppingBaseRule.toppingCode,
+                    measureUnit: toppingBaseRule.measureUnit,
+                    baseAmount: toppingBaseRule.baseAmount,
+                    actualAmount: toppingBaseRule.baseAmount,
+                    adjustType: 0,
+                    adjustMode: 0,
+                    adjustAmount: 0
+                });
             });
             return toppingAdjustRuleList;
         }
-        const genSpecItemRuleLists = () => {
+        const genSpecItemRuleListBySpecCode = (specItemRuleList) => {
+            let groupBy = (array, key) => {
+                return array.reduce((result, currentItem) => {
+                  // 使用 key 函数提取属性值作为分组的键
+                  const groupKey = key(currentItem);
+               
+                  // 确保 result 对象中有对应分组的数组
+                  if (!result[groupKey]) {
+                    result[groupKey] = [];
+                  }
+               
+                  // 将当前项推入对应分组的数组
+                  result[groupKey].push(currentItem);
+               
+                  return result;
+                }, {});
+            }
+            let specItemRuleGroup = groupBy(specItemRuleList, specItemRule => specItemRule.specCode);
+
             let specItemRuleLists = [];
-            if (isArray(props.specRuleList4Edit)) {
-                props.specRuleList4Edit.forEach(specRule => {
-                    let specItemRuleListTmp = [];
-                    specRule.specItemRuleList.forEach(specItemRule => {
-                        if (specItemRule.selected == 1) {
-                            specItemRule.specCode = specRule.specCode;
-                            specItemRuleListTmp.push(specItemRule);
-                        }
-                    })
-                    specItemRuleLists.push(specItemRuleListTmp);
-                });
+            for (let key in specItemRuleGroup) {
+                if (specItemRuleGroup.hasOwnProperty(key)) {
+                    specItemRuleLists.push(specItemRuleGroup[key]);
+                }
             }
             return specItemRuleLists;
         }
@@ -101,10 +112,10 @@ const TeaNewModalAdjustRulePane = (props) => {
         }
 
         // 从specRuleList过滤出上一步选中的specItem，放到specItemRuleLists中
-        let specItemRuleLists = genSpecItemRuleLists();
+        let specItemRuleListBySpecCode = genSpecItemRuleListBySpecCode(props.specItemRuleList4Edit);
 
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
-        let teaUnitListTmp = getArrbyArr(specItemRuleLists);
+        let teaUnitListTmp = getArrbyArr(specItemRuleListBySpecCode);
         teaUnitListTmp.forEach(teaUnit => {
             teaUnit.toppingAdjustRuleList = genToppingAdjustRuleList();
         });
@@ -121,7 +132,7 @@ const TeaNewModalAdjustRulePane = (props) => {
     }
     useEffect(() => {
         genTeaUnitList();
-    }, [props.specRuleList4Edit, props.actStepList4Edit]);
+    }, [props.toppingBaseRuleList4Edit, props.specRuleList4Edit]);
     
 
     // TeaUnit 操作定义

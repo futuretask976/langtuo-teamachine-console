@@ -124,6 +124,42 @@ export const isValidVersion = (input, required) => {
     return false;
 };
 
+
+export const arraysEqual = (arr1, arr2) => {
+    if (arr1 == undefined || arr2 == undefined) {
+        return false;
+    }
+
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+    return arr1.every((obj, index) => {
+      const otherObj = arr2[index];
+      return Object.keys(obj).length === Object.keys(otherObj).length &&
+             Object.keys(obj).every(key => obj[key] === otherObj[key]);
+    });
+}
+
+export const shallowEqual = (obj1, obj2) => {
+    if (obj1 === obj2) {
+        return true;
+    }
+    if (!obj1 || !obj2) {
+        return false;
+    }
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+    for (let key of keys1) {
+        if (obj1[key] !== obj2[key]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // http response 处理
 export const deleteCookie = (name) => {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';

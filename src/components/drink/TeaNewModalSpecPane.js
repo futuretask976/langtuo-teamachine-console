@@ -8,37 +8,51 @@ import { get } from '../../js/request.js';
 const TeaNewModalSpecPane = (props) => {
     // 数据定义
     const [specList4Select, setSpecList4Select] = useState();
-    const [specRuleList, setSpecRuleList] = useState(() => {
-        if (isArray(props.specRuleList4Edit)) {
-            return props.specRuleList4Edit;
-        }
-        return [];
-    });
-    
+    const [specRuleList, setSpecRuleList] = useState([]);
 
     // 动作定义
+    const refreshSpecList = (specListTmp) => {
+        let specItemRuleList4Edit = props.specItemRuleList4Edit;
+        if (!isArray(specItemRuleList4Edit)) {
+            return;
+        }
+
+        specListTmp.forEach(spec => {
+            let selectedSpec = false;
+            specItemRuleList4Edit.forEach(specItemRule => {
+                if (spec.specCode == specItemRule.specCode) {
+                    selectedSpec = true;
+                }
+            });
+            spec.selected = selectedSpec;
+        });
+    }
     const fetchSpecList4Select = () => {
         get('/drinkset/spec/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            setSpecList4Select((prev => {
+            setSpecList4Select(prev => {
                 let tmp = [];
                 if (isArray(respData.model)) {
-                    respData.model.forEach(item => {
+                    respData.model.forEach(spec => {
                         let specTmp = {
-                            key: item.specCode,
-                            specName: item.specName,
-                            specCode: item.specCode,
-                            label: item.specName,
-                            value: item.specCode
+                            key: spec.specCode,
+                            specName: spec.specName,
+                            specCode: spec.specCode,
+                            label: spec.specName,
+                            value: spec.specCode,
+                            selected: false
                         };
                         let specItemListTmp = [];
-                        if (isArray(item.specItemList)) {
-                            item.specItemList.forEach(specItem => {
+                        if (isArray(spec.specItemList)) {
+                            spec.specItemList.forEach(specItem => {
                                 specItemListTmp.push({
+                                    specCode: spec.specCode,
+                                    specName: spec.specName,
                                     specItemCode: specItem.specItemCode,
                                     specItemName: specItem.specItemName,
-                                    outerSpecItemCode: specItem.outerSpecItemCode
+                                    outerSpecItemCode: specItem.outerSpecItemCode,
+                                    selected: false
                                 });
                             });
                         }
@@ -46,8 +60,11 @@ const TeaNewModalSpecPane = (props) => {
                         tmp.push(specTmp);
                     });
                 }
+
+                refreshSpecList(tmp);
+                refreshSpecRuleList(tmp);
                 return tmp;
-            }));
+            });
         });
     }
     useEffect(() => {
@@ -55,57 +72,93 @@ const TeaNewModalSpecPane = (props) => {
     }, []);
 
     // 表格定义
-    const onChangeSpec = (selectedList) => {
-        setSpecRuleList(prev => {
-            let specRuleListTmp = [];
-            specList4Select.forEach(spec => {
-                selectedList.forEach(selectedSpecCode => {
+    const onChangeSpec = (selectedSpecCodeList) => {
+        setSpecList4Select(prev => {
+            let tmp = [...prev];
+            tmp.forEach(spec => {
+                let selectedSpec = false;
+                selectedSpecCodeList.forEach(selectedSpecCode => {
                     if (spec.specCode == selectedSpecCode) {
-                        let specItemRuleList = [];
-                        spec.specItemList.forEach(specItem => {
-                            specItemRuleList.push({
-                                specCode: selectedSpecCode,
-                                specItemCode: specItem.specItemCode,
-                                specItemName: specItem.specItemName,
-                                outerSpecItemCode: specItem.outerSpecItemCode
-                            });
-                        });
-                        specRuleListTmp.push({
-                            specCode: spec.specCode,
-                            specName: spec.specName,
-                            state: spec.state,
-                            specItemRuleList: specItemRuleList
-                        });
+                        selectedSpec = true;
                     }
                 });
+                spec.selected = selectedSpec;
             });
-            return specRuleListTmp;
+
+            refreshSpecRuleList(tmp);
+            return tmp;
         });
     }
     const convertToSelectedSpecCode = () => {
         let tmp = [];
-        specRuleList.forEach(specRule => {
-            tmp.push(specRule.specCode);
-        });
+        if (isArray(specList4Select)) {
+            specList4Select.forEach(spec => {
+                if (spec.selected) {
+                    tmp.push(spec.specCode);
+                }
+            });
+        }
         return tmp;
     }
-    const onClickSpecItem = (specCode, selectedSpecItemCode) => {
+    const onClickSpecItem = (selectedSpecCode, selectedSpecItemCode) => {
         setSpecRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(specRule => {
-                if (specRule.specCode == specCode) {
+                if (specRule.specCode == selectedSpecCode) {
                     specRule.specItemRuleList.forEach(specItemRule => {
                         if (specItemRule.specItemCode == selectedSpecItemCode) {
-                            specItemRule.selected = (specItemRule.selected == 1 ? 0 : 1);
+                            specItemRule.selected = specItemRule.selected ? false : true;
                         }
-                    })
+                    });
                 }
             });
             return tmp;
         });
     }
+    const refreshSpecRuleList = (specListTmp) => {
+        setSpecRuleList(prev => {
+            let tmp = [];
+            specListTmp.forEach(spec => {
+                if (spec.selected) {
+                    let specRule = {
+                        specCode: spec.specCode,
+                        specName: spec.specName,
+                        selected: true,
+                        specItemRuleList: spec.specItemList
+                    };
+                    tmp.push(specRule);
+
+                    let specItemRuleList4Edit = props.specItemRuleList4Edit;
+                    if (isArray(specItemRuleList4Edit)) {
+                        specRule.specItemRuleList.forEach(specItemRule => {
+                            let selectedSpecItemRule = false;
+                            specItemRuleList4Edit.forEach(specItemRule4Edit => {
+                                if (specItemRule.specItemCode == specItemRule4Edit.specItemCode) {
+                                    selectedSpecItemRule = true;
+                                }
+                            });
+                            specItemRule.selected = selectedSpecItemRule;
+                        })
+                    }
+                }
+            });
+            return tmp;
+        });
+    }
+    const convertToSpecItemRuleList = () => {
+        let tmp = [];
+        specRuleList.forEach(specRule => {
+            specRule.specItemRuleList.forEach(specItemRule => {
+                if (specItemRule.selected) {
+                    tmp.push(specItemRule);
+                }
+            });
+        });
+        return tmp;
+
+    }
     useEffect(() => {
-        props.updateSpecRuleList(specRuleList);
+        props.updateSpecItemRuleList(convertToSpecItemRuleList());
     }, [specRuleList]);
 
     return (
@@ -136,7 +189,7 @@ const TeaNewModalSpecPane = (props) => {
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
                                     {specRule.specItemRuleList.map((specItemRule) => (
-                                        <Button onClick={(e) => onClickSpecItem(specRule.specCode, specItemRule.specItemCode)} size='middle' style={{ backgroundColor: 1 == specItemRule.selected ? '#145CFE' : 'white', color: 1 == specItemRule.selected ? 'white' : 'black' }}>{specItemRule.specItemName}</Button>
+                                        <Button onClick={(e) => onClickSpecItem(specRule.specCode, specItemRule.specItemCode)} size='middle' style={{ backgroundColor: specItemRule.selected ? '#145CFE' : 'white', color: specItemRule.selected ? 'white' : 'black' }}>{specItemRule.specItemName}</Button>
                                     ))}
                                 </Space>
                             </div>

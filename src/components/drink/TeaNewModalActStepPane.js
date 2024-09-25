@@ -9,10 +9,24 @@ const TeaNewModalActStepPane = (props) => {
     // 数据定义
     const [toppingList4Select, setToppingList4Select] = useState();
     const [actStepList, setActStepList] = useState(() => {
-        if (isArray(props.actStepList4Edit)) {
-            return props.actStepList4Edit;
+        if (!isArray(props.toppingBaseRuleList4Edit)) {
+            return [];
         }
-        return [];
+
+        let actStepList = [];
+        props.toppingBaseRuleList4Edit.forEach(toppingBaseRule => {
+            let stepIndex = toppingBaseRule.stepIndex;
+            let actStep = actStepList[stepIndex - 1];
+            if (actStep == undefined) {
+                actStep = {
+                    stepIndex: stepIndex,
+                    toppingBaseRuleList: []
+                };
+                actStepList.push(actStep);
+            }
+            actStep.toppingBaseRuleList.push(toppingBaseRule);
+        });
+        return actStepList;
     });
     const [stepIndex, setStepIndex] = useState(() => {
         let stepIndex = 0;
@@ -75,9 +89,9 @@ const TeaNewModalActStepPane = (props) => {
                 if (actStep.stepIndex == stepIndex) {
                     let toppingBaseRuleList = [];
                     selectedToppingCodeList.forEach(selectedToppingCode => {
-                        let toppingTmp = findToppingBaseRuleByCode(selectedToppingCode, actStep.toppingBaseRuleList);
+                        let toppingTmp = findExistToppingRule(selectedToppingCode, actStep.toppingBaseRuleList);
                         if (toppingTmp == undefined) {
-                            toppingTmp = findToppingByCode(selectedToppingCode);
+                            toppingTmp = findNewToppingRule(selectedToppingCode, stepIndex);
                         }
                         toppingBaseRuleList.push(toppingTmp);
                     })
@@ -90,37 +104,51 @@ const TeaNewModalActStepPane = (props) => {
             return tmp;
         }));
     }
-    const findToppingByCode = (toppingCode) => {
+    const findNewToppingRule = (toppingCode, stepIndex) => {
         let toppingBaseRule = {};
         toppingList4Select.forEach(topping => {
             if (topping.toppingCode == toppingCode) {
+                toppingBaseRule.stepIndex = stepIndex;
                 toppingBaseRule.toppingCode = topping.toppingCode;
                 toppingBaseRule.toppingName = topping.toppingName;
                 toppingBaseRule.measureUnit = topping.measureUnit;
-                toppingBaseRule.state = topping.state;
                 toppingBaseRule.baseAmount = 0;
             }
         });
         return toppingBaseRule;
     }
-    const findToppingBaseRuleByCode = (toppingCode, toppingBaseRuleList) => {
+    const findExistToppingRule = (toppingCode, toppingBaseRuleList) => {
         let found = undefined;
         if (!isArray(toppingBaseRuleList)) {
             return found;
         }
 
-        toppingBaseRuleList.forEach(item => {
-            if (item.toppingCode == toppingCode) {
-                found = item;
+        toppingBaseRuleList.forEach(toppingBaseRule => {
+            if (toppingBaseRule.toppingCode == toppingCode) {
+                found = toppingBaseRule;
             }
         });
         return found;
+    }
+    const convertToToppingBaseRuleList = () => {
+        let tmp = [];
+        if (!isArray(actStepList)) {
+            return tmp;
+        }
+        actStepList.forEach(actStep => {
+            if (isArray(actStep.toppingBaseRuleList)) {
+                actStep.toppingBaseRuleList.forEach(toppingBaseRule => {
+                    tmp.push(toppingBaseRule);
+                });
+            }
+        });
+        return tmp;
     }
     useEffect(() => {
         fetchToppingList4Select();
     }, []);
     useEffect(() => {
-        props.updateActStepList(actStepList);
+        props.updateToppingBaseRuleList(convertToToppingBaseRuleList(actStepList));
     }, [actStepList]);
 
     // 表格定义
@@ -154,8 +182,8 @@ const TeaNewModalActStepPane = (props) => {
         if (!isArray(toppingBaseRuleList)) {
             return tmp;
         }
-        toppingBaseRuleList.forEach(item => {
-            tmp.push(item.toppingCode);
+        toppingBaseRuleList.forEach(toppingBaseRule => {
+            tmp.push(toppingBaseRule.toppingCode);
         })
         return tmp;
     }
