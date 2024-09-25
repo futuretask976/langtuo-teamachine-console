@@ -38,8 +38,8 @@ const TeaNewModalAdjustRulePane = (props) => {
                     let v2 = arr2[j];
                     if (v1.teaUnitName.length > 0) {
                         ans.push({
-                            teaUnitName: v1.teaUnitName + '-' + v2.specItemName,
-                            teaUnitCode: v1.teaUnitCode + '-' + v2.specItemCode
+                            teaUnitName: v1.teaUnitName.localeCompare(v2.specItemName) ? v1.teaUnitName + '-' + v2.specItemName : v2.teaUnitName + '-' + v1.specItemName,
+                            teaUnitCode: v1.teaUnitCode.localeCompare(v2.teaUnitCode) ? v1.teaUnitCode + '-' + v2.specItemCode : v2.teaUnitCode + '-' + v1.specItemCode
                         });
                     } else {
                         ans.push({
@@ -123,6 +123,8 @@ const TeaNewModalAdjustRulePane = (props) => {
         setTeaUnitList(prev => {
             prev.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
             teaUnitListTmp.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
+            console.log('$$$$$ teaNewModalAdjustPane#teaUnitList prev=', prev);
+            console.log('$$$$$ teaNewModalAdjustPane#teaUnitList teaUnitListTmp=', teaUnitListTmp);
             if (isEqualTeaUnitList(prev, teaUnitListTmp)) {
                 return prev;
             } else {
