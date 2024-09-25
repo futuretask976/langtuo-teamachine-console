@@ -64,7 +64,7 @@ const TeaNewModalBaseRulePane = (props) => {
                     columns={toppingConfigCols} 
                     dataSource={toppingBaseRuleList} 
                     pagination={false} 
-                    scroll={{ y: 350 }} 
+                    scroll={{ y: 275 }} 
                     size='small' 
                     style={{width: '100%'}}
                     rowKey='toppingCode'/>
