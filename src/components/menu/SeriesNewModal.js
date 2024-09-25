@@ -137,7 +137,7 @@ const SeriesNewModal = (props) => {
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
             title="新建/编辑系列"
-            width={625}
+            width={650}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
@@ -191,7 +191,7 @@ const SeriesNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={20}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                <TextArea rows={3} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
