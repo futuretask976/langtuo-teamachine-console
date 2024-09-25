@@ -7,7 +7,6 @@ import { isArray, isBlankObj, isNumber } from '../../js/common.js';
 const TeaNewModalAdjustRulePane = (props) => {
     // 数据定义
     const [teaUnitList, setTeaUnitList] = useState(() => {
-        console.log('$$$$$ teaNewModalAdjustPane#teaUnitList props.teaUnitList4Edit=', props.teaUnitList4Edit);
         if (isArray(props.teaUnitList4Edit)) {
             let tmp = [...props.teaUnitList4Edit];
             tmp.forEach(teaUnit => {
@@ -131,6 +130,10 @@ const TeaNewModalAdjustRulePane = (props) => {
                 return teaUnitListTmp;
             }
         });
+
+        if (teaUnitListTmp.length > 0) {
+            onClickTeaUnit(undefined, teaUnitListTmp[0].teaUnitCode);
+        }
     }
     useEffect(() => {
         genTeaUnitList();
@@ -153,7 +156,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                             toppingAdjustRule.actualAmount = calcActualAmount(toppingAdjustRule);
                         })
                         return teaUnit.toppingAdjustRuleList;
-                    })
+                    });
                 } else {
                     teaUnit.backgroundColor = '#FFFFFF';
                     teaUnit.textColor = '#818181';
@@ -162,7 +165,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                 tmp.push(teaUnit);
             });
             return tmp;
-        })
+        });
     }
     useEffect(() => {
         props.updateTeaUnitList(teaUnitList);
