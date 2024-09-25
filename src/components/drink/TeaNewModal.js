@@ -81,12 +81,13 @@ const TeaNewModal = (props) => {
         }).then(respData => {
             if (respData.success) {
                 alert("保存成功！");
+                setLoading(false);
+                props.onClose();
+                setOpen(false);
             } else {
                 alert('保存失败：' + respData.errorMsg);
+                setLoading(false);
             }
-            setLoading(false);
-            props.onClose();
-            setOpen(false);
         });
     };
     const onClickCancel = () => {
