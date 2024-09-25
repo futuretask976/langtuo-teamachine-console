@@ -189,7 +189,7 @@ const TeaNewModalSpecPane = (props) => {
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45, width: '100%'}}>
                                 <Space size="small">
                                     {specRule.specItemRuleList.map((specItemRule) => (
-                                        <Button onClick={(e) => onClickSpecItem(specRule.specCode, specItemRule.specItemCode)} size='middle' style={{ backgroundColor: specItemRule.selected ? '#145CFE' : 'white', color: specItemRule.selected ? 'white' : 'black' }}>{specItemRule.specItemName}</Button>
+                                        <Button onClick={(e) => onClickSpecItem(specRule.specCode, specItemRule.specItemCode)} size='middle' style={{ backgroundColor: specItemRule.selected ? '#353535' : 'white', color: specItemRule.selected ? 'white' : 'black' }}>{specItemRule.specItemName}</Button>
                                     ))}
                                 </Space>
                             </div>

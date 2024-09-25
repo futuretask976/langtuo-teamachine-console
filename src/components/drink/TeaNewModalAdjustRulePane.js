@@ -10,9 +10,9 @@ const TeaNewModalAdjustRulePane = (props) => {
         console.log('$$$$$ teaNewModalAdjustPane#teaUnitList props.teaUnitList4Edit=', props.teaUnitList4Edit);
         if (isArray(props.teaUnitList4Edit)) {
             let tmp = [...props.teaUnitList4Edit];
-            tmp.forEach(item => {
-                item.backgroundColor = '#FFFFFF';
-                item.textColor = '#818181';
+            tmp.forEach(teaUnit => {
+                teaUnit.backgroundColor = '#FFFFFF';
+                teaUnit.textColor = '#818181';
             });
             return tmp;
         }
@@ -95,7 +95,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             }
             return specItemRuleLists;
         }
-        const isEqualTeaUnitList = (teaUnitList1, teaUnitList2) => {
+        const teaUnitListEqual = (teaUnitList1, teaUnitList2) => {
             let length1 = teaUnitList1.length;
             let length2 = teaUnitList2.length;
             if (length1 != length2) {
@@ -118,14 +118,14 @@ const TeaNewModalAdjustRulePane = (props) => {
         let teaUnitListTmp = getArrbyArr(specItemRuleListBySpecCode);
         teaUnitListTmp.forEach(teaUnit => {
             teaUnit.toppingAdjustRuleList = genToppingAdjustRuleList();
+            teaUnit.backgroundColor = '#FFFFFF';
+            teaUnit.textColor = '#818181';
         });
         
         setTeaUnitList(prev => {
             prev.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
             teaUnitListTmp.sort((a, b) => a.teaUnitCode.localeCompare(b.teaUnitCode));
-            console.log('$$$$$ teaNewModalAdjustPane#teaUnitList prev=', prev);
-            console.log('$$$$$ teaNewModalAdjustPane#teaUnitList teaUnitListTmp=', teaUnitListTmp);
-            if (isEqualTeaUnitList(prev, teaUnitListTmp)) {
+            if (teaUnitListEqual(prev, teaUnitListTmp)) {
                 return prev;
             } else {
                 return teaUnitListTmp;
@@ -143,7 +143,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             let tmp = [];
             teaUnitList.forEach(teaUnit => {
                 if (teaUnit.teaUnitCode == teaUnitCode) {
-                    teaUnit.backgroundColor = '#145CFE';
+                    teaUnit.backgroundColor = '#353535';
                     teaUnit.textColor = '#FFFFFF';
                     teaUnit.selected = 1;
                     setCurTeaUnitCode(teaUnit.teaUnitCode);
