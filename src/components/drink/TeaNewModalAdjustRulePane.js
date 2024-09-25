@@ -370,7 +370,9 @@ const TeaNewModalAdjustRulePane = (props) => {
                 <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: '100%', width: '69%'}}>
                     <Table 
                         columns={toppingAdjustRuleCols} 
-                        dataSource={curToppingAdjustRuleList} 
+                        dataSource={curToppingAdjustRuleList}
+                        pagination={false} 
+                        scroll={{ y: 275 }}  
                         size='small' 
                         style={{width: '100%'}} 
                         rowKey={record=>record.toppingCode}/>
