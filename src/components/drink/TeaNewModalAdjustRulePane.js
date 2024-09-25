@@ -113,8 +113,11 @@ const TeaNewModalAdjustRulePane = (props) => {
 
         // 从specRuleList过滤出上一步选中的specItem，放到specItemRuleLists中
         let specItemRuleListBySpecCode = genSpecItemRuleListBySpecCode(props.specItemRuleList4Edit);
-        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList props.specItemRuleList4Edit=', props.specItemRuleList4Edit);
-        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList specItemRuleListBySpecCode=', specItemRuleListBySpecCode);
+        console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList props.specItemRuleList4Edit=', props.specItemRuleList4Edit);
+        console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList specItemRuleListBySpecCode=', specItemRuleListBySpecCode);
+        if (specItemRuleListBySpecCode.length <= 0) {
+            return;
+        }
 
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
         let teaUnitListTmp = getArrbyArr(specItemRuleListBySpecCode);
