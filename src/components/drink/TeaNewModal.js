@@ -162,9 +162,6 @@ const TeaNewModal = (props) => {
         });
     };
     const updateToppingBaseRuleList = (toppingBaseRuleList) => {
-        console.log('$$$$$ teaNewModal#updateToppingBaseRuleList toppingBaseRuleList=', toppingBaseRuleList);
-        console.log('$$$$$ teaNewModal#updateToppingBaseRuleList tea.toppingBaseRuleList=', tea.toppingBaseRuleList);
-        console.log('$$$$$ teaNewModal#updateToppingBaseRuleList arraysEqual=', arraysEqual(toppingBaseRuleList, tea.toppingBaseRuleList));
         if (!arraysEqual(toppingBaseRuleList, tea.toppingBaseRuleList)) {
             updateTeaUnitList(undefined);
         }

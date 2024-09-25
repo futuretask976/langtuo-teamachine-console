@@ -21,7 +21,6 @@ const TeaUploadModal = (props) => {
     };
 
     // 数据定义相关
-    const [imgLink, setImgLink] = useState('');
     const [fileList, setFileList] = useState([]);
 
     // 上传文件相关
@@ -36,7 +35,6 @@ const TeaUploadModal = (props) => {
        
         post4Import('/drinkset/tea/upload', formData)
         .then(response => {
-            console.log('File uploaded successfully');
             // 处理响应数据
             onSuccess(
                 response,
@@ -47,11 +45,11 @@ const TeaUploadModal = (props) => {
     const beforeUpload = (file) => {
         const isExcel = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
         if (!isExcel) {
-            message.error('You can only upload xlsx file!');
+            alert('仅允许上传 xlsx 文件！');
         }
         const isLt10M = file.size / 1024 / 1024 < 10;
         if (!isLt10M) {
-            message.error('Image must smaller than 10MB!');
+            alert('文件必须小于 10 MB！');
         }
         return (isExcel && isLt10M) || Upload.LIST_IGNORE;
     };
@@ -72,11 +70,16 @@ const TeaUploadModal = (props) => {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === "done") {
-                message.success(`${info.file.name} 文件上传成功`);
-                console.log('$$$$$ info.file.response.name=', info.file.response.name);
-                console.log('$$$$$ info.file.status=done, info=', info);
-                console.log('$$$$$ info.file.status=done, fileList=', fileList);
-                setImgLink(info.file.response.name);
+                let model = info.file.response;
+                if (model.success) {
+                    alert(`${info.file.name} 文件上传成功！`);
+                } else {
+                    alert(`${info.file.name} 文件处理失败：` + model.errorMsg);
+                }
+                console.log('$$$$$ info=', info);
+                // console.log('$$$$$ teaUploadModal#uploadProps info.file.response.name=', info.file.response.name);
+                // console.log('$$$$$ teaUploadModal#uploadProps info.file.status=done, info=', info);
+                // console.log('$$$$$ teaUploadModal#uploadProps info.file.status=done, fileList=', fileList);
             } else if (info.file.status === "error") {
                 info.fileList = info.fileList.filter(
                     (item) => item.uid !== info.file.uid,
