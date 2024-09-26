@@ -172,20 +172,22 @@ const SpecNewModal = (props) => {
         setSpecItemList(prev => {
             let tmp = [];
             let matched = false;
-            prev.forEach(item => {
-                if (item.specItemCode == specItemCode) {
-                    matched = true;
-                    tmp.push({
-                        key: specItemCode,
-                        specItemCode: specItemCode,
-                        specItemName: specItemName,
-                        outerSpecItemCode: outerSpecItemCode,
-                        actions: ['edit', 'delete']
-                    });
-                } else {
-                    tmp.push(item);
-                }
-            });
+            if (isArray(prev)) {
+                prev.forEach(item => {
+                    if (item.specItemCode == specItemCode) {
+                        matched = true;
+                        tmp.push({
+                            key: specItemCode,
+                            specItemCode: specItemCode,
+                            specItemName: specItemName,
+                            outerSpecItemCode: outerSpecItemCode,
+                            actions: ['edit', 'delete']
+                        });
+                    } else {
+                        tmp.push(item);
+                    }
+                });
+            }
             if (!matched) {
                 tmp.push({
                     key: specItemCode,
