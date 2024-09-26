@@ -225,8 +225,8 @@ const CleanRuleNewModal = (props) => {
             title={props.modalTitle}
             width={850}
         >
-            <div className="flex-col-cont" style={{height: 400, width: '100%'}}>
-                <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
+            <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 375, width: '100%'}}>
+                <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>
                         <Space size='small'><span style={{color: 'red'}}>*</span><span>规则编码：</span></Space>
                     </div>
@@ -240,7 +240,7 @@ const CleanRuleNewModal = (props) => {
                         <Input placeholder="规则名称" onChange={(e) => setCleanRuleName(e.target.value)} value={cleanRuleName}/>
                     </div>
                 </div>
-                <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
+                <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>提前提醒：</div>
                     <div style={{width: '35%'}}>
                         <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={permitRemind === 1 ? true : false} size="middle" onChange={(e) => setPermitRemind(e ? 1 : 0)}/>
@@ -250,7 +250,7 @@ const CleanRuleNewModal = (props) => {
                         <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={permitBatch === 1 ? true : false} size="middle" onChange={(e) => setPermitBatch(e ? 1 : 0)}/>
                     </div>
                 </div>
-                <div className="flex-row-cont" style={{height: '9%', width: '100%'}}>
+                <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>不清洗的物料：</div>
                     <div style={{width: '85%'}}>
                         <Select
@@ -264,10 +264,10 @@ const CleanRuleNewModal = (props) => {
                         />
                     </div>
                 </div>
-                <div className="flex-row-cont" style={{height: '3%', width: '100%'}}>
+                <div className="flex-row-cont" style={{height: 10, width: '100%'}}>
                     &nbsp;
                 </div>
-                <div style={{height: '70%', width: '100%'}}>
+                <div style={{height: 185, width: '100%'}}>
                     <Tabs type="editable-card" 
                         onChange={(e) => setActiveKey(e)} 
                         activeKey={activeKey} 

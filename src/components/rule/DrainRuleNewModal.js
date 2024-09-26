@@ -204,12 +204,12 @@ const DrainRuleNewModal = (props) => {
                 centered
                 confirmLoading={loading}
                 open={open}
-                title="新建规则"
+                title="新建/编辑规则22"
                 onOk={onClickOK}
                 onCancel={onClickCancel}
-                width={800}
+                width={750}
             >
-                <div style={{height: 500, width: '100%'}}>
+                <div style={{height: 450, width: '100%'}}>
                     <Space direction='vertical' size={20}>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
@@ -296,7 +296,7 @@ const DrainRuleNewModal = (props) => {
                                     dataSource={toppingRuleList}
                                     pagination={false}
                                     rowKey={record=>record.toppingCode}
-                                    scroll={{ y: 170 }}
+                                    scroll={{ y: 200 }}
                                     size='small'
                                     style={{width: '100%'}} />
                             </Col>

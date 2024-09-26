@@ -56,11 +56,11 @@ function LoginPage() {
         //     console.log('$$$$$ error=', error)
         // });
 
-        axios.get('http://localhost:8080/teamachinebackend/drinkset/spec/list?tenantCode=tenant_001', {
+        axios.get('http://localhost:8080/teamachinebackend/menuset/menu/trigger?tenantCode=tenant_001&shopGroupCode=shopGroup_07&machineCode=20240904000004', {
             headers: {
                 'Tenant-Code': 'tenant_001',
-                'Machine-Code': 'machine_333',
-                'Deploy-Code': '30rqiy'
+                'Machine-Code': '20240904000004',
+                'Deploy-Code': 'u4m6xa'
             }
         })
         .then(response => {
