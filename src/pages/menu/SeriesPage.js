@@ -21,6 +21,7 @@ const SeriesPage = () => {
     const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setSeriesCode4Edit(undefined);
+        console.log('$$$$$ seriesPage#onCloseNewModal refresh=', refresh);
         if (refresh) {
             refreshList();
         }

@@ -42,7 +42,7 @@ const SeriesNewModal = (props) => {
             if (respData.success) {
                 alert("保存成功");
                 setLoading(false);
-                props.onClose();
+                props.onClose(true);
                 setOpen(false);
             } else {
                 alert('保存失败：' + respData.errorMsg);
