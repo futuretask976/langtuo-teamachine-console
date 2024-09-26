@@ -37,6 +37,9 @@ const MachinePage = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',

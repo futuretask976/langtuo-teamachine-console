@@ -34,6 +34,9 @@ const OrderTeaReportPage = () => {
             tenantCode: getTenantCode(),
             shopGroupCode: selectedShopGruopCode
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopList4Select((prev => {
                 let shopList = [{
                     label: '全部',
@@ -56,6 +59,9 @@ const OrderTeaReportPage = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopList4Select((prev => {
                 let shopList = [{
                     label: '全部',
@@ -77,6 +83,9 @@ const OrderTeaReportPage = () => {
         get('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopGroupList4Select((prev => {
                 let shopGroupList = [{
                     label: '全部',

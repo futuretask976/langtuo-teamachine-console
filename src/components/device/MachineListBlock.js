@@ -27,8 +27,11 @@ const MachineListBlock = (props) => {
             pageNum: pageNum,
             pageSize: pageSize,
             tenantCode: getTenantCode()
-        }).then(resp => {
-            let model = resp.model;
+        }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
+            let model = respData.model;
             setPageNum(model.pageNum);
             setPageSize(model.pageSize);
             setTotal(model.total);

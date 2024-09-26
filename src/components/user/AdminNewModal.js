@@ -29,8 +29,8 @@ const AdminNewModal = (props) => {
             alert('备注不符合规则');
             return;
         }
-        if (isBlankStr(props.loginName4Edit)) {
-            if (!isValidCode(loginPass, true)) {
+        if (toUpdatePass) {
+            if (isBlankStr(loginPass)) {
                 alert('密码不符合规则');
                 return;
             }

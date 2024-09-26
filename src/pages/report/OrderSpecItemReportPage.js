@@ -34,6 +34,9 @@ const OrderSpecItemReportPage = () => {
             tenantCode: getTenantCode(),
             shopGroupCode: selectedShopGruopCode
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
@@ -56,6 +59,9 @@ const OrderSpecItemReportPage = () => {
         get('/shopset/shop/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
@@ -77,6 +83,9 @@ const OrderSpecItemReportPage = () => {
         get('/shopset/shop/group/listbyadminorg', {
             tenantCode: getTenantCode()
         }).then(respData => {
+            if (respData == undefined) {
+                return;
+            }
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
