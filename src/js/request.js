@@ -42,11 +42,11 @@ instance.interceptors.response.use(
                     } else if (status == '403') {
                         // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
                         alert('授权验证失败，请联系管理员授权！');
-                        return;
+                        return Promise.reject(error);
                     } else if (status == '404') {
                         // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
                         alert('页面未找到，请联系管理员！');
-                        return;
+                        return Promise.reject(error);
                     }
                 }
                 window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI(message);
@@ -55,7 +55,7 @@ instance.interceptors.response.use(
         }
         // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('发生未知错误，请联系管理员处理！');
         alert('发生未知错误，请联系管理员处理！');
-        return;
+        return Promise.reject(error);
 
         // 处理一些错误，如网络错误、服务器错误等
         // return Promise.reject(error);
