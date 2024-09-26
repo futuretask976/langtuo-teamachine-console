@@ -19,10 +19,12 @@ const WarningRulePage = (props) => {
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setWarningRuleCode4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onCloseDispatchModal = () => {

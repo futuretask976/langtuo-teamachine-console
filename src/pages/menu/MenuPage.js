@@ -19,10 +19,12 @@ const MenuPage = () => {
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setMenuCode4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
     const [openDispatchModal, setOpenDispatchModal] = useState(false);
     const onClickDispatch = (selectedMenuCode)=> {

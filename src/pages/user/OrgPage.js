@@ -18,10 +18,12 @@ const OrgPage = () => {
     const onClickNew = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setOrgName4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
 
     // 数据定义

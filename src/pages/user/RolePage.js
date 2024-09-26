@@ -18,10 +18,12 @@ const RolePage = () => {
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setRoleCode4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
 
     // 数据定义

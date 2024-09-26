@@ -20,10 +20,12 @@ const TeaPage = () => {
     const onClickNew = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setTeaCode4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
     const [openUploadModal, setUploadModal] = useState(false);
     const onClickUpload = () => {

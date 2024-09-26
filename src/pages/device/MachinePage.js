@@ -16,10 +16,12 @@ const MachinePage = () => {
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setMachineCode4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
 
     // 数据定义

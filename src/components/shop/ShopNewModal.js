@@ -40,16 +40,17 @@ const ShopNewModal = (props) => {
         }).then(resp => {
             if (resp.success) {
                 alert("保存成功！");
+                setLoading(false);
+                props.onClose(true);
+                setOpen(false);
             } else {
                 alert('保存失败：' + resp.errorMsg);
+                setLoading(false);
             }
-            setLoading(false);
-            props.onClose();
-            setOpen(false);
         });
     };
     const onClickCancel = () => {
-        props.onClose();
+        props.onClose(false);
         setOpen(false);
     };
 

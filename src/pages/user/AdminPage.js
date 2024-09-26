@@ -19,10 +19,12 @@ const AdminPage = () => {
     const onOpenNewModal = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModal = () => {
+    const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setLoginName4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
 
     // 数据定义

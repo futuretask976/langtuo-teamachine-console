@@ -18,10 +18,12 @@ const ModelPage = () => {
     const onCreateNewModelModal = () => {
         setOpenNewModal(true);
     };
-    const onCloseNewModelModal = () => {
+    const onCloseNewModelModal = (refresh) => {
         setOpenNewModal(false);
         setModelCode4Edit(undefined);
-        refreshList();
+        if (refresh) {
+            refreshList();
+        }
     }
 
     // 数据定义
