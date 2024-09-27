@@ -14,6 +14,10 @@ const OrgNewModal = (props) => {
             alert('组织名称不符合规则');
             return;
         }
+        if (!isValidName(parentOrgName, true)) {
+            alert('父组织名称不符合规则');
+            return;
+        }
         if (orgName == parentOrgName) {
             alert('父组织名称不能是自己');
             return;
@@ -45,7 +49,7 @@ const OrgNewModal = (props) => {
     // 数据定义
     const putNew = props.orgName4Edit == undefined ? true : false;
     const [orgName, setOrgName] = useState();
-    const [parentOrgName, setParentOrgName] = useState('总公司');
+    const [parentOrgName, setParentOrgName] = useState();
     const [parentOrgNameOpts, setParentOrgNameOpts] = useState();
 
     // 初始化定义

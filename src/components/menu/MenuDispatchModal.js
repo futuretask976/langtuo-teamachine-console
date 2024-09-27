@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Transfer, Col, Row } from 'antd';
 
 import '../../css/common.css';
-import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
+import { isArray, isBlankStr, getTenantCode, isBlankObj } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
 const MenuDispatchModal = (props) => {
@@ -50,6 +50,9 @@ const MenuDispatchModal = (props) => {
             menuCode: props.menuCode4Dispatch
         }).then(respData => {
             let model = respData.model;
+            if (isBlankObj(model)) {
+                return;
+            }
             setTargetKeys(respData => {
                 let tmp = [];
                 if (isArray(model.shopGroupCodeList)) {

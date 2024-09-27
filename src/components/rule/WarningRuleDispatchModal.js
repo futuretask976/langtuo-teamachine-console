@@ -11,7 +11,7 @@ const WarningRuleDispatchModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         setLoading(true);
-        put('/ruleset/drain/warning/put', {
+        put('/ruleset/warning/dispatch/put', {
             tenantCode: getTenantCode(),
             warningRuleCode: warningRuleCode,
             shopGroupCodeList: targetKeys
@@ -58,7 +58,7 @@ const WarningRuleDispatchModal = (props) => {
         });
     }
     const fetchShopGroupList4Transfer = () => {
-        get('/shopset/shop/group/listbyadminorg', {  
+        get('/shopset/shop/group/list', {  
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopGroupList4Transfer(prev => {

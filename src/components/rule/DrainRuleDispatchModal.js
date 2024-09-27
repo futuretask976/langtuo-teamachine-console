@@ -58,7 +58,7 @@ const DrainRuleDispatchModal = (props) => {
         });
     }
     const fetchShopGroupList4Transfer = () => {
-        get('/shopset/shop/group/listbyadminorg', {  
+        get('/shopset/shop/group/list', {  
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopGroupList4Transfer(prev => {

@@ -35,7 +35,7 @@ const ShopPage = () => {
 
     // 动作定义
     const fetchShopGroupList4Select = () => {
-        get('/shopset/shop/group/listbyadminorg', {
+        get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopGroupList4Select((prev => {

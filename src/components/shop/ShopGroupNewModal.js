@@ -20,7 +20,7 @@ const ShopGroupNewModal = (props) => {
             alert('店铺组名称不符合规则');
             return;
         }
-        if (!isValidName(orgName, false)) {
+        if (!isValidName(orgName, true)) {
             alert('组织架构不符合规则');
             return;
         }
@@ -59,7 +59,7 @@ const ShopGroupNewModal = (props) => {
     const [comment, setComment] = useState();
     const [shopGroupCode, setShopGroupCode] = useState();
     const [shopGroupName, setShopGroupName] = useState();
-    const [orgName, setOrgName] = useState('总公司');
+    const [orgName, setOrgName] = useState();
     const [orgList4Select, setOrgList4Select] = useState();
 
     // 初始化定义
