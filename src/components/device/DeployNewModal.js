@@ -66,7 +66,7 @@ const DeployNewModal = (props) => {
 
     // 初始化定义
     const fetchShopList4Select = () => {
-        get('/shopset/shop/listbyadminorg', {
+        get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopList4Select((prev => {

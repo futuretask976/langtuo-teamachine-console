@@ -85,7 +85,7 @@ const MachineDeployNewModal = (props) => {
         });
     }
     const fetchShopList4Select = () => {
-        get('/shopset/shop/listbyadminorg', {
+        get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
             setShopList4Select((prev => {

@@ -37,7 +37,7 @@ const DeployPage = () => {
 
     // 动作定义
     const fetchShopList4Select = () => {
-        get('/shopset/shop/listbyadminorg', {
+        get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
             if (respData == undefined) {

@@ -56,7 +56,7 @@ const OrderToppingReportPage = () => {
         });
     }
     const fetchShopList4Select = () => {
-        get('/shopset/shop/listbyadminorg', {
+        get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
             if (respData == undefined) {
@@ -80,7 +80,7 @@ const OrderToppingReportPage = () => {
         });
     }
     const fetchShopGroupList4Select = () => {
-        get('/shopset/shop/group/listbyadminorg', {
+        get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
             if (respData == undefined) {
