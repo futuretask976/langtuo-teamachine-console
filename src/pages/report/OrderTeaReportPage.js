@@ -38,19 +38,19 @@ const OrderTeaReportPage = () => {
                 return;
             }
             setShopList4Select((prev => {
-                let shopList = [{
+                let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopList.push({
+                        shopListTmp.push({
                             label: item.shopName,
                             value: item.shopCode
                         });
                     });
                 }
-                return shopList;
+                return shopListTmp;
             }));
             setShopCode4Search('');
         });
@@ -63,19 +63,19 @@ const OrderTeaReportPage = () => {
                 return;
             }
             setShopList4Select((prev => {
-                let shopList = [{
+                let shopListTmp = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopList.push({
+                        shopListTmp.push({
                             label: item.shopName,
                             value: item.shopCode
                         });
                     });
                 }
-                return shopList;
+                return shopListTmp;
             }));
         });
     }
@@ -87,19 +87,19 @@ const OrderTeaReportPage = () => {
                 return;
             }
             setShopGroupList4Select((prev => {
-                let shopGroupList = [{
+                let shopGroupListTmp = [{
                     label: '全部',
                     value: ''
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
-                        shopGroupList.push({
+                        shopGroupListTmp.push({
                             label: item.shopGroupName,
                             value: item.shopGroupCode
                         });
                     });
                 }
-                return shopGroupList;
+                return shopGroupListTmp;
             }));
         });
     }

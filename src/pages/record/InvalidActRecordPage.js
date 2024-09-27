@@ -11,14 +11,14 @@ import InvalidActRecordListBlock from '../../components/record/InvalidActRecordL
 import InvalidActRecordViewModal from '../../components/record/InvalidActRecordViewModal'
 
 const InvalidActRecordPage = () => {
-    // 面包屑相关
+    // 面包屑定义
     const breadcrumbPath = ['控制台', '动作记录', '废料记录管理'];
 
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState();
     const [shopGroupList4Select, setShopGroupList4Select] = useState();
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
-    const [shopCode4Search, setShopCode4Search] = useState();
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState(null);
+    const [shopCode4Search, setShopCode4Search] = useState(null);
     const [idempotentMark4View, setIdempotentMark4View] = useState();
 
     // 动作定义
@@ -33,7 +33,7 @@ const InvalidActRecordPage = () => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
-                    value: ''
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -45,7 +45,7 @@ const InvalidActRecordPage = () => {
                 }
                 return shopListTmp;
             }));
-            setShopCode4Search('');
+            setShopCode4Search(null);
         });
     }
     const fetchShopList4Select = () => {
@@ -58,7 +58,7 @@ const InvalidActRecordPage = () => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: '全部',
-                    value: ''
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -82,7 +82,7 @@ const InvalidActRecordPage = () => {
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
                     label: '全部',
-                    value: ''
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
