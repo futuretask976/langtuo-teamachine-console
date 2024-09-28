@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { theme, Space, Table } from 'antd';
+import { theme, Table } from 'antd';
 
 import '../../css/common.css';
 import { isArray, getTenantCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
-const OrderAmtReportListBlock = (props) => {
+const OrderReportListBlock = (props) => {
     // 样式相关
     const {
         token: { colorBgContainer },
@@ -13,13 +13,13 @@ const OrderAmtReportListBlock = (props) => {
 
     // 获取服务端数据相关
     const [pageNum, setPageNum] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
 
     // 初始化动作
     const fetchListData = () => {
-        get('/reportset/order/amtreport/search', {  
+        get('/reportset/order/orderreport/search', {  
             tenantCode: getTenantCode(),
             orderCreatedDay: props.orderCreatedDay,
             pageNum: pageNum,
@@ -67,7 +67,7 @@ const OrderAmtReportListBlock = (props) => {
     }
 
     return (
-        <div style={{ background: colorBgContainer, height: '100%' }}>
+        <div className='full-square' style={{ background: colorBgContainer }}>
             <Table
                 pagination={{
                     pageNum,
@@ -77,10 +77,11 @@ const OrderAmtReportListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.idempotentMark} />
+                rowKey={record=>record.idempotentMark}
+                size='small'/>
         </div>
     )
 };
 
-export default OrderAmtReportListBlock;
+export default OrderReportListBlock;
 

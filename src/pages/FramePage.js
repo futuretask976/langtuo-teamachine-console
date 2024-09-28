@@ -42,10 +42,7 @@ import DrainActRecordPage from './record/DrainActRecordPage';
 import CleanActRecordPage from './record/CleanActRecordPage';
 import OrderActRecordPage from './record/OrderActRecordPage';
 // reportSet
-import OrderAmtReportPage from './report/OrderAmtReportPage';
-import OrderTeaReportPage from './report/OrderTeaReportPage';
-import OrderSpecItemReportPage from './report/OrderSpecItemReportPage';
-import OrderToppingReportPage from './report/OrderToppingReportPage';
+import OrderReportPage from './report/OrderReportPage';
 
 const { Content } = Layout;
 
@@ -163,17 +160,8 @@ const FramePage = () => {
                                 <OrderActRecordPage/>
                             )}
 
-                            {menuItem == 'orderAmtReportMgt' && (
-                                <OrderAmtReportPage/>
-                            )}
-                            {menuItem == 'orderTeaReportMgt' && (
-                                <OrderTeaReportPage/>
-                            )}
-                            {menuItem == 'orderSpecItemReportMgt' && (
-                                <OrderSpecItemReportPage/>
-                            )}
-                            {menuItem == 'orderToppingReportMgt' && (
-                                <OrderToppingReportPage/>
+                            {menuItem == 'orderReportMgt' && (
+                                <OrderReportPage/>
                             )}
                         </Content>
                     </Layout>

@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Input, InputNumber, Modal, Radio, Space, Col, Row } from 'antd';
+import React, { useState } from 'react';
+import { DatePicker, Modal, Space, Col, Row } from 'antd';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { isBlankStr, getTenantCode } from '../../js/common.js';
+import { getTenantCode, getYesterday } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 dayjs.locale('zh-cn');
 
-const OrderSpecItemReportGenModal = (props) => {
-    // 对话框相关
+const OrderReportGenModal = (props) => {
+    // 对话框定义
+    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(true);
-    const onClickCancel = () => {
-        props.onClose();
-        setOpen(false);
-    };
-
-    // 数据初始化相关
-    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
-
     const onClickOK = () => {
-        alert('aab');
+        setLoading(true);
         get('/reportset/order/calc', {  
             tenantCode: getTenantCode(),
             orderCreatedDay: orderCreatedDay
@@ -28,13 +21,25 @@ const OrderSpecItemReportGenModal = (props) => {
             console.log('$$$$$ onClickOK respData=', respData);
             let model = respData.model;
             alert('生成报表需要时间，请等候 5 分钟后再次访问。');
+
+            setLoading(false);
+            props.onClose();
+            setOpen(false);
         });
     }
+    const onClickCancel = () => {
+        props.onClose();
+        setOpen(false);
+    };
+
+    // 数据定义
+    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
  
     return (
         <>
             <Modal
                 centered
+                confirmLoading={loading}
                 onCancel={onClickCancel}
                 onOk={onClickOK}
                 open={open}
@@ -69,4 +74,4 @@ const OrderSpecItemReportGenModal = (props) => {
     );
 };
  
-export default OrderSpecItemReportGenModal;
+export default OrderReportGenModal;

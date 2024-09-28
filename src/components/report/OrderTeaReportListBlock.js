@@ -13,7 +13,7 @@ const OrderTeaReportListBlock = (props) => {
 
     // 获取服务端数据相关
     const [pageNum, setPageNum] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
     const [list, setList] = useState([]);
 
@@ -56,18 +56,6 @@ const OrderTeaReportListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '店铺组编码',
-            dataIndex: 'shopGroupCode',
-            key: 'shopGroupCode',
-            width: '20%'
-        },
-        {
-            title: '店铺编码',
-            dataIndex: 'shopCode',
-            key: 'shopCode',
-            width: '20%'
-        },
-        {
             title: '茶品编码',
             dataIndex: 'teaCode',
             key: 'teaCode',
@@ -90,7 +78,7 @@ const OrderTeaReportListBlock = (props) => {
     }
 
     return (
-        <div style={{ background: colorBgContainer, height: '100%' }}>
+        <div className='full-square' style={{ background: colorBgContainer, height: '100%' }}>
             <Table
                 pagination={{
                     pageNum,
@@ -100,7 +88,8 @@ const OrderTeaReportListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.idempotentMark} />
+                rowKey={record=>record.idempotentMark}
+                size='small'/>
         </div>
     )
 };

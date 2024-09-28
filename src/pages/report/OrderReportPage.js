@@ -8,12 +8,15 @@ import { getTenantCode, getYesterday, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
+import OrderReportListBlock from '../../components/report/OrderReportListBlock'
+import OrderTeaReportListBlock from '../../components/report/OrderTeaReportListBlock'
+import OrderToppingReportListBlock from '../../components/report/OrderToppingReportListBlock'
 import OrderSpecItemReportListBlock from '../../components/report/OrderSpecItemReportListBlock'
-import OrderSpecItemReportGenModal from '../../components/report/OrderSpecItemReportGenModal'
+import OrderReportGenModal from '../../components/report/OrderReportGenModal'
 
-const OrderToppingReportPage = () => {
+const OrderReportPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '日常报表', '订单-规格项报表'];
+    const breadcrumbPath = ['控制台', '日常报表', '订单-数量报表'];
 
     // 对话框定义
     const [openViewModal, setOpenViewModal] = useState(false);
@@ -22,11 +25,11 @@ const OrderToppingReportPage = () => {
     }
 
     // 数据定义
-    const [shopList4Select, setShopList4Select] = useState([]);
-    const [shopGroupList4Select, setShopGroupList4Select] = useState([]);
+    const [shopList4Select, setShopList4Select] = useState();
+    const [shopGroupList4Select, setShopGroupList4Select] = useState();
     const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
-    const [shopCode4Search, setShopCode4Search] = useState('');
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
+    const [shopCode4Search, setShopCode4Search] = useState();
 
     // 动作定义
     const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
@@ -188,16 +191,31 @@ const OrderToppingReportPage = () => {
                         </Col>
                     </Row>
                 </div>
-                <div className="full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
-                    <OrderSpecItemReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
+                <div className="flex-col-cont full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
+                    <div className='flex-row-cont full-width' style={{height: '50%'}}>
+                        <div className='flex-row-cont full-width'>
+                            <OrderReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay}/>
+                        </div>
+                        <div className='flex-row-cont full-width'>
+                            <OrderTeaReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
+                        </div>
+                    </div>
+                    <div className='flex-row-cont full-width' style={{height: '50%'}}>
+                        <div className='flex-row-cont full-width'>
+                            <OrderToppingReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
+                        </div>
+                        <div className='flex-row-cont full-width'>
+                            <OrderSpecItemReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
+                        </div>
+                    </div>
                 </div>
-            </Space>            
+            </Space>
 
             {openViewModal && (
-                <OrderSpecItemReportGenModal onClose={onCloseViewModal}/>
+                <OrderReportGenModal onClose={onCloseViewModal}/>
             )}
         </>
     )
 };
 
-export default OrderToppingReportPage;
+export default OrderReportPage;

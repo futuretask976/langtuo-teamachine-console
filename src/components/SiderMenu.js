@@ -69,10 +69,7 @@ const SiderMenu4Frame = (props) => {
 			getItem('订单记录管理', 'orderActRecordMgt'),
         ]),
         getItem('日常报表', 'reportSet', <DiffOutlined />, [
-            getItem('订单-数量报表', 'orderAmtReportMgt'),
-            getItem('订单-茶品报表', 'orderTeaReportMgt'),
-            getItem('订单-规格项报表', 'orderSpecItemReportMgt'),
-            getItem('订单-物料报表', 'orderToppingReportMgt'),
+            getItem('订单报表', 'orderReportMgt'),
         ]),
     ];
 
