@@ -19,7 +19,7 @@ const OrderToppingReportListBlock = (props) => {
 
     // 初始化动作
     const fetchListData = () => {
-        get('/reportset/order/specitemreport/search', {  
+        get('/reportset/order/toppingreport/search', {  
             tenantCode: getTenantCode(),
             orderCreatedDay: props.orderCreatedDay,
             shopGroupCode: props.shopGroupCode4Search,
