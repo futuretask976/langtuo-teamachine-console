@@ -142,7 +142,7 @@ const SpecListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.specCode} />
+                rowKey={record => record.specCode}/>
         </div>
     )
 };

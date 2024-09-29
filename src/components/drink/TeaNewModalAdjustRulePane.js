@@ -122,8 +122,12 @@ const TeaNewModalAdjustRulePane = (props) => {
         }
 
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
-        specItemRuleListBySpecCode.sort((a, b)=>{
-            return a.specItemCode.localeCompare(b.specItemCode);
+        specItemRuleListBySpecCode.forEach(specItemRuleList => {
+            specItemRuleList.sort((a, b)=>{
+                console.log('$$$$$ specItemRuleListBySpecCode a=', a);
+                console.log('$$$$$ specItemRuleListBySpecCode b=', b);
+                return a.specItemCode.localeCompare(b.specItemCode);
+            });
         });
         let teaUnitListTmp = getArrbyArr(specItemRuleListBySpecCode);
         // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList teaUnitListTmp=', teaUnitListTmp);
@@ -242,7 +246,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             width: '15%',
             render: (_, { adjustMode, toppingCode }) => (
                 <Select
-                    disabled='true'
+                    disabled={true}
                     onChange={(e)=>onChangeAdjustMode(e, toppingCode)}
                     options={[
                         {
