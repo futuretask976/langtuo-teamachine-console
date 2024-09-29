@@ -27,7 +27,7 @@ const OrderReportPage = () => {
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState();
     const [shopGroupList4Select, setShopGroupList4Select] = useState();
-    const [orderCreatedDay, setOrderCreatedDay] = useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
+    const [orderCreatedDay, setOrderCreatedDay] = useState(); // useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
     const [shopCode4Search, setShopCode4Search] = useState();
 
@@ -191,20 +191,20 @@ const OrderReportPage = () => {
                         </Col>
                     </Row>
                 </div>
-                <div className="flex-col-cont full-width" style={{alignItems: 'center', backgroundColor: 'red', height: 740}}>
-                    <div className='flex-row-cont full-width' style={{height: '50%'}}>
-                        <div className='flex-row-cont full-width'>
+                <div className="flex-col-cont full-width" style={{alignItems: 'center', height: 740}}>
+                    <div className='flex-row-cont full-width' style={{marginBottom: 5, height: '50%'}}>
+                        <div className='flex-row-cont full-width' style={{marginRight: 3, height: '100%', width: '100%'}}>
                             <OrderReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay}/>
                         </div>
-                        <div className='flex-row-cont full-width'>
+                        <div className='flex-row-cont full-width' style={{marginLeft: 3, height: '100%', width: '100%'}}>
                             <OrderTeaReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
                         </div>
                     </div>
-                    <div className='flex-row-cont full-width' style={{height: '50%'}}>
-                        <div className='flex-row-cont full-width'>
+                    <div className='flex-row-cont full-width' style={{marginTop: 5, height: '50%'}}>
+                        <div className='flex-row-cont full-width' style={{marginRight: 3, height: '100%', width: '100%'}}>
                             <OrderToppingReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
                         </div>
-                        <div className='flex-row-cont full-width'>
+                        <div className='flex-row-cont full-width' style={{marginLeft: 3, height: '100%', width: '100%'}}>
                             <OrderSpecItemReportListBlock key={refreshListKey} orderCreatedDay={orderCreatedDay} shopGroupCode4Search={shopGroupCode4Search} shopCode4Search={shopCode4Search}/>
                         </div>
                     </div>

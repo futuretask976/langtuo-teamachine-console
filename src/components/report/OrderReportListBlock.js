@@ -78,7 +78,8 @@ const OrderReportListBlock = (props) => {
                 columns={columns} 
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
-                size='small'/>
+                size='small'
+                title={() => '订单数据'}/>
         </div>
     )
 };

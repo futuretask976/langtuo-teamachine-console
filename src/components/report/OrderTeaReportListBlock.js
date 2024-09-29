@@ -89,7 +89,8 @@ const OrderTeaReportListBlock = (props) => {
                 columns={columns} 
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
-                size='small'/>
+                size='small'
+                title={() => '订单茶品数据'}/>
         </div>
     )
 };

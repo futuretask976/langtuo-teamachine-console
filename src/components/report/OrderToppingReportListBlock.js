@@ -78,7 +78,7 @@ const OrderToppingReportListBlock = (props) => {
     }
 
     return (
-        <div className='full-square' style={{ background: 'blue', height: '100%' }}>
+        <div className='full-square' style={{ background: colorBgContainer, height: '100%' }}>
             <Table
                 pagination={{
                     pageNum,
@@ -89,7 +89,8 @@ const OrderToppingReportListBlock = (props) => {
                 columns={columns} 
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
-                size='small'/>
+                size='small'
+                title={() => '订单物料数据'}/>
         </div>
     )
 };
