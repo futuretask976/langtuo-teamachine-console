@@ -97,7 +97,7 @@ const ModelNewModal = (props) => {
                 pipelineNum: pipelineNumIdx,
                 enableFreeze: 0,
                 enableWarm: 0,
-                capacity: 0
+                capacity: 2000
             });
             setPipelineNumIdx(pipelineNumIdx + 1);
             return tmp;
