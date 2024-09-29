@@ -23,13 +23,6 @@ const TeaNewModalAdjustRulePane = (props) => {
 
     // 规格项组合初始化定义
     const genTeaUnitList = () => {
-        const getArrbyArr = (targetArr) => {
-            var ans = [{teaUnitName: '', teaUnitCode: ''}];
-            for (let i = 0; i < targetArr.length; ++i) {
-                ans = getValuebyArr(ans, targetArr[i]);
-            }
-            return ans;
-        }
         const getValuebyArr = (arr1, arr2) => {
             var ans = [];
             for (let i = 0; i < arr1.length; ++i) {
@@ -38,17 +31,26 @@ const TeaNewModalAdjustRulePane = (props) => {
                     let v2 = arr2[j];
                     if (v1.teaUnitName.length > 0) {
                         ans.push({
-                            teaUnitName: v1.teaUnitName.localeCompare(v2.specItemName) ? v1.teaUnitName + '-' + v2.specItemName : v2.teaUnitName + '-' + v1.specItemName,
-                            teaUnitCode: v1.teaUnitCode.localeCompare(v2.teaUnitCode) ? v1.teaUnitCode + '-' + v2.specItemCode : v2.teaUnitCode + '-' + v1.specItemCode
+                            teaUnitName: v1.teaUnitName + '-' + v2.specItemName,
+                            teaUnitCode: v1.teaUnitCode + '-' + v2.specItemCode,
+                            outerTeaUnitCode: v1.outerTeaUnitCode + '-' + v2.outerSpecItemCode
                         });
                     } else {
                         ans.push({
                             teaUnitName: v2.specItemName,
-                            teaUnitCode: v2.specItemCode
+                            teaUnitCode: v2.specItemCode,
+                            outerTeaUnitCode: v2.outerSpecItemCode
                         });
                     }
                 };
             };
+            return ans;
+        }
+        const getArrbyArr = (targetArr) => {
+            var ans = [{teaUnitName: '', teaUnitCode: ''}];
+            for (let i = 0; i < targetArr.length; ++i) {
+                ans = getValuebyArr(ans, targetArr[i]);
+            }
             return ans;
         }
         const genToppingAdjustRuleList = () => {
@@ -120,6 +122,9 @@ const TeaNewModalAdjustRulePane = (props) => {
         }
 
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
+        specItemRuleListBySpecCode.sort((a, b)=>{
+            return a.specItemCode.localeCompare(b.specItemCode);
+        });
         let teaUnitListTmp = getArrbyArr(specItemRuleListBySpecCode);
         // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList teaUnitListTmp=', teaUnitListTmp);
         teaUnitListTmp.forEach(teaUnit => {

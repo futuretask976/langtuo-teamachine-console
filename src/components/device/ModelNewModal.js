@@ -97,6 +97,7 @@ const ModelNewModal = (props) => {
                 pipelineNum: pipelineNumIdx,
                 enableFreeze: 0,
                 enableWarm: 0,
+                capacity: 0
             });
             setPipelineNumIdx(pipelineNumIdx + 1);
             return tmp;
@@ -142,6 +143,20 @@ const ModelNewModal = (props) => {
         }));
 
         pipeline.enableWarm = value ? 1 : 0;
+    }
+    const onChangeCapacity = (value, pipeline) => {
+        setPipelineList((prev => {
+            let tmp = [];
+            prev.forEach((ite, index) => {
+                if (ite.pipelineNum === pipeline.pipelineNum) {
+                    ite.capacity = value;
+                }
+                tmp.push(ite);
+            });
+            return tmp;
+        }));
+
+        pipeline.capacity = value;
     }
  
     return (
@@ -221,10 +236,15 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
+                                    <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={6}>
+                            <Col className="gutter-row" span={3}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
+                                    <InputNumber min={0} max={999} onChange={(value) => onChangeCapacity(value, pipeline)} value={pipeline.capacity}/>
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={3}>
                                 &nbsp;
                             </Col>
                         </Row>
