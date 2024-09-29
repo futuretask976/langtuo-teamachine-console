@@ -76,6 +76,7 @@ const TeaNewModal = (props) => {
             imgLink: tea.imgLink,
             toppingBaseRuleList: tea.toppingBaseRuleList,
             specItemRuleList: tea.specItemRuleList,
+            specRuleList: tea.specRuleList,
             teaUnitList: tea.teaUnitList,
             putNew: putNew
         }).then(respData => {
@@ -179,6 +180,13 @@ const TeaNewModal = (props) => {
             return tmp;
         });
     };
+    const updateSpecRuleList = (specItemRuleList) => {
+        setTea(prev => {
+            let tmp = {...prev};
+            tmp.specRuleList = specItemRuleList;
+            return tmp;
+        });
+    };
     const updateTeaUnitList = (teaUnitList) => {
         setTea(prev => {
             let tmp = {...prev};
@@ -210,7 +218,7 @@ const TeaNewModal = (props) => {
                         <TeaNewModalBaseRulePane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} updateToppingBaseRuleList={updateToppingBaseRuleList} />
                     )}
                     {showStepPane && curStep == 3 && (
-                        <TeaNewModalSpecPane specItemRuleList4Edit={tea.specItemRuleList} updateSpecItemRuleList={updateSpecItemRuleList} />
+                        <TeaNewModalSpecPane specRuleList4Edit={tea.specRuleList} specItemRuleList4Edit={tea.specItemRuleList} updateSpecRuleList={updateSpecRuleList} updateSpecItemRuleList={updateSpecItemRuleList} />
                     )}
                     {showStepPane && curStep == 4 && (
                         <TeaNewModalAdjustRulePane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} specItemRuleList4Edit={tea.specItemRuleList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />

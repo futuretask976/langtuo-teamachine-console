@@ -11,16 +11,16 @@ const TeaNewModalSpecPane = (props) => {
     const [specRuleList, setSpecRuleList] = useState([]);
 
     // 动作定义
-    const refreshSpecList = (specListTmp) => {
-        let specItemRuleList4Edit = props.specItemRuleList4Edit;
-        if (!isArray(specItemRuleList4Edit)) {
+    const refreshSelected4SpecList = (specListTmp) => {
+        let specRuleList4Edit = props.specRuleList4Edit;
+        if (!isArray(specRuleList4Edit)) {
             return;
         }
 
         specListTmp.forEach(spec => {
             let selectedSpec = false;
-            specItemRuleList4Edit.forEach(specItemRule => {
-                if (spec.specCode == specItemRule.specCode) {
+            specRuleList4Edit.forEach(specRule4Edit => {
+                if (spec.specCode == specRule4Edit.specCode) {
                     selectedSpec = true;
                 }
             });
@@ -61,7 +61,7 @@ const TeaNewModalSpecPane = (props) => {
                     });
                 }
 
-                refreshSpecList(tmp);
+                refreshSelected4SpecList(tmp);
                 refreshSpecRuleList(tmp);
                 return tmp;
             });
@@ -91,13 +91,9 @@ const TeaNewModalSpecPane = (props) => {
     }
     const convertToSelectedSpecCode = () => {
         let tmp = [];
-        if (isArray(specList4Select)) {
-            specList4Select.forEach(spec => {
-                if (spec.selected) {
-                    tmp.push(spec.specCode);
-                }
-            });
-        }
+        specRuleList.forEach(specRule => {
+            tmp.push(specRule.specCode);
+        });
         return tmp;
     }
     const onClickSpecItem = (selectedSpecCode, selectedSpecItemCode) => {
@@ -128,14 +124,16 @@ const TeaNewModalSpecPane = (props) => {
                     };
                     tmp.push(specRule);
 
-                    let specItemRuleList4Edit = props.specItemRuleList4Edit;
-                    if (isArray(specItemRuleList4Edit)) {
+                    let specRuleList4Edit = props.specRuleList4Edit;
+                    if (isArray(specRuleList4Edit)) {
                         specRule.specItemRuleList.forEach(specItemRule => {
                             let selectedSpecItemRule = false;
-                            specItemRuleList4Edit.forEach(specItemRule4Edit => {
-                                if (specItemRule.specItemCode == specItemRule4Edit.specItemCode) {
-                                    selectedSpecItemRule = true;
-                                }
+                            specRuleList4Edit.forEach(specRule4Edit => {
+                                specRule4Edit.specItemRuleList.forEach(specItemRule4Edit => {
+                                    if (specItemRule.specItemCode == specItemRule4Edit.specItemCode) {
+                                        selectedSpecItemRule = true;
+                                    }
+                                });
                             });
                             specItemRule.selected = selectedSpecItemRule;
                         })
@@ -157,7 +155,18 @@ const TeaNewModalSpecPane = (props) => {
         return tmp;
 
     }
+    const filterSpecRuleList = () => {
+        let specRuleListTmp = [];
+        specRuleList.forEach(specRule => {
+            let specRuleTmp = {...specRule};
+            specRuleTmp.specItemRuleList = specRuleTmp.specItemRuleList
+                    .filter(specItemRule => specItemRule.selected);
+            specRuleListTmp.push(specRuleTmp);
+        });
+        return specRuleListTmp;
+    }
     useEffect(() => {
+        props.updateSpecRuleList(filterSpecRuleList());
         props.updateSpecItemRuleList(convertToSpecItemRuleList());
     }, [specRuleList]);
 
