@@ -122,7 +122,7 @@ const AndroidAppUploadModal = (props) => {
     };
     const OssUpload = async (option) => {
         const { file, onSuccess, onProgress, onError } = option;
-        const folder = "teamachine/android/app";
+        const folder = "android";
         const url = uploadPath(folder, file);
 
         const ossClient = await getAliOssClient();

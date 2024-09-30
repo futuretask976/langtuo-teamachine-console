@@ -175,7 +175,7 @@ const TeaNewModalInfoPane = (props) => {
     };
     const OssUpload = async (option) => {
         const { file, onSuccess, onProgress, onError } = option;
-        const folder = "teamachine/tea";
+        const folder = "teaImg";
         const url = uploadPath(folder, file);
 
         const ossClient = await getAliOssClient();
