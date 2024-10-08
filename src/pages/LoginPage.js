@@ -45,8 +45,8 @@ function LoginPage() {
         // }, {
         //     headers: {
         //         'Tenant-Code': 'tenant_001',
-        //         'Machine-Code': '202408140011',
-        //         'Deploy-Code': 'Rb1x0DQCYieDRrcrApmv'
+        //         'Machine-Code': '20240904000004',
+        //         'Deploy-Code': 'u4m6xa'
         //     }
         // })
         // .then(response => {
