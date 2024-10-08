@@ -12,6 +12,7 @@ instance.interceptors.request.use(
     (config) => {
         // 在请求发送前添加请求头
         config.headers['Authorization'] = localStorage.getItem('jwtToken');
+        config.headers['Lang'] = 'zh_CN';
         return config;
     },
     (error) => {
