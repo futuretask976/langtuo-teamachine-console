@@ -3,7 +3,7 @@ import { Button, Select, Space, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode, isArray } from '../../js/common.js';
+import { getTenantCode, isArray, isBlankStr } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -12,20 +12,25 @@ import OrderActRecordViewModal from '../../components/record/OrderActRecordViewM
 
 const OrderActRecordPage = () => {
     // 面包屑相关
-    const breadcrumbPath = ['控制台', '动作记录', '补料记录管理'];
+    const breadcrumbPath = ['控制台', '动作记录', '订单记录管理（由于订单记录数据量较大，仅支持基于某一店铺组的搜索）'];
 
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState([]);
     const [shopGroupList4Select, setShopGroupList4Select] = useState();
     const [shopGroupCode4Search, setShopGroupCode4Search] = useState(null);
     const [shopCode4Search, setShopCode4Search] = useState(null);
+    const [shopGroupCode4View, setShopGroupCode4View] = useState();
     const [idempotentMark4View, setIdempotentMark4View] = useState();
 
     // 动作定义
-    const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
+    const fetchShopListByShopGroupCode = () => {
+        if (isBlankStr(shopGroupCode4Search)) {
+            return;
+        }
+
         get('/shopset/shop/list', {
             tenantCode: getTenantCode(),
-            shopGroupCode: selectedShopGruopCode
+            shopGroupCode: shopGroupCode4Search
         }).then(respData => {
             if (respData == undefined) {
                 return;
@@ -48,30 +53,6 @@ const OrderActRecordPage = () => {
             setShopCode4Search(null);
         });
     }
-    const fetchShopList4Select = () => {
-        get('/shopset/shop/list', {
-            tenantCode: getTenantCode()
-        }).then(respData => {
-            if (respData == undefined) {
-                return;
-            }
-            setShopList4Select((prev => {
-                let shopListTmp = [{
-                    label: '全部',
-                    value: null
-                }];
-                if (isArray(respData.model)) {
-                    respData.model.forEach(item => {
-                        shopListTmp.push({
-                            label: item.shopName,
-                            value: item.shopCode
-                        });
-                    });
-                }
-                return shopListTmp;
-            }));
-        });
-    }
     const fetchShopGroupList4Select = () => {
         get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
@@ -80,10 +61,7 @@ const OrderActRecordPage = () => {
                 return;
             }
             setShopGroupList4Select((prev => {
-                let shopGroupListTmp = [{
-                    label: '全部',
-                    value: null
-                }];
+                let shopGroupListTmp = [];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
                         shopGroupListTmp.push({
@@ -99,14 +77,22 @@ const OrderActRecordPage = () => {
     const onClickSearch = () => {
         refreshList();
     }
-    const onClickView = (selectedIdempotentMark)=> {
+    const onClickView = (selectedShopGroupCode, selectedIdempotentMark)=> {
+        setShopGroupCode4View(selectedShopGroupCode);
         setIdempotentMark4View(selectedIdempotentMark);
         setOpenViewModal(true);
     }
     useEffect(() => {
-        fetchShopList4Select();
         fetchShopGroupList4Select();
     }, []);
+    useEffect(() => {
+        if (isArray(shopGroupList4Select) && shopGroupList4Select.length > 0) {
+            setShopGroupCode4Search(shopGroupList4Select[0].value);
+        }
+    }, [shopGroupList4Select]);
+    useEffect(() => {
+        fetchShopListByShopGroupCode();
+    }, [shopGroupCode4Search]);
 
     // 对话框定义
     const [openViewModal, setOpenViewModal] = useState(false);
@@ -139,10 +125,7 @@ const OrderActRecordPage = () => {
                                 <Select
                                     value={shopGroupCode4Search}
                                     style={{width: '95%'}}
-                                    onChange={(e) => {
-                                        setShopGroupCode4Search(e);
-                                        fetchShopListByShopGroupCode(e);
-                                    }}
+                                    onChange={(e) => setShopGroupCode4Search(e)}
                                     options={shopGroupList4Select}
                                 />
                             </div>
@@ -175,7 +158,7 @@ const OrderActRecordPage = () => {
             </Space>            
 
             {openViewModal && (
-                <OrderActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+                <OrderActRecordViewModal modalTitle='查看明细' shopGroupCode4View={shopGroupCode4View} idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
             )}
         </>
     )

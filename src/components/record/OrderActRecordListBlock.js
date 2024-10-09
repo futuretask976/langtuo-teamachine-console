@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
-import { isArray, getTenantCode } from '../../js/common.js';
+import { isArray, getTenantCode, isBlankStr } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 const OrderActRecordListBlock = (props) => {
@@ -19,6 +19,10 @@ const OrderActRecordListBlock = (props) => {
 
     // 初始化动作
     const fetchListData = () => {
+        if (isBlankStr(props.shopGroupCode4Search)) {
+            return;
+        }
+
         get('/recordset/order/search', {  
             tenantCode: getTenantCode(),
             shopGroupCode: props.shopGroupCode4Search,
@@ -93,12 +97,12 @@ const OrderActRecordListBlock = (props) => {
             title: '操作',
             key: 'actions',
             width: '10%',
-            render: (_, { idempotentMark, actions }) => (
+            render: (_, { shopGroupCode, idempotentMark, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
                     if (action == 'view') {
                         return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>查看</a>
+                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, shopGroupCode, idempotentMark)}>查看</a>
                         );
                     }
                 })}

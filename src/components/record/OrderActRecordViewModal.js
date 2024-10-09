@@ -17,25 +17,26 @@ const OrderActRecordViewModal = (props) => {
     };
 
     // 数据初始化相关
-    const [machineCode, setMachineCode] = useState('');
-    const [shopGroupName, setShopGroupName] = useState('');
-    const [shopName, setShopName] = useState('');
+    const [machineCode, setMachineCode] = useState();
+    const [shopGroupName, setShopGroupName] = useState();
+    const [shopName, setShopName] = useState();
     const [orderGmtCreated, setOrderGmtCreated] = useState();
     const [teaTypeName, setTeaTypeName] = useState();
     const [teaName, setTeaName] = useState();
-    const [outerOrderId, setOuterOrderId] = useState('');
+    const [outerOrderId, setOuterOrderId] = useState();
     const [state, setState] = useState(0);
-    const [specItems, setSpecItems] = useState('');
+    const [specItems, setSpecItems] = useState();
     const [toppingRecList, setToppingRecList] = useState([]);
 
     // 赋值初始化
-    const fetchInvalidActRecord = () => {
-        if (isBlankStr(props.idempotentMark4View)) {
+    const fetchOrderActRecord = () => {
+        if (isBlankStr(props.shopGroupCode4View) || isBlankStr(props.idempotentMark4View)) {
             return;
         }
 
         get('/recordset/order/get', {  
             tenantCode: getTenantCode(),
+            shopGroupCode: props.shopGroupCode4View,
             idempotentMark: props.idempotentMark4View
         }).then(respData => {
             let model = respData.model;
@@ -60,7 +61,7 @@ const OrderActRecordViewModal = (props) => {
         });
     }
     useEffect(() => {
-        fetchInvalidActRecord();
+        fetchOrderActRecord();
     }, [props.idempotentMark4View]);
 
     // 物料列表相关
