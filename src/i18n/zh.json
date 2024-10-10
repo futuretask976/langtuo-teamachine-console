@@ -10,7 +10,7 @@
     "labelShopMgt": "店铺管理",
     "labelDeviceSet": "设备",
     "labelModelMgt": "型号管理",
-    "labelDeployMgt": "预部署管理",
+    "labelDeployMgt": "部署管理",
     "labelMachineMgt": "设备管理",
     "labelAndroidAppMgt": "安卓应用管理",
     "labelDrinkSet": "饮品生产",
@@ -73,5 +73,15 @@
     "labelShopGroupName": "店铺组名称",
     "msgShopNameInvalid": "店铺名称不符合规则！",
     "promptShopName": "店铺名称：",
-    "labelShopName": "店铺名称"
+    "labelShopName": "店铺名称",
+    "promptModelCode": "型号编码：",
+    "labelModelCode": "型号编码",
+    "msgModelCodeInvalid": "型号编码不符合规则！",
+    "promptDeployCode": "部署编码：",
+    "labelDeployCode": "部署编码",
+    "promptDeployState": "部署状态：",
+    "labelExport": "导出",
+    "msgDeployCodeInvalid": "部署编码不符合规则！",
+    "labelStateDeployed": "已部署",
+    "labelStateUnDeployed": "未部署"
 }

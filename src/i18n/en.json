@@ -73,5 +73,15 @@
     "labelShopGroupName": "Shop Group Name",
     "msgShopNameInvalid": "Shop name is invalid!",
     "promptShopName": "Shop Name：",
-    "labelShopName": "Shop Name"
+    "labelShopName": "Shop Name",
+    "promptModelCode": "Model Code：",
+    "labelModelCode": "Model Code",
+    "msgModelCodeInvalid": "Model code is invalid!",
+    "promptDeployCode": "Deploy Code：",
+    "labelDeployCode": "Deploy Code",
+    "promptDeployState": "Deploy State：",
+    "labelExport": "Export",
+    "msgDeployCodeInvalid": "Deploy code is invalid!",
+    "labelStateDeployed": "Deployed",
+    "labelStateUnDeployed": "UnDeployed"
 }

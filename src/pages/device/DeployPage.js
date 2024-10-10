@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 
+import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { getTenantCode, isArray, isValidCode } from '../../js/common.js';
+import { getLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 import { get4Export } from '../../js/request4Export.js'
 
@@ -12,8 +14,11 @@ import DeployListBlock from '../../components/device/DeployListBlock'
 import DeployNewModal from '../../components/device/DeployNewModal'
 
 const DeployPage = () => {
+    // 上下文定义
+    const { lang } = useContext(FramePageContext);
+
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '设备', '预部署管理'];
+    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelDeviceSet'), getLang(lang, 'labelDeployMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -31,8 +36,8 @@ const DeployPage = () => {
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState();
     const [deployCode4Search, setDeployCode4Search] = useState();
-    const [shopCode4Search, setShopCode4Search] = useState();
-    const [state4Search, setState4Search] = useState();
+    const [shopCode4Search, setShopCode4Search] = useState('');
+    const [state4Search, setState4Search] = useState('');
     const [deployCode4Edit, setDeployCode4Edit] = useState();
 
     // 动作定义
@@ -45,7 +50,7 @@ const DeployPage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: '全部',
+                    label: getLang(lang, 'labelAll'),
                     value: ''
                 }];
                 if (isArray(respData.model)) {
@@ -62,15 +67,7 @@ const DeployPage = () => {
     }
     const onClickSearch = () => {
         if (!isValidCode(deployCode4Search, false)) {
-            alert('部署编码不符合规则');
-            return;
-        }
-        if (!isValidCode(shopCode4Search, false)) {
-            alert('店铺名称不符合规则');
-            return;
-        }
-        if (!isValidCode(state4Search, false)) {
-            alert('状态不符合规则');
+            alert(getLang(lang, 'msgDeployCodeInvalid'));
             return;
         }
         refreshList();
@@ -115,17 +112,17 @@ const DeployPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>部署编码：</span>
+                                <span>{getLang(lang, 'promptDeployCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="部署编码" allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={getLang(lang, 'labelDeployCode')} allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺名称：</span>
+                                <span>{getLang(lang, 'promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -140,7 +137,7 @@ const DeployPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>部署状态：</span>
+                                <span>{getLang(lang, 'promptDeployState')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -151,14 +148,14 @@ const DeployPage = () => {
                                     onChange={(e) => setState4Search(e)}
                                     options={[
                                         {
-                                            label: '全部',
+                                            label: getLang(lang, 'labelAll'),
                                             value: ''
                                         },
                                         {
-                                            label: '已部署',
+                                            label: getLang(lang, 'labelStateDeployed'),
                                             value: '1'
                                         }, {
-                                            label: '未部署',
+                                            label: getLang(lang, 'labelStateUnDeployed'),
                                             value: '0'
                                         }
                                     ]}
@@ -167,12 +164,12 @@ const DeployPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建部署码</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>
@@ -182,7 +179,7 @@ const DeployPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
+                                <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>{getLang(lang, 'labelExport')}</Button>
                             </div>
                         </Col>
                     </Row>
