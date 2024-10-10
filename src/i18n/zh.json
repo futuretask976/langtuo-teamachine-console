@@ -36,5 +36,14 @@
     "reportSet": "日常报表",
     "orderReportMgt": "订单报表",
     "langSelect": "语言：",
-    "logout": "登出控制台"
+    "logout": "登出控制台",
+    "console": "控制台",
+    "machineDeployStateChart": "机器部署状态：",
+    "orgCntByShopChart": "店铺组归属组织架构数量分布：",
+    "machineCntByShopChart": "店铺机器数量分布：",
+    "orderCntTrendChart": "订单数量趋势（过去 14 天）：",
+    "teaCntTrendChart": "茶品数量趋势（过去 14 天）：",
+    "teaRankingList": "茶品排行榜（过去 14 天）：",
+    "specItemRankingList": "规格排行榜（过去 14 天）：",
+    "toppingRankingList": "物料排行榜（过去 14 天）："
 }

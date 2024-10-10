@@ -36,5 +36,14 @@
     "reportSet": "Report",
     "orderReportMgt": "Order Report",
     "langSelect": "Language: ",
-    "logout": "Logout Console"
+    "logout": "Logout Console",
+    "console": "Console",
+    "machineDeployStateChart": "Machine Deploy State Chart: ",
+    "orgCntByShopChart": "Orgnization Count by Shop Chart: ",
+    "machineCntByShopChart": "Machine Count by Shop Chart: ",
+    "orderCntTrendChart": "Order Count Trend (Recent 14 days): ",
+    "teaCntTrendChart": "Tea Count Trend (Recent 14 days): ",
+    "teaRankingList": "Tea Ranking List (Recent 14 days): ",
+    "specItemRankingList": "Spec Item Ranking List (Recent 14 days): ",
+    "toppingRankingList": "Topping Ranking List (Recent 14 days): "
 }

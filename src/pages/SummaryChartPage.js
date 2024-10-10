@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import { isArray, getTenantCode } from '../js/common.js';
+import { useLang } from '../i18n/i18n';
 import { get } from '../js/request.js';
+
+import { FamePageContext } from '../js/context';
 
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
 import ShopMachineColumnChart from '../components/ShopMachineColumnChart'
@@ -12,7 +15,7 @@ import OrgShopBarChart from '../components/OrgShopBarChart'
 import TeaAmtByDayLineChart from '../components/TeaAmtByDayLineChart'
 
 export default function SummaryChartPage() {
-    const breadcrumbPath = ['控制台', '概况'];
+    const breadcrumbPath = [useLang('console'), useLang('summaryChartMgt')];
 
     // 数据定义
     const [teaAmtData, setTeaAmtData] = useState([]);
@@ -63,13 +66,13 @@ export default function SummaryChartPage() {
             <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>机器部署状态：</span>
+                    <span>{useLang('machineDeployStateChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>店铺组归属组织架构数量分布：</span>
+                    <span>{useLang('orgCntByShopChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>店铺机器数量分布：</span>
+                    <span>{useLang('machineCntByShopChart')}</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
@@ -85,10 +88,10 @@ export default function SummaryChartPage() {
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
-                    <span>订单数量趋势（过去 14 天）：</span>
+                    <span>{useLang('orderCntTrendChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
-                    <span>茶品数量趋势（过去 14 天）：</span>
+                    <span>{useLang('teaCntTrendChart')}</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
@@ -104,7 +107,7 @@ export default function SummaryChartPage() {
                     <div className="flex-row-cont" style={{justifyContent: 'space-between', height: '100%', width: '100%'}}>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>茶品排行榜（过去 14 天）</span>
+                                <span>{useLang('teaRankingList')}</span>
                             </div>
                             {teaAmtData.map((teaAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
@@ -116,7 +119,7 @@ export default function SummaryChartPage() {
                         </div>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>规格排行榜（过去 14 天）</span>
+                                <span>{useLang('specItemRankingList')}</span>
                             </div>
                             {specItemAmtData.map((specItemAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
@@ -128,7 +131,7 @@ export default function SummaryChartPage() {
                         </div>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>物料排行榜（过去 14 天）</span>
+                                <span>{useLang('toppingRankingList')}</span>
                             </div>
                             {toppingAmtData.map((toppingAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
