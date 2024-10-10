@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
+import { FramePageContext } from '../js/context'
 import { isArray, getTenantCode } from '../js/common.js';
-import { useLang } from '../i18n/i18n';
+import { getLang } from '../i18n/i18n';
 import { get } from '../js/request.js';
-
-import { FamePageContext } from '../js/context';
 
 import BreadcrumbBlock from "../components/BreadcrumbBlock"
 import ShopMachineColumnChart from '../components/ShopMachineColumnChart'
@@ -15,7 +14,11 @@ import OrgShopBarChart from '../components/OrgShopBarChart'
 import TeaAmtByDayLineChart from '../components/TeaAmtByDayLineChart'
 
 export default function SummaryChartPage() {
-    const breadcrumbPath = [useLang('console'), useLang('summaryChartMgt')];
+    // 上下文定义
+    const { lang } = useContext(FramePageContext);
+
+    // 面包屑定义
+    const breadcrumbPath = [getLang(lang, 'console'), getLang(lang, 'summaryChartMgt')];
 
     // 数据定义
     const [teaAmtData, setTeaAmtData] = useState([]);
@@ -66,13 +69,13 @@ export default function SummaryChartPage() {
             <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>{useLang('machineDeployStateChart')}</span>
+                    <span>{getLang(lang, 'machineDeployStateChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>{useLang('orgCntByShopChart')}</span>
+                    <span>{getLang(lang, 'orgCntByShopChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>{useLang('machineCntByShopChart')}</span>
+                    <span>{getLang(lang, 'machineCntByShopChart')}</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
@@ -88,10 +91,10 @@ export default function SummaryChartPage() {
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
-                    <span>{useLang('orderCntTrendChart')}</span>
+                    <span>{getLang(lang, 'orderCntTrendChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
-                    <span>{useLang('teaCntTrendChart')}</span>
+                    <span>{getLang(lang, 'teaCntTrendChart')}</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
@@ -107,7 +110,7 @@ export default function SummaryChartPage() {
                     <div className="flex-row-cont" style={{justifyContent: 'space-between', height: '100%', width: '100%'}}>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>{useLang('teaRankingList')}</span>
+                                <span>{getLang(lang, 'teaRankingList')}</span>
                             </div>
                             {teaAmtData.map((teaAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
@@ -119,7 +122,7 @@ export default function SummaryChartPage() {
                         </div>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>{useLang('specItemRankingList')}</span>
+                                <span>{getLang(lang, 'specItemRankingList')}</span>
                             </div>
                             {specItemAmtData.map((specItemAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
@@ -131,7 +134,7 @@ export default function SummaryChartPage() {
                         </div>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>{useLang('toppingRankingList')}</span>
+                                <span>{getLang(lang, 'toppingRankingList')}</span>
                             </div>
                             {toppingAmtData.map((toppingAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>

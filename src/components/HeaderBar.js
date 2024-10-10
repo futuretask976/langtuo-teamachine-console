@@ -1,18 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Dropdown, Layout, Image, Select, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
+import { FramePageContext } from '../js/context'
 import { deleteJwtToken, getLoginName } from '../js/common.js';
-import { useLang } from '../i18n/i18n';
+import { getLang } from '../i18n/i18n';
 import { get } from '../js/request.js';
 import logo from '../images/logo2.png'
-
-import { FamePageContext } from '../js/context';
 
 const { Header } = Layout;
 
 const HeaderBar = () => {
+    // 上下文定义
+    const { lang, setLang } = useContext(FramePageContext);
+
+    // 重定向定义
     const navigate = useNavigate();
 
     // 数据定义
@@ -42,7 +45,6 @@ const HeaderBar = () => {
             }
         });
     }
-    const { lang, setLang } = useContext(FamePageContext);
     const doChangeLang = (e) => {
         setLang(e);
     }
@@ -52,7 +54,7 @@ const HeaderBar = () => {
         {
             key: 'logout',
             label: (
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{useLang("logout")}</a></div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{getLang(lang, "logout")}</a></div>
             ),
         }
     ];
@@ -63,7 +65,7 @@ const HeaderBar = () => {
                 <Image className='flex-row-cont' src={logo} height={20}/>
             </div>
             <div className='flex-row-cont' style={{justifyContent: 'flex-end', width: 400}}>
-                <span>{useLang("langSelect")}</span>
+                <span>{getLang(lang, "langSelect")}</span>
                 <Select
                     onChange={(e) => doChangeLang(e)}
                     options={[

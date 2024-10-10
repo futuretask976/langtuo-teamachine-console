@@ -1,16 +1,11 @@
-import { useContext } from "react";
-
 import en from '../i18n/en.json';
 import zh from '../i18n/zh.json';
-
-import { FamePageContext } from '../js/context';
 
 const languages = {
     en,
     zh,
 };
 
-export const useLang = (key) => {
-    const { lang } = useContext(FamePageContext);
+export const getLang = (lang, key) => {
     return languages[lang][key];
 }
