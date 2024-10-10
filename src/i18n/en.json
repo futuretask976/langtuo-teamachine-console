@@ -67,5 +67,11 @@
     "msgLoginNameInvalid": "Login name is invalid!",
     "labelAll": "All",
     "promptLoginName": "Login Name：",
-    "labelLoginName": "Login Name"
+    "labelLoginName": "Login Name",
+    "msgShopGroupNameInvalid": "Shop group name is invalid!",
+    "promptShopGroupName": "Shop Group Name：",
+    "labelShopGroupName": "Shop Group Name",
+    "msgShopNameInvalid": "Shop name is invalid!",
+    "promptShopName": "Shop Name：",
+    "labelShopName": "Shop Name"
 }

@@ -67,5 +67,11 @@
     "msgLoginNameInvalid": "登录名称不符合规则！",
     "labelAll": "全部",
     "promptLoginName": "登录名称：",
-    "labelLoginName": "登录名称"
+    "labelLoginName": "登录名称",
+    "msgShopGroupNameInvalid": "店铺组名称不符合规则！",
+    "promptShopGroupName": "店铺组名称：",
+    "labelShopGroupName": "店铺组名称",
+    "msgShopNameInvalid": "店铺名称不符合规则！",
+    "promptShopName": "店铺名称：",
+    "labelShopName": "店铺名称"
 }

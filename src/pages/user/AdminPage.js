@@ -4,7 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
-import { getTenantCode, isArray, isValidCode, isValidName } from '../../js/common.js';
+import { getTenantCode, isArray, isValidName } from '../../js/common.js';
 import { getLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
@@ -119,12 +119,12 @@ const AdminPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建管理员</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

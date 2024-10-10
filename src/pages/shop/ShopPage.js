@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
+import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { getTenantCode, isArray, isValidCode, isValidName } from '../../js/common';
+import { getLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -11,8 +13,11 @@ import ShopListBlock from '../../components/shop/ShopListBlock'
 import ShopNewModal from '../../components/shop/ShopNewModal'
 
 const ShopPage = () => {
+    // 上下文定义
+    const { lang } = useContext(FramePageContext);
+
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '店铺', '店铺管理'];
+    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelShopSet'), getLang(lang, 'labelShopMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -30,7 +35,7 @@ const ShopPage = () => {
     // 数据定义
     const [shopGroupList4Select, setShopGroupList4Select] = useState();
     const [shopName4Search, setShopName4Search] = useState();
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState('');
     const [shopCode4Edit, setShopCode4Edit] = useState();
 
     // 动作定义
@@ -40,7 +45,7 @@ const ShopPage = () => {
         }).then(respData => {
             setShopGroupList4Select((prev => {
                 let shopGroupList = [{
-                    label: '全部',
+                    label: getLang(lang, 'labelAll'),
                     value: ''
                 }];
                 if (isArray(respData.model)) {
@@ -57,11 +62,11 @@ const ShopPage = () => {
     }
     const onClickSearch = () => {
         if (!isValidCode(shopGroupCode4Search, false)) {
-            alert('店铺组名称不符合规则');
+            alert(getLang(lang, 'msgShopGroupNameInvalid'));
             return;
         }
         if (!isValidName(shopName4Search, false)) {
-            alert('店铺名称不符合规则');
+            alert(getLang(lang, 'msgShopNameInvalid'));
             return;
         }
         refreshList();
@@ -90,17 +95,17 @@ const ShopPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺名称：</span>
+                                <span>{getLang(lang, 'promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="店铺名称" allowClear onChange={(e) => setShopName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={getLang(lang, 'labelShopName')} allowClear onChange={(e) => setShopName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组名称：</span>
+                                <span>{getLang(lang, 'promptShopGroupName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
@@ -115,12 +120,12 @@ const ShopPage = () => {
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', height: '100%'}}>
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建店铺</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>
