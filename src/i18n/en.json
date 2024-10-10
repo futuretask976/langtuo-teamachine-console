@@ -57,5 +57,15 @@
     "promptTenantName": "Tenant Name：",
     "promptContactPerson": "Contactor：",
     "labelTenantName": "Tenant Name",
-    "labelContactPerson": "Contactor"
+    "labelContactPerson": "Contactor",
+    "promptOrgName": "Orgnization Name：",
+    "labelOrgName": "Orgnization Name",
+    "msgOrgNameInvalid": "Orgnization name is invalid!",
+    "promptRoleName": "Role Name：",
+    "labelRoleName": "Role Name",
+    "msgRoleNameInvalid": "Role name is invalid!",
+    "msgLoginNameInvalid": "Login name is invalid!",
+    "labelAll": "All",
+    "promptLoginName": "Login Name：",
+    "labelLoginName": "Login Name"
 }

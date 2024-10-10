@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
+import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { getTenantCode, isArray, isValidCode, isValidName } from '../../js/common.js';
+import { getLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -11,8 +13,11 @@ import AdminListBlock from '../../components/user/AdminListBlock'
 import AdminNewModal from '../../components/user/AdminNewModal'
 
 const AdminPage = () => {
+    // 上下文定义
+    const { lang } = useContext(FramePageContext);
+
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '用户', '管理员管理'];
+    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelUserSet'), getLang(lang, 'labelAdminMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -29,18 +34,14 @@ const AdminPage = () => {
 
     // 数据定义
     const [roleList4Select, setRoleList4Select] = useState();
-    const [roleCode4Search, setRoleCode4Search] = useState();
+    const [roleCode4Search, setRoleCode4Search] = useState('');
     const [loginName4Search, setLoginName4Search] = useState();
     const [loginName4Edit, setLoginName4Edit] = useState();
 
     // 动作定义
     const onClickSearch = () => {
         if (!isValidName(loginName4Search, false)) {
-            alert('登录名称不符合规则');
-            return;
-        }
-        if (!isValidCode(roleCode4Search, false)) {
-            alert('角色不符合规则');
+            alert(getLang(lang, 'msgLoginNameInvalid'));
             return;
         }
         refreshList();
@@ -54,7 +55,7 @@ const AdminPage = () => {
             }
             setRoleList4Select((prev => {
                 let roleListTmp = [{
-                    label: '全部',
+                    label: getLang(lang, 'labelAll'),
                     value: ''
                 }];
                 if (isArray(respData.model)) {
@@ -93,17 +94,17 @@ const AdminPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>登录名称：</span>
+                                <span>{getLang(lang, 'promptLoginName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="登录名称" allowClear onChange={(e) => setLoginName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={getLang(lang, 'labelLoginName')} allowClear onChange={(e) => setLoginName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>角色名称：</span>
+                                <span>{getLang(lang, 'promptRoleName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>

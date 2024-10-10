@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Input, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
+import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { isValidName } from '../../js/common';
+import { getLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import RoleListBlock from '../../components/user/RoleListBlock'
 import RoleNewModal from '../../components/user/RoleNewModal'
 
 const RolePage = () => {
+    // 上下文定义
+    const { lang } = useContext(FramePageContext);
+
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '用户', '角色管理'];
+    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelUserSet'), getLang(lang, 'labelRoleMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -37,7 +42,7 @@ const RolePage = () => {
     }
     const onClickSearch = () => {
         if (!isValidName(roleName4Search, false)) {
-            alert('角色名称不符合规则');
+            alert(getLang(lang, 'msgRoleNameInvalid'));
             return;
         }
         refreshList();
@@ -59,22 +64,22 @@ const RolePage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>角色名称：</span>
+                                <span>{getLang(lang, 'promptRoleName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="角色名称" allowClear onChange={(e) => setRoleName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={getLang(lang, 'labelRoleName')} allowClear onChange={(e) => setRoleName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建角色</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>
