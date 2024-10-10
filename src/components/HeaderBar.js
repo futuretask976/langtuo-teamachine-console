@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Dropdown, Layout, Image, Select, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
-import { LangContext } from '../js/context';
+import { FamePageContext } from '../js/context';
 import { deleteJwtToken, getLoginName } from '../js/common.js';
 import { get } from '../js/request.js';
 import logo from '../images/logo2.png'
@@ -40,7 +40,7 @@ const HeaderBar = () => {
             }
         });
     }
-    const { lang, setLang } = useContext(LangContext);
+    const { lang, setLang } = useContext(FamePageContext);
     const doChangeLang = (e) => {
         setLang(e);
     }

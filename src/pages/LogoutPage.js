@@ -4,19 +4,14 @@ import { Image } from 'antd';
 
 import '../css/common.css';
 import { deleteLoginName } from '../js/common';
-import { AuthContext } from '../js/context';
 import logo from '../images/logo2.png'
 
 const LogoutPage = () => {
     // 路由组件
     const navigate = useNavigate();
 
-    // 上下文初始化
-    const { setToken } = useContext(AuthContext);
-
     // 初始化动作相关
     useEffect(() => {
-        setToken(null);
         deleteLoginName();
     }, []);
 

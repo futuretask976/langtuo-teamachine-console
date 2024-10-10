@@ -3,7 +3,7 @@ import { useContext } from "react";
 import en from '../i18n/en.json';
 import zh from '../i18n/zh.json';
 
-import { LangContext } from '../js/context';
+import { FamePageContext } from '../js/context';
 
 const languages = {
     en,
@@ -11,7 +11,6 @@ const languages = {
 };
 
 export const useLang = (key) => {
-    const { lang } = useContext(LangContext);
-    console.log('$$$$$ i18n|useLang|entering|' + lang);
+    const { lang } = useContext(FamePageContext);
     return languages[lang][key];
 }

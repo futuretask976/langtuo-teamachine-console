@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Layout } from 'antd';
 
-import { LangContext } from '../js/context';
+import { FamePageContext } from '../js/context';
 import '../css/common.css';
 
 import HeaderBar from '../components/HeaderBar'
@@ -67,7 +67,7 @@ const FramePage = () => {
     }
 
     return (
-        <LangContext.Provider value={{ lang, setLang }}>
+        <FamePageContext.Provider value={{ lang, setLang }}>
             <Flex gap="middle" justify="center" wrap="wrap">
                 <Layout style={layoutStyle}>
                     <HeaderBar />
@@ -173,7 +173,7 @@ const FramePage = () => {
                     <FooterBar />
                 </Layout>
             </Flex>
-        </LangContext.Provider>
+        </FamePageContext.Provider>
     )
 };
 
