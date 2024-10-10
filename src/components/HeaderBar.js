@@ -5,6 +5,7 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 import { FamePageContext } from '../js/context';
 import { deleteJwtToken, getLoginName } from '../js/common.js';
+import { useLang } from '../i18n/i18n';
 import { get } from '../js/request.js';
 import logo from '../images/logo2.png'
 
@@ -50,7 +51,7 @@ const HeaderBar = () => {
         {
             key: 'logout',
             label: (
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>注销登录</a></div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{useLang("logout")}</a></div>
             ),
         }
     ];
@@ -61,7 +62,7 @@ const HeaderBar = () => {
                 <Image className='flex-row-cont' src={logo} height={20}/>
             </div>
             <div className='flex-row-cont' style={{justifyContent: 'flex-end', width: 400}}>
-                <span>语言：</span>
+                <span>{useLang("langSelect")}</span>
                 <Select
                     onChange={(e) => doChangeLang(e)}
                     options={[

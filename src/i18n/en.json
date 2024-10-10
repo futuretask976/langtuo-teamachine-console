@@ -34,5 +34,7 @@
     "cleanActRecordMgt": "Clean Act Record",
     "orderActRecordMgt": "Order Act Record",
     "reportSet": "Report",
-    "orderReportMgt": "Order Report"
+    "orderReportMgt": "Order Report",
+    "langSelect": "Language: ",
+    "logout": "Logout Console"
 }

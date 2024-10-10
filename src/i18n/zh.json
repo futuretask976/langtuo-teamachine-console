@@ -34,5 +34,7 @@
     "cleanActRecordMgt": "清洗记录管理",
     "orderActRecordMgt": "订单记录管理",
     "reportSet": "日常报表",
-    "orderReportMgt": "订单报表"
+    "orderReportMgt": "订单报表",
+    "langSelect": "语言：",
+    "logout": "登出控制台"
 }
