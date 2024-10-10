@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Layout } from 'antd';
 
+import { LangContext } from '../js/context';
 import '../css/common.css';
 
 import HeaderBar from '../components/HeaderBar'
@@ -47,8 +48,9 @@ import OrderReportPage from './report/OrderReportPage';
 const { Content } = Layout;
 
 const FramePage = () => {
-    // 导航菜单相关
+    // 数据定义
     const [menuItem, setMenuItem] = useState('summaryChartMgt');
+    const [lang, setLang] = useState('zh');
 
     // 页面样式相关
     const layoutStyle = {
@@ -59,116 +61,119 @@ const FramePage = () => {
         border: '0px solid red',
     };
 
+    // 数据定义
     const onMenuItemClick = (selectedMenuItem) => {
         setMenuItem(selectedMenuItem);
     }
 
     return (
-        <Flex gap="middle" justify="center" wrap="wrap">
-            <Layout style={layoutStyle}>
-                <HeaderBar />
-                <Layout>
-                    <SiderMenu onMenuItemClick={onMenuItemClick}/>
+        <LangContext.Provider value={{ lang, setLang }}>
+            <Flex gap="middle" justify="center" wrap="wrap">
+                <Layout style={layoutStyle}>
+                    <HeaderBar />
                     <Layout>
-                        <Content style={{ margin: '0px 5px 0px 5px' }}>
-                            {menuItem == 'summaryChartMgt' && (
-                                <SummaryChartPage/>
-                            )}
-                            
-                            {menuItem == 'tenantMgt' && (
-                                <TenantPage/>
-                            )}
-                            {menuItem == 'orgMgt' && (
-                                <OrgPage/>
-                            )}
-                            {menuItem == 'roleMgt' && (
-                                <RolePage/>
-                            )}
-                            {menuItem == 'adminMgt' && (
-                                <AdminPage/>
-                            )}
+                        <SiderMenu onMenuItemClick={onMenuItemClick}/>
+                        <Layout>
+                            <Content style={{ margin: '0px 5px 0px 5px' }}>
+                                {menuItem == 'summaryChartMgt' && (
+                                    <SummaryChartPage/>
+                                )}
+                                
+                                {menuItem == 'tenantMgt' && (
+                                    <TenantPage/>
+                                )}
+                                {menuItem == 'orgMgt' && (
+                                    <OrgPage/>
+                                )}
+                                {menuItem == 'roleMgt' && (
+                                    <RolePage/>
+                                )}
+                                {menuItem == 'adminMgt' && (
+                                    <AdminPage/>
+                                )}
 
-                            {menuItem == 'shopGroupMgt' && (
-                                <ShopGroupPage/>
-                            )}
-                            {menuItem == 'shopMgt' && (
-                                <ShopPage/>
-                            )}
+                                {menuItem == 'shopGroupMgt' && (
+                                    <ShopGroupPage/>
+                                )}
+                                {menuItem == 'shopMgt' && (
+                                    <ShopPage/>
+                                )}
 
-                            {menuItem == 'modelMgt' && (
-                                <ModelPage/>
-                            )}
-                            {menuItem == 'deployMgt' && (
-                                <DeployPage/>
-                            )}
-                            {menuItem == 'machineMgt' && (
-                                <MachinePage/>
-                            )}
-                            {menuItem == 'androidAppMgt' && (
-                                <AndroidAppPage/>
-                            )}
+                                {menuItem == 'modelMgt' && (
+                                    <ModelPage/>
+                                )}
+                                {menuItem == 'deployMgt' && (
+                                    <DeployPage/>
+                                )}
+                                {menuItem == 'machineMgt' && (
+                                    <MachinePage/>
+                                )}
+                                {menuItem == 'androidAppMgt' && (
+                                    <AndroidAppPage/>
+                                )}
 
-                            {menuItem == 'toppingTypeMgt' && (
-                                <ToppingTypePage/>
-                            )}
-                            {menuItem == 'toppingMgt' && (
-                                <ToppingPage/>
-                            )}
-                            {menuItem == 'specMgt' && (
-                                <SpecPage/>
-                            )}
-                            {menuItem == 'teaTypeMgt' && (
-                                <TeaTypePage/>
-                            )}
-                            {menuItem == 'teaMgt' && (
-                                <TeaPage/>
-                            )}
-                            {menuItem == 'toppingAccuracyTplMgt' && (
-                                <AccuracyTplPage/>
-                            )}
-                            
-                            {menuItem == 'seriesMgt' && (
-                                <SeriesPage/>
-                            )}
-                            {menuItem == 'menuMgt' && (
-                                <MenuPage/>
-                            )}
+                                {menuItem == 'toppingTypeMgt' && (
+                                    <ToppingTypePage/>
+                                )}
+                                {menuItem == 'toppingMgt' && (
+                                    <ToppingPage/>
+                                )}
+                                {menuItem == 'specMgt' && (
+                                    <SpecPage/>
+                                )}
+                                {menuItem == 'teaTypeMgt' && (
+                                    <TeaTypePage/>
+                                )}
+                                {menuItem == 'teaMgt' && (
+                                    <TeaPage/>
+                                )}
+                                {menuItem == 'toppingAccuracyTplMgt' && (
+                                    <AccuracyTplPage/>
+                                )}
+                                
+                                {menuItem == 'seriesMgt' && (
+                                    <SeriesPage/>
+                                )}
+                                {menuItem == 'menuMgt' && (
+                                    <MenuPage/>
+                                )}
 
-                            {menuItem == 'drainRuleMgt' && (
-                                <DrainRulePage/>
-                            )}
-                            {menuItem == 'cleanRuleMgt' && (
-                                <CleanRulePage/>
-                            )}
-                            {menuItem == 'warningRuleMgt' && (
-                                <WarningRulePage/>
-                            )}
+                                {menuItem == 'drainRuleMgt' && (
+                                    <DrainRulePage/>
+                                )}
+                                {menuItem == 'cleanRuleMgt' && (
+                                    <CleanRulePage/>
+                                )}
+                                {menuItem == 'warningRuleMgt' && (
+                                    <WarningRulePage/>
+                                )}
 
-                            {menuItem == 'invalidActRecordMgt' && (
-                                <InvalidActRecordPage/>
-                            )}
-                            {menuItem == 'supplyActRecordMgt' && (
-                                <SupplyActRecordPage/>
-                            )}
-                            {menuItem == 'drainActRecordMgt' && (
-                                <DrainActRecordPage/>
-                            )}
-                            {menuItem == 'cleanActRecordMgt' && (
-                                <CleanActRecordPage/>
-                            )}
-                            {menuItem == 'orderActRecordMgt' && (
-                                <OrderActRecordPage/>
-                            )}
+                                {menuItem == 'invalidActRecordMgt' && (
+                                    <InvalidActRecordPage/>
+                                )}
+                                {menuItem == 'supplyActRecordMgt' && (
+                                    <SupplyActRecordPage/>
+                                )}
+                                {menuItem == 'drainActRecordMgt' && (
+                                    <DrainActRecordPage/>
+                                )}
+                                {menuItem == 'cleanActRecordMgt' && (
+                                    <CleanActRecordPage/>
+                                )}
+                                {menuItem == 'orderActRecordMgt' && (
+                                    <OrderActRecordPage/>
+                                )}
 
-                            {menuItem == 'orderReportMgt' && (
-                                <OrderReportPage/>
-                            )}
-                        </Content>
+                                {menuItem == 'orderReportMgt' && (
+                                    <OrderReportPage/>
+                                )}
+                            </Content>
+                        </Layout>
                     </Layout>
+                    <FooterBar />
                 </Layout>
-                <FooterBar />
-            </Layout>
-        </Flex>
+            </Flex>
+        </LangContext.Provider>
     )
 };
 

@@ -88,6 +88,7 @@ const OrderActRecordPage = () => {
     useEffect(() => {
         if (isArray(shopGroupList4Select) && shopGroupList4Select.length > 0) {
             setShopGroupCode4Search(shopGroupList4Select[0].value);
+            refreshList();
         }
     }, [shopGroupList4Select]);
     useEffect(() => {
