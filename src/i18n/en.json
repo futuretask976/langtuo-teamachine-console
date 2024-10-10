@@ -35,7 +35,7 @@
     "labelOrderActRecordMgt": "Order Act Record",
     "labelReportSet": "Report",
     "labelOrderReportMgt": "Order Report",
-    "promptLangSelect": "Language：",
+    "promptLangSelect": "LANGUAGE：",
     "labelLogout": "Logout Console",
     "labelConsole": "Console",
     "promptMachineDeployStateChart": "Machine Deploy State Chart：",
@@ -51,5 +51,11 @@
     "promptToppingTypeCode": "Type Code：",
     "promptToppingTypeName": "Type Name：",
     "labelBeginSearch": "Begin Search",
-    "labelNew": "New"
+    "labelNew": "New",
+    "msgContactPersonInvalid": "Contact Person is invalid!",
+    "msgTenantNameInvalid": "Tenant name is invalid!",
+    "promptTenantName": "Tenant Name：",
+    "promptContactPerson": "Contactor：",
+    "labelTenantName": "Tenant Name",
+    "labelContactPerson": "Contactor"
 }

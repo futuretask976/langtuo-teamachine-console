@@ -51,5 +51,11 @@
     "promptToppingTypeCode": "类型编码：",
     "promptToppingTypeName": "类型名称：",
     "labelBbeginSearch": "开始搜索",
-    "labelNewToppingType": "新建类型"
+    "labelNewToppingType": "新建类型",
+    "msgContactPersonInvalid": "联系人名称不符合规则！",
+    "msgTenantNameInvalid": "商户名称不符合规则！",
+    "promptTenantName": "商户名称：",
+    "promptContactPerson": "联系人名称：",
+    "labelTenantName": "商户名称",
+    "labelContactPerson": "联系人名称"
 }

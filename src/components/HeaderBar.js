@@ -54,7 +54,7 @@ const HeaderBar = () => {
         {
             key: 'logout',
             label: (
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{getLang(lang, "logout")}</a></div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{getLang(lang, "labelLogout")}</a></div>
             ),
         }
     ];
@@ -65,7 +65,7 @@ const HeaderBar = () => {
                 <Image className='flex-row-cont' src={logo} height={20}/>
             </div>
             <div className='flex-row-cont' style={{justifyContent: 'flex-end', width: 400}}>
-                <span>{getLang(lang, "langSelect")}</span>
+                <span>{getLang(lang, "promptLangSelect")}</span>
                 <Select
                     onChange={(e) => doChangeLang(e)}
                     options={[
