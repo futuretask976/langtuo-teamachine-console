@@ -127,5 +127,17 @@
     "labelTemplateCode": "模板编码",
     "labelTemplateName": "模板名称",
     "msgTemplateCodeInvalid": "模板编码不符合规则！",
-    "msgTemplateNameInvalid": "模板名称不符合规则！"
+    "msgTemplateNameInvalid": "模板名称不符合规则！",
+    "promptSeriesCode": "系列编码：",
+    "promptSeriesName": "系列名称：",
+    "labelSeriesCode": "系列编码",
+    "labelSeriesName": "系列名称",
+    "msgSeriesCodeInvalid": "系列编码不符合规则！",
+    "msgSeriesNameInvalid": "系列名称不符合规则！",
+    "promptMenuCode": "菜单编码：",
+    "promptMenuName": "菜单名称：",
+    "labelMenuCode": "菜单编码",
+    "labelMenuName": "菜单名称",
+    "msgMenuCodeInvalid": "菜单编码不符合规则！",
+    "msgMenuNameInvalid": "菜单名称不符合规则！"
 }

@@ -4,6 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import SeriesListBlock from '../../components/menu/SeriesListBlock'
@@ -11,7 +12,7 @@ import SeriesNewModal from '../../components/menu/SeriesNewModal'
 
 const SeriesPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '菜单', '系列管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelSeriesMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -21,7 +22,6 @@ const SeriesPage = () => {
     const onCloseNewModal = (refresh) => {
         setOpenNewModal(false);
         setSeriesCode4Edit(undefined);
-        console.log('$$$$$ seriesPage#onCloseNewModal refresh=', refresh);
         if (refresh) {
             refreshList();
         }
@@ -35,11 +35,11 @@ const SeriesPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(seriesCode4Search, false)) {
-            alert('系列编码不符合规则');
+            alert(applyLang('msgSeriesCodeInvalid'));
             return;
         }
         if (!isValidName(seriesName4Search, false)) {
-            alert('系列名称不符合规则');
+            alert(applyLang('msgSeriesNameInvalid'));
             return;
         }
         refreshList();
@@ -65,32 +65,32 @@ const SeriesPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>系列编码：</span>
+                                <span>{applyLang('promptSeriesCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料编码" allowClear onChange={(e) => setSeriesCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelSeriesCode')} allowClear onChange={(e) => setSeriesCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>系列名称：</span>
+                                <span>{applyLang('promptSeriesName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料名称" allowClear onChange={(e) => setSeriesName4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelSeriesName')} allowClear onChange={(e) => setSeriesName4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建系列</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

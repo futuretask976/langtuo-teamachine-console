@@ -4,6 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import MenuListBlock from '../../components/menu/MenuListBlock'
@@ -12,7 +13,7 @@ import MenuDispatchModal from '../../components/menu/MenuDispatchModal'
 
 const MenuPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '菜单', '菜单管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelMenuMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -45,11 +46,11 @@ const MenuPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(menuCode4Search, false)) {
-            alert('菜单编码不符合规则');
+            alert(applyLang('msgMenuCodeInvalid'));
             return;
         }
         if (!isValidName(menuName4Search, false)) {
-            alert('菜单名称不符合规则');
+            alert(applyLang('msgMenuNameInvalid'));
             return;
         }
         refreshList();
@@ -75,32 +76,32 @@ const MenuPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>菜单编码：</span>
+                                <span>{applyLang('promptMenuCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="菜单编码" allowClear onChange={(e) => setMenuCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelMenuCode')} allowClear onChange={(e) => setMenuCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>菜单名称：</span>
+                                <span>{applyLang('promptMenuName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="菜单名称" allowClear onChange={(e) => setMenuName4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelMenuName')} allowClear onChange={(e) => setMenuName4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建菜单</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>
