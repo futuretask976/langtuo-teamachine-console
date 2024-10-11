@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { BACKEND_BASE_URL, CONSOLE_CONTEXT_PATH, TIMEOUT} from './config';
+import { getLang, isBlankStr } from './common';
 
 const instance = axios.create({
     baseURL: BACKEND_BASE_URL,
@@ -12,7 +13,12 @@ instance.interceptors.request.use(
     (config) => {
         // 在请求发送前添加请求头
         config.headers['Authorization'] = localStorage.getItem('jwtToken');
-        config.headers['Lang'] = 'zh_CN';
+
+        let lang = getLang();
+        if (isBlankStr(lang)) {
+            lang = 'zh_CN';
+        }
+        config.headers['Lang'] = lang;
         return config;
     },
     (error) => {
