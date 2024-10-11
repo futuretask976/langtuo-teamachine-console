@@ -12,15 +12,15 @@ const RoleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(roleCode, true)) {
-            alert('applyLang('labelRoleCode')不符合规则');
+            alert(applyLang('msgRoleCodeInvalid'));
             return;
         }
         if (!isValidName(roleName, true)) {
-            alert('角色名称不符合规则');
+            alert(applyLang('msgRoleNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
 
@@ -34,12 +34,12 @@ const RoleNewModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功！");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);
             } else {
-                alert('保存失败：' + respData.errorMsg);
+                alert(applyLang('msgPutFailed') + respData.errorMsg);
                 setLoading(false);
             }
         });

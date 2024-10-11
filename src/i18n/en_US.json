@@ -171,5 +171,6 @@
     "labelNo": "No",
     "labelParentOrgName": "Parent Org Name",
     "promptRoleCode": "Role Code",
-    "labelRoleCode": "Role Code"
+    "labelRoleCode": "Role Code",
+    "msgRoleCodeInvalid": "Role code is invalid！"
 }

@@ -53,7 +53,7 @@ const RoleListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: 'applyLang('labelRoleCode')',
+            title: applyLang('labelRoleCode'),
             dataIndex: 'roleCode',
             key: 'roleCode',
             width: '25%'

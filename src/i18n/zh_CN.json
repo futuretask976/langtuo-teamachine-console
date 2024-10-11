@@ -171,5 +171,6 @@
     "labelNo": "否",
     "labelParentOrgName": "上级组织名称",
     "promptRoleCode": "角色编码：",
-    "labelRoleCode": "角色编码"
+    "labelRoleCode": "角色编码",
+    "msgRoleCodeInvalid": "角色编码不符合规则！"
 }

@@ -19,9 +19,9 @@ const MenuDispatchModal = (props) => {
             shopGroupCodeList: targetKeys
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功！");
+                alert(applyLang('msgPutSucceed'));
             } else {
-                alert('保存失败：' + respData.errorMsg);
+                alert(applyLang('msgPutFailed') + respData.errorMsg);
             }
         });
 

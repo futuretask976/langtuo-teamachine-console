@@ -40,12 +40,12 @@ const ShopNewModal = (props) => {
             putNew: putNew
         }).then(resp => {
             if (resp.success) {
-                alert("保存成功！");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);
             } else {
-                alert('保存失败：' + resp.errorMsg);
+                alert(applyLang('msgPutFailed') + resp.errorMsg);
                 setLoading(false);
             }
         });

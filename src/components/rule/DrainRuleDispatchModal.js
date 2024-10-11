@@ -20,7 +20,7 @@ const DrainRuleDispatchModal = (props) => {
             if (respData.success) {
                 alert("保存成功");
             } else {
-                alert('保存失败：' + respData.errorMsg);
+                alert(applyLang('msgPutFailed') + respData.errorMsg);
             }
             setLoading(false);
             props.onClose();

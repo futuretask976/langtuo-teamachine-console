@@ -56,12 +56,12 @@ const ToppingNewModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功！");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);
             } else {
-                alert('保存失败：' + respData.errorMsg);
+                alert(applyLang('msgPutFailed') + respData.errorMsg);
                 setLoading(false);
             }
         });

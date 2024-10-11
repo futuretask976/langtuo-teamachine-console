@@ -48,7 +48,7 @@ const MenuNewModal = (props) => {
                 props.onClose(true);
                 setOpen(false);
             } else {
-                alert('保存失败：' + respData.errorMsg);
+                alert(applyLang('msgPutFailed') + respData.errorMsg);
                 setLoading(false);
             }
         });
