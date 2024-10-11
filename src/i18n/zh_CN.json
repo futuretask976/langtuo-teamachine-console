@@ -92,5 +92,7 @@
     "promptElecBoardCode": "电控板编码：",
     "msgMachineCodeInvalid": "机器编码不符合规则！",
     "msgScreenCodeInvalid": "屏幕编码不符合规则！",
-    "msgElecBoardCodeInvalid": "电控板编码不符合规则！"
+    "msgElecBoardCodeInvalid": "电控板编码不符合规则！",
+    "labelVersion": "版本号",
+    "promptVersion": "版本号："
 }

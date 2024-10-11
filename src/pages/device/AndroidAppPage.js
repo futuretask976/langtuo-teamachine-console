@@ -3,6 +3,7 @@ import { Button, Input, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import AndroidAppListBlock from '../../components/device/AndroidAppListBlock'
@@ -11,7 +12,7 @@ import AndroidAppDispatchModal from '../../components/device/AndroidAppDispatchM
 
 const AndroidAppPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '设备', '预部署管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelAndroidAppMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -65,22 +66,22 @@ const AndroidAppPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
-                                <span>版本号：</span>
+                                <span>{applyLang("promptVersion")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="版本号" onChange={(e) => setVersion4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang("labelVersion")} onChange={(e) => setVersion4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang("labelBeginSearch")}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建版本</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang("labelNew")}</Button>
                             </div>
                         </Col>
                     </Row>

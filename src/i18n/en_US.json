@@ -92,5 +92,7 @@
     "promptElecBoardCode": "Elec Board Code：",
     "msgMachineCodeInvalid": "Machine code is invalid!",
     "msgScreenCodeInvalid": "Screen code is invalid!",
-    "msgElecBoardCodeInvalid": "Elec board code is invalid!"
+    "msgElecBoardCodeInvalid": "Elec board code is invalid!",
+    "labelVersion": "Version",
+    "promptVersion": "Version："
 }
