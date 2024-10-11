@@ -208,5 +208,8 @@
     "msgMachineNameInvalid": "机器名称不符合规则！",
     "labelOssPath": "OSS 路径",
     "promptOssPath": "OSS 路径：",
-    "promptUploadFile": "上传文件："
+    "promptUploadFile": "上传文件：",
+    "msgValidPeriodInvalid": "有效期不符合规则！",
+    "msgMaintainPeriodInvalid": "维保期不符合规则！",
+    "msgCleanPeroidInvalid": "清洗周期不符合规则！"
 }

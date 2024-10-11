@@ -14,27 +14,27 @@ const ToppingNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(toppingCode, true)) {
-            alert('物料编码不符合规则');
+            alert(applyLang('msgToppingCodeInvalid'));
             return;
         }
         if (!isValidName(toppingName, true)) {
-            alert('物料名称不符合规则');
+            alert(applyLang('msgToppingNameInvalid'));
             return;
         }
         if (!isValidCode(toppingTypeCode, true)) {
-            alert('物料类型编码不符合规则');
+            alert(applyLang('msgToppingTypeCodeInvalid'));
             return;
         }
         if (isBlankObj(validHourPeriod)) {
-            alert('维保期不符合规则');
+            alert(applyLang('msgValidPeriodInvalid'));
             return;
         }
         if (isBlankObj(cleanHourPeriod)) {
-            alert('清洗期不符合规则');
+            alert(applyLang('msgCleanPeriodInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
 
@@ -145,7 +145,7 @@ const ToppingNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
-            title="新建/编辑物料"
+            title={applyLang('labelNewOrEdit')}
             width={800}
         >
             <div style={{height: 425, width: '100%'}}>
@@ -153,24 +153,24 @@ const ToppingNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>物料编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptToppingCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料编码" allowClear value={toppingCode} onChange={(e) => setToppingCode(e.target.value)} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
+                                <Input placeholder={applyLang('labelToppingCode')} allowClear value={toppingCode} onChange={(e) => setToppingCode(e.target.value)} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>物料名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptToppingName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料名称" allowClear value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
+                                <Input placeholder={applyLang('labeToppingName')} allowClear value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
                             </div>
                         </Col>
                     </Row>

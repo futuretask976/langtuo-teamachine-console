@@ -208,5 +208,8 @@
     "msgMachineNameInvalid": "Machine name is invalid！",
     "labelOssPath": "OSS Path",
     "promptOssPath": "OSS Path：",
-    "promptUploadFile": "Upload File："
+    "promptUploadFile": "Upload File：",
+    "msgValidPeriodInvalid": "Valid period is invalid！",
+    "msgMaintainPeriodInvalid": "Maintain period is invalid！",
+    "msgCleanPeroidInvalid": "Clean period is invalid！"
 }
