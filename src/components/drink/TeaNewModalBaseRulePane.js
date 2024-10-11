@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Table } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 
 const TeaNewModalBaseRulePane = (props) => {
     // 数据定义

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Steps, theme } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { arraysEqual, getTenantCode, isBlankObj, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 

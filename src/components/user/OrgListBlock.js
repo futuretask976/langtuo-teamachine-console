@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { getTenantCode, isArray, isBlankObj } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
@@ -90,26 +91,26 @@ const OrgListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '组织架构名称',
+            title: applyLang('labelOrgName'),
             dataIndex: 'orgName',
             key: 'orgName',
             width: '30%'
         },
         {
-            title: '上级节点',
+            title: applyLang('labelParentOrgName'),
             dataIndex: 'parentOrgName',
             key: 'parentOrgName',
             width: '30%'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '25%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { orgName, actions }) => (
@@ -120,12 +121,12 @@ const OrgListBlock = (props) => {
                     } else {
                         if (action == 'edit') {
                             return (
-                                <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>编辑</a>
+                                <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>{applyLang('labelOpeEdit')}</a>
                             );
                         }
                         if (action == 'delete') {
                             return (
-                                <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>删除</a>
+                                <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>{applyLang('labelOpeDel')}</a>
                             );
                         }
                     }
@@ -138,7 +139,7 @@ const OrgListBlock = (props) => {
         props.onClickEdit(orgName);
     }
     const onClickDelete = (e, orgName) => {
-        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        let confirmRtn = window.confirm(applyLang('msgDelRemind'));
         if (!confirmRtn) {
             return;
         }
@@ -148,11 +149,11 @@ const OrgListBlock = (props) => {
             orgName: orgName
         }).then(respData => {
             if (respData.success) {
-                alert('删除成功');
+                alert(applyLang('msgDelSucceed'));
                 fetchListData();
                 fetchListByDepth();
             } else {
-                alert('删除失败：' + respData.errorMsg)
+                alert(applyLang('msgDelFailed') + respData.errorMsg)
             }
         });
     }

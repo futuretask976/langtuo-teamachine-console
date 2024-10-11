@@ -3,6 +3,7 @@ import { Button, Input, InputNumber, Modal, Space, Switch, Col, Row } from 'antd
 import { FormOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isArray, isBlankStr, isValidCode } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 

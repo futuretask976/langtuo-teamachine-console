@@ -3,6 +3,7 @@ import { Input, Modal, Select, Space, Switch, Col, Row } from 'antd';
 import md5 from 'js-md5';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { getTenantCode, isArray, isBlankStr, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
@@ -14,24 +15,24 @@ const AdminNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidName(loginName, true)) {
-            alert('登录名称不符合规则');
+            alert(applyLang('msgLoginNameInvalid'));
             return;
         }
         if (!isValidCode(roleCode, true)) {
-            alert('角色编码不符合规则');
+            alert(applyLang('msgRoleCodeInvalid'));
             return;
         }
         if (!isValidName(orgName, true)) {
-            alert('组织名称不符合规则');
+            alert(applyLang('msgOrgNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
         if (toUpdatePass) {
             if (isBlankStr(loginPass)) {
-                alert('密码不符合规则');
+                alert(applyLang('msgLoginPassInvalid'));
                 return;
             }
         }
@@ -47,12 +48,12 @@ const AdminNewModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功！");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);
             } else {
-                alert('保存失败：' + respData.errorMsg);
+                alert(applyLang('msgPutFailed') + respData.errorMsg);
                 setLoading(false);
             }
         });
@@ -140,7 +141,7 @@ const AdminNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            title="新建/编辑管理员"
+            title={applyLang('labelNewOrEdit')}
             width={500}
         >
             <div style={{height: 375, width: '100%'}}>
@@ -148,17 +149,17 @@ const AdminNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>管理员登录名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptLoginName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
-                            <Input placeholder="管理员登录名称" disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={(e) => setLoginName(e.target.value)}/>
+                            <Input placeholder={applyLang('labelLoginName')} disabled={isBlankStr(props.loginName4Edit) ? false : true} value={loginName} onChange={(e) => setLoginName(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>归属角色：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRoleName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
@@ -173,7 +174,7 @@ const AdminNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>归属组织架构：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
@@ -188,21 +189,21 @@ const AdminNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
+                                <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
-                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                            <TextArea rows={5} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span>是否更新密码：</span></Space>
+                                <Space size='small'><span>{applyLang('promptUpdatePassOrNot')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
-                            <Switch checkedChildren="更新" unCheckedChildren="不更新" checked={toUpdatePass} disabled={putNew} onChange={(e) => setToUpdatePass(e)} />
+                            <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={toUpdatePass} disabled={putNew} onChange={(e) => setToUpdatePass(e)} />
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
@@ -212,12 +213,12 @@ const AdminNewModal = (props) => {
                                     {toUpdatePass && (
                                         <span style={{color: 'red'}}>*</span>
                                     )}
-                                    <span>管理员登录密码：</span>
+                                    <span>{applyLang('promptLoginPass')}</span>
                                 </Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
-                            <Input.Password placeholder="管理员登录密码" disabled={!toUpdatePass} value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
+                            <Input.Password placeholder={applyLang('labelLoginPass')} disabled={!toUpdatePass} value={loginPass} onChange={(e) => setLoginPass(e.target.value)}/>
                         </Col>
                     </Row>
                 </Space>

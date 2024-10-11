@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, Modal, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isBlankStr, isValidCode, isValidName } from '../../js/common.js';
 
 const SpecItemNewModal = (props) => {

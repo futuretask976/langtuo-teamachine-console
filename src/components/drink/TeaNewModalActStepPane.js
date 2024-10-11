@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Select, Space, Table } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isArray, getTenantCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 

@@ -3,6 +3,7 @@ import { Button, DatePicker, Input, Modal, Select, Space, Table, Col, Row } from
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isArray, isBlankStr, getTenantCode } from '../../js/common.js';
 import { get } from '../../js/request.js';
 

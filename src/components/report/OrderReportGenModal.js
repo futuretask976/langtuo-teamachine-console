@@ -3,6 +3,7 @@ import { DatePicker, Modal, Space, Col, Row } from 'antd';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { getTenantCode, getYesterday } from '../../js/common.js';
 import { get } from '../../js/request.js';
 

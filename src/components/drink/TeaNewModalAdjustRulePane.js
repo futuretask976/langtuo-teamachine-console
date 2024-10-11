@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { InputNumber, Select, Space, Table } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isArray, isBlankObj, isNumber } from '../../js/common.js';
 
 const TeaNewModalAdjustRulePane = (props) => {

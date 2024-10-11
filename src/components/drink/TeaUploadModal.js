@@ -3,6 +3,7 @@ import { Button, Modal, Space, Spin, Upload, message } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { getTenantCode } from '../../js/common.js';
 import { post4Import } from '../../js/request4Import';
 

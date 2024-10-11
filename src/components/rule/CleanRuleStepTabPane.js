@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, InputNumber, Radio, Select, Switch } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isBlankObj } from '../../js/common.js';
 
 const { TextArea } = Input;

@@ -4,8 +4,8 @@ import { HighlightOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { getTenantCode, isArray } from '../../js/common.js';
 import { applyLang } from '../../i18n/i18n';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { theme, Space, Table } from 'antd';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { getTenantCode, isArray } from '../../js/common.js';
 import { get, del } from '../../js/request.js';
 
@@ -123,7 +124,7 @@ const CleanRuleListBlock = (props) => {
         props.onClickDispatch(cleanRuleCode);
     }
     const onClickDelete = (e, cleanRuleCode) => {
-        let confirmRtn = window.confirm("删除是不可恢复的，确认要删除吗？");
+        let confirmRtn = window.confirm(applyLang('msgDelRemind'));
         if (!confirmRtn) {
             return;
         }
@@ -133,10 +134,10 @@ const CleanRuleListBlock = (props) => {
             cleanRuleCode: cleanRuleCode
         }).then(resp => {
             if (resp.success) {
-                alert('删除成功');
+                alert(applyLang('msgDelSucceed'));
                 fetchListData();
             } else {
-                alert('删除失败：' + resp.errorMsg)
+                alert(applyLang('msgDelFailed') + resp.errorMsg)
             }
         });
     }

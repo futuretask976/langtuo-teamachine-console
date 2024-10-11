@@ -3,6 +3,7 @@ import { DatePicker, Input, Modal, Select, Space, Col, Row } from 'antd';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { dateToYMDHMS, getTenantCode, isArray, isBlankStr, isEmptyArray, isValidCode, isValidComment, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 

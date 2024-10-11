@@ -3,8 +3,8 @@ import { Button, Select, Space, Col, Row } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
-import { getTenantCode, isArray } from '../../js/common.js';
 import { applyLang } from '../../i18n/i18n';
+import { getTenantCode, isArray } from '../../js/common.js';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"

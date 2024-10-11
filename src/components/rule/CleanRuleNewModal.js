@@ -4,6 +4,7 @@ import { Input, Modal, Select, Space, Switch, Tabs } from 'antd';
 import CleanRuleStepTabPane from './CleanRuleStepTabPane'
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { getTenantCode, isArray, isBlankObj, isBlankStr, isValidCode, isValidName } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 

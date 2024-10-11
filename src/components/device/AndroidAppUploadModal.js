@@ -4,6 +4,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import OSS from 'ali-oss';
 
 import '../../css/common.css';
+import { applyLang } from '../../i18n/i18n';
 import { isBlankStr, isValidComment, isValidVersion } from '../../js/common.js';
 import { get, put } from '../../js/request.js';
 
