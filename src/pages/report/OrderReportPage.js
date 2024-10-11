@@ -4,7 +4,8 @@ import { HighlightOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import '../../css/common.css';
-import { getTenantCode, getYesterday, isArray } from '../../js/common.js';
+import { getTenantCode, isArray } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -16,7 +17,7 @@ import OrderReportGenModal from '../../components/report/OrderReportGenModal'
 
 const OrderReportPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '日常报表', '订单-数量报表'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelReportSet'), applyLang('labelOrderReportMgt')];
 
     // 对话框定义
     const [openViewModal, setOpenViewModal] = useState(false);
@@ -28,8 +29,8 @@ const OrderReportPage = () => {
     const [shopList4Select, setShopList4Select] = useState();
     const [shopGroupList4Select, setShopGroupList4Select] = useState();
     const [orderCreatedDay, setOrderCreatedDay] = useState(); // useState(dayjs(getYesterday()).format('YYYY-MM-DD'));
-    const [shopGroupCode4Search, setShopGroupCode4Search] = useState();
-    const [shopCode4Search, setShopCode4Search] = useState();
+    const [shopGroupCode4Search, setShopGroupCode4Search] = useState(null);
+    const [shopCode4Search, setShopCode4Search] = useState(null);
 
     // 动作定义
     const fetchShopListByShopGroupCode = (selectedShopGruopCode) => {
@@ -42,8 +43,8 @@ const OrderReportPage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: '全部',
-                    value: ''
+                    label: applyLang('labelAll'),
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -55,7 +56,7 @@ const OrderReportPage = () => {
                 }
                 return shopListTmp;
             }));
-            setShopCode4Search('');
+            setShopCode4Search(null);
         });
     }
     const fetchShopList4Select = () => {
@@ -67,8 +68,8 @@ const OrderReportPage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: '全部',
-                    value: ''
+                    label: applyLang('labelAll'),
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -91,8 +92,8 @@ const OrderReportPage = () => {
             }
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
-                    label: '全部',
-                    value: ''
+                    label: applyLang('labelAll'),
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -130,7 +131,7 @@ const OrderReportPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                     <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{ justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组编码：</span>
+                                <span>{applyLang('promptShopGroupName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -148,7 +149,7 @@ const OrderReportPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺编码：</span>
+                                <span>{applyLang('promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -163,7 +164,7 @@ const OrderReportPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>日期选择：</span>
+                                <span>{applyLang('promptDatePicker')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -181,12 +182,12 @@ const OrderReportPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{height: '100%'}}>
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{height: '100%'}}>
-                                <Button type="primary" icon={<HighlightOutlined />} onClick={(e) => setOpenViewModal(true)} style={{width: '90%'}}>生成报表</Button>
+                                <Button type="primary" icon={<HighlightOutlined />} onClick={(e) => setOpenViewModal(true)} style={{width: '90%'}}>{applyLang('labelGenReport')}</Button>
                             </div>
                         </Col>
                     </Row>

@@ -146,5 +146,7 @@
     "labelRuleCode": "规则编码",
     "labelRuleName": "规则名称",
     "msgRuleCodeInvalid": "规则编码不符合规则！",
-    "msgRuleNameInvalid": "规则名称不符合规则！"
+    "msgRuleNameInvalid": "规则名称不符合规则！",
+    "promptDatePicker": "日期：",
+    "labelGenReport": "生成报表"
 }

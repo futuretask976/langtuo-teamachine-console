@@ -146,5 +146,7 @@
     "labelRuleCode": "Rule Code",
     "labelRuleName": "Rule Name",
     "msgRuleCodeInvalid": "Rule code is invalid!",
-    "msgRuleNameInvalid": "Rule name is invalid!"
+    "msgRuleNameInvalid": "Rule name is invalid!",
+    "promptDatePicker": "Date：",
+    "labelGenReport": "Generate"
 }
