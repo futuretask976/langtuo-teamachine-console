@@ -4,6 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import ToppingListBlock from '../../components/drink/ToppingListBlock'
@@ -11,7 +12,7 @@ import ToppingNewModal from '../../components/drink/ToppingNewModal'
 
 const ToppingPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '饮品', '物料管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelToppingMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -34,11 +35,11 @@ const ToppingPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(toppingCode4Search, false)) {
-            alert('物料编码不符合规则');
+            alert(applyLang('msgToppingCodeInvalid'));
             return;
         }
         if (!isValidName(toppingName4Search, false)) {
-            alert('物料名称不符合规则');
+            alert(applyLang('msgToppingNameInvalid'));
             return;
         }
         refreshList();
@@ -64,32 +65,32 @@ const ToppingPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>物料编码：</span>
+                                <span>{applyLang('promptToppingCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料编码" allowClear onChange={(e) => setToppingCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelToppingCode')} allowClear onChange={(e) => setToppingCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>物料名称：</span>
+                                <span>{applyLang('promptToppingName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料名称" allowClear onChange={(e) => setToppingName4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelToppingName')} allowClear onChange={(e) => setToppingName4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建物料</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

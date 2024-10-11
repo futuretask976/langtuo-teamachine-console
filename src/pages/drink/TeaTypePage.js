@@ -4,6 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import TeaTypeListBlock from '../../components/drink/TeaTypeListBlock'
@@ -11,7 +12,7 @@ import TeaTypeNewModal from '../../components/drink/TeaTypeNewModal'
 
 const TeaTypePage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '饮品', '茶品类型管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelTeaTypeMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -34,11 +35,11 @@ const TeaTypePage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(teaTypeCode4Search, false)) {
-            alert('茶品类型编码不符合规则');
+            alert(applyLang('msgTeaTypeCodeInvalid'));
             return;
         }
         if (!isValidName(teaTypeName4Search, false)) {
-            alert('茶品类型名称不符合规则');
+            alert(applyLang('msgTeaTypeNameInvalid'));
             return;
         }
         refreshList();
@@ -64,32 +65,32 @@ const TeaTypePage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>类型编码：</span>
+                                <span>{applyLang('promptTeaTypeCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="类型编码" allowClear onChange={(e) => setTeaTypeCode4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelTeaTypeCode')} allowClear onChange={(e) => setTeaTypeCode4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>类型名称：</span>
+                                <span>{applyLang('promptTeaTypeName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="类型名称" allowClear onChange={(e) => setTeaTypeName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelTeaTypeName')} allowClear onChange={(e) => setTeaTypeName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建类型</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

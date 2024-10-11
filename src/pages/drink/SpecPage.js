@@ -4,6 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import SpecListBlock from '../../components/drink/SpecListBlock'
@@ -11,7 +12,7 @@ import SpecNewModal from '../../components/drink/SpecNewModal'
 
 const SpecPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '饮品', '规格管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelSpecMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -34,11 +35,11 @@ const SpecPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(specCode4Search, false)) {
-            alert('规格编码不符合规则');
+            alert(applyLang('msgSpecCodeInvalid'));
             return;
         }
         if (!isValidName(specName4Search, false)) {
-            alert('规格名称不符合规则');
+            alert(applyLang('msgSpecNameInvalid'));
             return;
         }
         refreshList();
@@ -64,32 +65,32 @@ const SpecPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规格编码：</span>
+                                <span>{applyLang('promptSpecCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="规格编码" allowClear onChange={(e) => setSpecCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelSpecCode')} allowClear onChange={(e) => setSpecCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规格名称：</span>
+                                <span>{applyLang('promptSpecName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="规格名称" allowClear onChange={(e) => setSpecName4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelSpecName')} allowClear onChange={(e) => setSpecName4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建规格</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

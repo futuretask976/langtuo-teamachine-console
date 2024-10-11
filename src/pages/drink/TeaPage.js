@@ -5,6 +5,7 @@ import { DownCircleOutlined, FormOutlined, SearchOutlined, UpCircleOutlined } fr
 import '../../css/common.css';
 import { getTenantCode, isValidCode, isValidName } from '../../js/common.js';
 import { get4Export } from '../../js/request4Export.js'
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import TeaListBlock from '../../components/drink/TeaListBlock'
@@ -13,7 +14,7 @@ import TeaUploadModal from '../../components/drink/TeaUploadModal'
 
 const TeaPage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '饮品', '茶品管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelTeaMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -43,11 +44,11 @@ const TeaPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(teaCode4Search, false)) {
-            alert('茶品编码不符合规则');
+            alert(applyLang('msgTeaCodeInvalid'));
             return;
         }
         if (!isValidName(teaName4Search, false)) {
-            alert('茶品名称不符合规则');
+            alert(applyLang('msgTeaNameInvalid'));
             return;
         }
         refreshList();
@@ -86,42 +87,42 @@ const TeaPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>茶品编码：</span>
+                                <span>{applyLang('promptTeaCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="茶品编码" allowClear onChange={(e) => setTeaCode4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelTeaCode')} allowClear onChange={(e) => setTeaCode4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>茶品名称：</span>
+                                <span>{applyLang('promptTeaName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="茶品名称" allowClear onChange={(e) => setTeaName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelTeaName')} allowClear onChange={(e) => setTeaName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>新建茶品</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>导出</Button>
+                                <Button type="primary" icon={<DownCircleOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>{applyLang('labelExport')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '90%'}}>导入</Button>
+                                <Button type="primary" icon={<UpCircleOutlined />} onClick={onClickUpload} style={{width: '90%'}}>{applyLang('labelImport')}</Button>
                             </div>
                         </Col>
                     </Row>

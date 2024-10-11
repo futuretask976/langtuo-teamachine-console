@@ -12,7 +12,7 @@ import ToppingTypeNewModal from '../../components/drink/ToppingTypeNewModal'
 
 const ToppingTypePage = () => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '饮品', '物料类型管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDrinkSet'), applyLang('labelToppingTypeMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -65,32 +65,32 @@ const ToppingTypePage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
-                                <span>{applyLang("toppingTypeCode")}</span>
+                                <span>{applyLang("promptToppingTypeCode")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={applyLang("toppingTypeCode")} allowClear onChange={(e) => setToppingTypeCode4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang("labelToppingTypeCode")} allowClear onChange={(e) => setToppingTypeCode4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
-                                <span>{applyLang("toppingTypeName")}</span>
+                                <span>{applyLang("promptToppingTypeName")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={applyLang("toppingTypeName")} allowClear onChange={(e) => setToppingTypeName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang("labelToppingTypeName")} allowClear onChange={(e) => setToppingTypeName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang("beginSearch")}</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang("labelBeginSearch")}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang("newToppingType")}</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang("labelNew")}</Button>
                             </div>
                         </Col>
                     </Row>
