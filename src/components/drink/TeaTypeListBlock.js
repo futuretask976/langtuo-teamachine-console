@@ -72,7 +72,7 @@ const TeaTypeListBlock = (props) => {
             width: '15%'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',

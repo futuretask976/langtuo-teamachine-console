@@ -66,7 +66,7 @@ const AccuracyTplListBlock = (props) => {
             width: '30%'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '25%',

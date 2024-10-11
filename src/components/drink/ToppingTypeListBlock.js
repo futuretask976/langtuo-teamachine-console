@@ -72,7 +72,7 @@ const ToppingTypeListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',

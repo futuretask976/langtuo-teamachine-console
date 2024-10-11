@@ -72,7 +72,7 @@ const DrainRuleListBlock = (props) => {
             render: (defaultRule) => defaultRule == 1 ? '是' : '不是',
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '25%',

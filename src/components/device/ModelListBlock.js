@@ -52,7 +52,7 @@ const ModelListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '型号名称',
+            title: applyLang('labelModelName'),
             dataIndex: 'modelCode',
             key: 'modelCode',
             width: '35%'
@@ -65,7 +65,7 @@ const ModelListBlock = (props) => {
             render: (enableFlowAll) => enableFlowAll == 1 ? '支持' : '不支持'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '25%',

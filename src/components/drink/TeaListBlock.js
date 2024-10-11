@@ -73,7 +73,7 @@ const TeaListBlock = (props) => {
             render: (state) => state == 0 ? '禁用' : '启用'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',

@@ -79,7 +79,7 @@ const CleanRuleListBlock = (props) => {
             render: (permitBatch) => permitBatch == 1 ? '启用' : '禁用',
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '15%',
