@@ -214,10 +214,10 @@ const AndroidAppUploadModal = (props) => {
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>备注：</span></Space>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptComment')}</span></Space>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder="备注" allowClear value={comment} onChange={(e) => setComment(e.target.value)}/>
+                        <Input placeholder={applyLang('labelComment')} allowClear value={comment} onChange={(e) => setComment(e.target.value)}/>
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>

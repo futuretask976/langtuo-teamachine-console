@@ -126,27 +126,27 @@ const ShopGroupNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺组编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopGroupCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
-                            <Input placeholder="店铺组编码" disabled={!isBlankStr(props.shopGroupCode4Edit)} value={shopGroupCode} onChange={(e) => setShopGroupCode(e.target.value)}/>
+                            <Input placeholder={applyLang('labelShopGroupCode')} disabled={!isBlankStr(props.shopGroupCode4Edit)} value={shopGroupCode} onChange={(e) => setShopGroupCode(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺组名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopGroupName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
-                            <Input placeholder="店铺组名称" value={shopGroupName} onChange={(e) => setShopGroupName(e.target.value)}/>
+                            <Input placeholder={applyLang('labelShopGroupName')} value={shopGroupName} onChange={(e) => setShopGroupName(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>组织架构：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -161,11 +161,11 @@ const ShopGroupNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
+                                <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
-                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                            <TextArea rows={5} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                         </Col>
                     </Row>
                 </Space>

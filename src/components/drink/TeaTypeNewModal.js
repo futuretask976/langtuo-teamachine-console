@@ -121,12 +121,12 @@ const TeaTypeNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
+                                <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={6} placeholder="备注" allowClear maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                <TextArea rows={6} placeholder={applyLang('labelComment')} allowClear maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>

@@ -123,7 +123,7 @@ const ShopNewModal = (props) => {
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="店铺编码" disabled={!isBlankStr(props.shopCode4Edit)} value={shopCode} onChange={(e) => setShopCode(e.target.value)}/>
+                            <Input placeholder={applyLang('labelShopCode')} disabled={!isBlankStr(props.shopCode4Edit)} value={shopCode} onChange={(e) => setShopCode(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
@@ -156,11 +156,11 @@ const ShopNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>备注：</span>
+                                <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <TextArea rows={5} placeholder="备注" maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                            <TextArea rows={5} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                         </Col>
                     </Row>
                 </Space>

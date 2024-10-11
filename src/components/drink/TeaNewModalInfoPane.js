@@ -294,10 +294,10 @@ const TeaNewModalInfoPane = (props) => {
 
             <div className="flex-row-cont" style={{height: 65, width: '98%'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <span>备注：</span>
+                    <span>{applyLang('promptComment')}</span>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '88%'}}>
-                    <TextArea placeholder="备注" onChange={(e) => setComment(e.target.value)} maxLength={200} rows={2} value={comment}/>
+                    <TextArea placeholder={applyLang('labelComment')} onChange={(e) => setComment(e.target.value)} maxLength={200} rows={2} value={comment}/>
                 </div>
             </div>
 

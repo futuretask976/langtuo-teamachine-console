@@ -178,5 +178,7 @@
     "labelAuthorizePoint": "Authorize Point",
     "labelAuthorizeGroup": "Authorize Group",
     "msgParentOrgNameInvalid": "Parent org name is invalid！",
-    "promptParentOrgName": "Parent Org Name："
+    "promptParentOrgName": "Parent Org Name：",
+    "labelShopGroupCode": "Shop Group Code",
+    "promptShopGroupCode": "Shop Group Code："
 }

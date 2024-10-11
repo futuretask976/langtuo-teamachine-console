@@ -78,11 +78,11 @@ const SupplyActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>店铺组名称：</span>
+                                    <span>{applyLang('promptShopGroupName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="店铺组名称" disabled={true} value={shopGroupName}/>
+                                <Input placeholder={applyLang('labelShopGroupName')} disabled={true} value={shopGroupName}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
