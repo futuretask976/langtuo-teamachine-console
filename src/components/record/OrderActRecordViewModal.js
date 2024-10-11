@@ -156,11 +156,11 @@ const OrderActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>店铺名称：</span>
+                                    <span>{applyLang('labelShopName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="店铺名称" disabled={true} value={shopName}/>
+                                <Input placeholder={applyLang('labelShopName')} disabled={true} value={shopName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>

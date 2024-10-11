@@ -53,31 +53,31 @@ const ShopGroupListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '店铺组编码',
+            title: applyLang('labelShopGroupCode'),
             dataIndex: 'shopGroupCode',
             key: 'shopGroupCode',
             width: '20%'
         },
         {
-            title: '店铺组名称',
+            title: applyLang('labelShopGroupName'),
             dataIndex: 'shopGroupName',
             key: 'shopGroupName',
             width: '20%'
         },
         {
-            title: '组织架构',
+            title: applyLang('labelOrgName'),
             dataIndex: 'orgName',
             key: 'orgName',
             width: '15%'
         },
         {
-            title: '店铺数量',
+            title: applyLang('labelShopCnt'),
             dataIndex: 'shopCount',
             key: 'shopCount',
             width: '10%'
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',

@@ -180,5 +180,8 @@
     "msgParentOrgNameInvalid": "Parent org name is invalid！",
     "promptParentOrgName": "Parent Org Name：",
     "labelShopGroupCode": "Shop Group Code",
-    "promptShopGroupCode": "Shop Group Code："
+    "promptShopGroupCode": "Shop Group Code：",
+    "labelShopCnt": "Shop Count",
+    "labelShopCode": "Shop Code",
+    "promptShopCode": "Shop Code："
 }

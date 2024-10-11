@@ -111,7 +111,7 @@ const ShopNewModal = (props) => {
             onCancel={onClickCancel}
             onOk={onClickOK}
             style={{border: '0px solid red'}}
-            title="新建/编辑店铺"
+            title={applyLang('labelNewOrEdit')}
             width={500}
         >
             <div style={{height: 300, width: '100%'}}>
@@ -119,7 +119,7 @@ const ShopNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelShopCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -129,17 +129,17 @@ const ShopNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelShopName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="店铺名称" value={shopName} onChange={(e) => setShopName(e.target.value)}/>
+                            <Input placeholder={applyLang('labelShopName')} value={shopName} onChange={(e) => setShopName(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺组：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelShopGroupName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>

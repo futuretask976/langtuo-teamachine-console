@@ -118,7 +118,7 @@ const ShopGroupNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
-            title="新建/编辑店铺组"
+            title={applyLang('labelNewOrEdit')}
             width={500}
         >
             <div style={{height: 300, width: '100%'}}>
