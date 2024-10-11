@@ -177,7 +177,7 @@ const ToppingNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>物料类型：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptToppingTypeName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
@@ -194,54 +194,54 @@ const ToppingNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>计量单位：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptMeasureUnit')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Radio.Group disabled={true} onChange={(e) => setMeasureUnit(e.target.value)} value={measureUnit}>
-                                    <Radio value={0}>克</Radio>
-                                    <Radio value={1}>毫升</Radio>
+                                    <Radio value={0}>{applyLang('labelMeasureUnitKg')}</Radio>
+                                    <Radio value={1}>{applyLang('labelMeasureUnitMl')}</Radio>
                                 </Radio.Group>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>状态：</span>
+                                <span>{applyLang('promptState')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={(e) => setState(e == true ? 1 : 0)} />
+                                <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e == true ? 1 : 0)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>维保期：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptValidPeriod')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={1} max={9999} value={validHourPeriod} onChange={(e) => setValidHourPeriod(e)} /><span>小时</span></Space>
+                                <Space><InputNumber min={1} max={9999} value={validHourPeriod} onChange={(e) => setValidHourPeriod(e)} /><span>{applyLang('labelHour')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>清洗期：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptCleanPeriod')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={1} max={9999} value={cleanHourPeriod} onChange={(e) => setCleanHourPeriod(e)} /><span>小时</span></Space>
+                                <Space><InputNumber min={1} max={9999} value={cleanHourPeriod} onChange={(e) => setCleanHourPeriod(e)} /><span>{applyLang('labelHour')}</span></Space>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>转换系数：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptConvertCoefficient')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
@@ -251,37 +251,37 @@ const ToppingNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>转速：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptFlowSpeed')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={1} max={9999} value={flowSpeed} onChange={(e) => setFlowSpeed(e)} /><span>档</span></Space>
+                                <Space><InputNumber min={1} max={9999} value={flowSpeed} onChange={(e) => setFlowSpeed(e)} /><span>{applyLang('labelGear')}</span></Space>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>报警阈值类型：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptWarningThreshholdType')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%'}}>
                                 <Radio.Group disabled='true' onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
-                                    <Radio value={0}>固定值</Radio>
-                                    <Radio value={1}>百分比</Radio>
+                                    <Radio value={0}>{applyLang('labelFix')}</Radio>
+                                    <Radio value={1}>{applyLang('labelPer')}</Radio>
                                 </Radio.Group>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>报警阈值：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptWarningThreshhold')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>克/分钟</span></Space>
+                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelKg')}/{applyLang('labelMin')}</span></Space>
                             </div>
                         </Col>
                     </Row>

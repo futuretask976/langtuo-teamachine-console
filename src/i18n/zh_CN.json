@@ -211,5 +211,18 @@
     "promptUploadFile": "上传文件：",
     "msgValidPeriodInvalid": "有效期不符合规则！",
     "msgMaintainPeriodInvalid": "维保期不符合规则！",
-    "msgCleanPeroidInvalid": "清洗周期不符合规则！"
+    "msgCleanPeroidInvalid": "清洗周期不符合规则！",
+    "promptMeasureUnit": "计量单位：",
+    "labelMeasureUnitKg": "克",
+    "labelMeasureUnitMl": "毫升",
+    "promptCleanPeriod": "清洗周期：",
+    "labelHour": "小时",
+    "promptConvertCoefficient": "转换系数：",
+    "promptFlowSpeed": "流速：",
+    "labelGear": "档位",
+    "labelMin": "分钟",
+    "labelFix": "固定值",
+    "labelPer": "百分比",
+    "promptWarningThreshholdType": "报警阈值类型：",
+    "promptWarningThreshhold": "报警阈值"
 }

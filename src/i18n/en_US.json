@@ -211,5 +211,18 @@
     "promptUploadFile": "Upload File：",
     "msgValidPeriodInvalid": "Valid period is invalid！",
     "msgMaintainPeriodInvalid": "Maintain period is invalid！",
-    "msgCleanPeroidInvalid": "Clean period is invalid！"
+    "msgCleanPeroidInvalid": "Clean period is invalid！",
+    "promptMeasureUnit": "Measure Unit：",
+    "labelMeasureUnitKg": "kg",
+    "labelMeasureUnitMl": "ml",
+    "promptCleanPeriod": "Clean Period：",
+    "labelHour": "Hour",
+    "promptConvertCoefficient": "Convert Coefficient：",
+    "promptFlowSpeed": "Flow Speed：",
+    "labelGear": "Gear",
+    "labelMin": "Minute",
+    "labelFix": "Fix",
+    "labelPer": "Per",
+    "promptWarningThreshholdType": "Warning Threshhold Type：",
+    "promptWarningThreshhold": "Warning Threshhold"
 }
