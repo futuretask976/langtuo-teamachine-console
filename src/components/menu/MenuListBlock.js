@@ -116,7 +116,7 @@ const MenuListBlock = (props) => {
             menuCode: menuCode
         }).then(resp => {
             if (resp.success) {
-                alert('删除成功！');
+                alert(applyLang('msgDelSucceed'));
                 fetchListData();
             } else {
                 alert(applyLang('msgDelFailed') + resp.errorMsg)

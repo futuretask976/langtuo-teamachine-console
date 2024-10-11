@@ -128,7 +128,7 @@ const DeployListBlock = (props) => {
             deployCode: deployCode
         }).then(respData => {
             if (respData.success) {
-                alert('删除成功！');
+                alert(applyLang('msgDelSucceed'));
                 fetchListData();
             } else {
                 alert(applyLang('msgDelFailed') + respData.errorMsg)
