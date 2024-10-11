@@ -33,6 +33,7 @@
     "labelDrainActRecordMgt": "排空记录管理",
     "labelCleanActRecordMgt": "清洗记录管理",
     "labelOrderActRecordMgt": "订单记录管理",
+    "labelOrderActRecordMgt4Breadcrumb": "订单记录管理（由于订单数量较大，仅支持基于指定店铺组的搜索）",
     "labelReportSet": "日常报表",
     "labelOrderReportMgt": "订单报表",
     "promptLangSelect": "语言：",

@@ -4,6 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { getTenantCode, isArray } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -12,7 +13,7 @@ import DrainActRecordViewModal from '../../components/record/DrainActRecordViewM
 
 const DrainActRecordPage = () => {
     // 面包屑相关
-    const breadcrumbPath = ['控制台', '动作记录', '排空记录管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelRecordSet'), applyLang('labelDrainActRecordMgt')];
 
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState();
@@ -32,7 +33,7 @@ const DrainActRecordPage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: '全部',
+                    label: applyLang('labelAll'),
                     value: null
                 }];
                 if (isArray(respData.model)) {
@@ -57,7 +58,7 @@ const DrainActRecordPage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: '全部',
+                    label: applyLang('labelAll'),
                     value: null
                 }];
                 if (isArray(respData.model)) {
@@ -81,7 +82,7 @@ const DrainActRecordPage = () => {
             }
             setShopGroupList4Select((prev => {
                 let shopGroupListTmp = [{
-                    label: '全部',
+                    label: applyLang('labelAll'),
                     value: null
                 }];
                 if (isArray(respData.model)) {
@@ -131,7 +132,7 @@ const DrainActRecordPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{ justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺组编码：</span>
+                                <span>{applyLang('promptShopGroupName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -149,7 +150,7 @@ const DrainActRecordPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺编码：</span>
+                                <span>{applyLang('promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -164,7 +165,7 @@ const DrainActRecordPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{height: '100%'}}>
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                     </Row>
@@ -175,7 +176,7 @@ const DrainActRecordPage = () => {
             </Space>
 
             {openViewModal && (
-                <DrainActRecordViewModal modalTitle='查看明细' idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+                <DrainActRecordViewModal idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
             )}
         </>
     )

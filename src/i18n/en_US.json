@@ -33,6 +33,7 @@
     "labelDrainActRecordMgt": "Drain Act Record",
     "labelCleanActRecordMgt": "Clean Act Record",
     "labelOrderActRecordMgt": "Order Act Record",
+    "labelOrderActRecordMgt4Breadcrumb": "Order Act Record（Due to order record amount is huge, only support search under a specific shop group）",
     "labelReportSet": "Report",
     "labelOrderReportMgt": "Order Report",
     "promptLangSelect": "LANGUAGE：",
