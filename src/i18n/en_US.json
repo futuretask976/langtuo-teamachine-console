@@ -170,7 +170,13 @@
     "labelYes": "Yes",
     "labelNo": "No",
     "labelParentOrgName": "Parent Org Name",
-    "promptRoleCode": "Role Code",
+    "promptRoleCode": "Role Code：",
     "labelRoleCode": "Role Code",
-    "msgRoleCodeInvalid": "Role code is invalid！"
+    "msgRoleCodeInvalid": "Role code is invalid！",
+    "labelAdminCnt": "Admin Count",
+    "labelSysReversed": "System Reversed",
+    "labelAuthorizePoint": "Authorize Point",
+    "labelAuthorizeGroup": "Authorize Group",
+    "msgParentOrgNameInvalid": "Parent org name is invalid！",
+    "promptParentOrgName": "Parent Org Name："
 }

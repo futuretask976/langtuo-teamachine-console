@@ -12,15 +12,15 @@ const OrgNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidName(orgName, true)) {
-            alert('组织名称不符合规则');
+            alert(applyLang('msgOrgNameInvalid'));
             return;
         }
         if (!isValidName(parentOrgName, true)) {
-            alert('父组织名称不符合规则');
+            alert(applyLang('msgParentOrgNameInvalid'));
             return;
         }
         if (orgName == parentOrgName) {
-            alert('父组织名称不能是自己');
+            alert(applyLang('msgParentOrgNameInvalid'));
             return;
         }
 
@@ -99,7 +99,7 @@ const OrgNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
-            title="新建/编辑组织"
+            title={applyLang('labelNewOrEdit')}
             width={450}
         >
             <div style={{height: 100, width: '100%'}}>
@@ -107,17 +107,17 @@ const OrgNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>组织名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
-                            <Input placeholder="组织名称" value={orgName} onChange={(e) => setOrgName(e.target.value)} disabled={isBlankStr(props.orgName4Edit) ? false : true}/>
+                            <Input placeholder={applyLang('labelOrgName')} value={orgName} onChange={(e) => setOrgName(e.target.value)} disabled={isBlankStr(props.orgName4Edit) ? false : true}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>父组织名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptParentOrgName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>

@@ -169,7 +169,7 @@ const RoleNewModal = (props) => {
     }
     const permitActTableCol = [
         {
-            title: '权限分组',
+            title: applyLang('labelAuthorizeGroup'),
             dataIndex: 'permitActGroupName',
             key: 'permitActGroupName',
             render: (_, record) => (
@@ -182,7 +182,7 @@ const RoleNewModal = (props) => {
             ),
         },
         {
-            title: '权限点',
+            title: applyLang('labelAuthorizePoint'),
             dataIndex: 'permitAct',
             key: 'permitAct',
             render: (_, record) => (
@@ -208,7 +208,7 @@ const RoleNewModal = (props) => {
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 style={{border: '0px solid red'}}
-                title="新建/编辑角色"
+                title={applyLang('labelNewOrEdit')}
                 width={1000}
             >
                 <div className="flex-col-cont" style={{height: 390, width: '100%'}}>
@@ -217,27 +217,27 @@ const RoleNewModal = (props) => {
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>applyLang('promptRoleCode')</span></Space>
+                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRoleCode')}</span></Space>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={5}>
-                                    <Input placeholder="applyLang('labelRoleCode')" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={(e) => setRoleCode(e.target.value)}/>
+                                    <Input placeholder={applyLang('labelRoleCode')} disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={(e) => setRoleCode(e.target.value)}/>
                                 </Col>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>角色名称：</span></Space>
+                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRoleName')}</span></Space>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={5}>
-                                    <Input placeholder="角色名称" value={roleName} onChange={(e) => setRoleName(e.target.value)}/>
+                                    <Input placeholder={applyLang('labelRoleName')} value={roleName} onChange={(e) => setRoleName(e.target.value)}/>
                                 </Col>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <span>备注：</span>
+                                        <span>{applyLang('promptComment')}</span>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={5}>
-                                    <Input placeholder="备注" value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                    <Input placeholder={applyLang('labelComment')} value={comment} onChange={(e) => setComment(e.target.value)}/>
                                 </Col>
                             </Row>
                         </Space>

@@ -169,8 +169,16 @@
     "promptLoginPass": "登录密码：",
     "labelYes": "是",
     "labelNo": "否",
-    "labelParentOrgName": "上级组织名称",
+    "labelParentOrgName": "父组织名称",
     "promptRoleCode": "角色编码：",
     "labelRoleCode": "角色编码",
-    "msgRoleCodeInvalid": "角色编码不符合规则！"
+    "msgRoleCodeInvalid": "角色编码不符合规则！",
+    "labelTenantCode": "商户编码",
+    "promptTenantCode": "商户名称：",
+    "labelAdminCnt": "管理员数量",
+    "labelSysReversed": "系统预留",
+    "labelAuthorizePoint": "权限点",
+    "labelAuthorizeGroup": "权限分组",
+    "msgParentOrgNameInvalid": "父组织名称不符合规则！",
+    "promptParentOrgName": "父组织名称："
 }

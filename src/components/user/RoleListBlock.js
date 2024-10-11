@@ -59,26 +59,26 @@ const RoleListBlock = (props) => {
             width: '25%'
         },
         {
-            title: '角色名称',
+            title: applyLang('labelRoleName'),
             dataIndex: 'roleName',
             key: 'roleName',
             width: '20%'
         },
         {
-            title: '用户数',
+            title: applyLang('labelAdminCnt'),
             dataIndex: 'adminCount',
             key: 'adminCount',
             width: '10%'
         },
         {
-            title: '系统预留',
+            title: applyLang('labelSysReversed'),
             dataIndex: 'sysReserved',
             key: 'sysReserved',
             width: '10%',
-            render: (sysReserved) => 1 == sysReserved ? '是' : '否'
+            render: (sysReserved) => 1 == sysReserved ? applyLang('labelYes') : applyLang('labelNo')
         },
         {
-            title: '创建时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',
