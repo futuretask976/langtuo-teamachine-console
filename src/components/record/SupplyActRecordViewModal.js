@@ -68,7 +68,7 @@ const SupplyActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>机器编码：</span>
+                                    <span>{applyLang('promptMachineCode')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>

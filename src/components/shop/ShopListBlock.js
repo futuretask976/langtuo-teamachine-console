@@ -60,7 +60,7 @@ const ShopListBlock = (props) => {
             width: '25%'
         },
         {
-            title: '店铺名称',
+            title: applyLang('labelShopName'),
             dataIndex: 'shopName',
             key: 'shopName',
             width: '20%'

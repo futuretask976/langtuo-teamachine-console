@@ -52,19 +52,19 @@ const AndroidAppListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '版本号',
+            title: applyLang('labelVersion'),
             dataIndex: 'version',
             key: 'version',
             width: '20%'
         },
         {
-            title: 'OSS 路径',
+            title: applyLang('labelOssPath'),
             dataIndex: 'ossPath',
             key: 'ossPath',
             width: '40%'
         },
         {
-            title: '生成时间',
+            title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
             width: '20%',
@@ -89,7 +89,7 @@ const AndroidAppListBlock = (props) => {
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + version} onClick={(e) => onClickDispatch(e, version)}>分发</a>
+                            <a key={action + '_' + version} onClick={(e) => onClickDispatch(e, version)}>{applyLang('labelOpeDispatch')}</a>
                         );
                     }
                 })}

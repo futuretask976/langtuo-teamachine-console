@@ -15,7 +15,7 @@ const MachineDeployNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidName(machineName, true)) {
-            alert('机器名称不符合规则');
+            alert(applyLang('msgMachineNameInvalid'));
             return;
         }
 
@@ -142,7 +142,7 @@ const MachineDeployNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            title="编辑机器信息"
+            title={applyLang('labelNewOrEdit')}
             width={500}
         >
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 450, width: '100%'}}>
@@ -150,7 +150,7 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>机器编码：</span>
+                                <span>{applyLang('promptMachineCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -162,19 +162,19 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>机器名称：</span>
+                                <span>{applyLang('promptMachineName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器名称" allowClear value={machineName} onChange={(e) => setMachineName(e.target.value)}/>
+                                <Input placeholder={applyLang('labelMachineName')} allowClear value={machineName} onChange={(e) => setMachineName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>屏幕编码：</span>
+                                <span>{applyLang('promptScreenCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -186,19 +186,19 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>电控板编码：</span>
+                                <span>{applyLang('promptElecBoardCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="电控板编码" allowClear value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
+                                <Input placeholder={applyLang('labelElecBoardCode')} allowClear value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelModelCode')}</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptModelCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -215,19 +215,19 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>状态：</span>
+                                <span>{applyLang('promptState')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
+                                <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>保修期：</span>
+                                <span>{applyLang('promptMaintainPeriod')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -246,7 +246,7 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>有效期：</span>
+                                <span>{applyLang('promptValidPeriod')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -265,7 +265,7 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>归属{applyLang('promptShopName')}</span>
+                                <span>{applyLang('promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>

@@ -59,35 +59,35 @@ const DeployListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '部署码',
+            title: applyLang('labelDeployCode'),
             dataIndex: 'deployCode',
             key: 'deployCode',
             width: '20%'
         },
         {
-            title: '机器编码',
+            title: applyLang('labelMachineCode'),
             dataIndex: 'machineCode',
             key: 'machineCode',
             width: '20%'
         },
         {
-            title: '归属门店',
+            title: applyLang('labelShopName'),
             dataIndex: 'shopName',
             key: 'shopName',
             width: '15%'
         },
         {
-            title: '设备型号',
+            title: applyLang('labelModelCode'),
             dataIndex: 'modelCode',
             key: 'modelCode',
             width: '20%'
         },
         {
-            title: '部署状态',
+            title: applyLang('labelDeployState'),
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 0 ? '未部署' : '已部署'
+            render: (state) => state == 0 ? applyLang('labelNo') : applyLang('labelYes')
         },
         {
             title: applyLang('labelOpe'),

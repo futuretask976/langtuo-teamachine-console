@@ -150,7 +150,7 @@ const DeployNewModal = (props) => {
             onOk={onClickOK}
             open={open}
             style={{border: '0px solid red'}}
-            title="新建/编辑部署码"
+            title={applyLang('labelNewOrEdit')}
             width={500}
         >
             <div style={{height: 200, width: '100%'}}>
@@ -158,19 +158,19 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>部署码生成</Button></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>{applyLang('labelGenDeployCode')}</Button></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={applyLang('labelModelCode')} allowClear value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
+                                <Input placeholder={applyLang('labelModeCode')} allowClear value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>机器码生成</Button></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>{applyLang('labelGenMachineCode')}</Button></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -182,7 +182,7 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelModelCode')}</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptModelCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>

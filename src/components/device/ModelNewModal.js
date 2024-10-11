@@ -212,7 +212,7 @@ const ModelNewModal = (props) => {
                         <Row key={index} style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
-                                    <span>管道号码：</span>
+                                    <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -222,7 +222,7 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
-                                    <span>支持冷藏：</span>
+                                    <span>{applyLang('promptSupportFreeze')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -232,7 +232,7 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
-                                    <span>支持加热：</span>
+                                    <span>{applyLang('promptSupportWarm')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>

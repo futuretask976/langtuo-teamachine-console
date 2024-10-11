@@ -55,47 +55,47 @@ const MachineListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '机器编码',
+            title: applyLang('labelMachineCode'),
             dataIndex: 'machineCode',
             key: 'machineCode',
             width: '15%'
         },
         {
-            title: '机器名称',
+            title: applyLang('labelMachineName'),
             dataIndex: 'machineName',
             key: 'machineName',
             width: '15%'
         },
         {
-            title: '屏幕编码',
+            title: applyLang('labelScreenCode'),
             dataIndex: 'screenCode',
             key: 'screenCode',
             width: '15%'
         },
         {
-            title: '电控板编码',
+            title: applyLang('labelElecBoardCode'),
             dataIndex: 'elecBoardCode',
             key: 'elecBoardCode',
             width: '15%'
         },
         {
-            title: '设备型号',
+            title: applyLang('labelModelCode'),
             dataIndex: 'modelCode',
             key: 'modelCode',
             width: '10%'
         },
         {
-            title: '店铺名称',
+            title: applyLang('labelShopName'),
             dataIndex: 'shopName',
             key: 'shopName',
             width: '10%'
         },
         {
-            title: '设备状态',
+            title: applyLang('labelMachineState'),
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 0 ? '禁用' : '启用'
+            render: (state) => state == 0 ? applyLang('labelDisabled') : applyLang('labelEnabled')
         },
         {
             title: applyLang('labelOpe'),

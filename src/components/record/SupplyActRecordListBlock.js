@@ -51,7 +51,7 @@ const SupplyActRecordListBlock = (props) => {
 
     let columns = [
         {
-            title: '机器编码',
+            title: applyLang('labelMachineCode'),
             dataIndex: 'machineCode',
             key: 'machineCode',
             width: '20%'

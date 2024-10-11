@@ -199,17 +199,16 @@ const AndroidAppUploadModal = (props) => {
             onCancel={onClickCancel}
             onOk={onClickOK}
             open={open}
-            style={{border: '0px solid red'}}
-            title="上传导入文件"
+            title={applyLang('labelImport')}
             width={450}
         >
             <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 240, width: '100%'}}>
                 <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>版本号：</span></Space>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptVersion')}</span></Space>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder="版本号" allowClear disabled={props.version4Edit == undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
+                        <Input placeholder={applyLang('labelVersion')} allowClear disabled={props.version4Edit == undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
@@ -222,15 +221,15 @@ const AndroidAppUploadModal = (props) => {
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>OSS 路径：</span></Space>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOssPath')}</span></Space>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder="OSS 路径" allowClear disabled={true} value={ossPath}/>
+                        <Input placeholder={applyLang('labelOssPath')} allowClear disabled={true} value={ossPath}/>
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 120, width: '100%', border: '0px solid green'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span>文件上传：</span></Space>
+                        <Space size='small'><span>{applyLang('promptUploadFile')}</span></Space>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
                         {show === true ? (
