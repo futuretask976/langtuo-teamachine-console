@@ -237,7 +237,7 @@ const DrainRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={5}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={defaultRule === 1 ? true : false} onChange={(e) => setDefaultRule(e ? 1 : 0)} />
+                                <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={defaultRule === 1 ? true : false} onChange={(e) => setDefaultRule(e ? 1 : 0)} />
                             </Col>
                             <Col className="gutter-row" span={16}>
                                 &nbsp;

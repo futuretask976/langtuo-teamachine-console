@@ -155,7 +155,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" allowClear value={machineCode} disabled={true} />
+                                <Input placeholder={applyLang('labelMachineCode')} allowClear value={machineCode} disabled={true} />
                             </div>
                         </Col>
                     </Row>
@@ -179,7 +179,7 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" allowClear value={screenCode} disabled={true} onChange={(e) => setScreenCode(e.target.value)}/>
+                                <Input placeholder={applyLang('labelMachineCode')} allowClear value={screenCode} disabled={true} onChange={(e) => setScreenCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
@@ -198,7 +198,7 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelModelCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -265,7 +265,7 @@ const MachineDeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>归属店铺：</span>
+                                <span>归属{applyLang('promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>

@@ -18,7 +18,7 @@ const DrainRuleDispatchModal = (props) => {
             shopGroupCodeList: targetKeys
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert(applyLang('msgPutSucceed'));
             } else {
                 alert(applyLang('msgPutFailed') + respData.errorMsg);
             }

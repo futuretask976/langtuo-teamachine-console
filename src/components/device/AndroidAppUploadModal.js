@@ -67,7 +67,7 @@ const AndroidAppUploadModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);

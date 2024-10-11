@@ -183,5 +183,12 @@
     "promptShopGroupCode": "Shop Group Code：",
     "labelShopCnt": "Shop Count",
     "labelShopCode": "Shop Code",
-    "promptShopCode": "Shop Code："
+    "promptShopCode": "Shop Code：",
+    "promptSupportOutputMeanwhile": "Output Meanwhile：",
+    "labelSupportOutputMeanwhile": "Output Meanwhile",
+    "labelAddPipeline": "Add Pipeline",
+    "labelDelPipeline": "Delete Pipeline",
+    "promptPipelineNo": "Pipeline No.：",
+    "promptSupportWarm": "Support Warm：",
+    "promptSupportFreeze": "Support Freeze："
 }

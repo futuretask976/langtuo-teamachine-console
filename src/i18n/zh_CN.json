@@ -185,5 +185,12 @@
     "promptShopGroupCode": "店铺组编码：",
     "labelShopCnt": "店铺数量",
     "labelShopCode": "店铺编码",
-    "promptShopCode": "店铺编码："
+    "promptShopCode": "店铺编码：",
+    "promptSupportOutputMeanwhile": "是否支持同时出料: ",
+    "labelSupportOutputMeanwhile": "是否支持同时出料",
+    "labelAddPipeline": "添加管道",
+    "labelDelPipeline": "删除管道",
+    "promptPipelineNo": "管道号码：",
+    "promptSupportWarm": "支持加热：",
+    "promptSupportFreeze": "支持冷藏"
 }

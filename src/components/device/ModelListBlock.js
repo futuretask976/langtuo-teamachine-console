@@ -52,17 +52,17 @@ const ModelListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: applyLang('labelModelName'),
+            title: applyLang('labelModelCode'),
             dataIndex: 'modelCode',
             key: 'modelCode',
             width: '35%'
         },
         {
-            title: '是否支持同时出料',
+            title: applyLang('labelSupportOutputMeanwhile'),
             dataIndex: 'enableFlowAll',
             key: 'enableFlowAll',
             width: '25%',
-            render: (enableFlowAll) => enableFlowAll == 1 ? '支持' : '不支持'
+            render: (enableFlowAll) => enableFlowAll == 1 ? applyLang('labelYes') : applyLang('labelNo')
         },
         {
             title: applyLang('labelGmtCreated'),

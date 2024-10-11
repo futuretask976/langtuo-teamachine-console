@@ -72,7 +72,7 @@ const InvalidActRecordViewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="机器编码" disabled={true} value={machineCode}/>
+                                <Input placeholder={applyLang('labelMachineCode')} disabled={true} value={machineCode}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>

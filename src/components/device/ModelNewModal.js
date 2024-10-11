@@ -29,7 +29,7 @@ const ModelNewModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);
@@ -168,7 +168,7 @@ const ModelNewModal = (props) => {
             onCancel={onClickCancel} 
             onOk={onClickOK} 
             style={{border: '0px solid red'}} 
-            title="新建/编辑型号" 
+            title={applyLang('labelNewOrEdit')}
             width={750}
         >
             <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
@@ -176,29 +176,29 @@ const ModelNewModal = (props) => {
                     <Row style={{height: 45, width: '100%'}}>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptModelCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
-                                <Input placeholder="型号编码" value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={(e) => setModelCode(e.target.value)} />
+                                <Input placeholder={applyLang('labelModelCode')} value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={(e) => setModelCode(e.target.value)} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>同时出料：</span>
+                                <span>{applyLang('promptSupportOutputMeanwhile')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={enableFlowAll === 1 ? true : false} onChange={(e) => setEnableFlowAll(e ? 1 : 0)} />
+                                <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={enableFlowAll === 1 ? true : false} onChange={(e) => setEnableFlowAll(e ? 1 : 0)} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={10}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
                                 <Space size={15}>
-                                    <Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>添加管道</Button>
-                                    <Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>删除管道</Button>
+                                    <Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>{applyLang('labelAddPipeline')}</Button>
+                                    <Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>{applyLang('labelDelPipeline')}</Button>
                                 </Space>
                             </div>
                         </Col>
@@ -227,7 +227,7 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <Switch checkedChildren="支持" disabled="true" unCheckedChildren="不支持" checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
+                                    <Switch checkedChildren={applyLang('labelYes')} disabled="true" unCheckedChildren={applyLang('labelNo')} checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -237,7 +237,7 @@ const ModelNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
+                                    <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>

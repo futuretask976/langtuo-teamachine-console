@@ -109,7 +109,7 @@ const OrderActRecordViewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="机器编码" disabled={true} value={machineCode}/>
+                                <Input placeholder={applyLang('labelMachineCode')} disabled={true} value={machineCode}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>

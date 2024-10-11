@@ -39,7 +39,7 @@ const DeployNewModal = (props) => {
             putNew: putNew
         }).then(respData => {
             if (respData.success) {
-                alert("保存成功");
+                alert(applyLang('msgPutSucceed'));
                 setLoading(false);
                 props.onClose(true);
                 setOpen(false);
@@ -163,7 +163,7 @@ const DeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="部署编码" allowClear value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
+                                <Input placeholder={applyLang('labelModelCode')} allowClear value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>
@@ -175,14 +175,14 @@ const DeployNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" allowClear value={machineCode} onChange={(e) => setMachineCode(e.target.value)} disabled={true}/>
+                                <Input placeholder={applyLang('labelMachineCode')} allowClear value={machineCode} onChange={(e) => setMachineCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>型号编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelModelCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
@@ -199,7 +199,7 @@ const DeployNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>店铺：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>

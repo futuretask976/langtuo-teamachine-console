@@ -186,7 +186,7 @@ const CleanRuleStepTabPane = (props) => {
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>是否再次确认：</div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '10%'}}>
-                    <Switch checkedChildren="支持" unCheckedChildren="不支持" checked={getNeedConfirm()} size="middle" onChange={onChangeNeedConfirm}/>
+                    <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={getNeedConfirm()} size="middle" onChange={onChangeNeedConfirm}/>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>清洗剂：</div>
                 <div className="flex-row-cont" style={{width: '25%'}}>
