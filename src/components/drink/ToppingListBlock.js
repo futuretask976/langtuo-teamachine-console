@@ -99,7 +99,7 @@ const ToppingListBlock = (props) => {
             render: (state) => state == 1 ? '启用' : '禁用'
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '10%',
             render: (_, { toppingCode, actions }) => (
@@ -107,12 +107,12 @@ const ToppingListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>编辑</a>
+                            <a key={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>删除</a>
+                            <a key={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

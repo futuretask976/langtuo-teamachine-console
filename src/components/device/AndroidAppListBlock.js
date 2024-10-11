@@ -71,7 +71,7 @@ const AndroidAppListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '20%',
             render: (_, { version, actions }) => (
@@ -79,12 +79,12 @@ const AndroidAppListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + version} onClick={(e) => onClickEdit(e, version)}>编辑</a>
+                            <a key={action + '_' + version} onClick={(e) => onClickEdit(e, version)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + version} onClick={(e) => onClickDelete(e, version)}>删除</a>
+                            <a key={action + '_' + version} onClick={(e) => onClickDelete(e, version)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                     if (action == 'dispatch') {

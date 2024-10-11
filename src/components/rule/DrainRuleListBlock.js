@@ -79,7 +79,7 @@ const DrainRuleListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { drainRuleCode, actions }) => (
@@ -87,12 +87,12 @@ const DrainRuleListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickEdit(e, drainRuleCode)}>编辑</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickEdit(e, drainRuleCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>删除</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                     if (action == 'dispatch') {

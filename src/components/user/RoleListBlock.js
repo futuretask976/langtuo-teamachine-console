@@ -53,7 +53,7 @@ const RoleListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '角色编码',
+            title: 'applyLang('labelRoleCode')',
             dataIndex: 'roleCode',
             key: 'roleCode',
             width: '25%'
@@ -85,7 +85,7 @@ const RoleListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { roleCode, actions }) => (
@@ -93,12 +93,12 @@ const RoleListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + roleCode} onClick={(e) => onClickEdit(e, roleCode)}>编辑</a>
+                            <a key={action + '_' + roleCode} onClick={(e) => onClickEdit(e, roleCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + roleCode} onClick={(e) => onClickDelete(e, roleCode)}>删除</a>
+                            <a key={action + '_' + roleCode} onClick={(e) => onClickDelete(e, roleCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

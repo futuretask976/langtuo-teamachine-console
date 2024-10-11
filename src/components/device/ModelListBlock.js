@@ -72,7 +72,7 @@ const ModelListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { modelCode, actions }) => (
@@ -80,12 +80,12 @@ const ModelListBlock = (props) => {
                     {actions.map((action) => {
                         if (action == 'edit') {
                             return (
-                                <a key={action + '_' + modelCode} onClick={(e) => onClickEdit(e, modelCode)}>编辑</a>
+                                <a key={action + '_' + modelCode} onClick={(e) => onClickEdit(e, modelCode)}>{applyLang('labelOpeEdit')}</a>
                             );
                         }
                         if (action == 'delete') {
                             return (
-                                <a key={action + '_' + modelCode} onClick={(e) => onClickDelete(e, modelCode)}>删除</a>
+                                <a key={action + '_' + modelCode} onClick={(e) => onClickDelete(e, modelCode)}>{applyLang('labelOpeDel')}</a>
                             );
                         }
                     })}

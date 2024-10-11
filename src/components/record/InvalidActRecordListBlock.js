@@ -90,7 +90,7 @@ const InvalidActRecordListBlock = (props) => {
             width: '10%'
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '10%',
             render: (_, { idempotentMark, actions }) => (

@@ -90,7 +90,7 @@ const DeployListBlock = (props) => {
             render: (state) => state == 0 ? '未部署' : '已部署'
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { deployCode, actions }) => (
@@ -98,12 +98,12 @@ const DeployListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>编辑</a>
+                            <a key={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>删除</a>
+                            <a key={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

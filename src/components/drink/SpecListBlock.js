@@ -86,7 +86,7 @@ const SpecListBlock = (props) => {
             )
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '10%',
             render: (_, { specCode, actions }) => (
@@ -94,12 +94,12 @@ const SpecListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + specCode} onClick={(e) => onClickEdit(e, specCode)}>编辑</a>
+                            <a key={action + '_' + specCode} onClick={(e) => onClickEdit(e, specCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + specCode} onClick={(e) => onClickDelete(e, specCode)}>删除</a>
+                            <a key={action + '_' + specCode} onClick={(e) => onClickDelete(e, specCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

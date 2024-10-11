@@ -133,7 +133,7 @@ const DrainRuleNewModal = (props) => {
             width: '25%'
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { toppingName, toppingCode, actions }) => (
@@ -141,7 +141,7 @@ const DrainRuleNewModal = (props) => {
                     {actions.map((action) => {
                         if (action == 'delete') {
                             return (
-                                <a key={action + '_' + toppingCode} onClick={(e) => onClickDeleteToppingRule(e, toppingCode)}>删除</a>
+                                <a key={action + '_' + toppingCode} onClick={(e) => onClickDeleteToppingRule(e, toppingCode)}>{applyLang('labelOpeDel')}</a>
                             );
                         }
                     })}

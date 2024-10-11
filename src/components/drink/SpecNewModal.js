@@ -137,7 +137,7 @@ const SpecNewModal = (props) => {
             width: '30%'
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '20%',
             render: (_, { specItemCode, specItemName, outerSpecItemCode, actions }) => (
@@ -145,12 +145,12 @@ const SpecNewModal = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + specItemCode} onClick={(e) => onOpenSpecItemNewModal(specItemCode, specItemName, outerSpecItemCode)}>编辑</a>
+                            <a key={action + '_' + specItemCode} onClick={(e) => onOpenSpecItemNewModal(specItemCode, specItemName, outerSpecItemCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + specItemCode} onClick={(e) => onClickDeleteSpecItem(e, specItemCode)}>删除</a>
+                            <a key={action + '_' + specItemCode} onClick={(e) => onClickDeleteSpecItem(e, specItemCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

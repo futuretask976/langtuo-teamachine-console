@@ -12,7 +12,7 @@ const RoleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(roleCode, true)) {
-            alert('角色编码不符合规则');
+            alert('applyLang('labelRoleCode')不符合规则');
             return;
         }
         if (!isValidName(roleName, true)) {
@@ -217,11 +217,11 @@ const RoleNewModal = (props) => {
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>角色编码：</span></Space>
+                                        <Space size='small'><span style={{color: 'red'}}>*</span><span>applyLang('promptRoleCode')</span></Space>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={5}>
-                                    <Input placeholder="角色编码" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={(e) => setRoleCode(e.target.value)}/>
+                                    <Input placeholder="applyLang('labelRoleCode')" disabled={isBlankStr(props.roleCode4Edit) ? false : true} value={roleCode} onChange={(e) => setRoleCode(e.target.value)}/>
                                 </Col>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>

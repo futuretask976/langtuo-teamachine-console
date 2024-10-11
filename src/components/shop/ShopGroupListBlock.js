@@ -84,7 +84,7 @@ const ShopGroupListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { shopGroupCode, actions }) => (
@@ -92,12 +92,12 @@ const ShopGroupListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + shopGroupCode} onClick={(e) => onClickEdit(e, shopGroupCode)}>编辑</a>
+                            <a key={action + '_' + shopGroupCode} onClick={(e) => onClickEdit(e, shopGroupCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + shopGroupCode} onClick={(e) => onClickDelete(e, shopGroupCode)}>删除</a>
+                            <a key={action + '_' + shopGroupCode} onClick={(e) => onClickDelete(e, shopGroupCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

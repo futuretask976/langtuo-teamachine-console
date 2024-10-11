@@ -80,7 +80,7 @@ const TeaListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { teaCode, actions }) => (
@@ -88,12 +88,12 @@ const TeaListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + teaCode} onClick={(e) => onClickEdit(e, teaCode)}>编辑</a>
+                            <a key={action + '_' + teaCode} onClick={(e) => onClickEdit(e, teaCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + teaCode} onClick={(e) => onClickDelete(e, teaCode)}>删除</a>
+                            <a key={action + '_' + teaCode} onClick={(e) => onClickDelete(e, teaCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

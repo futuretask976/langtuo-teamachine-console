@@ -79,7 +79,7 @@ const ShopListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { shopCode, actions }) => (
@@ -87,12 +87,12 @@ const ShopListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + shopCode} onClick={(e) => onClickEdit(e, shopCode)}>编辑</a>
+                            <a key={action + '_' + shopCode} onClick={(e) => onClickEdit(e, shopCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + shopCode} onClick={(e) => onClickDelete(e, shopCode)}>删除</a>
+                            <a key={action + '_' + shopCode} onClick={(e) => onClickDelete(e, shopCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

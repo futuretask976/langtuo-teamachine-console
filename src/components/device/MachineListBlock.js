@@ -98,7 +98,7 @@ const MachineListBlock = (props) => {
             render: (state) => state == 0 ? '禁用' : '启用'
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '10%',
             render: (_, { machineCode, actions }) => (
@@ -106,12 +106,12 @@ const MachineListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + machineCode} onClick={(e) => onClickEdit(e, machineCode)}>编辑</a>
+                            <a key={action + '_' + machineCode} onClick={(e) => onClickEdit(e, machineCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + machineCode} onClick={(e) => onClickDelete(e, machineCode)}>删除</a>
+                            <a key={action + '_' + machineCode} onClick={(e) => onClickDelete(e, machineCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

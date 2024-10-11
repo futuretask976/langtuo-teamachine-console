@@ -83,7 +83,7 @@ const TenantListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { tenantCode, actions }) => (
@@ -91,12 +91,12 @@ const TenantListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>编辑</a>
+                            <a key={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>删除</a>
+                            <a key={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

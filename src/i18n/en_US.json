@@ -169,5 +169,7 @@
     "promptLoginPass": "Login Password：",
     "labelYes": "Yes",
     "labelNo": "No",
-    "labelParentOrgName": "Parent Org Name"
+    "labelParentOrgName": "Parent Org Name",
+    "promptRoleCode": "Role Code",
+    "labelRoleCode": "Role Code"
 }

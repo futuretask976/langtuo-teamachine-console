@@ -73,7 +73,7 @@ const WarningRuleListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { warningRuleCode, actions }) => (
@@ -81,12 +81,12 @@ const WarningRuleListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickEdit(e, warningRuleCode)}>编辑</a>
+                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickEdit(e, warningRuleCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDelete(e, warningRuleCode)}>删除</a>
+                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDelete(e, warningRuleCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                     if (action == 'dispatch') {

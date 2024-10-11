@@ -79,7 +79,7 @@ const ToppingTypeListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '20%',
             render: (_, { toppingTypeCode, actions }) => (
@@ -87,12 +87,12 @@ const ToppingTypeListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickEdit(e, toppingTypeCode)}>编辑</a>
+                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickEdit(e, toppingTypeCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickDelete(e, toppingTypeCode)}>删除</a>
+                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickDelete(e, toppingTypeCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}

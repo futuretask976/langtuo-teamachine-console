@@ -169,5 +169,7 @@
     "promptLoginPass": "登录密码：",
     "labelYes": "是",
     "labelNo": "否",
-    "labelParentOrgName": "上级组织名称"
+    "labelParentOrgName": "上级组织名称",
+    "promptRoleCode": "角色编码：",
+    "labelRoleCode": "角色编码"
 }

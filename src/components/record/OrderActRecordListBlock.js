@@ -95,7 +95,7 @@ const OrderActRecordListBlock = (props) => {
             render: (orderGmtCreated) => new Date(orderGmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '10%',
             render: (_, { shopGroupCode, idempotentMark, actions }) => (

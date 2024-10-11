@@ -73,7 +73,7 @@ const AccuracyTplListBlock = (props) => {
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
-            title: '操作',
+            title: applyLang('labelOpe'),
             key: 'actions',
             width: '15%',
             render: (_, { templateCode, actions }) => (
@@ -81,12 +81,12 @@ const AccuracyTplListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'edit') {
                         return (
-                            <a key={action + '_' + templateCode} onClick={(e) => onClickEdit(e, templateCode)}>编辑</a>
+                            <a key={action + '_' + templateCode} onClick={(e) => onClickEdit(e, templateCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
                     if (action == 'delete') {
                         return (
-                            <a key={action + '_' + templateCode} onClick={(e) => onClickDelete(e, templateCode)}>删除</a>
+                            <a key={action + '_' + templateCode} onClick={(e) => onClickDelete(e, templateCode)}>{applyLang('labelOpeDel')}</a>
                         );
                     }
                 })}
