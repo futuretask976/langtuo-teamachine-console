@@ -1,22 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Input, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
-import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { isValidName } from '../../js/common';
-import { getLang } from '../../i18n/i18n';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import TenantListBlock from '../../components/user/TenantListBlock'
 import TenantNewModal from '../../components/user/TenantNewModal'
 
 const TenantPage = () => {
-    // 上下文定义
-    const { lang } = useContext(FramePageContext);
-
     // 面包屑定义
-    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelUserSet'), getLang(lang, 'labelTenantMgt')];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelUserSet'), applyLang('labelTenantMgt')];
     
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -39,11 +35,11 @@ const TenantPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidName(tenantName4Search, false)) {
-            alert(getLang(lang, "msgTenantNameInvalid"));
+            alert(applyLang("msgTenantNameInvalid"));
             return;
         }
         if (!isValidName(contactPerson4Search, false)) {
-            alert(getLang(lang, "msgContactPersonInvalid"));
+            alert(applyLang("msgContactPersonInvalid"));
             return;
         }
         refreshList();
@@ -69,32 +65,32 @@ const TenantPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptTenantName')}</span>
+                                <span>{applyLang('promptTenantName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={getLang(lang, 'labelTenantName')} allowClear onChange={(e) => setTenantName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelTenantName')} allowClear onChange={(e) => setTenantName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptContactPerson')}</span>
+                                <span>{applyLang('promptContactPerson')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={getLang(lang, 'labelContactPerson')} allowClear onChange={(e) => setContactPerson4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelContactPerson')} allowClear onChange={(e) => setContactPerson4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onClickNew} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

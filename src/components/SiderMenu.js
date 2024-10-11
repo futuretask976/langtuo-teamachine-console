@@ -1,16 +1,12 @@
-import React, { useContext, useState } from 'react'; 
+import React, { useState } from 'react'; 
 import { Layout, Menu } from 'antd';
 import { BorderOuterOutlined, DiffOutlined, ExperimentOutlined, FileDoneOutlined, FileSearchOutlined, MonitorOutlined, OneToOneOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
 
-import { FramePageContext } from '../js/context'
-import { getLang } from '../i18n/i18n';
+import { applyLang } from '../i18n/i18n';
 
 const { Sider } = Layout;
 
 const SiderMenu = (props) => {
-    // 上下文定义
-    const { lang } = useContext(FramePageContext);
-
     // 菜单定义
     const [collapsed, setCollapsed] = useState(false);
     const siderStyle = {
@@ -31,49 +27,49 @@ const SiderMenu = (props) => {
         };
     }
     const menuItems = [
-        getItem(getLang(lang, 'labelSummaryChartMgt'), 'summaryChartMgt', <PieChartOutlined />),
-        getItem(getLang(lang, 'labelUserSet'), 'userSet', <TeamOutlined />, [
-            getItem(getLang(lang, 'labelTenantMgt'), 'tenantMgt'),
-            getItem(getLang(lang, 'labelOrgMgt'), 'orgMgt'),
-            getItem(getLang(lang, 'labelRoleMgt'), 'roleMgt'),
-			getItem(getLang(lang, 'labelAdminMgt'), 'adminMgt'),
+        getItem(applyLang('labelSummaryChartMgt'), 'summaryChartMgt', <PieChartOutlined />),
+        getItem(applyLang('labelUserSet'), 'userSet', <TeamOutlined />, [
+            getItem(applyLang('labelTenantMgt'), 'tenantMgt'),
+            getItem(applyLang('labelOrgMgt'), 'orgMgt'),
+            getItem(applyLang('labelRoleMgt'), 'roleMgt'),
+			getItem(applyLang('labelAdminMgt'), 'adminMgt'),
         ]),
-        getItem(getLang(lang, 'labelShopSet'), 'shopSet', <BorderOuterOutlined />, [
-            getItem(getLang(lang, 'labelShopGroupMgt'), 'shopGroupMgt'),
-            getItem(getLang(lang, 'labelShopMgt'), 'shopMgt'),
+        getItem(applyLang('labelShopSet'), 'shopSet', <BorderOuterOutlined />, [
+            getItem(applyLang('labelShopGroupMgt'), 'shopGroupMgt'),
+            getItem(applyLang('labelShopMgt'), 'shopMgt'),
         ]),
-        getItem(getLang(lang, 'labelDeviceSet'), 'deviceSet', <OneToOneOutlined />, [
-            getItem(getLang(lang, 'labelModelMgt'), 'modelMgt'),
-            getItem(getLang(lang, 'labelDeployMgt'), 'deployMgt'),
-            getItem(getLang(lang, 'labelMachineMgt'), 'machineMgt'),
-            getItem(getLang(lang, 'labelAndroidAppMgt'), 'androidAppMgt'),
+        getItem(applyLang('labelDeviceSet'), 'deviceSet', <OneToOneOutlined />, [
+            getItem(applyLang('labelModelMgt'), 'modelMgt'),
+            getItem(applyLang('labelDeployMgt'), 'deployMgt'),
+            getItem(applyLang('labelMachineMgt'), 'machineMgt'),
+            getItem(applyLang('labelAndroidAppMgt'), 'androidAppMgt'),
         ]),
-		getItem(getLang(lang, 'labelDrinkSet'), 'drinkSet', <ExperimentOutlined />, [
-            getItem(getLang(lang, 'labelToppingTypeMgt'), 'toppingTypeMgt'),
-            getItem(getLang(lang, 'labelToppingMgt'), 'toppingMgt'),
-			getItem(getLang(lang, 'labelSpecMgt'), 'specMgt'),
-			getItem(getLang(lang, 'labelTeaTypeMgt'), 'teaTypeMgt'),
-			getItem(getLang(lang, 'labelTeaMgt'), 'teaMgt'),
-			getItem(getLang(lang, 'labelToppingAccuracyTplMgt'), 'toppingAccuracyTplMgt'),
+		getItem(applyLang('labelDrinkSet'), 'drinkSet', <ExperimentOutlined />, [
+            getItem(applyLang('labelToppingTypeMgt'), 'toppingTypeMgt'),
+            getItem(applyLang('labelToppingMgt'), 'toppingMgt'),
+			getItem(applyLang('labelSpecMgt'), 'specMgt'),
+			getItem(applyLang('labelTeaTypeMgt'), 'teaTypeMgt'),
+			getItem(applyLang('labelTeaMgt'), 'teaMgt'),
+			getItem(applyLang('labelToppingAccuracyTplMgt'), 'toppingAccuracyTplMgt'),
         ]),
-        getItem(getLang(lang, 'labelMenuSet'), 'menuSet', <FileDoneOutlined />, [
-            getItem(getLang(lang, 'labelSeriesMgt'), 'seriesMgt'),
-            getItem(getLang(lang, 'labelMenuMgt'), 'menuMgt')
+        getItem(applyLang('labelMenuSet'), 'menuSet', <FileDoneOutlined />, [
+            getItem(applyLang('labelSeriesMgt'), 'seriesMgt'),
+            getItem(applyLang('labelMenuMgt'), 'menuMgt')
         ]),
-        getItem(getLang(lang, 'labelRuleSet'), 'ruleSet', <MonitorOutlined />, [
-            getItem(getLang(lang, 'labelDrainRuleMgt'), 'drainRuleMgt'),
-			getItem(getLang(lang, 'labelCleanRuleMgt'), 'cleanRuleMgt'),
-			getItem(getLang(lang, 'labelWarningRuleMgt'), 'warningRuleMgt'),
+        getItem(applyLang('labelRuleSet'), 'ruleSet', <MonitorOutlined />, [
+            getItem(applyLang('labelDrainRuleMgt'), 'drainRuleMgt'),
+			getItem(applyLang('labelCleanRuleMgt'), 'cleanRuleMgt'),
+			getItem(applyLang('labelWarningRuleMgt'), 'warningRuleMgt'),
         ]),
-        getItem(getLang(lang, 'labelRecordSet'), 'recordSet', <FileSearchOutlined />, [
-            getItem(getLang(lang, 'labelInvalidActRecordMgt'), 'invalidActRecordMgt'),
-            getItem(getLang(lang, 'labelSupplyActRecordMgt'), 'supplyActRecordMgt'),
-            getItem(getLang(lang, 'labelDrainActRecordMgt'), 'drainActRecordMgt'),
-			getItem(getLang(lang, 'labelCleanActRecordMgt'), 'cleanActRecordMgt'),
-			getItem(getLang(lang, 'labelOrderActRecordMgt'), 'orderActRecordMgt'),
+        getItem(applyLang('labelRecordSet'), 'recordSet', <FileSearchOutlined />, [
+            getItem(applyLang('labelInvalidActRecordMgt'), 'invalidActRecordMgt'),
+            getItem(applyLang('labelSupplyActRecordMgt'), 'supplyActRecordMgt'),
+            getItem(applyLang('labelDrainActRecordMgt'), 'drainActRecordMgt'),
+			getItem(applyLang('labelCleanActRecordMgt'), 'cleanActRecordMgt'),
+			getItem(applyLang('labelOrderActRecordMgt'), 'orderActRecordMgt'),
         ]),
-        getItem(getLang(lang, 'labelReportSet'), 'reportSet', <DiffOutlined />, [
-            getItem(getLang(lang, 'labelOrderReportMgt'), 'orderReportMgt'),
+        getItem(applyLang('labelReportSet'), 'reportSet', <DiffOutlined />, [
+            getItem(applyLang('labelOrderReportMgt'), 'orderReportMgt'),
         ]),
     ];
     const onMenuItemClick = (e) => {

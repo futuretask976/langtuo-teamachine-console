@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
-import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { getTenantCode, isArray, isValidName } from '../../js/common.js';
-import { getLang } from '../../i18n/i18n';
+import { applyLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -13,11 +12,8 @@ import AdminListBlock from '../../components/user/AdminListBlock'
 import AdminNewModal from '../../components/user/AdminNewModal'
 
 const AdminPage = () => {
-    // 上下文定义
-    const { lang } = useContext(FramePageContext);
-
     // 面包屑定义
-    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelUserSet'), getLang(lang, 'labelAdminMgt')];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelUserSet'), applyLang('labelAdminMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -41,7 +37,7 @@ const AdminPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidName(loginName4Search, false)) {
-            alert(getLang(lang, 'msgLoginNameInvalid'));
+            alert(applyLang('msgLoginNameInvalid'));
             return;
         }
         refreshList();
@@ -55,7 +51,7 @@ const AdminPage = () => {
             }
             setRoleList4Select((prev => {
                 let roleListTmp = [{
-                    label: getLang(lang, 'labelAll'),
+                    label: applyLang('labelAll'),
                     value: ''
                 }];
                 if (isArray(respData.model)) {
@@ -94,17 +90,17 @@ const AdminPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptLoginName')}</span>
+                                <span>{applyLang('promptLoginName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={getLang(lang, 'labelLoginName')} allowClear onChange={(e) => setLoginName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelLoginName')} allowClear onChange={(e) => setLoginName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptRoleName')}</span>
+                                <span>{applyLang('promptRoleName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -119,12 +115,12 @@ const AdminPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

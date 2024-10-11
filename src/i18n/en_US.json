@@ -83,5 +83,14 @@
     "labelExport": "Export",
     "msgDeployCodeInvalid": "Deploy code is invalid!",
     "labelStateDeployed": "Deployed",
-    "labelStateUnDeployed": "UnDeployed"
+    "labelStateUnDeployed": "UnDeployed",
+    "labelMachineCode": "Machine Code",
+    "labelScreenCode": "Screen Code",
+    "labelElecBoardCode": "Elec Board Code",
+    "promptMachineCode": "Machine Code：",
+    "promptScreenCode": "Screen Code：",
+    "promptElecBoardCode": "Elec Board Code：",
+    "msgMachineCodeInvalid": "Machine code is invalid!",
+    "msgScreenCodeInvalid": "Screen code is invalid!",
+    "msgElecBoardCodeInvalid": "Elec board code is invalid!"
 }

@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Dropdown, Layout, Image, Select, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 import { FramePageContext } from '../js/context'
-import { deleteJwtToken, getLoginName } from '../js/common.js';
-import { getLang } from '../i18n/i18n';
-import { get } from '../js/request.js';
+import { deleteJwtToken, getLang, getLoginName, putLang } from '../js/common';
+import { applyLang } from '../i18n/i18n';
+import { get } from '../js/request';
 import logo from '../images/logo2.png'
 
 const { Header } = Layout;
 
 const HeaderBar = () => {
     // 上下文定义
-    const { lang, setLang } = useContext(FramePageContext);
+    const { refresh, setRefresh } = useContext(FramePageContext);
 
     // 重定向定义
     const navigate = useNavigate();
@@ -46,7 +46,8 @@ const HeaderBar = () => {
         });
     }
     const doChangeLang = (e) => {
-        setLang(e);
+        putLang(e);
+        setRefresh(refresh + 1);
     }
 
     // 下拉菜单定义
@@ -54,7 +55,7 @@ const HeaderBar = () => {
         {
             key: 'logout',
             label: (
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{getLang(lang, "labelLogout")}</a></div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}><a onClick={doLogout}>{applyLang("labelLogout")}</a></div>
             ),
         }
     ];
@@ -65,22 +66,22 @@ const HeaderBar = () => {
                 <Image className='flex-row-cont' src={logo} height={20}/>
             </div>
             <div className='flex-row-cont' style={{justifyContent: 'flex-end', width: 400}}>
-                <span>{getLang(lang, "promptLangSelect")}</span>
+                <span>{applyLang("promptLangSelect")}</span>
                 <Select
                     onChange={(e) => doChangeLang(e)}
                     options={[
                         {
-                            label: '中文',
-                            value: 'zh'
+                            label: '简体中文',
+                            value: 'zh_CN'
                         },
                         {
                             label: 'English',
-                            value: 'en'
+                            value: 'en_US'
                         }
                     ]}
                     size={'small'}
                     style={{width: 125}}
-                    value={lang}
+                    value={getLang()}
                 />
                 <div style={{width: 25}}>&nbsp;</div>
                 <Space className='flex-row-cont' size={5}>

@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Input, Select, Space, Col, Row } from 'antd';
 import { AuditOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
 
-import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { getTenantCode, isArray, isValidCode } from '../../js/common.js';
-import { getLang } from '../../i18n/i18n';
+import { applyLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 import { get4Export } from '../../js/request4Export.js'
 
@@ -14,11 +13,8 @@ import DeployListBlock from '../../components/device/DeployListBlock'
 import DeployNewModal from '../../components/device/DeployNewModal'
 
 const DeployPage = () => {
-    // 上下文定义
-    const { lang } = useContext(FramePageContext);
-
     // 面包屑定义
-    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelDeviceSet'), getLang(lang, 'labelDeployMgt')];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelDeployMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -50,7 +46,7 @@ const DeployPage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: getLang(lang, 'labelAll'),
+                    label: applyLang('labelAll'),
                     value: ''
                 }];
                 if (isArray(respData.model)) {
@@ -67,7 +63,7 @@ const DeployPage = () => {
     }
     const onClickSearch = () => {
         if (!isValidCode(deployCode4Search, false)) {
-            alert(getLang(lang, 'msgDeployCodeInvalid'));
+            alert(applyLang('msgDeployCodeInvalid'));
             return;
         }
         refreshList();
@@ -112,17 +108,17 @@ const DeployPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptDeployCode')}</span>
+                                <span>{applyLang('promptDeployCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={getLang(lang, 'labelDeployCode')} allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang('labelDeployCode')} allowClear onChange={(e) => setDeployCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptShopName')}</span>
+                                <span>{applyLang('promptShopName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -137,7 +133,7 @@ const DeployPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptDeployState')}</span>
+                                <span>{applyLang('promptDeployState')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
@@ -148,14 +144,14 @@ const DeployPage = () => {
                                     onChange={(e) => setState4Search(e)}
                                     options={[
                                         {
-                                            label: getLang(lang, 'labelAll'),
+                                            label: applyLang('labelAll'),
                                             value: ''
                                         },
                                         {
-                                            label: getLang(lang, 'labelStateDeployed'),
+                                            label: applyLang('labelStateDeployed'),
                                             value: '1'
                                         }, {
-                                            label: getLang(lang, 'labelStateUnDeployed'),
+                                            label: applyLang('labelStateUnDeployed'),
                                             value: '0'
                                         }
                                     ]}
@@ -164,12 +160,12 @@ const DeployPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>
@@ -179,7 +175,7 @@ const DeployPage = () => {
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>{getLang(lang, 'labelExport')}</Button>
+                                <Button type="primary" icon={<AuditOutlined />} onClick={onExportByExcel} style={{width: '90%'}}>{applyLang('labelExport')}</Button>
                             </div>
                         </Col>
                     </Row>

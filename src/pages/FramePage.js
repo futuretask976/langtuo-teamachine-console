@@ -50,7 +50,7 @@ const { Content } = Layout;
 const FramePage = () => {
     // 数据定义
     const [menuItem, setMenuItem] = useState('summaryChartMgt');
-    const [lang, setLang] = useState('zh');
+    const [refresh, setRefresh] = useState(1);
 
     // 页面样式相关
     const layoutStyle = {
@@ -67,8 +67,8 @@ const FramePage = () => {
     }
 
     return (
-        <FramePageContext.Provider value={{ lang, setLang }}>
-            <Flex gap="middle" justify="center" wrap="wrap">
+        <FramePageContext.Provider value={{ refresh, setRefresh }}>
+            <Flex key={refresh} gap="middle" justify="center" wrap="wrap">
                 <Layout style={layoutStyle}>
                     <HeaderBar />
                     <Layout>

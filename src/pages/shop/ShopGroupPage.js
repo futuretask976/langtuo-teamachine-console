@@ -1,22 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Input, Space, Col, Row } from 'antd';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
-import { FramePageContext } from '../../js/context'
 import '../../css/common.css';
 import { isValidName } from '../../js/common';
-import { getLang } from '../../i18n/i18n';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import ShopGroupListBlock from '../../components/shop/ShopGroupListBlock'
 import ShopGroupNewModal from '../../components/shop/ShopGroupNewModal'
 
 const ShopGroupPage = () => {
-    // 上下文定义
-    const { lang } = useContext(FramePageContext);
-
     // 面包屑定义
-    const breadcrumbPath = [getLang(lang, 'labelConsole'), getLang(lang, 'labelShopSet'), getLang(lang, 'labelShopGroupMgt')];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelShopSet'), applyLang('labelShopGroupMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -38,7 +34,7 @@ const ShopGroupPage = () => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidName(shopGroupName4Search, false)) {
-            alert(getLang(lang, 'msgShopGroupNameInvalid'));
+            alert(applyLang('msgShopGroupNameInvalid'));
             return;
         }
         refreshList();
@@ -64,22 +60,22 @@ const ShopGroupPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{getLang(lang, 'promptShopGroupName')}</span>
+                                <span>{applyLang('promptShopGroupName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={getLang(lang, 'labelShopGroupName')} allowClear onChange={(e) => setShopGroupName4Search(e.target.value)} style={{width: '95%'}} />
+                                <Input placeholder={applyLang('labelShopGroupName')} allowClear onChange={(e) => setShopGroupName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{getLang(lang, 'labelBeginSearch')}</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{getLang(lang, 'labelNew')}</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>

@@ -175,40 +175,52 @@ export const deleteLoginName = () => {
     localStorage.removeItem('loginName');
 };
 
-
-export const getJwtToken = () => {
-    let jwtToken = localStorage.getItem('jwtToken');
-    if (isBlankStr(jwtToken)) {
-        return null;
+export const getLang = () => {
+    let lang = localStorage.getItem('lang');
+    if (isBlankStr(lang)) {
+        return 'zh_CN';
     } else {
-        return jwtToken;
+        return lang;
     }
 };
 
 export const getLoginName = () => {
     let loginName = localStorage.getItem('loginName');
     if (isBlankStr(loginName)) {
-        return null;
+        return undefined;
     } else {
         return loginName;
+    }
+};
+
+export const getJwtToken = () => {
+    let jwtToken = localStorage.getItem('jwtToken');
+    if (isBlankStr(jwtToken)) {
+        return undefined;
+    } else {
+        return jwtToken;
     }
 };
 
 export const getTenantCode = () => {
     let tenantCode = localStorage.getItem('tenantCode');
     if (isBlankStr(tenantCode)) {
-        return null;
+        return undefined;
     } else {
         return tenantCode;
     }
 };
 
-export const putJwtToken = (jwtToken) => {
-    localStorage.setItem('jwtToken', jwtToken);
+export const putLang = (lang) => {
+    localStorage.setItem('lang', lang);
 };
 
 export const putLoginName = (loginName) => {
     localStorage.setItem('loginName', loginName);
+};
+
+export const putJwtToken = (jwtToken) => {
+    localStorage.setItem('jwtToken', jwtToken);
 };
 
 export const putTenantCode = (tenantCode) => {

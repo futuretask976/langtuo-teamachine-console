@@ -4,6 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { getTenantCode, isArray, isValidCode } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 import { get } from '../../js/request.js';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
@@ -12,7 +13,7 @@ import MachineNewModal from '../../components/device/MachineNewModal'
 
 const MachinePage = () => {
     // 面包屑相关
-    const breadcrumbPath = ['控制台', '设备', '机器管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelDeviceSet'), applyLang('labelMachineMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -29,7 +30,7 @@ const MachinePage = () => {
     const [machineCode4Search, setMachineCode4Search] = useState();
     const [screenCode4Search, setScreenCode4Search] = useState();
     const [elecBoardCode4Search, setElecBoardCode4Search] = useState();
-    const [shopCode4Search, setShopCode4Search] = useState();
+    const [shopCode4Search, setShopCode4Search] = useState('');
     const [machineCode4Edit, setMachineCode4Edit] = useState();
 
     // 初始化定义
@@ -42,7 +43,7 @@ const MachinePage = () => {
             }
             setShopList4Select((prev => {
                 let shopListTmp = [{
-                    label: '全部',
+                    label: applyLang('labelAll'),
                     value: ''
                 }];
                 if (isArray(respData.model)) {
@@ -59,19 +60,19 @@ const MachinePage = () => {
     }
     const onClickSearch = () => {
         if (!isValidCode(machineCode4Search, false)) {
-            alert('机器编码不符合规则');
+            alert(applyLang("msgMachineCodeInvalid"));
             return;
         }
         if (!isValidCode(screenCode4Search, false)) {
-            alert('屏幕编码不符合规则');
+            alert(applyLang("msgScreenCodeInvalid"));
             return;
         }
         if (!isValidCode(elecBoardCode4Search, false)) {
-            alert('电控板编码不符合规则');
+            alert(applyLang("msgElecBoardCodeInvalid"));
             return;
         }
         if (!isValidCode(shopCode4Search, false)) {
-            alert('店铺名称不符合规则');
+            alert(applyLang("msgShopNameInvalid"));
             return;
         }
         refreshList();
@@ -100,44 +101,44 @@ const MachinePage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>机器编码：</span>
+                                <span>{applyLang("promptMachineCode")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={5}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="机器编码" allowClear onChange={(e) => setMachineCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang("labelMachineCode")} allowClear onChange={(e) => setMachineCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>屏幕编码：</span>
+                                <span>{applyLang("promptScreenCode")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={5}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="屏幕编码" allowClear onChange={(e) => setScreenCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang("labelScreenCode")} allowClear onChange={(e) => setScreenCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>控制板编码：</span>
+                                <span>{applyLang("promptElecBoardCode")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={5}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="控制板编码" allowClear onChange={(e) => setElecBoardCode4Search(e.target.value)} style={{width: '95%'}}/>
+                                <Input placeholder={applyLang("labelElecBoardCode")} allowClear onChange={(e) => setElecBoardCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height">
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang("labelBeginSearch")}</Button>
                             </div>
                         </Col>
                     </Row>
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>店铺名称：</span>
+                                <span>{applyLang("promptShopName")}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={5}>

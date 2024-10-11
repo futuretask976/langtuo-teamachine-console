@@ -83,5 +83,14 @@
     "labelExport": "导出",
     "msgDeployCodeInvalid": "部署编码不符合规则！",
     "labelStateDeployed": "已部署",
-    "labelStateUnDeployed": "未部署"
+    "labelStateUnDeployed": "未部署",
+    "labelMachineCode": "机器编码",
+    "labelScreenCode": "屏幕编码",
+    "labelElecBoardCode": "电控板编码",
+    "promptMachineCode": "机器编码：",
+    "promptScreenCode": "屏幕编码：",
+    "promptElecBoardCode": "电控板编码：",
+    "msgMachineCodeInvalid": "机器编码不符合规则！",
+    "msgScreenCodeInvalid": "屏幕编码不符合规则！",
+    "msgElecBoardCodeInvalid": "电控板编码不符合规则！"
 }
