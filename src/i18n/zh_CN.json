@@ -139,5 +139,11 @@
     "labelMenuCode": "菜单编码",
     "labelMenuName": "菜单名称",
     "msgMenuCodeInvalid": "菜单编码不符合规则！",
-    "msgMenuNameInvalid": "菜单名称不符合规则！"
+    "msgMenuNameInvalid": "菜单名称不符合规则！",
+    "promptRuleCode": "规则编码：",
+    "promptRuleName": "规则名称：",
+    "labelRuleCode": "规则编码",
+    "labelRuleName": "规则名称",
+    "msgRuleCodeInvalid": "规则编码不符合规则！",
+    "msgRuleNameInvalid": "规则名称不符合规则！"
 }

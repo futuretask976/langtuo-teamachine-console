@@ -139,5 +139,11 @@
     "labelMenuCode": "Menu Code",
     "labelMenuName": "Menu Name",
     "msgMenuCodeInvalid": "Menu code is invalid!",
-    "msgMenuNameInvalid": "Menu name is invalid!"
+    "msgMenuNameInvalid": "Menu name is invalid!",
+    "promptRuleCode": "Rule Code：",
+    "promptRuleName": "Rule Name：",
+    "labelRuleCode": "Rule Code",
+    "labelRuleName": "Rule Name",
+    "msgRuleCodeInvalid": "Rule code is invalid!",
+    "msgRuleNameInvalid": "Rule name is invalid!"
 }

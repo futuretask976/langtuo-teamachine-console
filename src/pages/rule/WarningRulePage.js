@@ -4,6 +4,7 @@ import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 
 import '../../css/common.css';
 import { isValidCode, isValidName } from '../../js/common.js';
+import { applyLang } from '../../i18n/i18n';
 
 import BreadcrumbBlock from "../../components/BreadcrumbBlock"
 import WarningRuleListBlock from '../../components/rule/WarningRuleListBlock'
@@ -12,7 +13,7 @@ import WarningRuleDispatchModal from '../../components/rule/WarningRuleDispatchM
 
 const WarningRulePage = (props) => {
     // 面包屑定义
-    const breadcrumbPath = ['控制台', '食安规则', '预警规则管理'];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelRuleSet'), applyLang('labelWarningRuleMgt')];
 
     // 对话框定义
     const [openNewModal, setOpenNewModal] = useState(false);
@@ -41,11 +42,11 @@ const WarningRulePage = (props) => {
     // 动作定义
     const onClickSearch = () => {
         if (!isValidCode(warningRuleCode4Search, false)) {
-            alert('预警规则编码不符合规则');
+            alert(applyLang('msgRuleCodeInvalid'));
             return;
         }
         if (!isValidName(warningRuleName4Search, false)) {
-            alert('预警规则名称不符合规则');
+            alert(applyLang('msgRuleNameInvalid'));
             return;
         }
         refreshList();
@@ -76,32 +77,32 @@ const WarningRulePage = (props) => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{ justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规则编码：</span>
+                                <span>{applyLang('promptRuleCode')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height">
-                                <Input placeholder="规则编码" allowClear onChange={(e) => setWarningRuleCode4Search(e.target.value)}/>
+                                <Input placeholder={applyLang('labelRuleCode')} allowClear onChange={(e) => setWarningRuleCode4Search(e.target.value)}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>规则名称：</span>
+                                <span>{applyLang('promptRuleName')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height">
-                                <Input placeholder="规则名称" allowClear onChange={(e) => setWarningRuleName4Search(e.target.value)}/>
+                                <Input placeholder={applyLang('labelRuleName')} allowClear onChange={(e) => setWarningRuleName4Search(e.target.value)}/>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{height: '100%'}}>
-                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>开始搜索</Button>
+                                <Button type="primary" icon={<SearchOutlined />} onClick={onClickSearch} style={{width: '90%'}}>{applyLang('labelBeginSearch')}</Button>
                             </div>
                         </Col>
                         <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{height: '100%'}}>
-                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>新建规则</Button>
+                                <Button type="primary" icon={<FormOutlined />} onClick={onOpenNewModal} style={{width: '90%'}}>{applyLang('labelNew')}</Button>
                             </div>
                         </Col>
                     </Row>
@@ -112,7 +113,7 @@ const WarningRulePage = (props) => {
             </Space>
 
             {openNewModal && (
-                <WarningRuleNewModal modalTitle='新建规则' warningRuleCode4Edit={warningRuleCode4Edit} onClose={onCloseNewModal}/>
+                <WarningRuleNewModal warningRuleCode4Edit={warningRuleCode4Edit} onClose={onCloseNewModal}/>
             )}
 
             {openDispatchModal && (

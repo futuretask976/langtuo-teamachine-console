@@ -14,7 +14,7 @@ import TeaAmtByDayLineChart from '../components/TeaAmtByDayLineChart'
 
 export default function SummaryChartPage() {
     // 面包屑定义
-    const breadcrumbPath = [applyLang('console'), applyLang('summaryChartMgt')];
+    const breadcrumbPath = [applyLang('labelConsole'), applyLang('labelSummaryChartMgt')];
 
     // 数据定义
     const [teaAmtData, setTeaAmtData] = useState([]);
@@ -64,13 +64,13 @@ export default function SummaryChartPage() {
             <Row style={{backgroundColor: '#fff'}}>&nbsp;</Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>{applyLang('machineDeployStateChart')}</span>
+                    <span>{applyLang('promptMachineDeployStateChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>{applyLang('orgCntByShopChart')}</span>
+                    <span>{applyLang('promptOrgCntByShopChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={8}>
-                    <span>{applyLang('machineCntByShopChart')}</span>
+                    <span>{applyLang('promptMachineCntByShopChart')}</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
@@ -86,10 +86,10 @@ export default function SummaryChartPage() {
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 25, width: '100%', border: '0px solid green'}}>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
-                    <span>{applyLang('orderCntTrendChart')}</span>
+                    <span>{applyLang('promptOrderCntTrendChart')}</span>
                 </Col>
                 <Col className="gutter-row" style={{paddingLeft: 5}} span={12}>
-                    <span>{applyLang('teaCntTrendChart')}</span>
+                    <span>{applyLang('promptTeaCntTrendChart')}</span>
                 </Col>
             </Row>
             <Row style={{backgroundColor: '#FFFFFF', height: 250, width: '100%', border: '0px solid green'}}>
@@ -105,7 +105,7 @@ export default function SummaryChartPage() {
                     <div className="flex-row-cont" style={{justifyContent: 'space-between', height: '100%', width: '100%'}}>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>{applyLang('teaRankingList')}</span>
+                                <span>{applyLang('promptTeaRankingList')}</span>
                             </div>
                             {teaAmtData.map((teaAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
@@ -117,7 +117,7 @@ export default function SummaryChartPage() {
                         </div>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>{applyLang('specItemRankingList')}</span>
+                                <span>{applyLang('promptSpecItemRankingList')}</span>
                             </div>
                             {specItemAmtData.map((specItemAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
@@ -129,7 +129,7 @@ export default function SummaryChartPage() {
                         </div>
                         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%', width: '30%'}}>
                             <div className="flex-row-cont" style={{height: '20%', width: '100%'}}>
-                                <span>{applyLang('toppingRankingList')}</span>
+                                <span>{applyLang('promptToppingRankingList')}</span>
                             </div>
                             {toppingAmtData.map((toppingAmt, index) => (
                                 <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'space-between', height: '16%', width: '100%', paddingLeft: 5, paddingRight: 5, border: '0px solid blue'}}>
