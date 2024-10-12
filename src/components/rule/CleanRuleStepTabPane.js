@@ -213,7 +213,7 @@ const CleanRuleStepTabPane = (props) => {
             </div>
             {getCleanContent() == 0 && 
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptWashTime')}</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptWashDuration')}</div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '85%'}}>
                         <InputNumber min={0} max={9999} onChange={onChangeWashTime} value={getWashTime()}/>&nbsp;{applyLang('labelMin')}
                     </div>
@@ -221,7 +221,7 @@ const CleanRuleStepTabPane = (props) => {
             }
             {getCleanContent() == 1 && 
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                    <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptSoakTime')}</div>
+                    <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptSoakDuration')}</div>
                     <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '85%'}}>
                         <InputNumber min={0} max={9999} defaultValue={0} onChange={onChangeSoakTime} value={getSoakTime()}/>&nbsp;{applyLang('labelMin')} {applyLang('labelEveryInterval')}&nbsp;<InputNumber min={0} max={99} onChange={onChangeSoakWashInterval} value={getSoakWashInterval()}/>&nbsp;{applyLang('labelMin')} {applyLang('labelFlush')}&nbsp;<InputNumber min={0} max={99} defaultValue={0} onChange={onChangeSoakWashTime} value={getSoakWashTime()}/>&nbsp;{applyLang('labelSec')}
                     </div>

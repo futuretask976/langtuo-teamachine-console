@@ -71,10 +71,10 @@ const CleanActRecordViewModal = (props) => {
                 onCancel={onClickCancel}
                 open={open}
                 style={{border: '0px solid red'}}
-                title="查看详情"
+                title={applyLang('labelViewDetail')}
                 width={800}
                 footer={[
-                    <Button key="back" onClick={onClickCancel}>关闭</Button>,
+                    <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
             >
                 <div style={{height: 325, width: '100%'}}>
@@ -110,7 +110,7 @@ const CleanActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>开始时间：</span>
+                                    <span>{applyLang('promptStartTime')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -126,7 +126,7 @@ const CleanActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>结束时间：</span>
+                                    <span>{applyLang('promptEndTime')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -144,15 +144,15 @@ const CleanActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>物料名称：</span>
+                                    <span>{applyLang('promptToppingName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="物料名称" disabled={true} value={toppingName}/>
+                                <Input placeholder={applyLang('labelToppingName')} disabled={true} value={toppingName}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>管道序号：</span>
+                                    <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -163,7 +163,7 @@ const CleanActRecordViewModal = (props) => {
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <span>清洗规则：</span>
+                                        <span>{applyLang('promptCleanRule')}</span>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={9}>
@@ -176,39 +176,39 @@ const CleanActRecordViewModal = (props) => {
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>手动清洗：</span>
+                                            <span>{applyLang('promptCleanManually')}</span>
                                         </div>
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>清洗内容：</span>
+                                            <span>{applyLang('promptCleanContent')}</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={9}>
                                         <Radio.Group disabled={true} value={cleanContent}>
-                                            <Radio value={0}>冲洗</Radio>
-                                            <Radio value={1}>浸泡</Radio>
+                                            <Radio value={0}>{applyLang('labelWash')}</Radio>
+                                            <Radio value={1}>{applyLang('labelSoak')}</Radio>
                                         </Radio.Group>
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>清洗时间：</span>
+                                            <span>{applyLang('promptWashDuration')}</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <InputNumber disabled={true} value={washSec} style={{width: 50}}/>秒
+                                        <InputNumber disabled={true} value={washSec} style={{width: 50}}/>&nbsp;{applyLang('labelMin')}
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>浸泡时间：</span>
+                                            <span>{applyLang('promptSoakDuration')}</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={15}>
-                                        <InputNumber disabled={true} value={soakMin} style={{width: 50}}/>分钟，每隔<InputNumber disabled={true} value={flushIntervalMin} style={{width: 50}}/>分钟，冲洗<InputNumber disabled={true} value={flushSec} style={{width: 50}}/>秒
+                                        <InputNumber disabled={true} value={soakMin} style={{width: 50}}/>&nbsp;{applyLang('labelMin')} {applyLang('labelEveryInterval')}&nbsp;<InputNumber disabled={true} value={flushIntervalMin} style={{width: 50}}/>&nbsp;{applyLang('labelMin')} {applyLang('labelFlush')}&nbsp;<InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSec')}
                                     </Col>
                                 </Row>
                             </>

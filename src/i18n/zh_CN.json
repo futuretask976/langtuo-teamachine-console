@@ -304,8 +304,8 @@
     "labelDrinkingWater": "饮用水",
     "labelWash": "冲洗",
     "labelSoak": "浸泡",
-    "promptWashTime": "冲洗时间：",
-    "promptSoakTime": "浸泡时间：",
+    "promptWashDuration": "冲洗时间：",
+    "promptSoakDuration": "浸泡时间：",
     "labelSec": "秒",
     "labelFlush": "冲洗",
     "labelEveryInterval": "每隔",
@@ -346,5 +346,7 @@
     "promptDrainRule": "排空规则：",
     "promptDrainManually": "手动排空：",
     "promptDrainDuration": "排空时长：",
-    "promptDrainWeight": "排空克重："
+    "promptDrainWeight": "排空克重：",
+    "promptCleanRule": "清洗规则：",
+    "promptCleanManually": "手动清洗："
 }

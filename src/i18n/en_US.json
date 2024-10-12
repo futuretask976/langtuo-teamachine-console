@@ -304,8 +304,8 @@
     "labelDrinkingWater": "Drinking Water",
     "labelWash": "Wash",
     "labelSoak": "Soak",
-    "promptWashTime": "Wash Time：",
-    "promptSoakTime": "Soak Time：",
+    "promptWashDuration": "Wash Time：",
+    "promptSoakDuration": "Soak Time：",
     "labelSec": "Second",
     "labelFlush": "Flush",
     "labelEveryInterval": "Every",
@@ -346,5 +346,7 @@
     "promptDrainRule": "Drain Rule",
     "promptDrainManually": "Drain Manually：",
     "promptDrainDuration": "Drain Duration：",
-    "promptDrainWeight": "Drain Weight："
+    "promptDrainWeight": "Drain Weight：",
+    "promptCleanRule": "Clean Rule：",
+    "promptCleanManually": "Clean Manually："
 }
