@@ -266,5 +266,12 @@
     "labelDelStep": "Delete Step",
     "labelBaseAmount": "Base Amount",
     "labelMeasureUnit": "Measure Unit",
-    "promptSpecList": "Spec List："
+    "promptSpecList": "Spec List：",
+    "labelOpeModify": "Modify",
+    "labelOpeIncrease": "Increase",
+    "labelOpeDecrease": "Decrease",
+    "labelAmount": "Amount",
+    "labelActualAmount": "Actual Amount",
+    "labelAdjustMode": "Adjust Mode",
+    "promptComposeRule": "Compose Rule："
 }

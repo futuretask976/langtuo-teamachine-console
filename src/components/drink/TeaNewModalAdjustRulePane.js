@@ -125,8 +125,8 @@ const TeaNewModalAdjustRulePane = (props) => {
         // 根据过滤过的specItemRuleLists，生成teaUnitListTmp
         specItemRuleListBySpecCode.forEach(specItemRuleList => {
             specItemRuleList.sort((a, b)=>{
-                console.log('$$$$$ specItemRuleListBySpecCode a=', a);
-                console.log('$$$$$ specItemRuleListBySpecCode b=', b);
+                // console.log('$$$$$ specItemRuleListBySpecCode a=', a);
+                // console.log('$$$$$ specItemRuleListBySpecCode b=', b);
                 return a.specItemCode.localeCompare(b.specItemCode);
             });
         });
@@ -185,7 +185,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         });
     }
     const initTeaUnitListSelected = () => {
-        console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected teaUnitList=', teaUnitList);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected teaUnitList=', teaUnitList);
         if (!isArray(teaUnitList) || teaUnitList.length <= 0) {
             return;
         }
@@ -195,7 +195,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                 hasSelected = true;
             }
         });
-        console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected hasSelected=', hasSelected);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected hasSelected=', hasSelected);
         if (!hasSelected) {
             onClickTeaUnit(undefined, teaUnitList[0].teaUnitCode);
         }
@@ -208,17 +208,17 @@ const TeaNewModalAdjustRulePane = (props) => {
     // 表格定义
     const toppingAdjustRuleCols = [
         {
-            title: '步骤',
+            title: applyLang('labelStep'),
             dataIndex: 'stepIndex',
             key: 'stepIndex',
         },
         {
-            title: '物料名称',
+            title: applyLang('labelToppingName'),
             dataIndex: 'toppingName',
             key: 'toppingName',
         },
         {
-            title: '修改',
+            title: applyLang('labelModify'),
             dataIndex: 'adjustType',
             key: 'adjustType',
             render: (_, { adjustType, toppingCode }) => (
@@ -228,11 +228,11 @@ const TeaNewModalAdjustRulePane = (props) => {
                     onChange={(e)=>onChangeAdjustType(e, toppingCode)}
                     options={[
                         {
-                            label: '减少',
+                            label: applyLang('labelOpeDecrease'),
                             value: 0
                         },
                         {
-                            label: '增加',
+                            label: applyLang('labelOpeIncrease'),
                             value: 1
                         }
                     ]}
@@ -241,7 +241,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             ),
         },
         {
-            title: '方式',
+            title: applyLang('labelAdjustMode'),
             dataIndex: 'adjustMode',
             key: 'adjustMode',
             width: '15%',
@@ -251,11 +251,11 @@ const TeaNewModalAdjustRulePane = (props) => {
                     onChange={(e)=>onChangeAdjustMode(e, toppingCode)}
                     options={[
                         {
-                            label: '固定值',
+                            label: applyLang('labelFix'),
                             value: 0
                         },
                         {
-                            label: '百分比',
+                            label: applyLang('labelPer'),
                             value: 1
                         }
                     ]}
@@ -266,7 +266,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             ),
         },
         {
-            title: '数值',
+            title: applyLang('labelAmount'),
             dataIndex: 'adjustAmount',
             key: 'adjustAmount',
             render: (_, { adjustAmount, toppingCode }) => (
@@ -274,7 +274,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             ),
         },
         {
-            title: '实际用量',
+            title: applyLang('labelActualAmount'),
             dataIndex: 'actualAmount',
             key: 'actualAmount',
             render: (_, { actualAmount }) => (
@@ -360,7 +360,7 @@ const TeaNewModalAdjustRulePane = (props) => {
     return (
         <div className="flex-col-cont" style={{height: 340, width: '100%'}}>
             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '10%', width: '100%'}}>
-                <span style={{color: 'black', fontWeight: 'bold'}}>搭配规则：</span>
+                <span style={{color: 'black', fontWeight: 'bold'}}>{applyLang('promptComposeRule')}</span>
             </div>
             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '90%', width: '100%'}}>
                 <div style={{height: '100%', width: '29%', overflowY: 'auto'}}>

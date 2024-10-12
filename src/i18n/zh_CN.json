@@ -266,5 +266,12 @@
     "labelDelStep": "删减步骤",
     "labelBaseAmount": "基础量",
     "labelMeasureUnit": "计量单位",
-    "promptSpecList": "规格列表："
+    "promptSpecList": "规格列表：",
+    "labelOpeModify": "修改",
+    "labelOpeIncrease": "增加",
+    "labelOpeDecrease": "减少",
+    "labelAmount": "数值",
+    "labelActualAmount": "实际数值",
+    "labelAdjustMode": "调整方式",
+    "promptComposeRule": "搭配规则："
 }
