@@ -16,19 +16,19 @@ const TeaNewModalBaseRulePane = (props) => {
     // 表格定义
     const toppingConfigCols = [
         {
-            title: '步骤',
+            title: applyLang('labelStep'),
             dataIndex: 'stepIndex',
             key: 'stepIndex',
             width: '10%'
         },
         {
-            title: '物料',
+            title: applyLang('labelTopping'),
             dataIndex: 'toppingName',
             key: 'toppingName',
             width: '40%'
         },
         {
-            title: '标准量',
+            title: applyLang('labelBaseAmount'),
             dataIndex: 'baseAmount',
             key: 'baseAmount',
             width: '30%',
@@ -37,12 +37,12 @@ const TeaNewModalBaseRulePane = (props) => {
             ),
         },
         {
-            title: '单位',
+            title: applyLang('labelMeasureUnit'),
             dataIndex: 'measureUnit',
             key: 'measureUnit',
             width: '20%',
             render: (_, { measureUnit }) => (
-                <span>{measureUnit == 0 ? '克' : '毫升'}</span>
+                <span>{measureUnit == 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')}</span>
             ),
         }
     ];

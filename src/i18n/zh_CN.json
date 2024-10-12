@@ -263,5 +263,7 @@
     "labelTopping": "物料",
     "labelPleaseSelect": "请选择",
     "labelAddStep": "添加步骤",
-    "labelDelStep": "删减步骤"
+    "labelDelStep": "删减步骤",
+    "labelBaseAmount": "基础量",
+    "labelMeasureUnit": "计量单位"
 }

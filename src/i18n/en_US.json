@@ -263,5 +263,7 @@
     "labelTopping": "Topping",
     "labelPleaseSelect": "Please Select",
     "labelAddStep": "Add Step",
-    "labelDelStep": "Delete Step"
+    "labelDelStep": "Delete Step",
+    "labelBaseAmount": "Base Amount",
+    "labelMeasureUnit": "Measure Unit"
 }
