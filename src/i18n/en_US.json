@@ -265,5 +265,6 @@
     "labelAddStep": "Add Step",
     "labelDelStep": "Delete Step",
     "labelBaseAmount": "Base Amount",
-    "labelMeasureUnit": "Measure Unit"
+    "labelMeasureUnit": "Measure Unit",
+    "promptSpecList": "Spec List："
 }

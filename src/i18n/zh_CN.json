@@ -265,5 +265,6 @@
     "labelAddStep": "添加步骤",
     "labelDelStep": "删减步骤",
     "labelBaseAmount": "基础量",
-    "labelMeasureUnit": "计量单位"
+    "labelMeasureUnit": "计量单位",
+    "promptSpecList": "规格列表："
 }

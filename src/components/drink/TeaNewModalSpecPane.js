@@ -175,12 +175,12 @@ const TeaNewModalSpecPane = (props) => {
         <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
             <div className="flex-row-cont" style={{height: '15%', width: '98%', border: '0px solid green'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '10%'}}>
-                    可选规格：
+                    {applyLang('promptSpecList')}
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '90%'}}>
                     <Select
                         mode="multiple"
-                        placeholder="请选择"
+                        placeholder={applyLang('labelPleaseSelect')}
                         size="middle"
                         value={convertToSelectedSpecCode()}
                         style={{width: '100%'}}
