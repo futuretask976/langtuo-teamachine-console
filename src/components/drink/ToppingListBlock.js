@@ -96,7 +96,7 @@ const ToppingListBlock = (props) => {
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 1 ? '启用' : '禁用'
+            render: (state) => state == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled')
         },
         {
             title: applyLang('labelOpe'),

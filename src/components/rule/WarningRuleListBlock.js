@@ -54,13 +54,13 @@ const WarningRuleListBlock = (props) => {
 
     let columns = [
         {
-            title: '规则编码',
+            title: applyLang('labelRuleCode'),
             dataIndex: 'warningRuleCode',
             key: 'warningRuleCode',
             width: '30%'
         },
         {
-            title: '规则名称',
+            title: applyLang('labelRuleName'),
             dataIndex: 'warningRuleName',
             key: 'warningRuleName',
             width: '30%'
@@ -91,7 +91,7 @@ const WarningRuleListBlock = (props) => {
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDispatch(e, warningRuleCode)}>分发</a>
+                            <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDispatch(e, warningRuleCode)}>{applyLang('labelOpeDispatch')}</a>
                         );
                     }
                 })}

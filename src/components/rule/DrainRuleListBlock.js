@@ -53,13 +53,13 @@ const DrainRuleListBlock = (props) => {
 
     let columns = [
         {
-            title: '规则编码',
+            title: applyLang('labelRuleCode'),
             dataIndex: 'drainRuleCode',
             key: 'drainRuleCode',
             width: '25%',
         },
         {
-            title: '规则名称',
+            title: applyLang('labelRuleName'),
             dataIndex: 'drainRuleName',
             key: 'drainRuleName',
             width: '25%',
@@ -97,7 +97,7 @@ const DrainRuleListBlock = (props) => {
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDispatch(e, drainRuleCode)}>分发</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDispatch(e, drainRuleCode)}>{applyLang('labelOpeDispatch')}</a>
                         );
                     }
                 })}

@@ -53,13 +53,13 @@ const CleanRuleListBlock = (props) => {
 
     let columns = [
         {
-            title: '规则编码',
+            title: applyLang('labelRuleCode'),
             dataIndex: 'cleanRuleCode',
             key: 'cleanRuleCode',
             width: '25%'
         },
         {
-            title: '规则名称',
+            title: applyLang('labelRuleName'),
             dataIndex: 'cleanRuleName',
             key: 'cleanRuleName',
             width: '25%'
@@ -69,14 +69,14 @@ const CleanRuleListBlock = (props) => {
             dataIndex: 'permitRemind',
             key: 'permitRemind',
             width: '10%',
-            render: (permitRemind) => permitRemind == 1 ? '启用' : '禁用',
+            render: (permitRemind) => permitRemind == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
         },
         {
             title: '允许批量',
             dataIndex: 'permitBatch',
             key: 'permitBatch',
             width: '10%',
-            render: (permitBatch) => permitBatch == 1 ? '启用' : '禁用',
+            render: (permitBatch) => permitBatch == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
         },
         {
             title: applyLang('labelGmtCreated'),
@@ -104,7 +104,7 @@ const CleanRuleListBlock = (props) => {
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + cleanRuleCode} onClick={(e) => onClickDispatch(e, cleanRuleCode)}>分发</a>
+                            <a key={action + '_' + cleanRuleCode} onClick={(e) => onClickDispatch(e, cleanRuleCode)}>{applyLang('labelOpeDispatch')}</a>
                         );
                     }
                 })}
