@@ -54,19 +54,19 @@ const TeaTypeListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '类型编码',
+            title: applyLang('labelTeaTypeCode'),
             dataIndex: 'teaTypeCode',
             key: 'teaTypeCode',
             width: '25%'
         },
         {
-            title: '类型名称',
+            title: applyLang('labelTeaTypeName'),
             dataIndex: 'teaTypeName',
             key: 'teaTypeName',
             width: '25%'
         },
         {
-            title: '茶品数量',
+            title: applyLang('labelTeaCnt'),
             dataIndex: 'teaCount',
             key: 'teaCount',
             width: '15%'

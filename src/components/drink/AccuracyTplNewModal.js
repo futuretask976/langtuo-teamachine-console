@@ -106,7 +106,7 @@ const AccuracyTplNewModal = (props) => {
                 onOk={onClickOK}
                 open={open}
                 style={{border: '0px solid red'}}
-                title="新建/编辑模板"
+                title={applyLang('labelNewOrEdit')}
                 width={600}
             >
                 <div style={{height: 350, width: '100%'}}>
@@ -114,31 +114,31 @@ const AccuracyTplNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>模板编码：</span></Space>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTemplateCode')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={20}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="模板编码" disabled={isBlankStr(props.templateCode4Edit) ? false : true} value={templateCode} onChange={(e) => setTemplateCode(e.target.value)} />
+                                    <Input placeholder={applyLang('labelTemplateCode')} disabled={isBlankStr(props.templateCode4Edit) ? false : true} value={templateCode} onChange={(e) => setTemplateCode(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>模板名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTemplateName')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={20}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="模板名称" value={templateName} onChange={(e) => setTemplateName(e.target.value)} />
+                                    <Input placeholder={applyLang('labelTemplateName')} value={templateName} onChange={(e) => setTemplateName(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>上溢单位：</span>
+                                    <span>{applyLang('promptOverMode')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={8}>
@@ -164,7 +164,7 @@ const AccuracyTplNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>上溢值：</span>
+                                    <span>{applyLang('promptOverAmount')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={8}>
@@ -176,7 +176,7 @@ const AccuracyTplNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>下溢单位：</span>
+                                    <span>{applyLang('promptUnderMode')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={8}>
@@ -186,11 +186,11 @@ const AccuracyTplNewModal = (props) => {
                                         onChange={(e) => setUnderMode(e)}
                                         options={[
                                             {
-                                                label: '固定值',
+                                                label: applyLang('labelFix'),
                                                 value: 0
                                             },
                                             {
-                                                label: '百分比',
+                                                label: applyLang('labelPer'),
                                                 value: 1
                                             }
                                         ]}
@@ -202,7 +202,7 @@ const AccuracyTplNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>下溢值：</span>
+                                    <span>{applyLang('promptUnderAmount')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={8}>
@@ -214,7 +214,7 @@ const AccuracyTplNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>应用物料：</span>
+                                    <span>{applyLang('promptApplyTopping')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={20}>

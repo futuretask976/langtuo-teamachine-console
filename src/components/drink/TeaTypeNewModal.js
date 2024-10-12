@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Modal, Space, Col, Row } from 'antd';
+import { Input, Modal, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
 import { applyLang } from '../../i18n/i18n';
@@ -14,15 +14,15 @@ const TeaTypeNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(teaTypeCode, true)) {
-            alert('茶品类型编码不符合规则');
+            alert(applyLang('msgTeaTypeCodeInvalid'));
             return;
         }
         if (!isValidName(teaTypeName, true)) {
-            alert('茶品类型名称不符合规则');
+            alert(applyLang('msgTeaTypeNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommetInvalid'));
             return;
         }
 
@@ -79,42 +79,36 @@ const TeaTypeNewModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="新建/编辑茶品类型"
+            title={applyLang('labelNewOrEdit')}
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={450}
-            style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
         >
             <div style={{height: 275, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>类型编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="类型编码" allowClear value={teaTypeCode} disabled={isBlankStr(props.teaTypeCode4Edit) ? false : true} onChange={(e) => setTeaTypeCode(e.target.value)}/>
+                                <Input placeholder={applyLang('labelTeaTypeCode')} allowClear value={teaTypeCode} disabled={isBlankStr(props.teaTypeCode4Edit) ? false : true} onChange={(e) => setTeaTypeCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>类型名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="类型名称" allowClear value={teaTypeName} onChange={(e) => setTeaTypeName(e.target.value)}/>
+                                <Input placeholder={applyLang('labelTeaTypeName')} allowClear value={teaTypeName} onChange={(e) => setTeaTypeName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>

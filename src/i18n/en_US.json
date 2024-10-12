@@ -237,5 +237,11 @@
     "promptSpecItemCode": "Spec Item Code：",
     "promptSpecItemName": "Spec Item Name：",
     "promptSpecItemOuterCode": "Outer Code：",
-    "labelSpecItem": "Spec Item"
+    "labelSpecItem": "Spec Item",
+    "labelTeaCnt": "Tea Count",
+    "promptOverMode": "Over Mode：",
+    "promptOverAmount": "Over Amount：",
+    "promptUnderMode": "Under Mode：",
+    "promptUnderAmount": "Under Amount：",
+    "promptApplyTopping": "Apply Topping："
 }

@@ -54,13 +54,13 @@ const AccuracyTplListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '模板编码',
+            title: applyLang('labelTemplateCode'),
             dataIndex: 'templateCode',
             key: 'templateCode',
             width: '30%'
         },
         {
-            title: '模板名称',
+            title: applyLang('labelTemplateName'),
             dataIndex: 'templateName',
             key: 'templateName',
             width: '30%'
