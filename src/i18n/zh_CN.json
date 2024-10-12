@@ -336,5 +336,15 @@
     "labelViewDetail": "查看详情",
     "labelClose": "关闭",
     "promptSpecItem": "规格项：",
-    "promptToppingDetail": "物料明细："
+    "promptToppingDetail": "物料明细：",
+    "promptInvalidTime": "失效时间：",
+    "promptInvalidAmount": "失效数量：",
+    "promptSupplyTime": "补充时间：",
+    "promptSupplyAmount": "补充数量：",
+    "promptStartTime": "起始时间：",
+    "promptEndTime": "结束时间：",
+    "promptDrainRule": "排空规则：",
+    "promptDrainManually": "手动排空：",
+    "promptDrainDuration": "排空时长：",
+    "promptDrainWeight": "排空克重："
 }

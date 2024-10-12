@@ -57,10 +57,10 @@ const SupplyActRecordViewModal = (props) => {
                 onCancel={onClickCancel}
                 open={open}
                 style={{border: '0px solid red'}}
-                title="查看详情"
+                title={applyLang('labelViewDetail')}
                 width={800}
                 footer={[
-                    <Button key="back" onClick={onClickCancel}>关闭</Button>,
+                    <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
             >
                 <div style={{height: 250, width: '100%'}}>
@@ -86,7 +86,7 @@ const SupplyActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>{applyLang('labelShopName')}</span>
+                                    <span>{applyLang('promptShopName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -96,7 +96,7 @@ const SupplyActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>补充时间：</span>
+                                    <span>{applyLang('promptSupplyTime')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -114,25 +114,25 @@ const SupplyActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>物料名称：</span>
+                                    <span>{applyLang('promptToppingName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="物料名称" allowClear disabled={true} value={toppingName}/>
+                                <Input placeholder={applyLang('labelToppingName')} allowClear disabled={true} value={toppingName}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>管道序号：</span>
+                                    <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="管道序号" disabled={true} value={pipelineNum}/>
+                                <Input placeholder={applyLang('labelPipelineNo')} disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>补充数量：</span>
+                                    <span>{applyLang('promptSupplyAmount')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>

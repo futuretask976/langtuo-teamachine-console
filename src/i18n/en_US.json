@@ -214,8 +214,8 @@
     "msgMaintainPeriodInvalid": "Maintain period is invalid！",
     "msgCleanPeroidInvalid": "Clean period is invalid！",
     "promptMeasureUnit": "Measure Unit：",
-    "labelMeasureUnitKg": "kg",
-    "labelMeasureUnitMl": "ml",
+    "labelMeasureUnitKg": "KG",
+    "labelMeasureUnitMl": "ML",
     "promptCleanPeriod": "Clean Period：",
     "labelHour": "Hour",
     "promptConvertCoefficient": "Convert Coefficient：",
@@ -336,5 +336,15 @@
     "labelViewDetail": "View Detail",
     "labelClose": "Close",
     "promptSpecItem": "Spec Item：",
-    "promptToppingDetail": "Topping Detail："
+    "promptToppingDetail": "Topping Detail：",
+    "promptInvalidTime": "Invalid Time：",
+    "promptInvalidAmount": "Invalid Amount：",
+    "promptSupplyTime": "Supply Time：",
+    "promptSupplyAmount": "Supply Amount：",
+    "promptStartTime": "Start Time：",
+    "promptEndTime": "End Time：",
+    "promptDrainRule": "Drain Rule",
+    "promptDrainManually": "Drain Manually：",
+    "promptDrainDuration": "Drain Duration：",
+    "promptDrainWeight": "Drain Weight："
 }

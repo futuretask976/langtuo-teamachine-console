@@ -65,10 +65,10 @@ const DrainActRecordViewModal = (props) => {
                 onCancel={onClickCancel}
                 open={open}
                 style={{border: '0px solid red'}}
-                title="查看详情"
+                title={applyLang('labelViewDetail')}
                 width={800}
                 footer={[
-                    <Button key="back" onClick={onClickCancel}>关闭</Button>,
+                    <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
             >
                 <div style={{height: 325, width: '100%'}}>
@@ -104,7 +104,7 @@ const DrainActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>开始时间：</span>
+                                    <span>{applyLang('promptStartTime')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -120,7 +120,7 @@ const DrainActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>结束时间：</span>
+                                    <span>{applyLang('promptEndTime')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -138,15 +138,15 @@ const DrainActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>物料名称：</span>
+                                    <span>{applyLang('promptToppingName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="物料名称" disabled={true} value={toppingName}/>
+                                <Input placeholder={applyLang('labelToppingName')} disabled={true} value={toppingName}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>管道序号：</span>
+                                    <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -157,7 +157,7 @@ const DrainActRecordViewModal = (props) => {
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={3}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                        <span>排空规则：</span>
+                                        <span>{applyLang('promptDrainRule')}</span>
                                     </div>
                                 </Col>
                                 <Col className="gutter-row" span={9}>
@@ -170,26 +170,26 @@ const DrainActRecordViewModal = (props) => {
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>手动排空：</span>
+                                            <span>{applyLang('promptDrainManually')}</span>
                                         </div>
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>排空时间：</span>
+                                            <span>{applyLang('promptDrainDuration')}</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={3}>
-                                        <InputNumber disabled={true} value={flushSec} style={{width: 50}}/>秒
+                                        <InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSec')}
                                     </Col>
                                     <Col className="gutter-row" span={3}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                            <span>排空克重：</span>
+                                            <span>{applyLang('promptDrainWeight')}</span>
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={15}>
-                                        <InputNumber disabled={true} value={flushWeight} style={{width: 50}}/>克
+                                        <InputNumber disabled={true} value={flushWeight} style={{width: 50}}/>&nbsp;{applyLang('labelMeasureUnitKg')}
                                     </Col>
                                 </Row>
                             </>
