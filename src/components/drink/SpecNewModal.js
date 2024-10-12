@@ -125,7 +125,7 @@ const SpecNewModal = (props) => {
             render: (text) => <a>{text}</a>
         },
         {
-            title: applyLang('labelSpecItemOuterCode'),
+            title: applyLang('labelOuterSpecItemCode'),
             dataIndex: 'outerSpecItemCode',
             key: 'outerSpecItemCode',
             width: '25%'

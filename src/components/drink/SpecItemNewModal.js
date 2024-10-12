@@ -18,7 +18,7 @@ const SpecItemNewModal = (props) => {
             return;
         }
         if (!isValidCode(outerSpecItemCode, true)) {
-            alert(applyLang('msgSpecItemOuterCodeInvalid'));
+            alert(applyLang('msgOuterSpecItemCodeInvalid'));
             return;
         }
         props.onClickSubmitSpecItem(specItemCode, specItemName, outerSpecItemCode);
@@ -92,12 +92,12 @@ const SpecItemNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecItemOuterCode')}</span></Space>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOuterSpecItemCode')}</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder={applyLang('labelSpecItemOuterCode')} value={outerSpecItemCode} onChange={onChangeOuterSpecItemCode}/>
+                            <Input placeholder={applyLang('labelOuterSpecItemCode')} value={outerSpecItemCode} onChange={onChangeOuterSpecItemCode}/>
                         </div>
                     </Col>
                 </Row>

@@ -54,23 +54,23 @@ const TeaListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '茶品编码',
+            title: applyLang('labelTeaCode'),
             dataIndex: 'teaCode',
             key: 'teaTypeCode',
             width: '25%'
         },
         {
-            title: '茶品名称',
+            title: applyLang('labelTeaName'),
             dataIndex: 'teaName',
             key: 'teaTypeName',
             width: '25%'
         },
         {
-            title: '状态',
+            title: applyLang('labelState'),
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 0 ? '禁用' : '启用'
+            render: (state) => state == 0 ? applyLang('labelDisabled') : applyLang('labelEnabled')
         },
         {
             title: applyLang('labelGmtCreated'),

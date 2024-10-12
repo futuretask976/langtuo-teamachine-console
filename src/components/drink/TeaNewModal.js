@@ -33,11 +33,11 @@ const TeaNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickSubmit = () => {
         if (!isValidCode(tea.teaCode, true)) {
-            alert('茶品编码不符合规则');
+            alert(applyLang('msgTeaCodeInvalid'));
             return;
         }
         if (!isValidName(tea.teaName, true)) {
-            alert('茶品名称不符合规则');
+            alert(applyLang('msgTeaNameInvalid'));
             return;
         }
         if (!isValidCode(tea.outerTeaCode, true)) {
@@ -45,11 +45,11 @@ const TeaNewModal = (props) => {
             return;
         }
         if (!isValidCode(tea.teaTypeCode, true)) {
-            alert('茶品类型编码不符合规则' + tea.teaTypeCode);
+            alert(applyLang('msgTeaTypeCodeInvalid'));
             return;
         }
         if (!isValidComment(tea.comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
         if (isEmptyArray(tea.toppingBaseRuleList, true)) {
