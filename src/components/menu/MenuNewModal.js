@@ -15,19 +15,19 @@ const MenuNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(menuCode, true)) {
-            alert('菜单编码不符合规则');
+            alert(applyLang('msgMenuCodeInvalid'));
             return;
         }
         if (!isValidName(menuName, true)) {
-            alert('菜单名称不符合规则');
+            alert(applyLang('msgMenuNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
         if (isEmptyArray(seriesCodeList)) {
-            alert('包含的系列不能为空');
+            alert(applyLang('msgSeriesListEmpty'));
             return;
         }
 
@@ -153,8 +153,7 @@ const MenuNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
-            title="新建/编辑菜单"
+            title={applyLang('labelNewOrEdit')}
             width={550}
         >
             <div style={{height: 300, width: '100%'}}>
@@ -162,31 +161,31 @@ const MenuNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>菜单编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptMenuCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="菜单编码" value={menuCode} disabled={isBlankStr(props.menuCode4Edit) ? false : true} onChange={(e) => setMenuCode(e.target.value)}/>
+                                <Input placeholder={applyLang('labelMenuCode')} value={menuCode} disabled={isBlankStr(props.menuCode4Edit) ? false : true} onChange={(e) => setMenuCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>菜单名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptMenuName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="菜单名称" value={menuName} onChange={(e) => setMenuName(e.target.value)} />
+                                <Input placeholder={applyLang('labelMenuName')} value={menuName} onChange={(e) => setMenuName(e.target.value)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>包含系列：</span>
+                                <span>{applyLang('promptIncludeSeries')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
@@ -204,7 +203,7 @@ const MenuNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>生效期：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptValidTime')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>

@@ -273,5 +273,10 @@
     "labelAmount": "数值",
     "labelActualAmount": "实际数值",
     "labelAdjustMode": "调整方式",
-    "promptComposeRule": "搭配规则："
+    "promptComposeRule": "搭配规则：",
+    "promptIncludeTea": "包含茶品：",
+    "promptTeaListEmpty": "茶品列表为空！",
+    "msgSeriesListEmpty": "系列列表为空！",
+    "promptIncludeSeries": "包含系列：",
+    "promptValidTime": "生效时间："
 }

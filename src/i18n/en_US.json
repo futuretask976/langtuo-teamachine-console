@@ -273,5 +273,10 @@
     "labelAmount": "Amount",
     "labelActualAmount": "Actual Amount",
     "labelAdjustMode": "Adjust Mode",
-    "promptComposeRule": "Compose Rule："
+    "promptComposeRule": "Compose Rule：",
+    "promptIncludeTea": "Include Tea：",
+    "promptTeaListEmpty": "Tea list is empty！",
+    "msgSeriesListEmpty": "Series list is empty！",
+    "promptIncludeSeries": "Include Series：",
+    "promptValidTime": "Valid Time："
 }

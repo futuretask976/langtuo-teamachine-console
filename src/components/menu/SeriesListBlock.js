@@ -51,13 +51,13 @@ const SeriesListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '系列编码',
+            title: applyLang('labelSeriesCode'),
             dataIndex: 'seriesCode',
             key: 'seriesCode',
             width: '30%'
         },
         {
-            title: '系列名称',
+            title: applyLang('labelSeriesName'),
             dataIndex: 'seriesName',
             key: 'seriesName',
             width: '30%'

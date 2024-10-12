@@ -14,19 +14,19 @@ const SeriesNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(seriesCode, true)) {
-            alert('系列编码不符合规则');
+            alert(applyLang('msgSeriesCodeInvalid'));
             return;
         }
         if (!isValidName(seriesName, true)) {
-            alert('系列名称不符合规则');
+            alert(applyLang('msgSeriesNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
         if (isEmptyArray(teaCodeList)) {
-            alert('包含的茶品不能为空');
+            alert(applyLang('msgTeaListEmpty'));
             return;
         }
 
@@ -138,7 +138,7 @@ const SeriesNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
-            title="新建/编辑系列"
+            title={applyLang('labelNewOrEdit')}
             width={650}
         >
             <div style={{height: 300, width: '100%'}}>
@@ -146,31 +146,31 @@ const SeriesNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>系列编码：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSeriesCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="系列编码" value={seriesCode} disabled={isBlankStr(props.seriesCode4Edit) ? false : true} onChange={(e) => setSeriesCode(e.target.value)}/>
+                                <Input placeholder={applyLang('labelSeriesCode')} value={seriesCode} disabled={isBlankStr(props.seriesCode4Edit) ? false : true} onChange={(e) => setSeriesCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>系列名称：</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSeriesName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder="物料名称" value={seriesName} onChange={(e) => setSeriesName(e.target.value)}/>
+                                <Input placeholder={applyLang('labelSeriesName')} value={seriesName} onChange={(e) => setSeriesName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>包含茶品：</span></Space>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptIncludeTea')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={20}>
@@ -179,6 +179,7 @@ const SeriesNewModal = (props) => {
                                     mode='multiple'
                                     onChange={(e) =>  setTeaCodeList(e)}
                                     options={teaList4Select}
+                                    placeholder={applyLang('labelPleaseSelect')}
                                     style={{width: '100%'}}
                                     value={teaCodeList}
                                 />

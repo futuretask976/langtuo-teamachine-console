@@ -51,13 +51,13 @@ const MenuListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '菜单编码',
+            title: applyLang('labelMenuCode'),
             dataIndex: 'menuCode',
             key: 'menuCode',
             width: '30%'
         },
         {
-            title: '菜单名称',
+            title: applyLang('labelMenuName'),
             dataIndex: 'menuName',
             key: 'menuName',
             width: '30%'
@@ -88,7 +88,7 @@ const MenuListBlock = (props) => {
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + menuCode} onClick={(e) => onClickDispatch(e, menuCode)}>分发</a>
+                            <a key={action + '_' + menuCode} onClick={(e) => onClickDispatch(e, menuCode)}>{applyLang('labelOpeDispatch')}</a>
                         );
                     }
                 })}
