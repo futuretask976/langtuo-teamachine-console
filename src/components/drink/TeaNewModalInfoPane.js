@@ -250,28 +250,28 @@ const TeaNewModalInfoPane = (props) => {
         <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
             <div className="flex-row-cont" style={{height: 50, width: '98%', border: '0px solid red'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品编码：</span></Space>
+                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaCode')}</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder="茶品编码" disabled={!props.putNew} onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
+                    <Input placeholder={applyLang('labelTeaCode')} disabled={!props.putNew} onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品名称：</span></Space>
+                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaName')}</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder="茶品名称" onChange={(e) => setTeaName(e.target.value)} value={teaName}/>
+                    <Input placeholder={applyLang('labelTeaName')} onChange={(e) => setTeaName(e.target.value)} value={teaName}/>
                 </div>
             </div>
 
             <div className="flex-row-cont" style={{height: 50, width: '98%'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>外部茶品编码：</span></Space>
+                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOuterTeaCode')}</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder="外部茶品编码" onChange={(e) => setOuterTeaCode(e.target.value)} value={outerTeaCode}/>
+                    <Input placeholder={applyLang('labelOuterTeaCode')} onChange={(e) => setOuterTeaCode(e.target.value)} value={outerTeaCode}/>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品类型：</span></Space>
+                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeName')}</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
                     <Select
@@ -285,10 +285,10 @@ const TeaNewModalInfoPane = (props) => {
 
             <div className="flex-row-cont" style={{height: 50, width: '98%'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>茶品状态：</span></Space>
+                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptState')}</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
-                    <Switch checkedChildren="启用" unCheckedChildren="禁用" checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
+                    <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
                 </div>
             </div>
 
@@ -303,7 +303,7 @@ const TeaNewModalInfoPane = (props) => {
 
             <div className="flex-row-cont" style={{height: 130, width: '98%'}}>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>图片上传：</span></Space>
+                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptUpload')}</span></Space>
                 </div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
                     {show === true ? (

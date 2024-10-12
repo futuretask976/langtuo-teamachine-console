@@ -41,7 +41,7 @@ const TeaNewModal = (props) => {
             return;
         }
         if (!isValidCode(tea.outerTeaCode, true)) {
-            alert('外部茶品编码不符合规则' + tea.outerTeaCode);
+            alert(applyLang('msgOuterTeaCodeInvalid'));
             return;
         }
         if (!isValidCode(tea.teaTypeCode, true)) {
@@ -53,15 +53,15 @@ const TeaNewModal = (props) => {
             return;
         }
         if (isEmptyArray(tea.toppingBaseRuleList, true)) {
-            alert('茶品操作步骤不符合规则');
+            alert(applyLang('msgToppingBaseRuleListEmpty'));
             return;
         }
         if (isEmptyArray(tea.specItemRuleList, true)) {
-            alert('茶品规格不符合规则');
+            alert(applyLang('msgSpecItemRuleListEmpty'));
             return;
         }
         if (isEmptyArray(tea.teaUnitList, true)) {
-            alert('茶品单位不符合规则');
+            alert(applyLang('msgTeaUnitListEmpty'));
             return;
         }
 
@@ -108,19 +108,19 @@ const TeaNewModal = (props) => {
     };
     const steps = [
         {
-          title: '基础信息'
+          title: applyLang('labelBasicInfo')
         },
         {
-          title: '制作步骤'
+          title: applyLang('labelProduceStep')
         },
         {
-          title: '物料配置'
+          title: applyLang('labelToppingConfig')
         },
         {
-          title: '添加规格'
+          title: applyLang('labelAddSpec')
         },
         {
-          title: '规则设定'
+          title: applyLang('labelRuleConig')
         }
     ];
 
@@ -202,8 +202,7 @@ const TeaNewModal = (props) => {
             footer={()=>{}}
             onCancel={onClickCancel}
             open={open}
-            style={{border: '0px solid red'}}
-            title="新建/编辑茶品"
+            title={applyLang('labelNewOrEdit')}
             width={1000}
         >
             <div className='flex-row-cont' style={{flexDirection: 'column', height: 450, width: '100%'}}>
@@ -228,18 +227,18 @@ const TeaNewModal = (props) => {
                 <div style={{marginTop: 24}}>
                     {curStep > 0 && (
                         <Button style={{margin: '0 8px'}} onClick={() => onClickPrevStep()}>
-                            上一步
+                            {applyLang('labelPrevStep')}
                         </Button>
                     )}
                     {curStep < steps.length - 1 && (
                         <Button type="primary" onClick={() => onClickNextStep()}>
-                            下一步
+                            {applyLang('labelNextStep')}
                         </Button>
                     )}
                     {curStep === steps.length - 1 && (
-                        <Button type="primary" loading={loading} onClick={() => onClickSubmit()}>提交</Button>
+                        <Button type="primary" loading={loading} onClick={() => onClickSubmit()}>{applyLang('labelSubmit')}</Button>
                     )}
-                    <Button key="back" onClick={onClickCancel} style={{margin: '0 8px'}}>取消</Button>
+                    <Button key="back" onClick={onClickCancel} style={{margin: '0 8px'}}>{applyLang('labelCancel')}</Button>
                 </div>
             </div>
         </Modal>

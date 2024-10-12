@@ -155,19 +155,19 @@ const TeaNewModalActStepPane = (props) => {
     // 表格定义
     const actStepListCols = [
         {
-            title: '步骤',
+            title: applyLang('labelStep'),
             dataIndex: 'stepIndex',
             key: 'stepIndex',
             width: '10%'
         },
         {
-            title: '物料',
+            title: applyLang('labelTopping'),
             dataIndex: 'toppingList4Select',
             key: 'toppingList4Select',
             width: '90%',
             render: (_, {stepIndex, toppingBaseRuleList}) => (
                 <Select
-                    placeholder="请选择"
+                    placeholder={applyLang('labelPleaseSelect')}
                     mode="multiple"
                     onChange={(e) => onChangeToppingCodeList(e, stepIndex)}
                     options={toppingList4Select}
@@ -193,8 +193,8 @@ const TeaNewModalActStepPane = (props) => {
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '15%', width: '98%'}}>
                 <Space>
-                    <Button key="addStep" onClick={onClickAddStep} type="primary" style={{height: 35, width: 100}}>新增步骤</Button>
-                    <Button key="reduceStep" onClick={onClickDeleteStep} type="primary" style={{height: 35, width: 100}}>删减步骤</Button>
+                    <Button key="addStep" onClick={onClickAddStep} type="primary" style={{height: 35, width: 100}}>{applyLang('labelAddStep')}</Button>
+                    <Button key="reduceStep" onClick={onClickDeleteStep} type="primary" style={{height: 35, width: 100}}>{applyLang('labelDelStep')}</Button>
                 </Space>
             </div>
             <div className="flex-row-cont" style={{alignItems: 'flex-start', height: '85%', width: '98%'}}>
