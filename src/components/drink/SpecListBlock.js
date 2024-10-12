@@ -54,26 +54,26 @@ const SpecListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '规格编码',
+            title: applyLang('labelSpecCode'),
             dataIndex: 'specCode',
             key: 'specCode',
             width: '20%'
         },
         {
-            title: '规格名称',
+            title: applyLang('labelSpecName'),
             dataIndex: 'specName',
             key: 'specName',
             width: '20%'
         },
         {
-            title: '状态',
+            title: applyLang('labelState'),
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 0 ? '禁用' : '启用'
+            render: (state) => state == 0 ? applyLang('labelDisabled') : applyLang('labelEnabled')
         },
         {
-            title: '规格项',
+            title: applyLang('labelSpecItem'),
             dataIndex: 'specItemList',
             key: 'specItemList',
             width: '40%',

@@ -10,15 +10,15 @@ const SpecItemNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(specItemCode, true)) {
-            alert('规格项编码不符合规则');
+            alert(applyLang('msgSpecItemCodeInvalid'));
             return;
         }
         if (!isValidName(specItemName, true)) {
-            alert('规格项名称不符合规则');
+            alert(applyLang('msgSpecItemNameInvalid'));
             return;
         }
         if (!isValidCode(outerSpecItemCode, true)) {
-            alert('外部规格项编码不符合规则aa' + outerSpecItemCode + 'bb');
+            alert(applyLang('msgSpecItemOuterCodeInvalid'));
             return;
         }
         props.onClickSubmitSpecItem(specItemCode, specItemName, outerSpecItemCode);
@@ -51,19 +51,19 @@ const SpecItemNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             style={{border: '0px solid red'}}
-            title="新建/编辑规格项"
+            title={applyLang('labelNewOrEdit')}
             width={600}
         >
             <div style={{height: 200, width: '100%'}}>
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>规格项编码：</span></Space>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecItemCode')}</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="规格项编码" disabled={isBlankStr(props.specItemCode4Edit) ? false : true} value={specItemCode} onChange={onChangeSpecItemCode}/>
+                            <Input placeholder={applyLang('labelSpecItemCode')} disabled={isBlankStr(props.specItemCode4Edit) ? false : true} value={specItemCode} onChange={onChangeSpecItemCode}/>
                         </div>
                     </Col>
                 </Row>
@@ -75,12 +75,12 @@ const SpecItemNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>规格项名称：</span></Space>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecItemName')}</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="规格项名称" value={specItemName} onChange={onChangeSpecItemName}/>
+                            <Input placeholder={applyLang('labelSpecItemName')} value={specItemName} onChange={onChangeSpecItemName}/>
                         </div>
                     </Col>
                 </Row>
@@ -92,12 +92,12 @@ const SpecItemNewModal = (props) => {
                 <Row style={{width: '100%'}}>
                     <Col className="gutter-row" span={6}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>外部规格项名称：</span></Space>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecItemOuterCode')}</span></Space>
                         </div>
                     </Col>
                     <Col className="gutter-row" span={18}>
                         <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                            <Input placeholder="外部规格项名称" value={outerSpecItemCode} onChange={onChangeOuterSpecItemCode}/>
+                            <Input placeholder={applyLang('labelSpecItemOuterCode')} value={outerSpecItemCode} onChange={onChangeOuterSpecItemCode}/>
                         </div>
                     </Col>
                 </Row>

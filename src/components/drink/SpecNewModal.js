@@ -16,19 +16,19 @@ const SpecNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(specCode, true)) {
-            alert('规格编码不符合规则');
+            alert(applyLang('msgSpecCodeInvalid'));
             return;
         }
         if (!isValidName(specName, true)) {
-            alert('规格名称不符合规则');
+            alert(applyLang('msgSpecNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
         if (isEmptyArray(specItemList)) {
-            alert('规格项列表不能为空');
+            alert(applyLang('msgSpecItemListEmpty'));
             return;
         }
 
@@ -118,20 +118,20 @@ const SpecNewModal = (props) => {
     }
     const specItemCols = [
         {
-            title: '规格项编码',
+            title: applyLang('labelSpecItemCode'),
             dataIndex: 'specItemCode',
             key: 'specItemCode',
             width: '25%',
             render: (text) => <a>{text}</a>
         },
         {
-            title: '外部编码',
+            title: applyLang('labelSpecItemOuterCode'),
             dataIndex: 'outerSpecItemCode',
             key: 'outerSpecItemCode',
             width: '25%'
         },
         {
-            title: '规格项名称',
+            title: applyLang('labelSpecItemName'),
             dataIndex: 'specItemName',
             key: 'specItemName',
             width: '30%'
@@ -212,7 +212,7 @@ const SpecNewModal = (props) => {
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 style={{border: '0px solid red'}}
-                title="新建/编辑规格"
+                title={applyLang('labelNewOrEdit')}
                 width={850}
             >
                 <div style={{height: 475, width: '100%'}}>
@@ -220,31 +220,31 @@ const SpecNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规格编码：</span></Space>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecCode')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="规格编码" allowClear disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={(e) => setSpecCode(e.target.value)} />
+                                    <Input placeholder={applyLang('labelSpecCode')} allowClear disabled={isBlankStr(props.specCode4Edit) ? false : true} value={specCode} onChange={(e) => setSpecCode(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规格名称：</span></Space>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecName')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Input placeholder="规格名称" allowClear value={specName} onChange={(e) => setSpecName(e.target.value)} />
+                                    <Input placeholder={applyLang('labelSpecName')} allowClear value={specName} onChange={(e) => setSpecName(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{height: 220, width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规格项列表：</span></Space>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSpecItemList')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
@@ -266,7 +266,7 @@ const SpecNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                    <Button onClick={(e) => onOpenSpecItemNewModal('', '', '')} type='primary'>新增规格</Button>
+                                    <Button onClick={(e) => onOpenSpecItemNewModal('', '', '')} type='primary'>{applyLang('labelAddSpecItem')}</Button>
                                 </div>
                             </Col>
                         </Row>
