@@ -65,14 +65,14 @@ const CleanRuleListBlock = (props) => {
             width: '25%'
         },
         {
-            title: '提前提醒',
+            title: applyLang('labelPermitRemind'),
             dataIndex: 'permitRemind',
             key: 'permitRemind',
             width: '10%',
             render: (permitRemind) => permitRemind == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
         },
         {
-            title: '允许批量',
+            title: applyLang('labelPermitBatch'),
             dataIndex: 'permitBatch',
             key: 'permitBatch',
             width: '10%',

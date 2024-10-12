@@ -14,11 +14,11 @@ const CleanRuleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(cleanRuleCode, true)) {
-            alert('规则编码不符合规则');
+            alert(applyLang('msgRuleCodeInvalid'));
             return;
         }
         if (!isValidName(cleanRuleName, true)) {
-            alert('规则名称不符合规则');
+            alert(applyLang('msgRuleNameInvalid'));
             return;
         }
 
@@ -103,7 +103,7 @@ const CleanRuleNewModal = (props) => {
                     if (isArray(model.cleanRuleStepList)) {
                         model.cleanRuleStepList.forEach(cleanRuleStep => {
                             tmp.push({
-                                label: '步骤'+ (cleanRuleStep.stepIndex),
+                                label: applyLang('promptStep') + (cleanRuleStep.stepIndex),
                                 children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStep} stepIndex={cleanRuleStep.stepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
                                 key: cleanRuleStep.stepIndex
                             });
@@ -159,7 +159,7 @@ const CleanRuleNewModal = (props) => {
     const [stepIndex, setStepIndex] = useState(1);
     const [activeKey, setActiveKey] = useState(1);
     const [cleanRuleStepPaneList, setCleanRuleStepPaneList] = useState([{
-        label: '步骤：' + stepIndex,
+        label: applyLang('promptStep') + stepIndex,
         children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStepList[stepIndex - 1]} stepIndex={stepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
         // 用stepIndex当作key
         key: stepIndex
@@ -172,7 +172,7 @@ const CleanRuleNewModal = (props) => {
         setCleanRuleStepPaneList(prev => {
             const tmp = [...prev];
             tmp.push({
-                label: '步骤：'+ newStepIndex,
+                label: applyLang('promptStep') + newStepIndex,
                 children: <CleanRuleStepTabPane cleanRuleStep={cleanRuleStepList[newStepIndex - 1]} stepIndex={newStepIndex} updateCleanRuleStep={updateCleanRuleStep}/>,
                 key: newStepIndex,
             });
@@ -184,11 +184,11 @@ const CleanRuleNewModal = (props) => {
     };
     const remove = (targetKey) => {
         if (targetKey == 1) {
-            alert("请保留至少一个步骤");
+            alert(applyLang('msgKeepOneStepAtLeast'));
             return;
         }
         if (targetKey != stepIndex) {
-            alert("请从最后一个步骤开始删除");
+            alert(applyLang('msgDeleteFromLastStep'));
             return;
         }
 
@@ -232,7 +232,7 @@ const CleanRuleNewModal = (props) => {
                         <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleCode')}</span></Space>
                     </div>
                     <div style={{width: '35%'}}>
-                        <Input placeholder="规则编号" onChange={(e) => setCleanRuleCode(e.target.value)} value={cleanRuleCode} style={{width: '100%'}}/>
+                        <Input placeholder={applyLang('labelRuleCode')} onChange={(e) => setCleanRuleCode(e.target.value)} value={cleanRuleCode} style={{width: '100%'}}/>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>
                         <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleName')}</span></Space>
@@ -242,20 +242,20 @@ const CleanRuleNewModal = (props) => {
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>提前提醒：</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptPermitRemind')}</div>
                     <div style={{width: '35%'}}>
                         <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={permitRemind === 1 ? true : false} size="middle" onChange={(e) => setPermitRemind(e ? 1 : 0)}/>
                     </div>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>分批清洗：</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptPermitBatch')}</div>
                     <div style={{width: '35%'}}>
                         <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={permitBatch === 1 ? true : false} size="middle" onChange={(e) => setPermitBatch(e ? 1 : 0)}/>
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>不清洗的物料：</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptExceptTopping')}</div>
                     <div style={{width: '85%'}}>
                         <Select
-                            placeholder="请选择"
+                            placeholder={applyLang('labelPleaseSelect')}
                             mode="multiple"
                             onChange={(e) => setExceptToppingCodeList(e)}
                             options={toppingList4Select}

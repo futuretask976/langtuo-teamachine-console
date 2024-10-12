@@ -177,32 +177,32 @@ const CleanRuleStepTabPane = (props) => {
     return (
         <div className="flex-col-cont" style={{height: '100%', width: '100%'}}>
             <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>清洗方式：</div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptCleanContent')}</div>
                 <div style={{justifyContent: 'flex-start', width: '20%'}}>
                     <Radio.Group onChange={onChangeCleanContent} value={getCleanContent()}>
-                        <Radio value={0}>冲洗</Radio>
-                        <Radio value={1}>浸泡</Radio>
+                        <Radio value={0}>{applyLang('labelWash')}</Radio>
+                        <Radio value={1}>{applyLang('labelSoak')}</Radio>
                     </Radio.Group>
                 </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>是否再次确认：</div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptNeedConfirm')}</div>
                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '10%'}}>
                     <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={getNeedConfirm()} size="middle" onChange={onChangeNeedConfirm}/>
                 </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>清洗剂：</div>
+                <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptCleanAgent')}</div>
                 <div className="flex-row-cont" style={{width: '25%'}}>
                     <Select
                         onChange={onChangeCleanAgentType}
                         options={[
                             {
-                                label: '清水',
+                                label: applyLang('labelWater'),
                                 value: 0
                             },
                             {
-                                label: '消毒水',
+                                label: applyLang('labelSanitizer'),
                                 value: 1
                             },
                             {
-                                label: '饮用水',
+                                label: applyLang('labelDrinkingWater'),
                                 value: 2
                             }
                         ]}
@@ -213,30 +213,30 @@ const CleanRuleStepTabPane = (props) => {
             </div>
             {getCleanContent() == 0 && 
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>冲洗时间：</div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptWashTime')}</div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '85%'}}>
-                        <InputNumber min={0} max={9999} onChange={onChangeWashTime} value={getWashTime()}/>&nbsp;分钟
+                        <InputNumber min={0} max={9999} onChange={onChangeWashTime} value={getWashTime()}/>&nbsp;{applyLang('labelMin')}
                     </div>
                 </div>
             }
             {getCleanContent() == 1 && 
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                    <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '15%'}}>浸泡时间：</div>
+                    <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptSoakTime')}</div>
                     <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '85%'}}>
-                        <InputNumber min={0} max={9999} defaultValue={0} onChange={onChangeSoakTime} value={getSoakTime()}/>&nbsp;分钟 设备每隔&nbsp;<InputNumber min={0} max={99} onChange={onChangeSoakWashInterval} value={getSoakWashInterval()}/>&nbsp;分钟 冲洗&nbsp;<InputNumber min={0} max={99} defaultValue={0} onChange={onChangeSoakWashTime} value={getSoakWashTime()}/>&nbsp;秒
+                        <InputNumber min={0} max={9999} defaultValue={0} onChange={onChangeSoakTime} value={getSoakTime()}/>&nbsp;{applyLang('labelMin')} {applyLang('labelEveryInterval')}&nbsp;<InputNumber min={0} max={99} onChange={onChangeSoakWashInterval} value={getSoakWashInterval()}/>&nbsp;{applyLang('labelMin')} {applyLang('labelFlush')}&nbsp;<InputNumber min={0} max={99} defaultValue={0} onChange={onChangeSoakWashTime} value={getSoakWashTime()}/>&nbsp;{applyLang('labelSec')}
                     </div>
                 </div>
             }
             <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
-                <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', height: '100%', width: '15%'}}>清洗提示标题：</div>
+                <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', height: '100%', width: '15%'}}>{applyLang('promptRemindTitle')}</div>
                 <div className="flex-row-cont" style={{alignItems: 'center', height: '100%', width: '85%'}}>
-                    <Input placeholder="清洗提示标题" onChange={onChangeRemindTitle} value={getRemindTitle()}/>
+                    <Input placeholder={applyLang('labelRemindTitle')} onChange={onChangeRemindTitle} value={getRemindTitle()}/>
                 </div>
             </div>
             <div className="flex-row-cont" style={{height: 65, width: '100%'}}>
-                <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', height: '100%', width: '15%'}}>清洗提示内容：</div>
+                <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', height: '100%', width: '15%'}}>{applyLang('promptRemindContent')}</div>
                 <div className="flex-row-cont" style={{alignItems: 'center', height: '100%', width: '85%'}}>
-                    <TextArea rows={2} placeholder="清洗提示内容" maxLength={200} onChange={onChangeRemindContent} value={getRemindContent()}/>
+                    <TextArea rows={2} placeholder={applyLang('labelRemindContent')} maxLength={200} onChange={onChangeRemindContent} value={getRemindContent()}/>
                 </div>
             </div>
         </div>

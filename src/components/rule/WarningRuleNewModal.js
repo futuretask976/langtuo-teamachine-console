@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, InputNumber, Modal, Radio, Space, Col, Row } from 'antd';
+import { Input, InputNumber, Modal, Radio, Space, Col, Row } from 'antd';
 
 import '../../css/common.css';
 import { applyLang } from '../../i18n/i18n';
@@ -79,18 +79,12 @@ const WarningRuleNewModal = (props) => {
         <>
             <Modal
                 centered
+                confirmLoading={loading}
                 open={open}
-                title="新建/编辑规则"
+                title={applyLang('labelNewOrEdit')}
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 width={650}
-                style={{border: '0px solid red'}}
-                footer={[
-                    <Button key="back" onClick={onClickCancel}>取消</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                        提交
-                    </Button>
-                ]}
             >
                 <div style={{height: 350, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
@@ -115,51 +109,51 @@ const WarningRuleNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>预警内容：</span>
+                                    <span>{applyLang('promptWarningContent')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <Radio.Group onChange={(e) => setWarningContent(e.target.value)} value={warningContent}>
-                                    <Radio value={0}>报废预警</Radio>
-                                    <Radio value={1}>缺料预警</Radio>
-                                    <Radio value={2}>清洗预警</Radio>
+                                    <Radio value={0}>{applyLang('labelWarningInvalid')}</Radio>
+                                    <Radio value={1}>{applyLang('labelWarningSupply')}</Radio>
+                                    <Radio value={2}>{applyLang('labelWarningClean')}</Radio>
                                 </Radio.Group>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>预警类型：</span>
+                                    <span>{applyLang('promptWarningType')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <Radio.Group onChange={(e) => setWarningType(e.target.value)} value={warningType}>
-                                    <Radio value={0}>弱提醒</Radio>
-                                    <Radio value={1}>强提醒</Radio>
+                                    <Radio value={0}>{applyLang('labelStrongWarning')}</Radio>
+                                    <Radio value={1}>{applyLang('labelWeakWarning')}</Radio>
                                 </Radio.Group>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>阈值类型：</span>
+                                    <span>{applyLang('promptWarningThreshholdType')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <Radio.Group disabled='true' onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
-                                    <Radio value={0}>固定值</Radio>
-                                    <Radio value={1}>百分比</Radio>
+                                    <Radio value={0}>{applyLang('labelFix')}</Radio>
+                                    <Radio value={1}>{applyLang('labelPer')}</Radio>
                                 </Radio.Group>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>阈值：</span>
+                                    <span>{applyLang('promptWarningThreshhold')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>克/分钟</span></Space>
+                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelMeasureUnitKg')}/{applyLang('labelMin')}</span></Space>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
