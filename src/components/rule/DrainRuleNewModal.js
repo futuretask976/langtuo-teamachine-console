@@ -12,15 +12,15 @@ const DrainRuleNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(drainRuleCode, true)) {
-            alert('规则编码不符合规则');
+            alert(applyLang('msgRuleCodeInvalid'));
             return;
         }
         if (!isValidName(drainRuleName, true)) {
-            alert('规则名称不符合规则');
+            alert(applyLang('msgRuleNameInvalid'));
             return;
         }
         if (isEmptyArray(toppingRuleList)) {
-            alert('物料列表不符合规则');
+            alert(applyLang('msgToppingListEmpty'));
             return;
         }
 
@@ -115,19 +115,19 @@ const DrainRuleNewModal = (props) => {
     // 输入定义
     const toppingRuleCols = [
         {
-            title: '物料名称',
+            title: applyLang('labelToppingName'),
             dataIndex: 'toppingName',
             key: 'toppingName',
             width: '35%'
         },
         {
-            title: '排空时间',
+            title: applyLang('labelFlushSec'),
             dataIndex: 'flushSec',
             key: 'flushSec',
             width: '25%'
         },
         {
-            title: '排空克重',
+            title: applyLang('labelFlushWeight'),
             dataIndex: 'flushWeight',
             key: 'flushWeight',
             width: '25%'
@@ -205,7 +205,7 @@ const DrainRuleNewModal = (props) => {
                 centered
                 confirmLoading={loading}
                 open={open}
-                title="新建/编辑规则22"
+                title={applyLang('labelNewOrEdit')}
                 onOk={onClickOK}
                 onCancel={onClickCancel}
                 width={750}
@@ -215,25 +215,25 @@ const DrainRuleNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规则编码：</span></Space>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleCode')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="规则编码" disabled={isBlankStr(props.drainRuleCode4Edit) ? false : true} value={drainRuleCode} onChange={(e) => setDrainRuleCode(e.target.value)} />
+                                <Input placeholder={applyLang('labelRuleCode')} disabled={isBlankStr(props.drainRuleCode4Edit) ? false : true} value={drainRuleCode} onChange={(e) => setDrainRuleCode(e.target.value)} />
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>规则名称：</span></Space>
+                                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleName')}</span></Space>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="规则名称" value={drainRuleName} onChange={(e) => setDrainRuleName(e.target.value)} />
+                                <Input placeholder={applyLang('labelRuleName')} value={drainRuleName} onChange={(e) => setDrainRuleName(e.target.value)} />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>是否默认：</span>
+                                    <span>{applyLang('promptDefaultRule')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={5}>
@@ -246,12 +246,12 @@ const DrainRuleNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>选择物料：</span>
+                                    <span>{applyLang('promptApplyTopping')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
                                 <Select
-                                    placeholder="请选择"
+                                    placeholder={applyLang('labelPleaseSelect')}
                                     mode="multiple"
                                     onChange={(e) => onChangeToppingCode(e)}
                                     options={toppingList4Select}
@@ -267,7 +267,7 @@ const DrainRuleNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>排出时间：</span>
+                                    <span>{applyLang('promptFlushSec')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -275,7 +275,7 @@ const DrainRuleNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>排出克重：</span>
+                                    <span>{applyLang('promptFlushWeight')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
@@ -283,7 +283,7 @@ const DrainRuleNewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><Button onClick={onClickAddToppingRule} type='primary'>新增物料规则</Button></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button onClick={onClickAddToppingRule} type='primary'>{applyLang('labelAddToppingRule')}</Button></Space>
                                 </div>
                             </Col>
                         </Row>

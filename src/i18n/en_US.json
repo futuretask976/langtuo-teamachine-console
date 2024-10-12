@@ -278,5 +278,13 @@
     "promptTeaListEmpty": "Tea list is empty！",
     "msgSeriesListEmpty": "Series list is empty！",
     "promptIncludeSeries": "Include Series：",
-    "promptValidTime": "Valid Time："
+    "promptValidTime": "Valid Time：",
+    "labelDefaultRule": "Default Rule",
+    "promptDefaultRule": "Default Rule：",
+    "promptFlushSec": "Flush Sec：",
+    "promptFlushWeight": "Flush Weight：",
+    "labelFlushSec": "Flush Sec",
+    "labelFlushWeight": "Flush Weight",
+    "labelAddToppingRule": "Add Topping Rule",
+    "msgToppingListEmpty": "Topping list is empty！"
 }

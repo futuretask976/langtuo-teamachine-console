@@ -229,16 +229,16 @@ const CleanRuleNewModal = (props) => {
             <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 375, width: '100%'}}>
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>规则编码：</span></Space>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleCode')}</span></Space>
                     </div>
                     <div style={{width: '35%'}}>
                         <Input placeholder="规则编号" onChange={(e) => setCleanRuleCode(e.target.value)} value={cleanRuleCode} style={{width: '100%'}}/>
                     </div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>规则名称：</span></Space>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleName')}</span></Space>
                     </div>
                     <div style={{width: '35%'}}>
-                        <Input placeholder="规则名称" onChange={(e) => setCleanRuleName(e.target.value)} value={cleanRuleName}/>
+                        <Input placeholder={applyLang('labelRuleName')} onChange={(e) => setCleanRuleName(e.target.value)} value={cleanRuleName}/>
                     </div>
                 </div>
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>

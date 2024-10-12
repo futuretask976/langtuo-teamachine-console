@@ -97,19 +97,19 @@ const WarningRuleNewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规则编码：</span>
+                                    <span>{applyLang('promptRuleCode')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="规则编码" disabled={isBlankStr(props.warningRuleCode4Edit) ? false : true} value={warningRuleCode} onChange={(e) => setWarningRuleCode(e.target.value)} />
+                                <Input placeholder={applyLang('labelRuleCode')} disabled={isBlankStr(props.warningRuleCode4Edit) ? false : true} value={warningRuleCode} onChange={(e) => setWarningRuleCode(e.target.value)} />
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规则名称：</span>
+                                    <span>{applyLang('promptRuleName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="规则名称" value={warningRuleName} onChange={(e) => setWarningRuleName(e.target.value)} />
+                                <Input placeholder={applyLang('labelRuleName')} value={warningRuleName} onChange={(e) => setWarningRuleName(e.target.value)} />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>

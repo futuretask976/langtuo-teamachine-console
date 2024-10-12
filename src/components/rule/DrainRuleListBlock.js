@@ -65,11 +65,11 @@ const DrainRuleListBlock = (props) => {
             width: '25%',
         },
         {
-            title: '默认规则',
+            title: applyLang('labelDefaultRule'),
             dataIndex: 'defaultRule',
             key: 'defaultRule',
             width: '10%',
-            render: (defaultRule) => defaultRule == 1 ? '是' : '不是',
+            render: (defaultRule) => defaultRule == 1 ? applyLang("labelYes") : applyLang("labelNo"),
         },
         {
             title: applyLang('labelGmtCreated'),

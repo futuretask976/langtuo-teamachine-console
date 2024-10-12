@@ -278,5 +278,13 @@
     "promptTeaListEmpty": "茶品列表为空！",
     "msgSeriesListEmpty": "系列列表为空！",
     "promptIncludeSeries": "包含系列：",
-    "promptValidTime": "生效时间："
+    "promptValidTime": "生效时间：",
+    "labelDefaultRule": "默认规则",
+    "promptDefaultRule": "默认规则：",
+    "promptFlushSec": "排除时间：",
+    "promptFlushWeight": "排出克重：",
+    "labelFlushSec": "排除时间",
+    "labelFlushWeight": "排出克重",
+    "labelAddToppingRule": "新增物料规则",
+    "msgToppingListEmpty": "物料列表为空！"
 }
