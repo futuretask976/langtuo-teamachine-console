@@ -348,5 +348,10 @@
     "promptDrainDuration": "排空时长：",
     "promptDrainWeight": "排空克重：",
     "promptCleanRule": "清洗规则：",
-    "promptCleanManually": "手动清洗："
+    "promptCleanManually": "手动清洗：",
+    "labelCalcTime": "统计时间",
+    "labelOrderData": "订单数据",
+    "labelOrderTeaData": "订单茶品数据",
+    "labelOrderToppingData": "订单物料数据",
+    "labelOrderSpecData": "订单规格数据"
 }

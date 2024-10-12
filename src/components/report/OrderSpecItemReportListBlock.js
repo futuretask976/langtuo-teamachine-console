@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { theme, Space, Table } from 'antd';
+import { theme, Table } from 'antd';
 
 import '../../css/common.css';
 import { applyLang } from '../../i18n/i18n';
@@ -49,19 +49,19 @@ const OrderSpecItemReportListBlock = (props) => {
 
     let columns = [
         {
-            title: '统计时间',
+            title: applyLang('labelCalcTime'),
             dataIndex: 'orderCreatedDay',
             key: 'orderCreatedDay',
             width: '20%'
         },
         {
-            title: '规格项编码',
+            title: applyLang('labelSpecItemCode'),
             dataIndex: 'specItemCode',
             key: 'specItemCode',
             width: '20%'
         },
         {
-            title: '数量',
+            title: applyLang('labelAmount'),
             dataIndex: 'amount',
             key: 'amount',
             width: '20%'
@@ -89,7 +89,7 @@ const OrderSpecItemReportListBlock = (props) => {
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
                 size='small'
-                title={() => '订单规格数据'}/>
+                title={() => applyLang('labelOrderSpecData')}/>
         </div>
     )
 };

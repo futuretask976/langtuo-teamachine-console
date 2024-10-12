@@ -49,13 +49,13 @@ const OrderReportListBlock = (props) => {
 
     let columns = [
         {
-            title: '统计时间',
+            title: applyLang('labelCalcTime'),
             dataIndex: 'orderCreatedDay',
             key: 'orderCreatedDay',
             width: '25%'
         },
         {
-            title: '数量',
+            title: applyLang('labelAmount'),
             dataIndex: 'amount',
             key: 'amount',
             width: '75%'
@@ -80,7 +80,7 @@ const OrderReportListBlock = (props) => {
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
                 size='small'
-                title={() => '订单数据'}/>
+                title={() => applyLang('labelOrderData')}/>
         </div>
     )
 };

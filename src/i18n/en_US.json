@@ -348,5 +348,10 @@
     "promptDrainDuration": "Drain Duration：",
     "promptDrainWeight": "Drain Weight：",
     "promptCleanRule": "Clean Rule：",
-    "promptCleanManually": "Clean Manually："
+    "promptCleanManually": "Clean Manually：",
+    "labelCalcTime": "Statistics Time",
+    "labelOrderData": "Order Data",
+    "labelOrderTeaData": "Order Tea Data",
+    "labelOrderToppingData": "Order Topping Data",
+    "labelOrderSpecData": "Order Spec Data"
 }

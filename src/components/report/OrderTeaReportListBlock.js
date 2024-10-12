@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { theme, Space, Table } from 'antd';
+import { theme, Table } from 'antd';
 
 import '../../css/common.css';
 import { applyLang } from '../../i18n/i18n';
@@ -51,19 +51,19 @@ const OrderTeaReportListBlock = (props) => {
 
     let columns = [
         {
-            title: '统计时间',
+            title: applyLang('labelCalcTime'),
             dataIndex: 'orderCreatedDay',
             key: 'orderCreatedDay',
             width: '20%'
         },
         {
-            title: '茶品编码',
+            title: applyLang('labelTeaCode'),
             dataIndex: 'teaCode',
             key: 'teaCode',
             width: '20%'
         },
         {
-            title: '数量',
+            title: applyLang('labelAmount'),
             dataIndex: 'amount',
             key: 'amount',
             width: '20%'
@@ -91,7 +91,7 @@ const OrderTeaReportListBlock = (props) => {
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
                 size='small'
-                title={() => '订单茶品数据'}/>
+                title={() => applyLang('labelOrderTeaData')}/>
         </div>
     )
 };
