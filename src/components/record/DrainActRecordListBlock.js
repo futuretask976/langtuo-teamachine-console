@@ -59,7 +59,7 @@ const DrainActRecordListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '店铺编码',
+            title: applyLang('labelShopCode'),
             dataIndex: 'shopCode',
             key: 'shopCode',
             width: '20%'
@@ -72,13 +72,13 @@ const DrainActRecordListBlock = (props) => {
             render: (cleanStartTime) => new Date(cleanStartTime).toLocaleString()
         },
         {
-            title: '物料编码',
+            title: applyLang('labelToppingCode'),
             dataIndex: 'toppingCode',
             key: 'toppingCode',
             width: '15%'
         },
         {
-            title: '管道序号',
+            title: applyLang('labelPipelineNo'),
             dataIndex: 'pipelineNum',
             key: 'pipelineNum',
             width: '15%'
@@ -92,7 +92,7 @@ const DrainActRecordListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'view') {
                         return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>查看</a>
+                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>{applyLang('labelOpeView')}</a>
                         );
                     }
                 })}

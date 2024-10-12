@@ -54,7 +54,7 @@ const ShopListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '店铺编码',
+            title: applyLang('labelShopCode'),
             dataIndex: 'shopCode',
             key: 'shopCode',
             width: '25%'

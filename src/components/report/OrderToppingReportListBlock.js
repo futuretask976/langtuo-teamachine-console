@@ -57,7 +57,7 @@ const OrderToppingReportListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '物料编码',
+            title: applyLang('labelToppingCode'),
             dataIndex: 'toppingCode',
             key: 'toppingCode',
             width: '20%'

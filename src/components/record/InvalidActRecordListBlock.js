@@ -59,32 +59,32 @@ const InvalidActRecordListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '店铺编码',
+            title: applyLang('labelShopCode'),
             dataIndex: 'shopCode',
             key: 'shopCode',
             width: '20%'
         },
         {
-            title: '失效时间',
+            title: applyLang('labelInvalidTime'),
             dataIndex: 'invalidTime',
             key: 'invalidTime',
             width: '15%',
             render: (invalidTime) => new Date(invalidTime).toLocaleString()
         },
         {
-            title: '物料编码',
+            title: applyLang('labelToppingCode'),
             dataIndex: 'toppingCode',
             key: 'toppingCode',
             width: '15%'
         },
         {
-            title: '管道序号',
+            title: applyLang('labelPipelineNo'),
             dataIndex: 'pipelineNum',
             key: 'pipelineNum',
             width: '10%'
         },
         {
-            title: '失效数量',
+            title: applyLang('labelInvalidAmount'),
             dataIndex: 'invalidAmount',
             key: 'invalidAmount',
             width: '10%'
@@ -98,7 +98,7 @@ const InvalidActRecordListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'view') {
                         return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>查看</a>
+                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>{applyLang('labelOpeView')}</a>
                         );
                     }
                 })}

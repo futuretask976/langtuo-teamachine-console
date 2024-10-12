@@ -63,32 +63,32 @@ const OrderActRecordListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '茶品名称',
+            title: applyLang('labelTeaName'),
             dataIndex: 'teaName',
             key: 'teaName',
             width: '15%'
         },
         {
-            title: '店铺编码',
+            title: applyLang('labelShopCode'),
             dataIndex: 'shopCode',
             key: 'shopCode',
             width: '15%'
         },
         {
-            title: '状态',
+            title: applyLang('labelState'),
             dataIndex: 'state',
             key: 'state',
             width: '10%',
             render: (state) => state == 0 ? '未制作' : state == 1 ? '制作中' : state == 2 ? '已制作' : state == 3 ? '有异常' : '已取消'
         },
         {
-            title: '外部订单号',
+            title: applyLang('labelOuterOrderId'),
             dataIndex: 'outerOrderId',
             key: 'outerOrderId',
             width: '15%'
         },
         {
-            title: '下单时间',
+            title: applyLang('labelOrderGmtCreated'),
             dataIndex: 'orderGmtCreated',
             key: 'orderGmtCreated',
             width: '15%',
@@ -103,7 +103,7 @@ const OrderActRecordListBlock = (props) => {
                 {actions.map((action) => {
                     if (action == 'view') {
                         return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, shopGroupCode, idempotentMark)}>查看</a>
+                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, shopGroupCode, idempotentMark)}>{applyLang('labelOpeView')}</a>
                         );
                     }
                 })}

@@ -68,19 +68,19 @@ const OrderActRecordViewModal = (props) => {
     // 物料列表相关
     const toppingRecCols = [
         {
-            title: '步骤序号',
+            title: applyLang('labelStepIndex'),
             dataIndex: 'stepIndex',
             key: 'stepIndex',
             width: '20%'
         },
         {
-            title: '物料名称',
+            title: applyLang('labelToppingName'),
             dataIndex: 'toppingName',
             key: 'toppingName',
             width: '40%'
         },
         {
-            title: '实际用量',
+            title: applyLang('labelActualAmount'),
             dataIndex: 'actualAmount',
             key: 'actualAmount',
             width: '40%'
@@ -93,11 +93,10 @@ const OrderActRecordViewModal = (props) => {
                 centered
                 onCancel={onClickCancel}
                 open={open}
-                style={{border: '0px solid red'}}
-                title="查看详情"
+                title={applyLang('labelViewDetail')}
                 width={850}
                 footer={[
-                    <Button key="back" onClick={onClickCancel}>关闭</Button>,
+                    <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
             >
                 <div style={{height: 400, width: '100%'}}>
@@ -113,30 +112,30 @@ const OrderActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>订单状态：</span>
+                                    <span>{applyLang('promptState')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
                                 <Select
                                     disabled={true}
                                     options={[{
-                                        label: '未制作',
+                                        label: applyLang('labelWaitting'),
                                         value: 0
                                     },
                                     {
-                                        label: '制作中',
+                                        label: applyLang('labelProducing'),
                                         value: 1
                                     },
                                     {
-                                        label: '已制作',
+                                        label: applyLang('labelProduced'),
                                         value: 2
                                     },
                                     {
-                                        label: '有异常',
+                                        label: applyLang('labelAbnormal'),
                                         value: 3
                                     },
                                     {
-                                        label: '已取消',
+                                        label: applyLang('labelCancelled'),
                                         value: 4
                                     }
                                     ]}
@@ -156,7 +155,7 @@ const OrderActRecordViewModal = (props) => {
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>{applyLang('labelShopName')}</span>
+                                    <span>{applyLang('promptShopName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -166,33 +165,33 @@ const OrderActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>茶品类型名称：</span>
+                                    <span>{applyLang('promptTeaTypeName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="茶品类型名称" disabled={true} value={teaTypeName}/>
+                                <Input placeholder={applyLang('labelTeaTypeName')} disabled={true} value={teaTypeName}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>茶品名称：</span>
+                                    <span>{applyLang('promptTeaName')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="茶品名称" disabled={true} value={teaName}/>
+                                <Input placeholder={applyLang('labelTeaName')} disabled={true} value={teaName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>外部订单号：</span>
+                                    <span>{applyLang('promptOuterOrderId')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
-                                <Input placeholder="外部订单号" disabled={true} value={outerOrderId}/>
+                                <Input placeholder={applyLang('labelOuterOrderId')} disabled={true} value={outerOrderId}/>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>创建时间：</span>
+                                    <span>{applyLang('promptOrderCreated')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={9}>
@@ -210,17 +209,17 @@ const OrderActRecordViewModal = (props) => {
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>规格项：</span>
+                                    <span>{applyLang('promptSpecItem')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
-                                <Input placeholder="规格项" disabled={true} value={specItems}/>
+                                <Input placeholder={applyLang('labelSpecItem')} disabled={true} value={specItems}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>物料明细：</span>
+                                    <span>{applyLang('promptToppingDetail')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={21}>
