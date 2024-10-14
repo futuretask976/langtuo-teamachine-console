@@ -94,7 +94,7 @@ const OrderActRecordViewModal = (props) => {
                 onCancel={onClickCancel}
                 open={open}
                 title={applyLang('labelViewDetail')}
-                width={850}
+                width={875}
                 footer={[
                     <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
@@ -218,7 +218,7 @@ const OrderActRecordViewModal = (props) => {
                         </Row>
                         <Row style={{width: '100%'}}>
                             <Col className="gutter-row" span={4}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptToppingDetail')}</span>
                                 </div>
                             </Col>

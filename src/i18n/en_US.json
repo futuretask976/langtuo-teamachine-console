@@ -378,5 +378,7 @@
     "labelWaittingSelectList": "Waitting Select List",
     "labelSelectedList": "Selected List",
     "promptUploadPic": "Upload Pic：",
-    "labelAdjustType": "Adjust Type"
+    "labelAdjustType": "Adjust Type",
+    "promptOrderCreated": "Order Created Time：",
+    "promptOuterOrderId": "Outer Order ID："
 }

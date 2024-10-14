@@ -378,5 +378,7 @@
     "labelWaittingSelectList": "待选择列表",
     "labelSelectedList": "已选择列表",
     "promptUploadPic": "上传图片：",
-    "labelAdjustType": "调整类型"
+    "labelAdjustType": "调整类型",
+    "promptOrderCreated": "订单创建时间：",
+    "promptOuterOrderId": "外部订单号"
 }
