@@ -70,50 +70,49 @@ const CleanActRecordViewModal = (props) => {
                 centered
                 onCancel={onClickCancel}
                 open={open}
-                style={{border: '0px solid red'}}
                 title={applyLang('labelViewDetail')}
-                width={800}
+                width={825}
                 footer={[
                     <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
             >
-                <div style={{height: 325, width: '100%'}}>
+                <div style={{height: 350, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptMachineCode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelMachineCode')} disabled={true} value={machineCode}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptShopGroupName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopGroupName')} disabled={true} value={shopGroupName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>{applyLang('labelShopName')}</span>
+                                    <span>{applyLang('promptShopName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopName')} disabled={true} value={shopName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptStartTime')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <DatePicker
                                     disabled={true}
                                     format={{
@@ -124,12 +123,12 @@ const CleanActRecordViewModal = (props) => {
                                     value={dayjs(cleanStartTime, 'YYYY-MM-DD HH:mm:ss')}
                                 />
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptEndTime')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <DatePicker
                                     disabled={true}
                                     format={{
@@ -142,31 +141,31 @@ const CleanActRecordViewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptToppingName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelToppingName')} disabled={true} value={toppingName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <InputNumber disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
                         {cleanType == 0 &&
                             <Row style={{width: '100%'}}>
-                                <Col className="gutter-row" span={3}>
+                                <Col className="gutter-row" span={4}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                         <span>{applyLang('promptCleanRule')}</span>
                                     </div>
                                 </Col>
-                                <Col className="gutter-row" span={9}>
+                                <Col className="gutter-row" span={8}>
                                     <InputNumber disabled={true} value={cleanRuleCode}/>
                                 </Col>
                             </Row>
@@ -174,19 +173,19 @@ const CleanActRecordViewModal = (props) => {
                         {cleanType == 1 &&
                             <>
                                 <Row style={{width: '100%'}}>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptCleanManually')}</span>
                                         </div>
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptCleanContent')}</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={9}>
+                                    <Col className="gutter-row" span={8}>
                                         <Radio.Group disabled={true} value={cleanContent}>
                                             <Radio value={0}>{applyLang('labelWash')}</Radio>
                                             <Radio value={1}>{applyLang('labelSoak')}</Radio>
@@ -194,20 +193,20 @@ const CleanActRecordViewModal = (props) => {
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptWashDuration')}</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <InputNumber disabled={true} value={washSec} style={{width: 50}}/>&nbsp;{applyLang('labelMin')}
                                     </Col>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptSoakDuration')}</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={15}>
+                                    <Col className="gutter-row" span={12}>
                                         <InputNumber disabled={true} value={soakMin} style={{width: 50}}/>&nbsp;{applyLang('labelMin')} {applyLang('labelEveryInterval')}&nbsp;<InputNumber disabled={true} value={flushIntervalMin} style={{width: 50}}/>&nbsp;{applyLang('labelMin')} {applyLang('labelFlush')}&nbsp;<InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSec')}
                                     </Col>
                                 </Row>

@@ -99,23 +99,23 @@ const OrderActRecordViewModal = (props) => {
                     <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
             >
-                <div style={{height: 400, width: '100%'}}>
+                <div style={{height: 450, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptMachineCode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelMachineCode')} disabled={true} value={machineCode}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptState')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Select
                                     disabled={true}
                                     options={[{
@@ -145,56 +145,56 @@ const OrderActRecordViewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptShopGroupName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopGroupName')} disabled={true} value={shopGroupName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptShopName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopName')} disabled={true} value={shopName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptTeaTypeName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelTeaTypeName')} disabled={true} value={teaTypeName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptTeaName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelTeaName')} disabled={true} value={teaName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptOuterOrderId')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelOuterOrderId')} disabled={true} value={outerOrderId}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptOrderCreated')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <DatePicker
                                     disabled={true}
                                     format={{
@@ -207,22 +207,22 @@ const OrderActRecordViewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptSpecItem')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={20}>
                                 <Input placeholder={applyLang('labelSpecItem')} disabled={true} value={specItems}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptToppingDetail')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={20}>
                                 <Table
                                     columns={toppingRecCols} 
                                     dataSource={toppingRecList}

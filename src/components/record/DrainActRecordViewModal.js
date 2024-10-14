@@ -66,7 +66,7 @@ const DrainActRecordViewModal = (props) => {
                 open={open}
                 style={{border: '0px solid red'}}
                 title={applyLang('labelViewDetail')}
-                width={800}
+                width={825}
                 footer={[
                     <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
@@ -74,40 +74,40 @@ const DrainActRecordViewModal = (props) => {
                 <div style={{height: 325, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptMachineCode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelMachineCode')} disabled={true} value={machineCode}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptShopGroupName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopGroupName')} disabled={true} value={shopGroupName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                    <span>{applyLang('labelShopName')}</span>
+                                    <span>{applyLang('promptShopName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopName')} disabled={true} value={shopName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptStartTime')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <DatePicker
                                     disabled={true}
                                     format={{
@@ -118,12 +118,12 @@ const DrainActRecordViewModal = (props) => {
                                     value={dayjs(drainStartTime, 'YYYY-MM-DD HH:mm:ss')}
                                 />
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptEndTime')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <DatePicker
                                     disabled={true}
                                     format={{
@@ -136,31 +136,31 @@ const DrainActRecordViewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptToppingName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelToppingName')} disabled={true} value={toppingName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <InputNumber disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
                         {drainType == 0 &&
                             <Row style={{width: '100%'}}>
-                                <Col className="gutter-row" span={3}>
+                                <Col className="gutter-row" span={4}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                         <span>{applyLang('promptDrainRule')}</span>
                                     </div>
                                 </Col>
-                                <Col className="gutter-row" span={9}>
+                                <Col className="gutter-row" span={8}>
                                     <Input disabled={true} value={drainRuleCode}/>
                                 </Col>
                             </Row>
@@ -168,27 +168,27 @@ const DrainActRecordViewModal = (props) => {
                         {drainType == 1 &&
                             <>
                                 <Row style={{width: '100%'}}>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptDrainManually')}</span>
                                         </div>
                                     </Col>
                                 </Row>
                                 <Row style={{width: '100%'}}>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptDrainDuration')}</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSec')}
                                     </Col>
-                                    <Col className="gutter-row" span={3}>
+                                    <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                             <span>{applyLang('promptDrainWeight')}</span>
                                         </div>
                                     </Col>
-                                    <Col className="gutter-row" span={15}>
+                                    <Col className="gutter-row" span={8}>
                                         <InputNumber disabled={true} value={flushWeight} style={{width: 50}}/>&nbsp;{applyLang('labelMeasureUnitKg')}
                                     </Col>
                                 </Row>

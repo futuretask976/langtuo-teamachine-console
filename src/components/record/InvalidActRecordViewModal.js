@@ -58,7 +58,7 @@ const InvalidActRecordViewModal = (props) => {
                 open={open}
                 style={{border: '0px solid red'}}
                 title={applyLang('labelViewDetail')}
-                width={800}
+                width={825}
                 footer={[
                     <Button key="back" onClick={onClickCancel}>{applyLang('labelClose')}</Button>,
                 ]}
@@ -66,40 +66,40 @@ const InvalidActRecordViewModal = (props) => {
                 <div style={{height: 250, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptMachineCode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelMachineCode')} disabled={true} value={machineCode}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptShopGroupName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopGroupName')} disabled={true} value={shopGroupName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptShopName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelShopName')} disabled={true} value={shopName}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptInvalidTime')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <DatePicker
                                     disabled={true}
                                     format={{
@@ -112,30 +112,30 @@ const InvalidActRecordViewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptToppingName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelToppingName')} disabled={true} value={toppingName}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptPipelineNo')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelPipelineNo')} disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptInvalidAmount')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <InputNumber disabled={true} size="small" value={invalidAmount}/>
                             </Col>
                             <Col className="gutter-row" span={12}>
