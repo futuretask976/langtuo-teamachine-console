@@ -105,25 +105,25 @@ const OrgNewModal = (props) => {
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont  full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row full-height" span={18}>
                             <Input placeholder={applyLang('labelOrgName')} value={orgName} onChange={(e) => setOrgName(e.target.value)} disabled={isBlankStr(props.orgName4Edit) ? false : true}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptParentOrg')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>
                             <Select
+                                className="full-width"
                                 onChange={(e) => setParentOrgName(e)}
                                 options={parentOrgNameOpts}
-                                style={{width: '100%'}}
                                 value={parentOrgName}
                             />
                         </Col>
