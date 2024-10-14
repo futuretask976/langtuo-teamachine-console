@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 
-import { getJwtToken, isBlankStr } from './js/common';
+import { FramePageContext } from './js/context';
+import { getLang, getJwtToken, isBlankStr } from './js/common';
+
+import zhCN from 'antd/locale/zh_CN';
+import enUS from 'antd/locale/en_US';
 
 import FramePage from './pages/FramePage';
 import LoginPage from './pages/LoginPage';
@@ -80,28 +84,46 @@ const AuthenticatedOnlyRoute = () => {
     return <Outlet />;
 };
 
+const getLocale = () => {
+    let lang = getLang();
+    console.log('$$$$$ App.js lang=', lang)
+    let locale = (lang == 'zh_CN') ? zhCN : enUS;
+    return locale;
+}
+
+
+
 function App() {
-    document.title = '控制台';
+    const [refresh, setRefresh] = useState(1);
+
+    document.title = 'Tea Machine';
     return (
-        <ConfigProvider theme={{
-            token: {
-                colorPrimary: '#353535'
-            },
-            components: {
-                Button: {
-                    colorPrimary: '#353535'
-                },
-                Menu: {
-                    itemSelectedBg: '#D6D6D6',
-                    subMenuItemBg: '#FFFFFF'
-                },
-                Select: {
-                    optionSelectedColor: '#FFFFFF'
-                }
-            }
-        }}>
-            <Routes />
-        </ConfigProvider>
+        <FramePageContext.Provider value={{ refresh, setRefresh }}>
+            <ConfigProvider 
+                key={refresh}
+                locale={getLocale()}
+                theme={{
+                    token: {
+                        colorPrimary: '#353535'
+                    },
+                    components: {
+                        Button: {
+                            colorPrimary: '#353535'
+                        },
+                        Menu: {
+                            itemSelectedBg: '#D6D6D6',
+                            subMenuItemBg: '#FFFFFF'
+                        },
+                        Select: {
+                            optionSelectedColor: '#FFFFFF'
+                        }
+                    }
+                }}
+            >
+                <Routes />
+            </ConfigProvider>
+        </FramePageContext.Provider>
+        
     );
 }
 
