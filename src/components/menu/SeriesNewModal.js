@@ -137,43 +137,42 @@ const SeriesNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
             title={applyLang('labelNewOrEdit')}
             width={650}
         >
-            <div style={{height: 300, width: '100%'}}>
+            <div style={{height: 275, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSeriesCode')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelSeriesCode')} value={seriesCode} disabled={isBlankStr(props.seriesCode4Edit) ? false : true} onChange={(e) => setSeriesCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptSeriesName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelSeriesName')} value={seriesName} onChange={(e) => setSeriesName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                             <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptIncludeTea')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Select
                                     mode='multiple'
@@ -187,12 +186,12 @@ const SeriesNewModal = (props) => {
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={5}>
+                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <TextArea rows={3} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>

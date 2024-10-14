@@ -106,7 +106,7 @@ const AccuracyTplNewModal = (props) => {
                 onOk={onClickOK}
                 open={open}
                 title={applyLang('labelNewOrEdit')}
-                width={625}
+                width={650}
             >
                 <div style={{height: 350, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>

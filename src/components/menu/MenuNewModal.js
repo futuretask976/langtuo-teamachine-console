@@ -221,13 +221,13 @@ const MenuNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <TextArea rows={3} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                                <TextArea rows={2} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
