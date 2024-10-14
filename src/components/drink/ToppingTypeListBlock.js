@@ -54,19 +54,19 @@ const ToppingTypeListBlock = (props) => {
     // 表格定义
     const columns = [
         {
-            title: '物料类型编码',
+            title: applyLang('labelToppingTypeCode'),
             dataIndex: 'toppingTypeCode',
             key: 'toppingTypeCode',
             width: '20%'
         },
         {
-            title: '物料类型名称',
+            title: applyLang('labelToppingTypeName'),
             dataIndex: 'toppingTypeName',
             key: 'toppingTypeName',
             width: '20%'
         },
         {
-            title: '物料数量',
+            title: applyLang('labelToppingCnt'),
             dataIndex: 'toppingCount',
             key: 'toppingCount',
             width: '20%'

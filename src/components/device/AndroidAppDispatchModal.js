@@ -111,7 +111,7 @@ const AndroidAppDispatchModal = (props) => {
             onCancel={onClickCancel}
             onOk={onClickOK}
             style={{border: '0px solid red'}}
-            title="菜单分发"
+            title={applyLang('labelDispatch')}
             width={600}
         >
             <div style={{height: 425, width: '100%'}}>
@@ -120,7 +120,7 @@ const AndroidAppDispatchModal = (props) => {
                         <div className="flex-row-cont" style={{justifyContent: 'center', height: '100%'}}>
                             <Transfer
                                 dataSource={shopGroupList4Transfer}
-                                titles={['待选择列表', '已选择列表']}
+                                titles={[applyLang('labelWaittingSelectList'), applyLang('labelSelectedList')]}
                                 targetKeys={targetKeys}
                                 selectedKeys={selectedKeys}
                                 onChange={handleChange}

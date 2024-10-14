@@ -105,54 +105,53 @@ const AccuracyTplNewModal = (props) => {
                 onCancel={onClickCancel}
                 onOk={onClickOK}
                 open={open}
-                style={{border: '0px solid red'}}
                 title={applyLang('labelNewOrEdit')}
-                width={600}
+                width={625}
             >
                 <div style={{height: 350, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTemplateCode')}</span></Space>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={20}>
+                            <Col className="gutter-row" span={19}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Input placeholder={applyLang('labelTemplateCode')} disabled={isBlankStr(props.templateCode4Edit) ? false : true} value={templateCode} onChange={(e) => setTemplateCode(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTemplateName')}</span></Space>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={20}>
+                            <Col className="gutter-row" span={19}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Input placeholder={applyLang('labelTemplateName')} value={templateName} onChange={(e) => setTemplateName(e.target.value)} />
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptOverMode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={8}>
+                            <Col className="gutter-row" span={7}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
                                         disabled='true'
                                         onChange={(e) => setOverMode(e)}
                                         options={[
                                             {
-                                                label: '固定值',
+                                                label: applyLang('labelFix'),
                                                 value: 0
                                             },
                                             {
-                                                label: '百分比',
+                                                label: applyLang('labelPer'),
                                                 value: 1
                                             }
                                         ]}
@@ -162,24 +161,24 @@ const AccuracyTplNewModal = (props) => {
                                     />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptOverAmount')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={8}>
+                            <Col className="gutter-row" span={7}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <InputNumber min={1} max={9999} size="small" value={overAmount} onChange={(e) => setOverAmount(e)}/>
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptUnderMode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={8}>
+                            <Col className="gutter-row" span={7}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
                                         disabled='true'
@@ -200,24 +199,24 @@ const AccuracyTplNewModal = (props) => {
                                     />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptUnderAmount')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={8}>
+                            <Col className="gutter-row" span={7}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <InputNumber min={1} max={9999} size="small" value={underAmount} onChange={(e) => setUnderAmount(e)}/>
                                 </div>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptApplyTopping')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={20}>
+                            <Col className="gutter-row" span={19}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
                                         onChange={(e) => setToppingCodeList(e)}
@@ -230,12 +229,12 @@ const AccuracyTplNewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptComment')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={20}>
+                            <Col className="gutter-row" span={19}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <TextArea rows={3} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)} />
                                 </div>

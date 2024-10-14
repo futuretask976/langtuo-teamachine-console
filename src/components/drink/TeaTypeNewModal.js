@@ -90,7 +90,7 @@ const TeaTypeNewModal = (props) => {
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeCode')}</span></Space>
                             </div>
                         </Col>
@@ -102,7 +102,7 @@ const TeaTypeNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeName')}</span></Space>
                             </div>
                         </Col>
@@ -114,7 +114,7 @@ const TeaTypeNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>

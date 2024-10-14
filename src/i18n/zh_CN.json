@@ -225,7 +225,7 @@
     "labelFix": "固定值",
     "labelPer": "百分比",
     "promptWarningThreshholdType": "报警阈值类型：",
-    "promptWarningThreshhold": "报警阈值",
+    "promptWarningThreshhold": "报警阈值：",
     "msgSpecItemListEmpty": "规格项列表为空！",
     "labelSpecItemCode": "规格项编码",
     "labelOuterSpecItemCode": "外部编码",
@@ -368,5 +368,15 @@
     "msgShopCodeInvalid": "店铺编码不符合规则！",
     "msgShopGroupCodeInvalid": "店铺组编码不符合规则！",
     "msgVersionInvalid": "版本号不符合规则！",
-    "msgOssPathInvalid": "OSS 路径不符合规则！"
+    "msgOssPathInvalid": "OSS 路径不符合规则！",
+    "labelToppingCnt": "物料数量",
+    "labelFlowSpeed": "转速",
+    "labelMaintainPeriod": "保修期",
+    "labelValidPeriod": "有效期",
+    "labelCleanPeriod": "清洗期",
+    "labelDispatch": "分发",
+    "labelWaittingSelectList": "待选择列表",
+    "labelSelectedList": "已选择列表",
+    "promptUploadPic": "上传图片：",
+    "labelAdjustType": "调整类型"
 }

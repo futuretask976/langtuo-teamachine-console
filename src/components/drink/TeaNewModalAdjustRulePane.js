@@ -116,8 +116,8 @@ const TeaNewModalAdjustRulePane = (props) => {
 
         // 从specRuleList过滤出上一步选中的specItem，放到specItemRuleLists中
         let specItemRuleListBySpecCode = genSpecItemRuleListBySpecCode(props.specItemRuleList4Edit);
-        console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList props.specItemRuleList4Edit=', props.specItemRuleList4Edit);
-        console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList specItemRuleListBySpecCode=', specItemRuleListBySpecCode);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList props.specItemRuleList4Edit=', props.specItemRuleList4Edit);
+        // console.log('$$$$$ teaNewModalAdjustRulePane#genTeaUnitList specItemRuleListBySpecCode=', specItemRuleListBySpecCode);
         if (specItemRuleListBySpecCode.length <= 0) {
             return;
         }
@@ -211,16 +211,19 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: applyLang('labelStep'),
             dataIndex: 'stepIndex',
             key: 'stepIndex',
+            width: '10%'
         },
         {
             title: applyLang('labelToppingName'),
             dataIndex: 'toppingName',
             key: 'toppingName',
+            width: '20%'
         },
         {
-            title: applyLang('labelModify'),
+            title: applyLang('labelAdjustType'),
             dataIndex: 'adjustType',
             key: 'adjustType',
+            width: '20%',
             render: (_, { adjustType, toppingCode }) => (
                 <Select
                     size="small"
@@ -269,6 +272,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: applyLang('labelAmount'),
             dataIndex: 'adjustAmount',
             key: 'adjustAmount',
+            width: '20%',
             render: (_, { adjustAmount, toppingCode }) => (
                 <InputNumber min={0} max={9999} onChange={(e) => onChangeAdjustAmount(e, toppingCode)} size="small" value={adjustAmount}/>
             ),
@@ -277,6 +281,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             title: applyLang('labelActualAmount'),
             dataIndex: 'actualAmount',
             key: 'actualAmount',
+            width: '15%',
             render: (_, { actualAmount }) => (
                 <span>{actualAmount}</span>
             ),

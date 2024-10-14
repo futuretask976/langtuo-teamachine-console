@@ -144,60 +144,60 @@ const ToppingNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
             title={applyLang('labelNewOrEdit')}
             width={800}
         >
-            <div style={{height: 425, width: '100%'}}>
+            <div style={{height: 450, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptToppingCode')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelToppingCode')} allowClear value={toppingCode} onChange={(e) => setToppingCode(e.target.value)} disabled={isBlankStr(props.toppingCode4Edit) ? false : true} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptToppingName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={applyLang('labeToppingName')} allowClear value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
+                                <Input placeholder={applyLang('labelToppingName')} allowClear value={toppingName} onChange={(e) => setToppingName(e.target.value)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptToppingTypeName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Select
-                                    value={toppingTypeCode}
-                                    style={{width: '100%'}}
+                                    className="full-width"
                                     onChange={(e) => setToppingTypeCode(e)}
                                     options={toppingTypeList}
+                                    placeholder={applyLang('labelPleaseSelect')}
+                                    value={toppingTypeCode}
                                 />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptMeasureUnit')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Radio.Group disabled={true} onChange={(e) => setMeasureUnit(e.target.value)} value={measureUnit}>
                                     <Radio value={0}>{applyLang('labelMeasureUnitKg')}</Radio>
@@ -205,68 +205,68 @@ const ToppingNewModal = (props) => {
                                 </Radio.Group>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptState')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e == true ? 1 : 0)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptValidPeriod')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Space><InputNumber min={1} max={9999} value={validHourPeriod} onChange={(e) => setValidHourPeriod(e)} /><span>{applyLang('labelHour')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptCleanPeriod')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Space><InputNumber min={1} max={9999} value={cleanHourPeriod} onChange={(e) => setCleanHourPeriod(e)} /><span>{applyLang('labelHour')}</span></Space>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptConvertCoefficient')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <InputNumber disabled={true} min={1} max={9999} step={0.01} value={convertCoefficient} onChange={(e) => setConvertCoefficient(e)} />
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptFlowSpeed')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Space><InputNumber min={1} max={9999} value={flowSpeed} onChange={(e) => setFlowSpeed(e)} /><span>{applyLang('labelGear')}</span></Space>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptWarningThreshholdType')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', height: '100%'}}>
                                 <Radio.Group disabled='true' onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
                                     <Radio value={0}>{applyLang('labelFix')}</Radio>
@@ -274,24 +274,24 @@ const ToppingNewModal = (props) => {
                                 </Radio.Group>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptWarningThreshhold')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={8}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelKg')}/{applyLang('labelMin')}</span></Space>
+                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelMeasureUnitKg')}/{applyLang('labelMin')}</span></Space>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={4}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={20}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <TextArea rows={3} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)} />
                             </div>

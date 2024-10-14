@@ -247,72 +247,74 @@ const TeaNewModalInfoPane = (props) => {
     );
 
     return (
-        <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%'}}>
-            <div className="flex-row-cont" style={{height: 50, width: '98%', border: '0px solid red'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaCode')}</span></Space>
+        <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: '100%', width: '100%', marginTop: 10}}>
+            <Space className="full-square" direction='vertical' size={10}>
+                <div className="flex-row-cont" style={{height: 40, width: '98%', border: '0px solid red'}}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaCode')}</span></Space>
+                    </div>
+                    <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
+                        <Input placeholder={applyLang('labelTeaCode')} disabled={!props.putNew} onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
+                    </div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaName')}</span></Space>
+                    </div>
+                    <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
+                        <Input placeholder={applyLang('labelTeaName')} onChange={(e) => setTeaName(e.target.value)} value={teaName}/>
+                    </div>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder={applyLang('labelTeaCode')} disabled={!props.putNew} onChange={(e) => setTeaCode(e.target.value)} value={teaCode}/>
-                </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaName')}</span></Space>
-                </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder={applyLang('labelTeaName')} onChange={(e) => setTeaName(e.target.value)} value={teaName}/>
-                </div>
-            </div>
 
-            <div className="flex-row-cont" style={{height: 50, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOuterTeaCode')}</span></Space>
+                <div className="flex-row-cont" style={{height: 40, width: '98%'}}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOuterTeaCode')}</span></Space>
+                    </div>
+                    <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
+                        <Input placeholder={applyLang('labelOuterTeaCode')} onChange={(e) => setOuterTeaCode(e.target.value)} value={outerTeaCode}/>
+                    </div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeName')}</span></Space>
+                    </div>
+                    <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
+                        <Select
+                            onChange={(e) => setTeaTypeCode(e)}
+                            options={teaTypeList4Select}
+                            style={{width: '100%'}}
+                            value={teaTypeCode}
+                        />
+                    </div>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Input placeholder={applyLang('labelOuterTeaCode')} onChange={(e) => setOuterTeaCode(e.target.value)} value={outerTeaCode}/>
-                </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTeaTypeName')}</span></Space>
-                </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '37%'}}>
-                    <Select
-                        onChange={(e) => setTeaTypeCode(e)}
-                        options={teaTypeList4Select}
-                        style={{width: '100%'}}
-                        value={teaTypeCode}
-                    />
-                </div>
-            </div>
 
-            <div className="flex-row-cont" style={{height: 50, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptState')}</span></Space>
+                <div className="flex-row-cont" style={{height: 40, width: '98%'}}>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptState')}</span></Space>
+                    </div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
+                        <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
+                    </div>
                 </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
-                    <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
-                </div>
-            </div>
 
-            <div className="flex-row-cont" style={{height: 65, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <span>{applyLang('promptComment')}</span>
+                <div className="flex-row-cont" style={{height: 60, width: '98%'}}>
+                    <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <span>{applyLang('promptComment')}</span>
+                    </div>
+                    <div className="flex-row-cont" style={{height: '100%', width: '88%'}}>
+                        <TextArea placeholder={applyLang('labelComment')} onChange={(e) => setComment(e.target.value)} maxLength={200} rows={2} value={comment}/>
+                    </div>
                 </div>
-                <div className="flex-row-cont" style={{height: '100%', width: '88%'}}>
-                    <TextArea placeholder={applyLang('labelComment')} onChange={(e) => setComment(e.target.value)} maxLength={200} rows={2} value={comment}/>
-                </div>
-            </div>
 
-            <div className="flex-row-cont" style={{height: 130, width: '98%'}}>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '13%'}}>
-                    <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptUpload')}</span></Space>
+                <div className="flex-row-cont" style={{height: 110, width: '98%'}}>
+                    <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%', width: '13%'}}>
+                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptUploadPic')}</span></Space>
+                    </div>
+                    <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
+                        {show === true ? (
+                            <Spin style={{ position: "relative", left: "40px" }} />
+                        ) : (
+                            <Upload {...uploadProps}>{uploadButton}</Upload>
+                        )}
+                    </div>
                 </div>
-                <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '88%'}}>
-                    {show === true ? (
-                        <Spin style={{ position: "relative", left: "40px" }} />
-                    ) : (
-                        <Upload {...uploadProps}>{uploadButton}</Upload>
-                    )}
-                </div>
-            </div>
+            </Space>
         </div>
     );
 };

@@ -60,39 +60,39 @@ const ToppingListBlock = (props) => {
             width: '20%'
         },
         {
-            title: '物料名称',
+            title: applyLang('labelToppingName'),
             dataIndex: 'toppingName',
             key: 'toppingName',
             width: '20%'
         },
         {
-            title: '物料单位',
+            title: applyLang('labelMeasureUnit'),
             dataIndex: 'measureUnit',
             key: 'measureUnit',
             width: '10%',
-            render: (measureUnit) => measureUnit == 0 ? '克' : '毫升'
+            render: (measureUnit) => measureUnit == 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')
         },
         {
-            title: '转速（档）',
+            title: applyLang('labelFlowSpeed'),
             dataIndex: 'flowSpeed',
             key: 'flowSpeed',
             width: '10%',
             render: (flowSpeed) => flowSpeed
         },
         {
-            title: '保质期',
+            title: applyLang('labelValidPeriod'),
             dataIndex: 'validHourPeriod',
             key: 'validHourPeriod',
             width: '10%'
         },
         {
-            title: '清洗周期',
+            title: applyLang('labelCleanPeriod'),
             dataIndex: 'cleanHourPeriod',
             key: 'cleanHourPeriod',
             width: '10%'
         },
         {
-            title: '物料状态',
+            title: applyLang('labelState'),
             dataIndex: 'state',
             key: 'state',
             width: '10%',

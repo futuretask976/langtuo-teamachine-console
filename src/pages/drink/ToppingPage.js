@@ -63,7 +63,7 @@ const ToppingPage = () => {
                 </div>
                 <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 50}}>
                     <Row className="full-width" style={{height: 40}}>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptToppingCode')}</span>
                             </div>
@@ -73,7 +73,7 @@ const ToppingPage = () => {
                                 <Input placeholder={applyLang('labelToppingCode')} allowClear onChange={(e) => setToppingCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptToppingName')}</span>
                             </div>

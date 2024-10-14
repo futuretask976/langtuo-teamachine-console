@@ -211,7 +211,6 @@ const SpecNewModal = (props) => {
                 open={open}
                 onOk={onClickOK}
                 onCancel={onClickCancel}
-                style={{border: '0px solid red'}}
                 title={applyLang('labelNewOrEdit')}
                 width={850}
             >
