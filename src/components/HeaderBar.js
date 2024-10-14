@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Dropdown, Layout, Image, Select, Space } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
-import { FramePageContext } from '../js/context'
+import { AppContext } from '../js/context'
 import { deleteJwtToken, getLang, getLoginName, putLang } from '../js/common';
 import { applyLang } from '../i18n/i18n';
 import { get } from '../js/request';
@@ -13,7 +13,7 @@ const { Header } = Layout;
 
 const HeaderBar = () => {
     // 上下文定义
-    const { refresh, setRefresh } = useContext(FramePageContext);
+    const { refresh, setRefresh } = useContext(AppContext);
 
     // 重定向定义
     const navigate = useNavigate();

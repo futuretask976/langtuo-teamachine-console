@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet, RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 
-import { FramePageContext } from './js/context';
+import { AppContext } from './js/context';
 import { getLang, getJwtToken, isBlankStr } from './js/common';
 
 import zhCN from 'antd/locale/zh_CN';
@@ -98,7 +98,7 @@ function App() {
 
     document.title = 'Tea Machine';
     return (
-        <FramePageContext.Provider value={{ refresh, setRefresh }}>
+        <AppContext.Provider value={{ refresh, setRefresh }}>
             <ConfigProvider 
                 key={refresh}
                 locale={getLocale()}
@@ -122,7 +122,7 @@ function App() {
             >
                 <Routes />
             </ConfigProvider>
-        </FramePageContext.Provider>
+        </AppContext.Provider>
         
     );
 }

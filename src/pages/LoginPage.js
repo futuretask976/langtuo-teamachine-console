@@ -5,7 +5,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { FramePageContext } from '../js/context'
+import { AppContext } from '../js/context'
 import { getLang, isValidCode, putLoginName, putLang, putJwtToken, putTenantCode, isBlankObj } from '../js/common';
 import { applyLang } from '../i18n/i18n';
 import { get, post } from '../js/request.js';
@@ -13,7 +13,7 @@ import logo from '../images/logo2.png'
 
 function LoginPage() {
     // 上下文定义
-    const { refresh, setRefresh } = useContext(FramePageContext);
+    const { refresh, setRefresh } = useContext(AppContext);
 
     // 路由组件
     const navigate = useNavigate();
