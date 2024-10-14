@@ -52,7 +52,7 @@ const OrgPage = () => {
 
     return (
         <>
-            <Space className="full-square" direction="vertical" size={15}>
+            <Space className="full-square" direction="vertical" size={20}>
                 <div className='flex-row-cont' style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: 40}}>
                     <BreadcrumbBlock breadcrumbPath={breadcrumbPath} />
                 </div>
