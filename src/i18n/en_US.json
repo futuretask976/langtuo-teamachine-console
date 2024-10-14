@@ -353,5 +353,10 @@
     "labelOrderData": "Order Data",
     "labelOrderTeaData": "Order Tea Data",
     "labelOrderToppingData": "Order Topping Data",
-    "labelOrderSpecData": "Order Spec Data"
+    "labelOrderSpecData": "Order Spec Data",
+    "msgTenantCodeInvalid": "Tenant code is invalid！",
+    "msgcontactPersonInvalid": "Contact person is invalid！",
+    "msgcontactPhoneInvalid": "Contact phone is invalid！",
+    "promptContactPhone": "Contact Phone：",
+    "labelContactPhone": "Contact Phone"
 }

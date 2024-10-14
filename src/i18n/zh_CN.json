@@ -353,5 +353,10 @@
     "labelOrderData": "订单数据",
     "labelOrderTeaData": "订单茶品数据",
     "labelOrderToppingData": "订单物料数据",
-    "labelOrderSpecData": "订单规格数据"
+    "labelOrderSpecData": "订单规格数据",
+    "msgTenantCodeInvalid": "商户编码不符合规则！",
+    "msgcontactPersonInvalid": "联系人不符合规则！",
+    "msgcontactPhoneInvalid": "联系人电话不符合规则！",
+    "promptContactPhone": "联系人电话：",
+    "labelContactPhone": "联系人电话"
 }

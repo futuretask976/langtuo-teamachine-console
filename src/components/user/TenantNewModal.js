@@ -14,23 +14,23 @@ const TenantNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(tenantCode, true)) {
-            alert('商户编码不符合规则');
+            alert(applyLang('msgTenantCodeInvalid'));
             return;
         }
         if (!isValidName(tenantName, true)) {
-            alert('商户名称不符合规则');
+            alert(applyLang('msgTenantNameInvalid'));
             return;
         }
         if (!isValidName(contactPerson, false)) {
-            alert('联系人不符合规则');
+            alert(applyLang('msgContactPersonInvalid'));
             return;
         }
         if (!isValidCode(contactPhone, false)) {
-            alert('电话不符合规则');
+            alert(applyLang('msgContactPhoneInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
 
@@ -95,55 +95,54 @@ const TenantNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
-            title="新建/编辑租户"
-            width={500}
+            title={applyLang('labelNewOrEdit')}
+            width={575}
         >
             <div style={{height: 320, width: '100%'}}>
-                <Space direction='vertical' size={20} style={{width: '100%'}}>
-                    <Row style={{width: '100%'}}>
+                <Space className="full-width" direction='vertical' size={20}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>商户编码：</span></Space>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTenantCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="商户编码" value={tenantCode} onChange={(e) => setTenantCode(e.target.value)} disabled={isBlankStr(props.tenantCode4Edit) ? false : true}/>
+                            <Input placeholder={applyLang('labelTenantCode')} value={tenantCode} onChange={(e) => setTenantCode(e.target.value)} disabled={isBlankStr(props.tenantCode4Edit) ? false : true}/>
                         </Col>
                     </Row>
                     <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>商户名称：</span></Space>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTenantName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="商户名称" value={tenantName} onChange={(e) => setTenantName(e.target.value)}/>
+                            <Input placeholder={applyLang('labelTenantName')} value={tenantName} onChange={(e) => setTenantName(e.target.value)}/>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>联系人名称：</span>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <span>{applyLang('promptContactPerson')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="联系人名称" value={contactPerson} onChange={(e) => setContactPerson(e.target.value)}/>
+                            <Input placeholder={applyLang('labelContactPerson')} value={contactPerson} onChange={(e) => setContactPerson(e.target.value)}/>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>联系人电话：</span>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <span>{applyLang('promptContactPhone')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
-                            <Input placeholder="联系人电话" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)}/>
+                            <Input placeholder={applyLang('labelContactPhone')} value={contactPhone} onChange={(e) => setContactPhone(e.target.value)}/>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
