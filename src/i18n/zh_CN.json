@@ -386,5 +386,6 @@
     "msgParseFileFailed": "文件处理失败：",
     "msgOnlySupportApkFile": "仅支持 apk 文件！",
     "msgOnlySupportXlsxFile": "仅支持 xlsx 文件！",
-    "msgFileSizeLess10m": "文件尺寸必须小于 10M！"
+    "msgFileSizeLess10m": "文件尺寸必须小于 10M！",
+    "promptTenant": "商户："
 }

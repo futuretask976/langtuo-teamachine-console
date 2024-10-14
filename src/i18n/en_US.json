@@ -384,5 +384,8 @@
     "msgUploadFileSucceed": "Succeed to upload file！",
     "msgUploadFileFailed": "Failed to upload file！",
     "msgParseFileFailed": "Failed to parse file：",
-    "msgFileSizeLess10m": "File size need to less than 10M！"
+    "msgOnlySupportApkFile": "Only support apk file！",
+    "msgOnlySupportXlsxFile": "Only support xlsx file！",
+    "msgFileSizeLess10m": "File size need to less than 10M！",
+    "promptTenant": "Tenant："
 }

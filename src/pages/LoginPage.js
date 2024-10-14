@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"; 
 import { Button, Image, Input, Select, Space } from 'antd';
 import axios from 'axios';
 import md5 from 'js-md5';
 
 import '../css/common.css';
-import { isValidCode, putLoginName, putJwtToken, putTenantCode, isBlankObj } from '../js/common';
+import { FramePageContext } from '../js/context'
+import { getLang, isValidCode, putLoginName, putLang, putJwtToken, putTenantCode, isBlankObj } from '../js/common';
+import { applyLang } from '../i18n/i18n';
 import { get, post } from '../js/request.js';
 import logo from '../images/logo2.png'
 
 function LoginPage() {
+    // 上下文定义
+    const { refresh, setRefresh } = useContext(FramePageContext);
+
     // 路由组件
     const navigate = useNavigate();
 
@@ -97,34 +102,61 @@ function LoginPage() {
         });
     };
 
+    const doChangeLang = (e) => {
+        putLang(e);
+        setRefresh(refresh + 1);
+    }
+
     return (
         <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: 600, width: '100%'}}>
-            <div className="flex-row-cont" style={{height: 60, width: '30%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
+            <div className="flex-row-cont" style={{height: 60, width: '35%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
                 <Image className='flex-row-cont' src={logo} height={25} />
             </div>
-            <div className="flex-col-cont" style={{height: 225, width: '30%', border: '1px solid #353535'}}>
+            <div className="flex-col-cont" style={{height: 275, width: '35%', border: '1px solid #353535'}}>
                 <Space direction='vertical' size={20} style={{width: '90%'}}>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '25%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>用户名：</span></Space>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
+                            <span>{applyLang("promptLangSelect")}</span>
                         </div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '75%'}}>
-                            <Input placeholder='用户名' onChange={(e) => setUserName(e.target.value)} style={{width: '100%'}}/>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
+                            <Select
+                                onChange={(e) => doChangeLang(e)}
+                                options={[
+                                    {
+                                        label: '简体中文',
+                                        value: 'zh_CN'
+                                    },
+                                    {
+                                        label: 'English',
+                                        value: 'en_US'
+                                    }
+                                ]}
+                                style={{width: '100%'}}
+                                value={getLang()}
+                            />
                         </div>
                     </div>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '25%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>密码：</span></Space>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptLoginName')}</span></Space>
                         </div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '75%'}}>
-                            <Input.Password placeholder='密码' onChange={(e) => setPassword(e.target.value)} style={{width: '100%'}}/>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
+                            <Input placeholder={applyLang('labelLoginName')} onChange={(e) => setUserName(e.target.value)} style={{width: '100%'}}/>
                         </div>
                     </div>
                     <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '25%'}}>
-                            <Space size='small'><span style={{color: 'red'}}>*</span><span>商户：</span></Space>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptLoginPass')}</span></Space>
                         </div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '75%'}}>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
+                            <Input.Password placeholder={applyLang('labelLoginPass')} onChange={(e) => setPassword(e.target.value)} style={{width: '100%'}}/>
+                        </div>
+                    </div>
+                    <div className="flex-row-cont">
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptTenant')}</span></Space>
+                        </div>
+                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
                             <Select
                                 value={tenantCode}
                                 style={{width: '100%'}}
