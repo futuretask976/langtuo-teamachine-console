@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Transfer, Col, Row } from 'antd';
+import { Modal, Transfer, Col, Row } from 'antd';
 
 import '../../css/common.css';
 import { applyLang } from '../../i18n/i18n';
@@ -104,18 +104,12 @@ const WarningRuleDispatchModal = (props) => {
     return (
         <Modal
             centered
+            confirmLoading={loading}
             open={open}
-            title="预警规格分发"
+            title={applyLang('labelDispatch')}
             onOk={onClickOK}
             onCancel={onClickCancel}
             width={600}
-            style={{border: '0px solid red'}}
-            footer={[
-                <Button key="back" onClick={onClickCancel}>取消</Button>,
-                <Button key="submit" type="primary" loading={loading} onClick={onClickOK}>
-                    提交
-                </Button>,
-            ]}
         >
             <div style={{height: 425, width: '100%'}}>
                 <Row style={{width: '100%'}}>
@@ -123,7 +117,7 @@ const WarningRuleDispatchModal = (props) => {
                         <div className="flex-row-cont" style={{justifyContent: 'center', height: '100%'}}>
                             <Transfer
                                 dataSource={shopGroupList4Transfer}
-                                titles={['待选择列表', '已选择列表']}
+                                titles={[applyLang('labelWaittingSelectList'), applyLang('labelSelectedList')]}
                                 targetKeys={targetKeys}
                                 selectedKeys={selectedKeys}
                                 onChange={handleChange}
