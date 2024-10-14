@@ -380,5 +380,9 @@
     "promptUploadPic": "Upload Pic：",
     "labelAdjustType": "Adjust Type",
     "promptOrderCreated": "Order Created Time：",
-    "promptOuterOrderId": "Outer Order ID："
+    "promptOuterOrderId": "Outer Order ID：",
+    "msgUploadFileSucceed": "Succeed to upload file！",
+    "msgUploadFileFailed": "Failed to upload file！",
+    "msgParseFileFailed": "Failed to parse file：",
+    "msgFileSizeLess10m": "File size need to less than 10M！"
 }

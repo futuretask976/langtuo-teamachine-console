@@ -380,5 +380,11 @@
     "promptUploadPic": "上传图片：",
     "labelAdjustType": "调整类型",
     "promptOrderCreated": "订单创建时间：",
-    "promptOuterOrderId": "外部订单号"
+    "promptOuterOrderId": "外部订单号",
+    "msgUploadFileSucceed": "文件上传成功！",
+    "msgUploadFileFailed": "文件上传失败！",
+    "msgParseFileFailed": "文件处理失败：",
+    "msgOnlySupportApkFile": "仅支持 apk 文件！",
+    "msgOnlySupportXlsxFile": "仅支持 xlsx 文件！",
+    "msgFileSizeLess10m": "文件尺寸必须小于 10M！"
 }

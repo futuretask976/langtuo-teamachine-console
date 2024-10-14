@@ -46,11 +46,11 @@ const TeaUploadModal = (props) => {
     const beforeUpload = (file) => {
         const isExcel = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
         if (!isExcel) {
-            alert('仅允许上传 xlsx 文件！');
+            alert(applyLang('msgOnlySupportXlsxFile'));
         }
         const isLt10M = file.size / 1024 / 1024 < 10;
         if (!isLt10M) {
-            alert('文件必须小于 10 MB！');
+            alert(applyLang('msgFileSizeLess10m'));
         }
         return (isExcel && isLt10M) || Upload.LIST_IGNORE;
     };
@@ -73,9 +73,9 @@ const TeaUploadModal = (props) => {
             if (info.file.status === "done") {
                 let model = info.file.response;
                 if (model.success) {
-                    alert(`${info.file.name} 文件上传成功！`);
+                    alert(`${info.file.name} ${applyLang('msgUploadFileSucceed')}`);
                 } else {
-                    alert(`${info.file.name} 文件处理失败：` + model.errorMsg);
+                    alert(`${info.file.name} ${applyLang('msgParseFileFailed')}` + model.errorMsg);
                 }
                 console.log('$$$$$ info=', info);
                 // console.log('$$$$$ teaUploadModal#uploadProps info.file.response.name=', info.file.response.name);
@@ -85,7 +85,7 @@ const TeaUploadModal = (props) => {
                 info.fileList = info.fileList.filter(
                     (item) => item.uid !== info.file.uid,
                 );
-                message.error(`${info.file.name} 文件上传失败`);
+                message.error(`${info.file.name} ${applyLang('msgUploadFileFailed')}`);
             }
             setFileList([...info.fileList]);
         },

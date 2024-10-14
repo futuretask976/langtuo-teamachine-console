@@ -146,11 +146,11 @@ const AndroidAppUploadModal = (props) => {
     const beforeUpload = (file) => {
         const isAndroidApp = file.type === 'application/vnd.android.package-archive';
         if (!isAndroidApp) {
-            message.error('You can only upload apk file!');
+            alert(applyLang('msgOnlySupportApkFile'));
         }
         const isLt10M = file.size / 1024 / 1024 < 10;
         if (!isLt10M) {
-            message.error('Android app must smaller than 10MB!');
+            alert(applyLang('msgFileSizeLess10m'));
         }
         return (isAndroidApp && isLt10M) || Upload.LIST_IGNORE;
     };
@@ -171,16 +171,16 @@ const AndroidAppUploadModal = (props) => {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === "done") {
-                message.success(`${info.file.name} 文件上传成功`);
-                console.log('$$$$$ info.file.response.name=', info.file.response.name);
-                console.log('$$$$$ info.file.status=done, info=', info);
-                console.log('$$$$$ info.file.status=done, fileList=', fileList);
+                message.success(`${info.file.name} ${applyLang('msgUploadFileSucceed')}`);
+                // console.log('$$$$$ info.file.response.name=', info.file.response.name);
+                // console.log('$$$$$ info.file.status=done, info=', info);
+                // console.log('$$$$$ info.file.status=done, fileList=', fileList);
                 setOssPath(info.file.response.name);
             } else if (info.file.status === "error") {
                 info.fileList = info.fileList.filter(
                     (item) => item.uid !== info.file.uid,
                 );
-                message.error(`${info.file.name} 文件上传失败`);
+                message.error(`${info.file.name} ${applyLang('msgUploadFileFailed')}`);
             }
             setFileList([...info.fileList]);
         },
