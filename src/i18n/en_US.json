@@ -364,5 +364,7 @@
     "promptShopGroup": "Shop Group：",
     "msgInvalidModelCode": "Model code is invalid！",
     "msgPipelineListEmpty": "Pipeline list is empty！",
-    "promptCapacity": "Capacity："
+    "promptCapacity": "Capacity：",
+    "msgShopCodeInvalid": "Shop code is invalid！",
+    "msgShopGroupCodeInvalid": "Shop group code is invalid！！"
 }

@@ -12,19 +12,19 @@ const DeployNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(deployCode, true)) {
-            alert('部署编码不符合规则');
+            alert(applyLang('msgDeployCodeInvalid'));
             return;
         }
         if (!isValidCode(modelCode, true)) {
-            alert('型号编码不符合规则');
+            alert(applyLang('msgModelCodeInvalid'));
             return;
         }
         if (!isValidCode(machineCode, true)) {
-            alert('机器编码不符合规则');
+            alert(applyLang('msgMachineCodeInvalid'));
             return;
         }
         if (!isValidCode(shopCode, true)) {
-            alert('店铺编码不符合规则');
+            alert(applyLang('msgShopCodeInvalid'));
             return;
         }
 

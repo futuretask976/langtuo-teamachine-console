@@ -14,19 +14,19 @@ const ShopNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(shopCode, true)) {
-            alert('店铺编码不符合规则');
+            alert(applyLang('msgShopCodeInvalid'));
             return;
         }
         if (!isValidName(shopName, true)) {
-            alert('店铺名称不符合规则');
+            alert(applyLang('msgShopCodeInvalid'));
             return;
         }
         if (!isValidCode(shopGroupCode, true)) {
-            alert('店铺组编码不符合规则');
+            alert(applyLang('msgShopGroupCodeInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
 

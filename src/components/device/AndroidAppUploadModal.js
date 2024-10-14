@@ -47,15 +47,15 @@ const AndroidAppUploadModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidVersion(version, true)) {
-            alert('版本号不符合规则');
+            alert(applyLang('msgVersionInvalid'));
             return;
         }
         if (isBlankStr(ossPath)) {
-            alert('请上传 apk 文件');
+            alert(applyLang('msgOssPathInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
 
@@ -202,43 +202,45 @@ const AndroidAppUploadModal = (props) => {
             title={applyLang('labelImport')}
             width={450}
         >
-            <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 240, width: '100%'}}>
-                <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptVersion')}</span></Space>
+            <div className="flex-col-cont" style={{justifyContent: 'flex-start', height: 275, width: '100%'}}>
+                <Space className="full-square" size={10} direction='vertical'>
+                    <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
+                        <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', width: '25%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptVersion')}</span></Space>
+                        </div>
+                        <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start', width: '75%'}}>
+                            <Input placeholder={applyLang('labelVersion')} allowClear disabled={props.version4Edit == undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
+                        </div>
                     </div>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder={applyLang('labelVersion')} allowClear disabled={props.version4Edit == undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
+                    <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
+                        <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', width: '25%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptComment')}</span></Space>
+                        </div>
+                        <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start', width: '75%'}}>
+                            <Input placeholder={applyLang('labelComment')} allowClear value={comment} onChange={(e) => setComment(e.target.value)}/>
+                        </div>
                     </div>
-                </div>
-                <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptComment')}</span></Space>
+                    <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
+                        <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', width: '25%'}}>
+                            <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOssPath')}</span></Space>
+                        </div>
+                        <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start', width: '75%'}}>
+                            <Input placeholder={applyLang('labelOssPath')} allowClear disabled={true} value={ossPath}/>
+                        </div>
                     </div>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder={applyLang('labelComment')} allowClear value={comment} onChange={(e) => setComment(e.target.value)}/>
+                    <div className="flex-row-cont" style={{height: 110, width: '100%'}}>
+                        <div className="flex-row-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-end', width: '25%'}}>
+                        <span>{applyLang('promptUploadFile')}</span>
+                        </div>
+                        <div className="flex-row-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-start', width: '75%'}}>
+                            {show === true ? (
+                                <Spin style={{ position: "relative", left: "40px" }} />
+                            ) : (
+                                <Upload {...uploadProps}>{uploadButton}</Upload>
+                            )}
+                        </div>
                     </div>
-                </div>
-                <div className="flex-row-cont" style={{height: 40, width: '100%', border: '0px solid red'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOssPath')}</span></Space>
-                    </div>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        <Input placeholder={applyLang('labelOssPath')} allowClear disabled={true} value={ossPath}/>
-                    </div>
-                </div>
-                <div className="flex-row-cont" style={{height: 120, width: '100%', border: '0px solid green'}}>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%', width: '25%'}}>
-                        <Space size='small'><span>{applyLang('promptUploadFile')}</span></Space>
-                    </div>
-                    <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%', width: '75%'}}>
-                        {show === true ? (
-                            <Spin style={{ position: "relative", left: "40px" }} />
-                        ) : (
-                            <Upload {...uploadProps}>{uploadButton}</Upload>
-                        )}
-                    </div>
-                </div>
+                </Space>
             </div>
         </Modal>
     );

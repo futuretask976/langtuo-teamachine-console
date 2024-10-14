@@ -364,5 +364,9 @@
     "promptShopGroup": "店铺组：",
     "msgInvalidModelCode": "型号编码不符合规则！",
     "msgPipelineListEmpty": "管道列表为空！",
-    "promptCapacity": "容量："
+    "promptCapacity": "容量：",
+    "msgShopCodeInvalid": "店铺编码不符合规则！",
+    "msgShopGroupCodeInvalid": "店铺组编码不符合规则！",
+    "msgVersionInvalid": "版本号不符合规则！",
+    "msgOssPathInvalid": "OSS 路径不符合规则！"
 }
