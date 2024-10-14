@@ -98,7 +98,6 @@ const OrgNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
             title={applyLang('labelNewOrEdit')}
             width={450}
         >
@@ -117,7 +116,7 @@ const OrgNewModal = (props) => {
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptParentOrgName')}</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptParentOrg')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={18}>

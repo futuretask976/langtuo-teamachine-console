@@ -181,7 +181,7 @@
     "labelAuthorizePoint": "权限点",
     "labelAuthorizeGroup": "权限分组",
     "msgParentOrgNameInvalid": "父组织名称不符合规则！",
-    "promptParentOrgName": "父组织名称：",
+    "promptParentOrg": "父组织：",
     "labelShopGroupCode": "店铺组编码",
     "promptShopGroupCode": "店铺组编码：",
     "labelShopCnt": "店铺数量",

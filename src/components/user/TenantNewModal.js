@@ -99,7 +99,7 @@ const TenantNewModal = (props) => {
             width={575}
         >
             <div style={{height: 320, width: '100%'}}>
-                <Space className="full-width" direction='vertical' size={20}>
+                <Space className="full-square" direction='vertical' size={20}>
                     <Row>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
