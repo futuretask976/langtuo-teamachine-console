@@ -58,7 +58,7 @@ const ShopGroupPage = () => {
                 </div>
                 <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 50}}>
                     <Row className="full-width" style={{height: 40}}>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptShopGroupName')}</span>
                             </div>

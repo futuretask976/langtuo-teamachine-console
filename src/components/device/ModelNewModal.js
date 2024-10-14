@@ -13,11 +13,11 @@ const ModelNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(modelCode, true)) {
-            alert('型号编码不符合规则');
+            alert(applyLang('msgInvalidModelCode'));
             return;
         }
         if (!isArray(pipelineList)) {
-            alert('管道序号不能为空');
+            alert(applyLang('msgPipelineListEmpty'));
             return;
         }
 
@@ -167,9 +167,8 @@ const ModelNewModal = (props) => {
             open={open}
             onCancel={onClickCancel} 
             onOk={onClickOK} 
-            style={{border: '0px solid red'}} 
             title={applyLang('labelNewOrEdit')}
-            width={750}
+            width={900}
         >
             <div className="flex-col-cont" style={{height: 410, width: '100%'}}>
                 <div className="flex-col-cont" style={{height: 45, width: '100%'}}>
@@ -179,31 +178,28 @@ const ModelNewModal = (props) => {
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptModelCode')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={5}>
+                        <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{height: '100%'}}>
                                 <Input placeholder={applyLang('labelModelCode')} value={modelCode} disabled={isBlankStr(props.modelCode4Edit) ? false : true} onChange={(e) => setModelCode(e.target.value)} />
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={3}>
+                        <Col className="gutter-row" span={4}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang('promptSupportOutputMeanwhile')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={3}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={enableFlowAll === 1 ? true : false} onChange={(e) => setEnableFlowAll(e ? 1 : 0)} />
+                                <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={enableFlowAll === 1 ? true : false} onChange={(e) => setEnableFlowAll(e ? 1 : 0)} />
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={10}>
+                        <Col className="gutter-row" span={8}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '100%'}}>
-                                <Space size={15}>
+                                <Space size={10}>
                                     <Button type="primary" icon={<FormOutlined />} onClick={onClickAddPipeline}>{applyLang('labelAddPipeline')}</Button>
                                     <Button type="primary" icon={<FormOutlined />} onClick={onClickDeletePipeline}>{applyLang('labelDelPipeline')}</Button>
                                 </Space>
                             </div>
-                        </Col>
-                        <Col className="gutter-row" span={4}>
-                            &nbsp;
                         </Col>
                     </Row>
                 </div>
@@ -220,24 +216,29 @@ const ModelNewModal = (props) => {
                                     <InputNumber disabled="true" min={1} max={99} defaultValue={pipeline.pipelineNum}/>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={2}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
                                     <span>{applyLang('promptSupportFreeze')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <Switch checkedChildren={applyLang('labelYes')} disabled="true" unCheckedChildren={applyLang('labelNo')} checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
+                                    <Switch checkedChildren={applyLang('labelEnabled')} disabled="true" unCheckedChildren={applyLang('labelDisabled')} checked={pipeline.enableFreeze === 1 ? true : false} onChange={(value) => onChangeFreeze(value, pipeline)} />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={2}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
                                     <span>{applyLang('promptSupportWarm')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: 45}}>
-                                    <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
+                                    <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={pipeline.enableWarm === 1 ? true : false} onChange={(value) => onChangeWarm(value, pipeline)} />
+                                </div>
+                            </Col>
+                            <Col className="gutter-row" span={2}>
+                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: 45}}>
+                                    <span>{applyLang('promptCapacity')}</span>
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={3}>

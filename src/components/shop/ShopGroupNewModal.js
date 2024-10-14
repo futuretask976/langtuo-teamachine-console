@@ -14,19 +14,19 @@ const ShopGroupNewModal = (props) => {
     const [open, setOpen] = useState(true);
     const onClickOK = () => {
         if (!isValidCode(shopGroupCode, true)) {
-            alert('店铺组编码不符合规则');
+            alert(applyLang('msgShopGroupCodeInvalid'));
             return;
         }
         if (!isValidName(shopGroupName, true)) {
-            alert('店铺组名称不符合规则');
+            alert(applyLang('msgShopGroupNameInvalid'));
             return;
         }
         if (!isValidName(orgName, true)) {
-            alert('组织架构不符合规则');
+            alert(applyLang('msgOrgNameInvalid'));
             return;
         }
         if (!isValidComment(comment, false)) {
-            alert('备注不符合规则');
+            alert(applyLang('msgCommentInvalid'));
             return;
         }
 
@@ -117,54 +117,54 @@ const ShopGroupNewModal = (props) => {
             open={open}
             onOk={onClickOK}
             onCancel={onClickCancel}
-            style={{border: '0px solid red'}}
             title={applyLang('labelNewOrEdit')}
-            width={500}
+            width={550}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={7}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopGroupCode')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <Input placeholder={applyLang('labelShopGroupCode')} disabled={!isBlankStr(props.shopGroupCode4Edit)} value={shopGroupCode} onChange={(e) => setShopGroupCode(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={7}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopGroupName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <Input placeholder={applyLang('labelShopGroupName')} value={shopGroupName} onChange={(e) => setShopGroupName(e.target.value)}/>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
+                        <Col className="gutter-row" span={7}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrg')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <Select
-                                value={orgName}
-                                style={{width: '100%'}}
                                 onChange={(e) => setOrgName(e)}
                                 options={orgList4Select}
+                                placeholder={applyLang('labelPleaseSelect')}
+                                value={orgName}
+                                style={{width: '100%'}}
                             />
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={7}>
+                            <div className="flex-row-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={17}>
                             <TextArea rows={5} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                         </Col>
                     </Row>

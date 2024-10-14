@@ -190,11 +190,11 @@
     "promptSupportOutputMeanwhile": "Output Meanwhile：",
     "labelSupportOutputMeanwhile": "Output Meanwhile",
     "labelAddPipeline": "Add Pipeline",
-    "labelDelPipeline": "Delete Pipeline",
+    "labelDelPipeline": "Del Pipeline",
     "promptPipelineNo": "Pipeline No.：",
     "labelPipelineNo": "Pipeline No.",
-    "promptSupportWarm": "Support Warm：",
-    "promptSupportFreeze": "Support Freeze：",
+    "promptSupportWarm": "Warm：",
+    "promptSupportFreeze": "Freeze：",
     "labelModeCode": "Model Code",
     "labelGenDeployCode": "Gen Deploy Code",
     "labelGenMachineCode": "Gen Machine Code",
@@ -358,5 +358,11 @@
     "msgcontactPersonInvalid": "Contact person is invalid！",
     "msgcontactPhoneInvalid": "Contact phone is invalid！",
     "promptContactPhone": "Contact Phone：",
-    "labelContactPhone": "Contact Phone"
+    "labelContactPhone": "Contact Phone",
+    "promptRole": "Role：",
+    "promptOrg": "Organization：",
+    "promptShopGroup": "Shop Group：",
+    "msgInvalidModelCode": "Model code is invalid！",
+    "msgPipelineListEmpty": "Pipeline list is empty！",
+    "promptCapacity": "Capacity："
 }

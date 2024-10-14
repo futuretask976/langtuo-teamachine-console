@@ -91,17 +91,7 @@ const ShopPage = () => {
                     <Row className="full-width" style={{height: 40}}>
                         <Col className="gutter-row" span={2}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{applyLang('promptShopName')}</span>
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={4}>
-                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
-                                <Input placeholder={applyLang('labelShopName')} allowClear onChange={(e) => setShopName4Search(e.target.value)} style={{width: '95%'}} />
-                            </div>
-                        </Col>
-                        <Col className="gutter-row" span={2}>
-                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{applyLang('promptShopGroupName')}</span>
+                                <span>{applyLang('promptShopGroup')}</span>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
@@ -112,6 +102,16 @@ const ShopPage = () => {
                                     onChange={(e) => setShopGroupCode4Search(e)}
                                     options={shopGroupList4Select}
                                 />
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={2}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
+                                <span>{applyLang('promptShopName')}</span>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={4}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
+                                <Input placeholder={applyLang('labelShopName')} allowClear onChange={(e) => setShopName4Search(e.target.value)} style={{width: '95%'}} />
                             </div>
                         </Col>
                         <Col className="gutter-row" span={3}>

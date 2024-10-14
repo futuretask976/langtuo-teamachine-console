@@ -358,5 +358,11 @@
     "msgcontactPersonInvalid": "联系人不符合规则！",
     "msgcontactPhoneInvalid": "联系人电话不符合规则！",
     "promptContactPhone": "联系人电话：",
-    "labelContactPhone": "联系人电话"
+    "labelContactPhone": "联系人电话",
+    "promptRole": "角色：",
+    "promptOrg": "组织架构：",
+    "promptShopGroup": "店铺组：",
+    "msgInvalidModelCode": "型号编码不符合规则！",
+    "msgPipelineListEmpty": "管道列表为空！",
+    "promptCapacity": "容量："
 }

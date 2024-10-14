@@ -151,64 +151,66 @@ const DeployNewModal = (props) => {
             open={open}
             style={{border: '0px solid red'}}
             title={applyLang('labelNewOrEdit')}
-            width={500}
+            width={550}
         >
             <div style={{height: 200, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>{applyLang('labelGenDeployCode')}</Button></Space>
+                        <Col className="gutter-row" span={8}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickDeployCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true} style={{width: 150}}>{applyLang('labelGenDeployCode')}</Button></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={16}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelModeCode')} allowClear value={deployCode} onChange={(e) => setDeployCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true}>{applyLang('labelGenMachineCode')}</Button></Space>
+                        <Col className="gutter-row" span={8}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><Button key="submit" type="primary" onClick={onClickMachineCodeGen} disabled={isBlankStr(props.deployCode4Edit) ? false : true} style={{width: 150}}>{applyLang('labelGenMachineCode')}</Button></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
+                        <Col className="gutter-row" span={16}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelMachineCode')} allowClear value={machineCode} onChange={(e) => setMachineCode(e.target.value)} disabled={true}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={8}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptModelCode')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Col className="gutter-row" span={16}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
                                 <Select
-                                    value={modelCode}
-                                    style={{width: '90%'}}
+                                    className="full-width"
                                     onChange={(e) => setModelCode(e)}
                                     options={modelList4Select}
+                                    placeholder={applyLang('labelPleaseSelect')}
+                                    value={modelCode}
                                 />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={8}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={18}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
+                        <Col className="gutter-row" span={16}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
                                 <Select
-                                    value={shopCode}
-                                    style={{width: '90%'}}
+                                    className="full-width"
                                     onChange={(e) => setShopCode(e)}
                                     options={shopList4Select}
+                                    placeholder={applyLang('labelPleaseSelect')}
+                                    value={shopCode}
                                 />
                             </div>
                         </Col>

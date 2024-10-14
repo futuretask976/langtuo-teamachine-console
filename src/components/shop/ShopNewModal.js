@@ -112,50 +112,51 @@ const ShopNewModal = (props) => {
             onOk={onClickOK}
             style={{border: '0px solid red'}}
             title={applyLang('labelNewOrEdit')}
-            width={500}
+            width={550}
         >
             <div style={{height: 300, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelShopCode')}</span></Space>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopCode')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <Input placeholder={applyLang('labelShopCode')} disabled={!isBlankStr(props.shopCode4Edit)} value={shopCode} onChange={(e) => setShopCode(e.target.value)}/>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelShopName')}</span></Space>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopName')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <Input placeholder={applyLang('labelShopName')} value={shopName} onChange={(e) => setShopName(e.target.value)}/>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('labelShopGroupName')}</span></Space>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptShopGroup')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={19}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Select
-                                    value={shopGroupCode}
-                                    style={{width: '100%'}}
                                     onChange={(e) => setShopGroupCode(e)}
                                     options={shopGroupList}
+                                    placeholder={applyLang('labelPleaseSelect')}
+                                    value={shopGroupCode}
+                                    style={{width: '100%'}}
                                 />
                             </div>
                         </Col>
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row>
                         <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptComment')}</span>
                             </div>
                         </Col>

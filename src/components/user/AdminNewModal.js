@@ -148,7 +148,7 @@ const AdminNewModal = (props) => {
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptLoginName')}</span></Space>
                             </div>
                         </Col>
@@ -158,8 +158,8 @@ const AdminNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRoleName')}</span></Space>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRole')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>
@@ -173,8 +173,8 @@ const AdminNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={7}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrg')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={17}>

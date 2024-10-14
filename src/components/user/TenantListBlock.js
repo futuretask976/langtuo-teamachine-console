@@ -52,25 +52,25 @@ const TenantListBlock = (props) => {
     // 表格展示数据相关
     const columns = [
         {
-            title: '商户编码',
+            title: applyLang('labelTenantCode'),
             dataIndex: 'tenantCode',
             key: 'tenantCode',
             width: '20%'
         },
         {
-            title: '商户名称',
+            title: applyLang('labelTenantName'),
             dataIndex: 'tenantName',
             key: 'tenantName',
             width: '15%'
         },
         {
-            title: '联系人名称',
+            title: applyLang('labelContactPerson'),
             dataIndex: 'contactPerson',
             key: 'contactPerson',
             width: '15%',
         },
         {
-            title: '联系人电话',
+            title: applyLang('labelContactPhone'),
             dataIndex: 'contactPhone',
             key: 'contactPhone',
             width: '15%'

@@ -105,7 +105,7 @@ const OrgNewModal = (props) => {
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont  full-height" style={{justifyContent: 'flex-end'}}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptOrgName')}</span></Space>
                             </div>
                         </Col>
@@ -115,7 +115,7 @@ const OrgNewModal = (props) => {
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col className="gutter-row" span={6}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end'}}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptParentOrg')}</span></Space>
                             </div>
                         </Col>
@@ -124,6 +124,7 @@ const OrgNewModal = (props) => {
                                 className="full-width"
                                 onChange={(e) => setParentOrgName(e)}
                                 options={parentOrgNameOpts}
+                                placeholder={applyLang('labelPleaseSelect')}
                                 value={parentOrgName}
                             />
                         </Col>

@@ -30,7 +30,7 @@ const MachinePage = () => {
     const [machineCode4Search, setMachineCode4Search] = useState();
     const [screenCode4Search, setScreenCode4Search] = useState();
     const [elecBoardCode4Search, setElecBoardCode4Search] = useState();
-    const [shopCode4Search, setShopCode4Search] = useState('');
+    const [shopCode4Search, setShopCode4Search] = useState(null);
     const [machineCode4Edit, setMachineCode4Edit] = useState();
 
     // 初始化定义
@@ -44,7 +44,7 @@ const MachinePage = () => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: applyLang('labelAll'),
-                    value: ''
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -99,32 +99,32 @@ const MachinePage = () => {
                 </div>
                 <div className='flex-col-cont full-width' style={{alignItems: 'center', background: '#FFFFFF', height: 90}}>
                     <Row className="full-width" style={{height: 40}}>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang("promptMachineCode")}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={5}>
+                        <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang("labelMachineCode")} allowClear onChange={(e) => setMachineCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang("promptScreenCode")}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={5}>
+                        <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang("labelScreenCode")} allowClear onChange={(e) => setScreenCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang("promptElecBoardCode")}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={5}>
+                        <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang("labelElecBoardCode")} allowClear onChange={(e) => setElecBoardCode4Search(e.target.value)} style={{width: '95%'}}/>
                             </div>
@@ -136,12 +136,12 @@ const MachinePage = () => {
                         </Col>
                     </Row>
                     <Row className="full-width" style={{height: 40}}>
-                        <Col className="gutter-row full-height" span={2}>
+                        <Col className="gutter-row full-height" span={3}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end', height: '100%'}}>
                                 <span>{applyLang("promptShopName")}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row full-height" span={5}>
+                        <Col className="gutter-row full-height" span={4}>
                             <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start'}}>
                                 <Select
                                     value={shopCode4Search}

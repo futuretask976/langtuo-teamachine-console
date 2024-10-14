@@ -143,94 +143,94 @@ const MachineDeployNewModal = (props) => {
             onOk={onClickOK}
             onCancel={onClickCancel}
             title={applyLang('labelNewOrEdit')}
-            width={500}
+            width={600}
         >
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: 450, width: '100%'}}>
                 <Space direction='vertical' size={20} style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptMachineCode')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelMachineCode')} allowClear value={machineCode} disabled={true} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
-                                <span>{applyLang('promptMachineName')}</span>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
+                                <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptMachineName')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelMachineName')} allowClear value={machineName} onChange={(e) => setMachineName(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptScreenCode')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelMachineCode')} allowClear value={screenCode} disabled={true} onChange={(e) => setScreenCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptElecBoardCode')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Input placeholder={applyLang('labelElecBoardCode')} allowClear value={elecBoardCode} disabled={true} onChange={(e) => setElecBoardCode(e.target.value)}/>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptModelCode')}</span></Space>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Select
-                                    value={modelCode}
-                                    style={{width: '90%'}}
+                                    className="full-width"
                                     onChange={(e) => setModelCode(e)}
                                     options={modelList4Select}
+                                    value={modelCode}
                                 />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptState')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e ? 1 : 0)} />
                             </div>
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptMaintainPeriod')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <DatePicker
                                     format={{
@@ -244,12 +244,12 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptValidPeriod')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <DatePicker
                                     format={{
@@ -263,12 +263,12 @@ const MachineDeployNewModal = (props) => {
                         </Col>
                     </Row>
                     <Row style={{width: '100%'}}>
-                        <Col className="gutter-row" span={5}>
-                            <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="flex-row-cont full-height" style={{justifyContent: 'flex-end'}}>
                                 <span>{applyLang('promptShopName')}</span>
                             </div>
                         </Col>
-                        <Col className="gutter-row" span={19}>
+                        <Col className="gutter-row" span={18}>
                             <Select
                                 value={shopCode}
                                 disabled={true}

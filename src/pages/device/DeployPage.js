@@ -32,8 +32,8 @@ const DeployPage = () => {
     // 数据定义
     const [shopList4Select, setShopList4Select] = useState();
     const [deployCode4Search, setDeployCode4Search] = useState();
-    const [shopCode4Search, setShopCode4Search] = useState('');
-    const [state4Search, setState4Search] = useState('');
+    const [shopCode4Search, setShopCode4Search] = useState(null);
+    const [state4Search, setState4Search] = useState(null);
     const [deployCode4Edit, setDeployCode4Edit] = useState();
 
     // 动作定义
@@ -47,7 +47,7 @@ const DeployPage = () => {
             setShopList4Select((prev => {
                 let shopListTmp = [{
                     label: applyLang('labelAll'),
-                    value: ''
+                    value: null
                 }];
                 if (isArray(respData.model)) {
                     respData.model.forEach(item => {
@@ -145,7 +145,7 @@ const DeployPage = () => {
                                     options={[
                                         {
                                             label: applyLang('labelAll'),
-                                            value: ''
+                                            value: null
                                         },
                                         {
                                             label: applyLang('labelStateDeployed'),
