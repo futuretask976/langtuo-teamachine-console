@@ -116,8 +116,8 @@ const OrderActRecordListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onClickView = (e, idempotentMark) => {
-        props.onClickView(idempotentMark);
+    const onClickView = (e, shopGroupCode, idempotentMark) => {
+        props.onClickView(shopGroupCode, idempotentMark);
     }
 
     return (

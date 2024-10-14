@@ -78,7 +78,7 @@ const OrderActRecordPage = () => {
     const onClickSearch = () => {
         refreshList();
     }
-    const onClickView = (selectedShopGroupCode, selectedIdempotentMark)=> {
+    const onClickView = (selectedShopGroupCode, selectedIdempotentMark) => {
         setShopGroupCode4View(selectedShopGroupCode);
         setIdempotentMark4View(selectedIdempotentMark);
         setOpenViewModal(true);
@@ -160,7 +160,7 @@ const OrderActRecordPage = () => {
             </Space>            
 
             {openViewModal && (
-                <OrderActRecordViewModal modalTitle='查看明细' shopGroupCode4View={shopGroupCode4View} idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
+                <OrderActRecordViewModal shopGroupCode4View={shopGroupCode4View} idempotentMark4View={idempotentMark4View} onClose={onCloseViewModal}/>
             )}
         </>
     )
