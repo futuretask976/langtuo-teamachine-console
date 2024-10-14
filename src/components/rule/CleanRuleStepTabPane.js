@@ -234,7 +234,7 @@ const CleanRuleStepTabPane = (props) => {
                 </div>
             </div>
             <div className="flex-row-cont" style={{height: 65, width: '100%'}}>
-                <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', height: '100%', width: '15%'}}>{applyLang('promptRemindContent')}</div>
+                <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%', width: '15%'}}>{applyLang('promptRemindContent')}</div>
                 <div className="flex-row-cont" style={{alignItems: 'center', height: '100%', width: '85%'}}>
                     <TextArea rows={2} placeholder={applyLang('labelRemindContent')} maxLength={200} onChange={onChangeRemindContent} value={getRemindContent()}/>
                 </div>

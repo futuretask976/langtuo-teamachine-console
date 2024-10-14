@@ -210,28 +210,28 @@ const DrainRuleNewModal = (props) => {
                 onCancel={onClickCancel}
                 width={750}
             >
-                <div style={{height: 450, width: '100%'}}>
+                <div style={{height: 475, width: '100%'}}>
                     <Space direction='vertical' size={20}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleCode')}</span></Space>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelRuleCode')} disabled={isBlankStr(props.drainRuleCode4Edit) ? false : true} value={drainRuleCode} onChange={(e) => setDrainRuleCode(e.target.value)} />
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptRuleName')}</span></Space>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={8}>
                                 <Input placeholder={applyLang('labelRuleName')} value={drainRuleName} onChange={(e) => setDrainRuleName(e.target.value)} />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptDefaultRule')}</span>
                                 </div>
@@ -239,17 +239,14 @@ const DrainRuleNewModal = (props) => {
                             <Col className="gutter-row" span={5}>
                                 <Switch checkedChildren={applyLang('labelYes')} unCheckedChildren={applyLang('labelNo')} checked={defaultRule === 1 ? true : false} onChange={(e) => setDefaultRule(e ? 1 : 0)} />
                             </Col>
-                            <Col className="gutter-row" span={16}>
-                                &nbsp;
-                            </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptApplyTopping')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={20}>
                                 <Select
                                     placeholder={applyLang('labelPleaseSelect')}
                                     mode="multiple"
@@ -262,23 +259,23 @@ const DrainRuleNewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={7}>
+                            <Col className="gutter-row" span={3}>
                                 &nbsp;
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptFlushSec')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <InputNumber min={1} max={9999} onChange={(e) => setFlushSec(e)} value={flushSec}/>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptFlushWeight')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={4}>
                                 <InputNumber min={1} max={9999} onChange={(e) => setFlushWeight(e)} value={flushWeight}/>
                             </Col>
                             <Col className="gutter-row" span={5}>

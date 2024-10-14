@@ -84,35 +84,35 @@ const WarningRuleNewModal = (props) => {
                 title={applyLang('labelNewOrEdit')}
                 onOk={onClickOK}
                 onCancel={onClickCancel}
-                width={650}
+                width={875}
             >
-                <div style={{height: 350, width: '100%'}}>
+                <div style={{height: 300, width: '100%'}}>
                     <Space direction='vertical' size={20} style={{width: '100%'}}>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptRuleCode')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={7}>
                                 <Input placeholder={applyLang('labelRuleCode')} disabled={isBlankStr(props.warningRuleCode4Edit) ? false : true} value={warningRuleCode} onChange={(e) => setWarningRuleCode(e.target.value)} />
                             </Col>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptRuleName')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={9}>
+                            <Col className="gutter-row" span={7}>
                                 <Input placeholder={applyLang('labelRuleName')} value={warningRuleName} onChange={(e) => setWarningRuleName(e.target.value)} />
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptWarningContent')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={19}>
                                 <Radio.Group onChange={(e) => setWarningContent(e.target.value)} value={warningContent}>
                                     <Radio value={0}>{applyLang('labelWarningInvalid')}</Radio>
                                     <Radio value={1}>{applyLang('labelWarningSupply')}</Radio>
@@ -121,12 +121,12 @@ const WarningRuleNewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptWarningType')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={19}>
                                 <Radio.Group onChange={(e) => setWarningType(e.target.value)} value={warningType}>
                                     <Radio value={0}>{applyLang('labelStrongWarning')}</Radio>
                                     <Radio value={1}>{applyLang('labelWeakWarning')}</Radio>
@@ -134,12 +134,12 @@ const WarningRuleNewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptWarningThreshholdType')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={19}>
                                 <Radio.Group disabled='true' onChange={(e) => setThresholdMode(e.target.value)} value={thresholdMode}>
                                     <Radio value={0}>{applyLang('labelFix')}</Radio>
                                     <Radio value={1}>{applyLang('labelPer')}</Radio>
@@ -147,23 +147,23 @@ const WarningRuleNewModal = (props) => {
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
+                            <Col className="gutter-row" span={5}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptWarningThreshhold')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
+                            <Col className="gutter-row" span={19}>
                                 <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelMeasureUnitKg')}/{applyLang('labelMin')}</span></Space>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>
-                            <Col className="gutter-row" span={3}>
-                                <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
+                            <Col className="gutter-row" span={5}>
+                                <div className="flex-row-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-end', height: '100%'}}>
                                     <span>{applyLang('promptComment')}</span>
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={21}>
-                                <TextArea rows={5} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                            <Col className="gutter-row" span={19}>
+                                <TextArea rows={2} placeholder={applyLang('labelComment')} maxLength={200} value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </Col>
                         </Row>
                     </Space>
