@@ -91,7 +91,7 @@ const OrderToppingReportListBlock = (props) => {
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
                 size='small'
-                title={() => applyLang('labelOrderToppingData')}/>
+                title={() => <span style={{fontWeight: 'bold'}}>{applyLang('labelOrderToppingData')}</span>}/>
         </div>
     )
 };

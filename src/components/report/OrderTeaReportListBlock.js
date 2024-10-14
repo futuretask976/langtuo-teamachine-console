@@ -91,7 +91,7 @@ const OrderTeaReportListBlock = (props) => {
                 dataSource={list}
                 rowKey={record=>record.idempotentMark}
                 size='small'
-                title={() => applyLang('labelOrderTeaData')}/>
+                title={() => <span style={{fontWeight: 'bold'}}>{applyLang('labelOrderTeaData')}</span>}/>
         </div>
     )
 };
