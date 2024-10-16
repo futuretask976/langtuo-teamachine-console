@@ -95,13 +95,13 @@ const ToppingListBlock = (props) => {
             title: applyLang('labelState'),
             dataIndex: 'state',
             key: 'state',
-            width: '10%',
+            width: '8%',
             render: (state) => state === 1 ? applyLang('labelEnabled') : applyLang('labelDisabled')
         },
         {
             title: applyLang('labelOpe'),
             key: 'actions',
-            width: '10%',
+            width: '12%',
             render: (_, { toppingCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
