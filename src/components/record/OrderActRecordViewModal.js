@@ -227,7 +227,7 @@ const OrderActRecordViewModal = (props) => {
                                     columns={toppingRecCols} 
                                     dataSource={toppingRecList}
                                     pagination={false}
-                                    rowKey={record=>record.id}
+                                    rowKey={record => record.toppingCode}
                                     scroll={{ y: 170 }}
                                     size='small'
                                     style={{width: '100%'}} />
