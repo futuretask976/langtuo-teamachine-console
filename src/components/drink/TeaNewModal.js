@@ -25,7 +25,7 @@ const TeaNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.teaCode4Edit == undefined ? true : false;
+    const putNew = props.teaCode4Edit === undefined ? true : false;
     const [tea, setTea] = useState();
 
     // 对话框定义

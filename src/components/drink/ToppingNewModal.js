@@ -72,7 +72,7 @@ const ToppingNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.toppingCode4Edit == undefined ? true : false;
+    const putNew = props.toppingCode4Edit === undefined ? true : false;
     const [toppingCode, setToppingCode] = useState();
     const [toppingName, setToppingName] = useState();
     const [toppingTypeCode, setToppingTypeCode] = useState();

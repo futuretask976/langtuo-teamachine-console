@@ -56,7 +56,7 @@ const DeployNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.deployCode4Edit == undefined ? true : false;
+    const putNew = props.deployCode4Edit === undefined ? true : false;
     const [deployCode, setDeployCode] = useState();
     const [modelCode, setModelCode] = useState();
     const [machineCode, setMachineCode] = useState();

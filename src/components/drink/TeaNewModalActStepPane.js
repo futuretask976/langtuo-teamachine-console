@@ -18,7 +18,7 @@ const TeaNewModalActStepPane = (props) => {
         props.toppingBaseRuleList4Edit.forEach(toppingBaseRule => {
             let stepIndex = toppingBaseRule.stepIndex;
             let actStep = actStepList[stepIndex - 1];
-            if (actStep == undefined) {
+            if (actStep === undefined) {
                 actStep = {
                     stepIndex: stepIndex,
                     toppingBaseRuleList: []
@@ -91,7 +91,7 @@ const TeaNewModalActStepPane = (props) => {
                     let toppingBaseRuleList = [];
                     selectedToppingCodeList.forEach(selectedToppingCode => {
                         let toppingTmp = findExistToppingRule(selectedToppingCode, actStep.toppingBaseRuleList);
-                        if (toppingTmp == undefined) {
+                        if (toppingTmp === undefined) {
                             toppingTmp = findNewToppingRule(selectedToppingCode, stepIndex);
                         }
                         toppingBaseRuleList.push(toppingTmp);

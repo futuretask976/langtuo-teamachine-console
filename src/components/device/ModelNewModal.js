@@ -45,7 +45,7 @@ const ModelNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.modelCode4Edit == undefined ? true : false;
+    const putNew = props.modelCode4Edit === undefined ? true : false;
     const [modelCode, setModelCode] = useState();
     const [enableFlowAll, setEnableFlowAll] = useState(1);
     const [pipelineList, setPipelineList] = useState();

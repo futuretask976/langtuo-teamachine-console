@@ -51,7 +51,7 @@ const TeaTypeNewModal = (props) => {
     };
 
     // 数据初始化相关
-    const putNew = props.teaTypeCode4Edit == undefined ? true : false;
+    const putNew = props.teaTypeCode4Edit === undefined ? true : false;
     const [teaTypeCode, setTeaTypeCode] = useState();
     const [teaTypeName, setTeaTypeName] = useState();
     const [comment, setComment] = useState();

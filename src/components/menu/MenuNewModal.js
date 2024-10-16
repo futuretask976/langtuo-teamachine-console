@@ -59,7 +59,7 @@ const MenuNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.menuCode4Edit == undefined ? true : false;
+    const putNew = props.menuCode4Edit === undefined ? true : false;
     const [menuCode, setMenuCode] = useState();
     const [menuName, setMenuName] = useState();
     const [imgLink, setImgLink] = useState();

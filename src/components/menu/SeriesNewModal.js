@@ -57,7 +57,7 @@ const SeriesNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.seriesCode4Edit == undefined ? true : false;
+    const putNew = props.seriesCode4Edit === undefined ? true : false;
     const [seriesCode, setSeriesCode] = useState();
     const [seriesName, setSeriesName] = useState();
     const [imgLink, setImgLink] = useState();

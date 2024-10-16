@@ -83,7 +83,7 @@ const AndroidAppUploadModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.version4Edit == undefined ? true : false;
+    const putNew = props.version4Edit === undefined ? true : false;
     const [version, setVersion] = useState();
     const [ossPath, setOssPath] = useState();
     const [comment, setComment] = useState();
@@ -209,7 +209,7 @@ const AndroidAppUploadModal = (props) => {
                             <Space size='small'><span style={{color: 'red'}}>*</span><span>{applyLang('promptVersion')}</span></Space>
                         </div>
                         <div className="flex-row-cont full-height" style={{justifyContent: 'flex-start', width: '75%'}}>
-                            <Input placeholder={applyLang('labelVersion')} allowClear disabled={props.version4Edit == undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
+                            <Input placeholder={applyLang('labelVersion')} allowClear disabled={props.version4Edit === undefined ? false : true} value={version} onChange={(e) => setVersion(e.target.value)}/>
                         </div>
                     </div>
                     <div className="flex-row-cont" style={{height: 40, width: '100%'}}>

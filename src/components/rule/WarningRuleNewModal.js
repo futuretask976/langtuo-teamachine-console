@@ -42,7 +42,7 @@ const WarningRuleNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.warningRuleCode4Edit == undefined ? true : false;
+    const putNew = props.warningRuleCode4Edit === undefined ? true : false;
     const [warningRuleCode, setWarningRuleCode] = useState();
     const [warningRuleName, setWarningRuleName] = useState();
     const [warningType, setWarningType] = useState(0);

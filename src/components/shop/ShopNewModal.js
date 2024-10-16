@@ -56,7 +56,7 @@ const ShopNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.shopCode4Edit == undefined ? true : false;
+    const putNew = props.shopCode4Edit === undefined ? true : false;
     const [comment, setComment] = useState();
     const [shopCode, setShopCode] = useState();
     const [shopName, setShopName] = useState();

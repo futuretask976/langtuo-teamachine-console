@@ -42,7 +42,7 @@ const AccuracyTplNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.templateCode4Edit == undefined ? true : false;
+    const putNew = props.templateCode4Edit === undefined ? true : false;
     const [templateCode, setTemplateCode] = useState();
     const [templateName, setTemplateName] = useState();
     const [overMode, setOverMode] = useState(0);

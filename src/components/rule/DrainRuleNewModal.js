@@ -50,7 +50,7 @@ const DrainRuleNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.drainRuleCode4Edit == undefined ? true : false;
+    const putNew = props.drainRuleCode4Edit === undefined ? true : false;
     const [drainRuleCode, setDrainRuleCode] = useState();
     const [drainRuleName, setDrainRuleName] = useState();
     const [defaultRule, setDefaultRule] = useState(0);

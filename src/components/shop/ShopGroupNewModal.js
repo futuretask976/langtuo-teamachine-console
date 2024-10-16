@@ -56,7 +56,7 @@ const ShopGroupNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.shopGroupCode4Edit == undefined ? true : false;
+    const putNew = props.shopGroupCode4Edit === undefined ? true : false;
     const [comment, setComment] = useState();
     const [shopGroupCode, setShopGroupCode] = useState();
     const [shopGroupName, setShopGroupName] = useState();

@@ -58,7 +58,7 @@ const SpecNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.specCode4Edit == undefined ? true : false;
+    const putNew = props.specCode4Edit === undefined ? true : false;
     const [specCode, setSpecCode] = useState();
     const [specName, setSpecName] = useState();
     const [comment, setComment] = useState();

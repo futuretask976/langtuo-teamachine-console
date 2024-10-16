@@ -64,7 +64,7 @@ const AdminNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.loginName4Edit == undefined ? true : false;
+    const putNew = props.loginName4Edit === undefined ? true : false;
     const [toUpdatePass, setToUpdatePass] = useState(putNew);
     const [loginName, setLoginName] = useState();
     const [loginPass, setLoginPass] = useState();

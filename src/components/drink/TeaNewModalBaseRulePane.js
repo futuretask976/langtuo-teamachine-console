@@ -6,7 +6,7 @@ import { applyLang } from '../../i18n/i18n';
 
 const TeaNewModalBaseRulePane = (props) => {
     // 数据定义
-    const [toppingBaseRuleList, setToppingBaseRuleList] = useState(props.toppingBaseRuleList4Edit == undefined ? [] : props.toppingBaseRuleList4Edit);
+    const [toppingBaseRuleList, setToppingBaseRuleList] = useState(props.toppingBaseRuleList4Edit === undefined ? [] : props.toppingBaseRuleList4Edit);
 
     // 动作定义
     useEffect(() => {
