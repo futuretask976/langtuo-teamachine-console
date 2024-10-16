@@ -128,11 +128,11 @@ function LoginPage() {
             </div>
             <div className="flex-col-cont" style={{height: 275, width: '35%', border: '1px solid #353535'}}>
                 <Space direction='vertical' size={20} style={{width: '90%'}}>
-                    <div className="flex-row-cont">
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
+                    <div className="flex-row-cont" style={{alignItems: 'center'}}>
+                        <div className="flex-row-cont full-height" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
                             <span>{applyLang("promptLangSelect")}</span>
                         </div>
-                        <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
+                        <div className="flex-row-cont full-height" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
                             <Select
                                 onChange={(e) => doChangeLang(e)}
                                 options={[
@@ -182,7 +182,7 @@ function LoginPage() {
                     <div className="flex-row-cont">
                         <Space>
                             <Button type="primary" onClick={onClickLogin}>
-                                登录
+                                {applyLang('labelLogin')}
                             </Button>
                             <Button type="primary" onClick={onClickTest}>
                                 临时测试用（请不要点击）

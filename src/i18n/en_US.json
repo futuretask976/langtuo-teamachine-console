@@ -36,7 +36,7 @@
     "labelOrderActRecordMgt4Breadcrumb": "Order Act Record（Due to order record amount is huge, only support search under a specific shop group）",
     "labelReportSet": "Report",
     "labelOrderReportMgt": "Order Report",
-    "promptLangSelect": "LANGUAGE：",
+    "promptLangSelect": "Language：",
     "labelLogout": "Logout Console",
     "labelConsole": "Console",
     "promptMachineDeployStateChart": "Machine Deploy State Chart：",
@@ -386,5 +386,6 @@
     "msgOnlySupportApkFile": "Only support apk file！",
     "msgOnlySupportXlsxFile": "Only xlsx file！",
     "msgFileSizeLess10m": "File size need to less than 10M！",
-    "promptTenant": "Tenant："
+    "promptTenant": "Tenant：",
+    "labelLogin": "Login"
 }
