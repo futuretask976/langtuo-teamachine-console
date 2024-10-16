@@ -40,7 +40,7 @@ const CleanRuleStepTabPane = (props) => {
         if (isBlankObj(cleanRuleStep.needConfirm)) {
             return false;
         }
-        return cleanRuleStep.needConfirm == 0 ? false : true;
+        return cleanRuleStep.needConfirm === 0 ? false : true;
     }
     const getWashTime = () => {
         if (isBlankObj(cleanRuleStep)) {
@@ -211,7 +211,7 @@ const CleanRuleStepTabPane = (props) => {
                     />
                 </div>
             </div>
-            {getCleanContent() == 0 && 
+            {getCleanContent() === 0 && 
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptWashDuration')}</div>
                     <div className="flex-row-cont" style={{justifyContent: 'flex-start', width: '85%'}}>
@@ -219,7 +219,7 @@ const CleanRuleStepTabPane = (props) => {
                     </div>
                 </div>
             }
-            {getCleanContent() == 1 && 
+            {getCleanContent() === 1 && 
                 <div className="flex-row-cont" style={{height: 40, width: '100%'}}>
                     <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-end', width: '15%'}}>{applyLang('promptSoakDuration')}</div>
                     <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '85%'}}>
