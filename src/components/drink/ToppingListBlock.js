@@ -70,7 +70,7 @@ const ToppingListBlock = (props) => {
             dataIndex: 'measureUnit',
             key: 'measureUnit',
             width: '10%',
-            render: (measureUnit) => measureUnit === 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')
+            render: (measureUnit) => measureUnit === 0 ? applyLang('labelKg') : applyLang('labelMl')
         },
         {
             title: applyLang('labelFlowSpeed'),
@@ -107,12 +107,12 @@ const ToppingListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

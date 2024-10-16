@@ -79,7 +79,7 @@ const OrderActRecordListBlock = (props) => {
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state === 0 ? applyLang('labelWaitting') : state === 1 ? applyLang('labelProducing') : state == 2 ? applyLang('labelProduced') : state == 3 ? applyLang('labelAbnormal') : applyLang('labelCancelled')
+            render: (state) => state === 0 ? applyLang('labelWaiting') : state === 1 ? applyLang('labelProducing') : state == 2 ? applyLang('labelProduced') : state == 3 ? applyLang('labelAbnormal') : applyLang('labelCancelled')
         },
         {
             title: applyLang('labelOuterOrderId'),
@@ -103,7 +103,7 @@ const OrderActRecordListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'view') {
                         return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, shopGroupCode, idempotentMark)}>{applyLang('labelOpeView')}</a>
+                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, shopGroupCode, idempotentMark)}>{applyLang('labelView')}</a>
                         );
                     }
                 })}

@@ -79,17 +79,17 @@ const AndroidAppListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + version} onClick={(e) => onClickEdit(e, version)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + version} onClick={(e) => onClickEdit(e, version)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + version} onClick={(e) => onClickDelete(e, version)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + version} onClick={(e) => onClickDelete(e, version)}>{applyLang('labelDel')}</a>
                         );
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + version} onClick={(e) => onClickDispatch(e, version)}>{applyLang('labelOpeDispatch')}</a>
+                            <a key={action + '_' + version} onClick={(e) => onClickDispatch(e, version)}>{applyLang('labelDispatch')}</a>
                         );
                     }
                 })}

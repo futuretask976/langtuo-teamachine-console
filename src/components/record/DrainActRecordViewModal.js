@@ -181,7 +181,7 @@ const DrainActRecordViewModal = (props) => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSec')}
+                                        <InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSecs')}
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -189,7 +189,7 @@ const DrainActRecordViewModal = (props) => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={8}>
-                                        <InputNumber disabled={true} value={flushWeight} style={{width: 50}}/>&nbsp;{applyLang('labelMeasureUnitKg')}
+                                        <InputNumber disabled={true} value={flushWeight} style={{width: 50}}/>&nbsp;{applyLang('labelKg')}
                                     </Col>
                                 </Row>
                             </>

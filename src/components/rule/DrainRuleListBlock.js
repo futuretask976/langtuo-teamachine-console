@@ -87,17 +87,17 @@ const DrainRuleListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickEdit(e, drainRuleCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickEdit(e, drainRuleCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDispatch(e, drainRuleCode)}>{applyLang('labelOpeDispatch')}</a>
+                            <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDispatch(e, drainRuleCode)}>{applyLang('labelDispatch')}</a>
                         );
                     }
                 })}

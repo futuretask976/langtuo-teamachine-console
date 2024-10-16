@@ -81,12 +81,12 @@ const AccuracyTplListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + templateCode} onClick={(e) => onClickEdit(e, templateCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + templateCode} onClick={(e) => onClickEdit(e, templateCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + templateCode} onClick={(e) => onClickDelete(e, templateCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + templateCode} onClick={(e) => onClickDelete(e, templateCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

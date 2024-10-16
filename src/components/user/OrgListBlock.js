@@ -121,12 +121,12 @@ const OrgListBlock = (props) => {
                     } else {
                         if (action === 'edit') {
                             return (
-                                <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>{applyLang('labelOpeEdit')}</a>
+                                <a key={action + '_' + orgName} onClick={(e) => onClickEdit(e, orgName)}>{applyLang('labelEdit')}</a>
                             );
                         }
                         if (action === 'delete') {
                             return (
-                                <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>{applyLang('labelOpeDel')}</a>
+                                <a key={action + '_' + orgName} onClick={(e) => onClickDelete(e, orgName)}>{applyLang('labelDel')}</a>
                             );
                         }
                     }

@@ -78,17 +78,17 @@ const MenuListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + menuCode} onClick={(e) => onClickEdit(e, menuCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + menuCode} onClick={(e) => onClickEdit(e, menuCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + menuCode} onClick={(e) => onClickDelete(e, menuCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + menuCode} onClick={(e) => onClickDelete(e, menuCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                     if (action == 'dispatch') {
                         return (
-                            <a key={action + '_' + menuCode} onClick={(e) => onClickDispatch(e, menuCode)}>{applyLang('labelOpeDispatch')}</a>
+                            <a key={action + '_' + menuCode} onClick={(e) => onClickDispatch(e, menuCode)}>{applyLang('labelDispatch')}</a>
                         );
                     }
                 })}

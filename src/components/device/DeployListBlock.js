@@ -98,12 +98,12 @@ const DeployListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + deployCode} onClick={(e) => onClickEdit(e, deployCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + deployCode} onClick={(e) => onClickDelete(e, deployCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

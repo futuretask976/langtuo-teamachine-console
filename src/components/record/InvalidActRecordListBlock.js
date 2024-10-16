@@ -98,7 +98,7 @@ const InvalidActRecordListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'view') {
                         return (
-                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>{applyLang('labelOpeView')}</a>
+                            <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>{applyLang('labelView')}</a>
                         );
                     }
                 })}

@@ -91,12 +91,12 @@ const TenantListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + tenantCode} onClick={(e) => onClickEdit(e, tenantCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + tenantCode} onClick={(e) => onClickDelete(e, tenantCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

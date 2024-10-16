@@ -88,12 +88,12 @@ const TeaListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + teaCode} onClick={(e) => onClickEdit(e, teaCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + teaCode} onClick={(e) => onClickEdit(e, teaCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + teaCode} onClick={(e) => onClickDelete(e, teaCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + teaCode} onClick={(e) => onClickDelete(e, teaCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

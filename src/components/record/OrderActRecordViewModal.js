@@ -119,7 +119,7 @@ const OrderActRecordViewModal = (props) => {
                                 <Select
                                     disabled={true}
                                     options={[{
-                                        label: applyLang('labelWaitting'),
+                                        label: applyLang('labelWaiting'),
                                         value: 0
                                     },
                                     {

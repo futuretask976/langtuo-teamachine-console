@@ -117,7 +117,7 @@ const DrainRuleDispatchModal = (props) => {
                         <div className="flex-row-cont" style={{justifyContent: 'center', height: '100%'}}>
                             <Transfer
                                 dataSource={shopGroupList4Transfer}
-                                titles={[applyLang('labelWaittingSelectList'), applyLang('labelSelectedList')]}
+                                titles={[applyLang('labelWaitingSelectList'), applyLang('labelSelectedList')]}
                                 targetKeys={targetKeys}
                                 selectedKeys={selectedKeys}
                                 onChange={handleChange}

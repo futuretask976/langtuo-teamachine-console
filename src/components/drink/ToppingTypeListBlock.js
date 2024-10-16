@@ -87,12 +87,12 @@ const ToppingTypeListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickEdit(e, toppingTypeCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickEdit(e, toppingTypeCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickDelete(e, toppingTypeCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + toppingTypeCode} onClick={(e) => onClickDelete(e, toppingTypeCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

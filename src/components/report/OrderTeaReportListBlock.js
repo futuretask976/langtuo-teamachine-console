@@ -89,7 +89,7 @@ const OrderTeaReportListBlock = (props) => {
                 }}
                 columns={columns} 
                 dataSource={list}
-                rowKey={record=>record.idempotentMark}
+                rowKey={record => record.orderCreatedDay + '_' + record.teaCode}
                 size='small'
                 title={() => <span style={{fontWeight: 'bold'}}>{applyLang('labelOrderTeaData')}</span>}/>
         </div>

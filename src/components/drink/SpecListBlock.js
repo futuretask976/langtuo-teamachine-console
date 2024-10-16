@@ -94,12 +94,12 @@ const SpecListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + specCode} onClick={(e) => onClickEdit(e, specCode)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + specCode} onClick={(e) => onClickEdit(e, specCode)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + specCode} onClick={(e) => onClickDelete(e, specCode)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + specCode} onClick={(e) => onClickDelete(e, specCode)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

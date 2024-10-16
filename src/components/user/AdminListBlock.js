@@ -87,12 +87,12 @@ const AdminListBlock = (props) => {
                 {actions.map((action) => {
                     if (action === 'edit') {
                         return (
-                            <a key={action + '_' + loginName} onClick={(e) => onClickEdit(e, loginName)}>{applyLang('labelOpeEdit')}</a>
+                            <a key={action + '_' + loginName} onClick={(e) => onClickEdit(e, loginName)}>{applyLang('labelEdit')}</a>
                         );
                     }
                     if (action === 'delete') {
                         return (
-                            <a key={action + '_' + loginName} onClick={(e) => onClickDelete(e, loginName)}>{applyLang('labelOpeDel')}</a>
+                            <a key={action + '_' + loginName} onClick={(e) => onClickDelete(e, loginName)}>{applyLang('labelDel')}</a>
                         );
                     }
                 })}

@@ -200,8 +200,8 @@ const ToppingNewModal = (props) => {
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                 <Radio.Group disabled={true} onChange={(e) => setMeasureUnit(e.target.value)} value={measureUnit}>
-                                    <Radio value={0}>{applyLang('labelMeasureUnitKg')}</Radio>
-                                    <Radio value={1}>{applyLang('labelMeasureUnitMl')}</Radio>
+                                    <Radio value={0}>{applyLang('labelKg')}</Radio>
+                                    <Radio value={1}>{applyLang('labelMl')}</Radio>
                                 </Radio.Group>
                             </div>
                         </Col>
@@ -224,7 +224,7 @@ const ToppingNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={1} max={9999} value={validHourPeriod} onChange={(e) => setValidHourPeriod(e)} /><span>{applyLang('labelHour')}</span></Space>
+                                <Space><InputNumber min={1} max={9999} value={validHourPeriod} onChange={(e) => setValidHourPeriod(e)} /><span>{applyLang('labelHours')}</span></Space>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={6}>
@@ -234,7 +234,7 @@ const ToppingNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={1} max={9999} value={cleanHourPeriod} onChange={(e) => setCleanHourPeriod(e)} /><span>{applyLang('labelHour')}</span></Space>
+                                <Space><InputNumber min={1} max={9999} value={cleanHourPeriod} onChange={(e) => setCleanHourPeriod(e)} /><span>{applyLang('labelHours')}</span></Space>
                             </div>
                         </Col>
                     </Row>
@@ -281,7 +281,7 @@ const ToppingNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelMeasureUnitKg')}/{applyLang('labelMin')}</span></Space>
+                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelKg')}/{applyLang('labelMins')}</span></Space>
                             </div>
                         </Col>
                     </Row>

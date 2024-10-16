@@ -153,7 +153,7 @@ const WarningRuleNewModal = (props) => {
                                 </div>
                             </Col>
                             <Col className="gutter-row" span={19}>
-                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelMeasureUnitKg')}/{applyLang('labelMin')}</span></Space>
+                                <Space><InputNumber min={0} max={999} onChange={(e) => setThreshold(e)} value={threshold}/><span>{applyLang('labelKg')}/{applyLang('labelMins')}</span></Space>
                             </Col>
                         </Row>
                         <Row style={{width: '100%'}}>

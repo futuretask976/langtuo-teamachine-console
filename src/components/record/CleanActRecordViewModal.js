@@ -199,7 +199,7 @@ const CleanActRecordViewModal = (props) => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={4}>
-                                        <InputNumber disabled={true} value={washSec} style={{width: 50}}/>&nbsp;{applyLang('labelMin')}
+                                        <InputNumber disabled={true} value={washSec} style={{width: 50}}/>&nbsp;{applyLang('labelMins')}
                                     </Col>
                                     <Col className="gutter-row" span={4}>
                                         <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -207,7 +207,7 @@ const CleanActRecordViewModal = (props) => {
                                         </div>
                                     </Col>
                                     <Col className="gutter-row" span={12}>
-                                        <InputNumber disabled={true} value={soakMin} style={{width: 50}}/>&nbsp;{applyLang('labelMin')} {applyLang('labelEveryInterval')}&nbsp;<InputNumber disabled={true} value={flushIntervalMin} style={{width: 50}}/>&nbsp;{applyLang('labelMin')} {applyLang('labelFlush')}&nbsp;<InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSec')}
+                                        <InputNumber disabled={true} value={soakMin} style={{width: 50}}/>&nbsp;{applyLang('labelMins')} {applyLang('labelEveryInterval')}&nbsp;<InputNumber disabled={true} value={flushIntervalMin} style={{width: 50}}/>&nbsp;{applyLang('labelMins')} {applyLang('labelFlush')}&nbsp;<InputNumber disabled={true} value={flushSec} style={{width: 50}}/>&nbsp;{applyLang('labelSecs')}
                                     </Col>
                                 </Row>
                             </>
