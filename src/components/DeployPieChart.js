@@ -19,7 +19,7 @@ const DeployPieChart = () => {
                 if (isArray(model)) {
                     model.forEach(item => {
                         tmp.push({
-                            type: item.state == 0 ? '未部署' : '已部署',
+                            type: item.state === 0 ? '未部署' : '已部署',
                             value: item.amount
                         });
                     });

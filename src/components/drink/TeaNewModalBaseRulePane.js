@@ -42,7 +42,7 @@ const TeaNewModalBaseRulePane = (props) => {
             key: 'measureUnit',
             width: '20%',
             render: (_, { measureUnit }) => (
-                <span>{measureUnit == 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')}</span>
+                <span>{measureUnit === 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')}</span>
             ),
         }
     ];

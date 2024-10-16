@@ -95,7 +95,7 @@ const MachineListBlock = (props) => {
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 0 ? applyLang('labelDisabled') : applyLang('labelEnabled')
+            render: (state) => state === 0 ? applyLang('labelDisabled') : applyLang('labelEnabled')
         },
         {
             title: applyLang('labelOpe'),

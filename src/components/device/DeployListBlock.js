@@ -40,7 +40,7 @@ const DeployListBlock = (props) => {
                 let tmp = [];
                 if (isArray(model.list)) {
                     model.list.forEach(function(ite) {
-                        if (ite.state == 0) {
+                        if (ite.state === 0) {
                             ite.actions = ["edit", "delete"];
                         } else {
                             ite.actions = [];
@@ -87,7 +87,7 @@ const DeployListBlock = (props) => {
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 0 ? applyLang('labelNo') : applyLang('labelYes')
+            render: (state) => state === 0 ? applyLang('labelNo') : applyLang('labelYes')
         },
         {
             title: applyLang('labelOpe'),

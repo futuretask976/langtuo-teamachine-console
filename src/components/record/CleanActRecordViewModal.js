@@ -158,7 +158,7 @@ const CleanActRecordViewModal = (props) => {
                                 <InputNumber disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
-                        {cleanType == 0 &&
+                        {cleanType === 0 &&
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={4}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -170,7 +170,7 @@ const CleanActRecordViewModal = (props) => {
                                 </Col>
                             </Row>
                         }
-                        {cleanType == 1 &&
+                        {cleanType === 1 &&
                             <>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={4}>

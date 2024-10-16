@@ -62,7 +62,7 @@ const ModelListBlock = (props) => {
             dataIndex: 'enableFlowAll',
             key: 'enableFlowAll',
             width: '25%',
-            render: (enableFlowAll) => enableFlowAll == 1 ? applyLang('labelYes') : applyLang('labelNo')
+            render: (enableFlowAll) => enableFlowAll === 1 ? applyLang('labelYes') : applyLang('labelNo')
         },
         {
             title: applyLang('labelGmtCreated'),

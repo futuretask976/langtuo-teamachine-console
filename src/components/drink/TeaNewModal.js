@@ -208,10 +208,10 @@ const TeaNewModal = (props) => {
             <div className='flex-row-cont' style={{flexDirection: 'column', height: 450, width: '100%'}}>
                 <Steps current={curStep} items={steps} />
                 <div style={contentStyle}>
-                    {showStepPane && curStep == 0 && (
+                    {showStepPane && curStep === 0 && (
                         <TeaNewModalInfoPane putNew={putNew} tea4Edit={tea} updateInfo={updateInfo} />
                     )}
-                    {showStepPane && curStep == 1 && (
+                    {showStepPane && curStep === 1 && (
                         <TeaNewModalActStepPane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} updateToppingBaseRuleList={updateToppingBaseRuleList} />
                     )}
                     {showStepPane && curStep == 2 && (

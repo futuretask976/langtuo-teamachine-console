@@ -183,11 +183,11 @@ const CleanRuleNewModal = (props) => {
         setActiveKey(newStepIndex);
     };
     const remove = (targetKey) => {
-        if (targetKey == 1) {
+        if (targetKey === 1) {
             alert(applyLang('msgKeepOneStepAtLeast'));
             return;
         }
-        if (targetKey != stepIndex) {
+        if (targetKey !== stepIndex) {
             alert(applyLang('msgDeleteFromLastStep'));
             return;
         }
@@ -204,7 +204,7 @@ const CleanRuleNewModal = (props) => {
         removeCleanRuleStep(stepIndex);
         // 更新指针
         setStepIndex(stepIndex - 1);
-        if (activeKey == targetKey) {
+        if (activeKey === targetKey) {
             setActiveKey(stepIndex - 1);
         }
     };

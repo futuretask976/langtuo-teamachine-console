@@ -70,7 +70,7 @@ const ToppingListBlock = (props) => {
             dataIndex: 'measureUnit',
             key: 'measureUnit',
             width: '10%',
-            render: (measureUnit) => measureUnit == 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')
+            render: (measureUnit) => measureUnit === 0 ? applyLang('labelMeasureUnitKg') : applyLang('labelMeasureUnitMl')
         },
         {
             title: applyLang('labelFlowSpeed'),
@@ -96,7 +96,7 @@ const ToppingListBlock = (props) => {
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled')
+            render: (state) => state === 1 ? applyLang('labelEnabled') : applyLang('labelDisabled')
         },
         {
             title: applyLang('labelOpe'),

@@ -153,7 +153,7 @@ const DrainActRecordViewModal = (props) => {
                                 <InputNumber disabled={true} value={pipelineNum}/>
                             </Col>
                         </Row>
-                        {drainType == 0 &&
+                        {drainType === 0 &&
                             <Row style={{width: '100%'}}>
                                 <Col className="gutter-row" span={4}>
                                     <div className="flex-row-cont" style={{justifyContent: 'flex-end', height: '100%'}}>
@@ -165,7 +165,7 @@ const DrainActRecordViewModal = (props) => {
                                 </Col>
                             </Row>
                         }
-                        {drainType == 1 &&
+                        {drainType === 1 &&
                             <>
                                 <Row style={{width: '100%'}}>
                                     <Col className="gutter-row" span={4}>

@@ -332,14 +332,14 @@ const TeaNewModalAdjustRulePane = (props) => {
         }
 
         let actualAmount = adjustTopping.baseAmount;
-        if (adjustTopping.adjustType == 0) {
-            if (adjustTopping.adjustMode == 0) {
+        if (adjustTopping.adjustType === 0) {
+            if (adjustTopping.adjustMode === 0) {
                 actualAmount = actualAmount - adjustTopping.adjustAmount;
             } else {
                 actualAmount = actualAmount - actualAmount * adjustTopping.adjustAmount;
             }
         } else {
-            if (adjustTopping.adjustMode == 0) {
+            if (adjustTopping.adjustMode === 0) {
                 actualAmount = actualAmount + adjustTopping.adjustAmount;
             } else {
                 actualAmount = actualAmount + actualAmount * adjustTopping.adjustAmount;

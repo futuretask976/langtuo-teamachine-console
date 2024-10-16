@@ -69,14 +69,14 @@ const CleanRuleListBlock = (props) => {
             dataIndex: 'permitRemind',
             key: 'permitRemind',
             width: '10%',
-            render: (permitRemind) => permitRemind == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
+            render: (permitRemind) => permitRemind === 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
         },
         {
             title: applyLang('labelPermitBatch'),
             dataIndex: 'permitBatch',
             key: 'permitBatch',
             width: '10%',
-            render: (permitBatch) => permitBatch == 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
+            render: (permitBatch) => permitBatch === 1 ? applyLang('labelEnabled') : applyLang('labelDisabled'),
         },
         {
             title: applyLang('labelGmtCreated'),

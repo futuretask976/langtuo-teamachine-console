@@ -69,7 +69,7 @@ const DrainRuleListBlock = (props) => {
             dataIndex: 'defaultRule',
             key: 'defaultRule',
             width: '10%',
-            render: (defaultRule) => defaultRule == 1 ? applyLang("labelYes") : applyLang("labelNo"),
+            render: (defaultRule) => defaultRule === 1 ? applyLang("labelYes") : applyLang("labelNo"),
         },
         {
             title: applyLang('labelGmtCreated'),
