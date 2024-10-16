@@ -94,7 +94,7 @@ const SupplyActRecordListBlock = (props) => {
             render: (_, { idempotentMark, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'view') {
+                    if (action === 'view') {
                         return (
                             <a key={action + '_' + idempotentMark} onClick={(e) => onClickView(e, idempotentMark)}>{applyLang('labelOpeView')}</a>
                         );

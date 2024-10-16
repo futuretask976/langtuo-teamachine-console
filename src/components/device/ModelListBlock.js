@@ -78,12 +78,12 @@ const ModelListBlock = (props) => {
             render: (_, { modelCode, actions }) => (
                 <Space size="middle">
                     {actions.map((action) => {
-                        if (action == 'edit') {
+                        if (action === 'edit') {
                             return (
                                 <a key={action + '_' + modelCode} onClick={(e) => onClickEdit(e, modelCode)}>{applyLang('labelOpeEdit')}</a>
                             );
                         }
-                        if (action == 'delete') {
+                        if (action === 'delete') {
                             return (
                                 <a key={action + '_' + modelCode} onClick={(e) => onClickDelete(e, modelCode)}>{applyLang('labelOpeDel')}</a>
                             );

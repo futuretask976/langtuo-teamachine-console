@@ -85,12 +85,12 @@ const ShopListBlock = (props) => {
             render: (_, { shopCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + shopCode} onClick={(e) => onClickEdit(e, shopCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + shopCode} onClick={(e) => onClickDelete(e, shopCode)}>{applyLang('labelOpeDel')}</a>
                         );

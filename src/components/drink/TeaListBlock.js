@@ -86,12 +86,12 @@ const TeaListBlock = (props) => {
             render: (_, { teaCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + teaCode} onClick={(e) => onClickEdit(e, teaCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + teaCode} onClick={(e) => onClickDelete(e, teaCode)}>{applyLang('labelOpeDel')}</a>
                         );

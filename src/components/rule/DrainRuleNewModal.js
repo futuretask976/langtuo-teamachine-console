@@ -139,7 +139,7 @@ const DrainRuleNewModal = (props) => {
             render: (_, { toppingName, toppingCode, actions }) => (
                 <Space size="middle">
                     {actions.map((action) => {
-                        if (action == 'delete') {
+                        if (action === 'delete') {
                             return (
                                 <a key={action + '_' + toppingCode} onClick={(e) => onClickDeleteToppingRule(e, toppingCode)}>{applyLang('labelOpeDel')}</a>
                             );

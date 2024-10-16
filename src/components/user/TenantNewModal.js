@@ -60,7 +60,7 @@ const TenantNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.tenantCode4Edit == undefined ? true : false;
+    const putNew = props.tenantCode4Edit === undefined ? true : false;
     const [tenantCode, setTenantCode] = useState();
     const [comment, setComment] = useState();
     const [tenantName, setTenantName] = useState();

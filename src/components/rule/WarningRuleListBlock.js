@@ -79,12 +79,12 @@ const WarningRuleListBlock = (props) => {
             render: (_, { warningRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + warningRuleCode} onClick={(e) => onClickEdit(e, warningRuleCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDelete(e, warningRuleCode)}>{applyLang('labelOpeDel')}</a>
                         );

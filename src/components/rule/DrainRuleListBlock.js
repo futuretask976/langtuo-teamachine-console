@@ -85,12 +85,12 @@ const DrainRuleListBlock = (props) => {
             render: (_, { drainRuleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + drainRuleCode} onClick={(e) => onClickEdit(e, drainRuleCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>{applyLang('labelOpeDel')}</a>
                         );

@@ -76,12 +76,12 @@ const MenuListBlock = (props) => {
             render: (_, { menuCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + menuCode} onClick={(e) => onClickEdit(e, menuCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + menuCode} onClick={(e) => onClickDelete(e, menuCode)}>{applyLang('labelOpeDel')}</a>
                         );

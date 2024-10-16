@@ -143,12 +143,12 @@ const SpecNewModal = (props) => {
             render: (_, { specItemCode, specItemName, outerSpecItemCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + specItemCode} onClick={(e) => onOpenSpecItemNewModal(specItemCode, specItemName, outerSpecItemCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + specItemCode} onClick={(e) => onClickDeleteSpecItem(e, specItemCode)}>{applyLang('labelOpeDel')}</a>
                         );

@@ -105,12 +105,12 @@ const ToppingListBlock = (props) => {
             render: (_, { toppingCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + toppingCode} onClick={(e) => onClickEdit(e, toppingCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + toppingCode} onClick={(e) => onClickDelete(e, toppingCode)}>{applyLang('labelOpeDel')}</a>
                         );

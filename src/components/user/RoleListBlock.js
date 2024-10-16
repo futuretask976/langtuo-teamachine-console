@@ -91,12 +91,12 @@ const RoleListBlock = (props) => {
             render: (_, { roleCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + roleCode} onClick={(e) => onClickEdit(e, roleCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + roleCode} onClick={(e) => onClickDelete(e, roleCode)}>{applyLang('labelOpeDel')}</a>
                         );

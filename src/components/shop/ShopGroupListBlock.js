@@ -90,12 +90,12 @@ const ShopGroupListBlock = (props) => {
             render: (_, { shopGroupCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + shopGroupCode} onClick={(e) => onClickEdit(e, shopGroupCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + shopGroupCode} onClick={(e) => onClickDelete(e, shopGroupCode)}>{applyLang('labelOpeDel')}</a>
                         );

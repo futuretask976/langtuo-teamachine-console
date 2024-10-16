@@ -76,12 +76,12 @@ const SeriesListBlock = (props) => {
             render: (_, { seriesCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + seriesCode} onClick={(e) => onClickEdit(e, seriesCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + seriesCode} onClick={(e) => onClickDelete(e, seriesCode)}>{applyLang('labelOpeDel')}</a>
                         );

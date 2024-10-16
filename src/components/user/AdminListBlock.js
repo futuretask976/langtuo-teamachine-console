@@ -85,12 +85,12 @@ const AdminListBlock = (props) => {
             render: (_, { loginName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + loginName} onClick={(e) => onClickEdit(e, loginName)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + loginName} onClick={(e) => onClickDelete(e, loginName)}>{applyLang('labelOpeDel')}</a>
                         );

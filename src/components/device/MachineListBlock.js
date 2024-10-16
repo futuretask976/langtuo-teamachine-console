@@ -104,12 +104,12 @@ const MachineListBlock = (props) => {
             render: (_, { machineCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (action == 'edit') {
+                    if (action === 'edit') {
                         return (
                             <a key={action + '_' + machineCode} onClick={(e) => onClickEdit(e, machineCode)}>{applyLang('labelOpeEdit')}</a>
                         );
                     }
-                    if (action == 'delete') {
+                    if (action === 'delete') {
                         return (
                             <a key={action + '_' + machineCode} onClick={(e) => onClickDelete(e, machineCode)}>{applyLang('labelOpeDel')}</a>
                         );
