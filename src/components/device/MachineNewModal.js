@@ -31,7 +31,7 @@ const MachineDeployNewModal = (props) => {
             validUntil: new Date(validUntil),
             maintainUntil: new Date(maintainUntil)
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             if (respData.success) {

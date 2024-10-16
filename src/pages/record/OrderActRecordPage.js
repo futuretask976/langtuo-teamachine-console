@@ -33,7 +33,7 @@ const OrderActRecordPage = () => {
             tenantCode: getTenantCode(),
             shopGroupCode: shopGroupCode4Search
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopList4Select((prev => {
@@ -58,7 +58,7 @@ const OrderActRecordPage = () => {
         get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopGroupList4Select((prev => {

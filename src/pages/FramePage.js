@@ -72,96 +72,96 @@ const FramePage = () => {
                     <SiderMenu onMenuItemClick={onMenuItemClick}/>
                     <Layout>
                         <Content style={{ margin: '0px 5px 0px 5px' }}>
-                            {menuItem == 'summaryChartMgt' && (
+                            {menuItem === 'summaryChartMgt' && (
                                 <SummaryChartPage/>
                             )}
                             
-                            {menuItem == 'tenantMgt' && (
+                            {menuItem === 'tenantMgt' && (
                                 <TenantPage/>
                             )}
-                            {menuItem == 'orgMgt' && (
+                            {menuItem === 'orgMgt' && (
                                 <OrgPage/>
                             )}
-                            {menuItem == 'roleMgt' && (
+                            {menuItem === 'roleMgt' && (
                                 <RolePage/>
                             )}
-                            {menuItem == 'adminMgt' && (
+                            {menuItem === 'adminMgt' && (
                                 <AdminPage/>
                             )}
 
-                            {menuItem == 'shopGroupMgt' && (
+                            {menuItem === 'shopGroupMgt' && (
                                 <ShopGroupPage/>
                             )}
-                            {menuItem == 'shopMgt' && (
+                            {menuItem === 'shopMgt' && (
                                 <ShopPage/>
                             )}
 
-                            {menuItem == 'modelMgt' && (
+                            {menuItem === 'modelMgt' && (
                                 <ModelPage/>
                             )}
-                            {menuItem == 'deployMgt' && (
+                            {menuItem === 'deployMgt' && (
                                 <DeployPage/>
                             )}
-                            {menuItem == 'machineMgt' && (
+                            {menuItem === 'machineMgt' && (
                                 <MachinePage/>
                             )}
-                            {menuItem == 'androidAppMgt' && (
+                            {menuItem === 'androidAppMgt' && (
                                 <AndroidAppPage/>
                             )}
 
-                            {menuItem == 'toppingTypeMgt' && (
+                            {menuItem === 'toppingTypeMgt' && (
                                 <ToppingTypePage/>
                             )}
-                            {menuItem == 'toppingMgt' && (
+                            {menuItem === 'toppingMgt' && (
                                 <ToppingPage/>
                             )}
-                            {menuItem == 'specMgt' && (
+                            {menuItem === 'specMgt' && (
                                 <SpecPage/>
                             )}
-                            {menuItem == 'teaTypeMgt' && (
+                            {menuItem === 'teaTypeMgt' && (
                                 <TeaTypePage/>
                             )}
-                            {menuItem == 'teaMgt' && (
+                            {menuItem === 'teaMgt' && (
                                 <TeaPage/>
                             )}
-                            {menuItem == 'toppingAccuracyTplMgt' && (
+                            {menuItem === 'toppingAccuracyTplMgt' && (
                                 <AccuracyTplPage/>
                             )}
                             
-                            {menuItem == 'seriesMgt' && (
+                            {menuItem === 'seriesMgt' && (
                                 <SeriesPage/>
                             )}
-                            {menuItem == 'menuMgt' && (
+                            {menuItem === 'menuMgt' && (
                                 <MenuPage/>
                             )}
 
-                            {menuItem == 'drainRuleMgt' && (
+                            {menuItem === 'drainRuleMgt' && (
                                 <DrainRulePage/>
                             )}
-                            {menuItem == 'cleanRuleMgt' && (
+                            {menuItem === 'cleanRuleMgt' && (
                                 <CleanRulePage/>
                             )}
-                            {menuItem == 'warningRuleMgt' && (
+                            {menuItem === 'warningRuleMgt' && (
                                 <WarningRulePage/>
                             )}
 
-                            {menuItem == 'invalidActRecordMgt' && (
+                            {menuItem === 'invalidActRecordMgt' && (
                                 <InvalidActRecordPage/>
                             )}
-                            {menuItem == 'supplyActRecordMgt' && (
+                            {menuItem === 'supplyActRecordMgt' && (
                                 <SupplyActRecordPage/>
                             )}
-                            {menuItem == 'drainActRecordMgt' && (
+                            {menuItem === 'drainActRecordMgt' && (
                                 <DrainActRecordPage/>
                             )}
-                            {menuItem == 'cleanActRecordMgt' && (
+                            {menuItem === 'cleanActRecordMgt' && (
                                 <CleanActRecordPage/>
                             )}
-                            {menuItem == 'orderActRecordMgt' && (
+                            {menuItem === 'orderActRecordMgt' && (
                                 <OrderActRecordPage/>
                             )}
 
-                            {menuItem == 'orderReportMgt' && (
+                            {menuItem === 'orderReportMgt' && (
                                 <OrderReportPage/>
                             )}
                         </Content>

@@ -35,22 +35,22 @@ instance.interceptors.response.use(
     },
     (error) => {
         // console.log('$$$$$ instance.interceptors.response.use error=', error);
-        if (error != undefined && error != null) {
+        if (error !== undefined && error !== null) {
             let message = error.message;
             // console.log('$$$$$ instance.interceptors.response.use message=', message);
-            if (message != undefined && message != null) {
-                if (error.response != undefined && error.response != null) {
+            if (message !== undefined && message !== null) {
+                if (error.response !== undefined && error.response !== null) {
                     let status = error.response.status;
                     // console.log('$$$$$ instance.interceptors.response.use status=', status);
-                    if (status == '401') {
+                    if (status === '401') {
                         alert('登录验证失败，请重新登录！');
                         window.location.href = CONSOLE_CONTEXT_PATH + '/login';
                         return;
-                    } else if (status == '403') {
+                    } else if (status === '403') {
                         // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
                         alert('授权验证失败，请联系管理员授权！');
                         return Promise.reject(error);
-                    } else if (status == '404') {
+                    } else if (status === '404') {
                         // window.location.href = CONSOLE_CONTEXT_PATH + '/error?msg=' + encodeURI('授权验证失败，请联系管理员授权！');
                         alert('页面未找到，请联系管理员！');
                         return Promise.reject(error);

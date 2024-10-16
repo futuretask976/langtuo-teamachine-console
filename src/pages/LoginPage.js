@@ -61,7 +61,21 @@ function LoginPage() {
         //     console.log('$$$$$ error=', error)
         // });
 
-        axios.get('http://localhost:8080/teamachinebackend/menuset/menu/trigger?tenantCode=tenant_001&shopGroupCode=shopGroup_07&machineCode=20240904000004', {
+        // axios.get('http://localhost:8080/teamachinebackend/menuset/menu/trigger?tenantCode=tenant_001&shopGroupCode=shopGroup_07&machineCode=20240904000004', {
+        //     headers: {
+        //         'Tenant-Code': 'tenant_001',
+        //         'Machine-Code': '20240904000004',
+        //         'Deploy-Code': 'u4m6xa'
+        //     }
+        // })
+        // .then(response => {
+        //     console.log('$$$$$ response=', response)
+        // })
+        // .catch(error => {
+        //     console.log('$$$$$ error=', error)
+        // });
+
+        axios.get('http://localhost:8080/teamachinebackend/deviceset/android/app/list?limit=5', {
             headers: {
                 'Tenant-Code': 'tenant_001',
                 'Machine-Code': '20240904000004',

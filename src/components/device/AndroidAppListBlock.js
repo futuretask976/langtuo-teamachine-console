@@ -25,7 +25,7 @@ const AndroidAppListBlock = (props) => {
             pageNum: pageNum,
             pageSize: pageSize
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             let model = respData.model;

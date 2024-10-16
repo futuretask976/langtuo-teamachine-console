@@ -73,7 +73,7 @@ const ShopGroupNewModal = (props) => {
             tenantCode: getTenantCode(),
             shopGroupCode: props.shopGroupCode4Edit
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             let model = respData.model;
@@ -87,7 +87,7 @@ const ShopGroupNewModal = (props) => {
         get('/userset/org/list', {  
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             let model = respData.model;

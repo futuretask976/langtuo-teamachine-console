@@ -38,7 +38,7 @@ const MachinePage = () => {
         get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopList4Select((prev => {

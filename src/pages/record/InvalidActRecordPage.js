@@ -28,7 +28,7 @@ const InvalidActRecordPage = () => {
             tenantCode: getTenantCode(),
             shopGroupCode: selectedShopGruopCode
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopList4Select((prev => {
@@ -53,7 +53,7 @@ const InvalidActRecordPage = () => {
         get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopList4Select((prev => {
@@ -77,7 +77,7 @@ const InvalidActRecordPage = () => {
         get('/shopset/shop/group/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopGroupList4Select((prev => {

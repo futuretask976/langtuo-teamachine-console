@@ -60,7 +60,7 @@ const ModelNewModal = (props) => {
         get('/deviceset/model/get', {
             modelCode: props.modelCode4Edit
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             let model = respData.model;

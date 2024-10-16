@@ -29,7 +29,7 @@ export const dateToYMDHMS = (date) => {
 }
 
 export const isArray = (arr) => {
-    if (arr == undefined || arr == null || !arr instanceof Array) {
+    if (arr === undefined || arr === null || !(arr instanceof Array)) {
         return false;
     } else {
         return true;
@@ -37,10 +37,10 @@ export const isArray = (arr) => {
 };
 
 export const isEmptyArray = (arr) => {
-    if (arr == undefined || arr == null || !arr instanceof Array) {
+    if (arr === undefined || arr === null || !(arr instanceof Array)) {
         return true;
     } else {
-        if (arr.length == 0) {
+        if (arr.length === 0) {
             return true;
         } else {
             return false;
@@ -49,7 +49,7 @@ export const isEmptyArray = (arr) => {
 };
 
 export const isBlankObj = (obj) => {
-    if (obj == undefined || obj == null) {
+    if (obj === undefined || obj === null) {
         return true;
     } else {
         return false;
@@ -57,7 +57,7 @@ export const isBlankObj = (obj) => {
 };
 
 export const isBlankStr = (str) => {
-    if (str == undefined || str == null || str == '') {
+    if (str === undefined || str === null || str === '') {
         return true;
     } else {
         return false;
@@ -126,7 +126,7 @@ export const isValidVersion = (input, required) => {
 
 
 export const arraysEqual = (arr1, arr2) => {
-    if (arr1 == undefined || arr2 == undefined) {
+    if (arr1 === undefined || arr2 === undefined) {
         return false;
     }
 

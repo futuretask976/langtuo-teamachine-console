@@ -29,7 +29,7 @@ const OrgListBlock = (props) => {
             pageNum: pageNum,
             pageSize: pageSize
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             let model = respData.model;
@@ -54,7 +54,7 @@ const OrgListBlock = (props) => {
         get('/userset/org/listbydepth', {  
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             let model = respData.model;

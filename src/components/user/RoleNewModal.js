@@ -50,7 +50,7 @@ const RoleNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.roleCode4Edit == undefined ? true : false;
+    const putNew = props.roleCode4Edit === undefined ? true : false;
     const [roleCode, setRoleCode] = useState();
     const [roleName, setRoleName] = useState();
     const [comment, setComment] = useState();
@@ -91,7 +91,7 @@ const RoleNewModal = (props) => {
                 permitActGroupItem.permitActList.forEach(permitActItem => {
                     let checked = false;
                     permitActCodeList.forEach(permitActCodeItem => {
-                        if (permitActItem.permitActCode == permitActCodeItem) {
+                        if (permitActItem.permitActCode === permitActCodeItem) {
                             checked = true;
                         }
                     });
@@ -131,10 +131,10 @@ const RoleNewModal = (props) => {
         setPermitActGroupList(prev => {
             let tmp = [];
             prev.forEach(permitActGroupItem => {
-                if (permitActGroupItem.permitActGroupCode == permitActGroupCode) {
+                if (permitActGroupItem.permitActGroupCode === permitActGroupCode) {
                     let hasUnchecked = false;
                     permitActGroupItem.permitActList.forEach(permitActItem => {
-                        if (permitActItem.permitActCode == permitActCode) {
+                        if (permitActItem.permitActCode === permitActCode) {
                             permitActItem.checked = e.target.checked;
                         }
                         if (!permitActItem.checked) {
@@ -156,7 +156,7 @@ const RoleNewModal = (props) => {
         setPermitActGroupList(prev => {
             let tmp = [];
             prev.forEach(permitActGroupItem => {
-                if (permitActGroupItem.permitActGroupCode == permitActGroupCode) {
+                if (permitActGroupItem.permitActGroupCode === permitActGroupCode) {
                     permitActGroupItem.checked = e.target.checked;
                     permitActGroupItem.permitActList.forEach(permitActItem => {
                         permitActItem.checked = e.target.checked;

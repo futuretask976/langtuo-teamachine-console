@@ -19,7 +19,7 @@ const OrgNewModal = (props) => {
             alert(applyLang('msgParentOrgNameInvalid'));
             return;
         }
-        if (orgName == parentOrgName) {
+        if (orgName === parentOrgName) {
             alert(applyLang('msgParentOrgNameInvalid'));
             return;
         }
@@ -48,7 +48,7 @@ const OrgNewModal = (props) => {
     };
 
     // 数据定义
-    const putNew = props.orgName4Edit == undefined ? true : false;
+    const putNew = props.orgName4Edit === undefined ? true : false;
     const [orgName, setOrgName] = useState();
     const [parentOrgName, setParentOrgName] = useState();
     const [parentOrgNameOpts, setParentOrgNameOpts] = useState();

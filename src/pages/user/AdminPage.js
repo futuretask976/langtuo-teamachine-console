@@ -46,7 +46,7 @@ const AdminPage = () => {
         get('/userset/role/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setRoleList4Select((prev => {

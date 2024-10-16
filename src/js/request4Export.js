@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { BACKEND_BASE_URL, TIMEOUT } from './config';
+import { getLang, isBlankStr } from './common';
 
 const instance4Export = axios.create({
     baseURL: BACKEND_BASE_URL,
@@ -13,6 +14,12 @@ instance4Export.interceptors.request.use(
         // 在请求发送前添加请求头
         config.headers['Authorization'] = localStorage.getItem('jwtToken');
         config.responseType = 'blob';
+
+        let lang = getLang();
+        if (isBlankStr(lang)) {
+            lang = 'zh_CN';
+        }
+        config.headers['Lang'] = lang;
         return config;
     },
     (error) => {

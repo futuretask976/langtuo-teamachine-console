@@ -72,9 +72,6 @@ const OrderSpecItemReportListBlock = (props) => {
     const onChangePage = (page) => {
         setPageNum(page);
     }
-    const onClickView = (e, idempotentMark) => {
-        props.onClickView(idempotentMark);
-    }
 
     return (
         <div className='full-square' style={{ background: colorBgContainer, height: '100%' }}>

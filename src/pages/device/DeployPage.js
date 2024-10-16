@@ -41,7 +41,7 @@ const DeployPage = () => {
         get('/shopset/shop/list', {
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             setShopList4Select((prev => {
@@ -76,7 +76,7 @@ const DeployPage = () => {
         get4Export('/deviceset/deploy/export', {  
             tenantCode: getTenantCode()
         }).then(respData => {
-            if (respData == undefined) {
+            if (respData === undefined) {
                 return;
             }
             const url4Export = window.URL.createObjectURL(new Blob([respData]));

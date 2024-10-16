@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Image, Space } from 'antd';
+import { Image } from 'antd';
 
 import '../css/common.css';
 import logo from '../images/logo2.png'
@@ -9,7 +9,7 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-function LoginPage(props) {
+function LoginPage() {
     const queryParams = useQuery();
     const [msg, setMsg] = useState('');
 
