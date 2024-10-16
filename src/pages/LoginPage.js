@@ -95,11 +95,15 @@ function LoginPage() {
 
     const onClickLogin = () => {
         if (!isValidCode(userName, true)) {
-            alert('用户名不符合规则');
+            alert(applyLang('msgLoginNameInvalid'));
             return;
         }
         if (!isValidCode(password, true)) {
-            alert('密码不符合规则');
+            alert(applyLang('msgLoginPassInvalid'));
+            return;
+        }
+        if (!isValidCode(tenantCode, true)) {
+            alert(applyLang('msgTenantCodeInvalid'));
             return;
         }
 
