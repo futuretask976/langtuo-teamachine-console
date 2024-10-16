@@ -66,13 +66,13 @@ const MenuListBlock = (props) => {
             title: applyLang('labelGmtCreated'),
             dataIndex: 'gmtCreated',
             key: 'gmtCreated',
-            width: '25%',
+            width: '20%',
             render: (gmtCreated) => new Date(gmtCreated).toLocaleString()
         },
         {
             title: applyLang('labelOpe'),
             key: 'actions',
-            width: '15%',
+            width: '20%',
             render: (_, { menuCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
