@@ -76,7 +76,7 @@ const SpecListBlock = (props) => {
             title: applyLang('labelSpecItem'),
             dataIndex: 'specItemList',
             key: 'specItemList',
-            width: '40%',
+            width: '35%',
             render: (specItemList) => (
                 <Space size="middle">
                 {specItemList.map((specItem) => {
@@ -88,7 +88,7 @@ const SpecListBlock = (props) => {
         {
             title: applyLang('labelOpe'),
             key: 'actions',
-            width: '10%',
+            width: '15%',
             render: (_, { specCode, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
