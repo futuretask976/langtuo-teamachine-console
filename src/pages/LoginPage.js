@@ -19,9 +19,9 @@ function LoginPage() {
     const navigate = useNavigate();
 
     // 数据初始化
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const [tenantCode, setTenantCode] = useState('');
+    const [userName, setUserName] = useState();
+    const [password, setPassword] = useState();
+    const [tenantCode, setTenantCode] = useState();
     const [tenantList4Select, setTenantList4Select] = useState([]);
 
     // 初始化动作相关
@@ -172,10 +172,11 @@ function LoginPage() {
                         </div>
                         <div className="flex-row-cont" style={{alignItems: 'center', justifyContent: 'flex-start', width: '70%'}}>
                             <Select
-                                value={tenantCode}
-                                style={{width: '100%'}}
                                 onChange={(e) => setTenantCode(e)}
                                 options={tenantList4Select}
+                                placeholder={applyLang('labelPleaseSelect')}
+                                style={{width: '100%'}}
+                                value={tenantCode}
                             />
                         </div>
                     </div>
