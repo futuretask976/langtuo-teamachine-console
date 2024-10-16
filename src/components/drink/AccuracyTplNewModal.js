@@ -143,7 +143,7 @@ const AccuracyTplNewModal = (props) => {
                             <Col className="gutter-row" span={7}>
                                 <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
                                     <Select
-                                        disabled='true'
+                                        disabled={true}
                                         onChange={(e) => setOverMode(e)}
                                         options={[
                                             {

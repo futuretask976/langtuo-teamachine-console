@@ -372,7 +372,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                     <Space direction='vertical' size='small' style={{height: '100%', width: '100%'}}>
                         {teaUnitList.map(teaUnit => {
                             return (
-                                <div style={{height: 50, width: '99%', borderRadius: 5, backgroundColor: teaUnit.backgroundColor, color: teaUnit.textColor}} onClick={(e) => onClickTeaUnit(e, teaUnit.teaUnitCode)}>
+                                <div key={teaUnit.teaUnitCode} style={{height: 50, width: '99%', borderRadius: 5, backgroundColor: teaUnit.backgroundColor, color: teaUnit.textColor}} onClick={(e) => onClickTeaUnit(e, teaUnit.teaUnitCode)}>
                                     <span className="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
                                         {teaUnit.teaUnitName}
                                     </span>
@@ -390,7 +390,7 @@ const TeaNewModalAdjustRulePane = (props) => {
                         scroll={{ y: 275 }}  
                         size='small' 
                         style={{width: '100%'}} 
-                        rowKey={record=>record.toppingCode}/>
+                        rowKey={record => record.toppingCode}/>
                 </div>
             </div>
         </div>
