@@ -146,7 +146,7 @@ function LoginPage() {
     };
 
     return (
-        <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100%', background: 'pink'}}>
+        <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100%'}}>
                 <div className="flex-row-cont" style={{height: 60, width: '35%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
                     <Image className='flex-row-cont' src={logo} height={25} />
                 </div>
