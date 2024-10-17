@@ -212,7 +212,7 @@ const ToppingNewModal = (props) => {
                         </Col>
                         <Col className="gutter-row" span={6}>
                             <div className="flex-row-cont" style={{justifyContent: 'flex-start'}}>
-                                <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e == true ? 1 : 0)} />
+                                <Switch checkedChildren={applyLang('labelEnabled')} unCheckedChildren={applyLang('labelDisabled')} checked={state === 1 ? true : false} onChange={(e) => setState(e === true ? 1 : 0)} />
                             </div>
                         </Col>
                     </Row>

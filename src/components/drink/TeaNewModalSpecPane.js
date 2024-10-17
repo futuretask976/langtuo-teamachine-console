@@ -21,7 +21,7 @@ const TeaNewModalSpecPane = (props) => {
         specListTmp.forEach(spec => {
             let selectedSpec = false;
             specRuleList4Edit.forEach(specRule4Edit => {
-                if (spec.specCode == specRule4Edit.specCode) {
+                if (spec.specCode === specRule4Edit.specCode) {
                     selectedSpec = true;
                 }
             });
@@ -79,7 +79,7 @@ const TeaNewModalSpecPane = (props) => {
             tmp.forEach(spec => {
                 let selectedSpec = false;
                 selectedSpecCodeList.forEach(selectedSpecCode => {
-                    if (spec.specCode == selectedSpecCode) {
+                    if (spec.specCode === selectedSpecCode) {
                         selectedSpec = true;
                     }
                 });
@@ -101,9 +101,9 @@ const TeaNewModalSpecPane = (props) => {
         setSpecRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(specRule => {
-                if (specRule.specCode == selectedSpecCode) {
+                if (specRule.specCode === selectedSpecCode) {
                     specRule.specItemRuleList.forEach(specItemRule => {
-                        if (specItemRule.specItemCode == selectedSpecItemCode) {
+                        if (specItemRule.specItemCode === selectedSpecItemCode) {
                             specItemRule.selected = specItemRule.selected ? false : true;
                         }
                     });
@@ -131,7 +131,7 @@ const TeaNewModalSpecPane = (props) => {
                             let selectedSpecItemRule = false;
                             specRuleList4Edit.forEach(specRule4Edit => {
                                 specRule4Edit.specItemRuleList.forEach(specItemRule4Edit => {
-                                    if (specItemRule.specItemCode == specItemRule4Edit.specItemCode) {
+                                    if (specItemRule.specItemCode === specItemRule4Edit.specItemCode) {
                                         selectedSpecItemRule = true;
                                     }
                                 });

@@ -167,7 +167,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         setTeaUnitList(prev => {
             let tmp = [];
             teaUnitList.forEach(teaUnit => {
-                if (teaUnit.teaUnitCode == teaUnitCode) {
+                if (teaUnit.teaUnitCode === teaUnitCode) {
                     teaUnit.backgroundColor = '#353535';
                     teaUnit.textColor = '#FFFFFF';
                     teaUnit.selected = true;
@@ -297,7 +297,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(adjustRule => {
-                if (adjustRule.toppingCode == toppingCode) {
+                if (adjustRule.toppingCode === toppingCode) {
                     adjustRule.adjustType = e;
                     adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
@@ -309,7 +309,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(adjustRule => {
-                if (adjustRule.toppingCode == toppingCode) {
+                if (adjustRule.toppingCode === toppingCode) {
                     adjustRule.adjustMode = e;
                     adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
@@ -321,7 +321,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         setCurToppingAdjustRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(adjustRule => {
-                if (adjustRule.toppingCode == toppingCode) {
+                if (adjustRule.toppingCode === toppingCode) {
                     adjustRule.adjustAmount = e;
                     adjustRule.actualAmount = calcActualAmount(adjustRule);
                 }
@@ -357,7 +357,7 @@ const TeaNewModalAdjustRulePane = (props) => {
         setTeaUnitList(prev => {
             let tmp = [...prev];
             tmp.forEach(teaUnit => {
-                if (teaUnit.teaUnitcode == curTeaUnitCode) {
+                if (teaUnit.teaUnitcode === curTeaUnitCode) {
                     tmp.toppingAdjustRuleList = curToppingAdjustRuleList;
                 }
             });

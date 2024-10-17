@@ -79,7 +79,7 @@ const OrderActRecordListBlock = (props) => {
             dataIndex: 'state',
             key: 'state',
             width: '10%',
-            render: (state) => state === 0 ? applyLang('labelWaiting') : state === 1 ? applyLang('labelProducing') : state == 2 ? applyLang('labelProduced') : state == 3 ? applyLang('labelAbnormal') : applyLang('labelCancelled')
+            render: (state) => state === 0 ? applyLang('labelWaiting') : state === 1 ? applyLang('labelProducing') : state === 2 ? applyLang('labelProduced') : state === 3 ? applyLang('labelAbnormal') : applyLang('labelCancelled')
         },
         {
             title: applyLang('labelOuterOrderId'),

@@ -95,7 +95,7 @@ const DrainRuleListBlock = (props) => {
                             <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDelete(e, drainRuleCode)}>{applyLang('labelDel')}</a>
                         );
                     }
-                    if (action == 'dispatch') {
+                    if (action === 'dispatch') {
                         return (
                             <a key={action + '_' + drainRuleCode} onClick={(e) => onClickDispatch(e, drainRuleCode)}>{applyLang('labelDispatch')}</a>
                         );

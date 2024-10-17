@@ -89,7 +89,7 @@ const WarningRuleListBlock = (props) => {
                             <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDelete(e, warningRuleCode)}>{applyLang('labelDel')}</a>
                         );
                     }
-                    if (action == 'dispatch') {
+                    if (action === 'dispatch') {
                         return (
                             <a key={action + '_' + warningRuleCode} onClick={(e) => onClickDispatch(e, warningRuleCode)}>{applyLang('labelDispatch')}</a>
                         );

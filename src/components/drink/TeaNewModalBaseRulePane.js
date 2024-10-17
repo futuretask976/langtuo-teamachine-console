@@ -50,7 +50,7 @@ const TeaNewModalBaseRulePane = (props) => {
         setToppingBaseRuleList(prev => {
             let tmp = [...prev];
             tmp.forEach(toppingBaseRule => {
-                if (toppingBaseRule.stepIndex == stepIndex && toppingBaseRule.toppingCode == toppingCode) {
+                if (toppingBaseRule.stepIndex === stepIndex && toppingBaseRule.toppingCode === toppingCode) {
                     toppingBaseRule.baseAmount = baseAmount;
                 }
             });

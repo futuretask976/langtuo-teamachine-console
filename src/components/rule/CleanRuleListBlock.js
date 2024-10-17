@@ -102,7 +102,7 @@ const CleanRuleListBlock = (props) => {
                             <a key={action + '_' + cleanRuleCode} onClick={(e) => onClickDelete(e, cleanRuleCode)}>{applyLang('labelDel')}</a>
                         );
                     }
-                    if (action == 'dispatch') {
+                    if (action === 'dispatch') {
                         return (
                             <a key={action + '_' + cleanRuleCode} onClick={(e) => onClickDispatch(e, cleanRuleCode)}>{applyLang('labelDispatch')}</a>
                         );

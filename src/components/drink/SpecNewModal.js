@@ -175,7 +175,7 @@ const SpecNewModal = (props) => {
             let matched = false;
             if (isArray(prev)) {
                 prev.forEach(item => {
-                    if (item.specItemCode == specItemCode) {
+                    if (item.specItemCode === specItemCode) {
                         matched = true;
                         tmp.push({
                             key: specItemCode,

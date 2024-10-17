@@ -87,7 +87,7 @@ const TeaNewModalActStepPane = (props) => {
         setActStepList((prev => {
             let tmp = [];
             prev.forEach((actStep) => {
-                if (actStep.stepIndex == stepIndex) {
+                if (actStep.stepIndex === stepIndex) {
                     let toppingBaseRuleList = [];
                     selectedToppingCodeList.forEach(selectedToppingCode => {
                         let toppingTmp = findExistToppingRule(selectedToppingCode, actStep.toppingBaseRuleList);
@@ -108,7 +108,7 @@ const TeaNewModalActStepPane = (props) => {
     const findNewToppingRule = (toppingCode, stepIndex) => {
         let toppingBaseRule = {};
         toppingList4Select.forEach(topping => {
-            if (topping.toppingCode == toppingCode) {
+            if (topping.toppingCode === toppingCode) {
                 toppingBaseRule.stepIndex = stepIndex;
                 toppingBaseRule.toppingCode = topping.toppingCode;
                 toppingBaseRule.toppingName = topping.toppingName;
@@ -125,7 +125,7 @@ const TeaNewModalActStepPane = (props) => {
         }
 
         toppingBaseRuleList.forEach(toppingBaseRule => {
-            if (toppingBaseRule.toppingCode == toppingCode) {
+            if (toppingBaseRule.toppingCode === toppingCode) {
                 found = toppingBaseRule;
             }
         });

@@ -180,7 +180,7 @@ const DrainRuleNewModal = (props) => {
         }
         let alreadyIn = false;
         toppingRuleList.forEach(toppingRule => {
-            if (toppingRule.toppingCode == toppingCode) {
+            if (toppingRule.toppingCode === toppingCode) {
                 alreadyIn = true;
             }
         });
@@ -192,7 +192,7 @@ const DrainRuleNewModal = (props) => {
     const getToppingByCode = (toppingCode) => {
         let result = null;
         toppingList4Select.forEach(topping => {
-            if (topping.toppingCode == toppingCode) {
+            if (topping.toppingCode === toppingCode) {
                 result = topping;
             }
         });

@@ -86,7 +86,7 @@ const MenuListBlock = (props) => {
                             <a key={action + '_' + menuCode} onClick={(e) => onClickDelete(e, menuCode)}>{applyLang('labelDel')}</a>
                         );
                     }
-                    if (action == 'dispatch') {
+                    if (action === 'dispatch') {
                         return (
                             <a key={action + '_' + menuCode} onClick={(e) => onClickDispatch(e, menuCode)}>{applyLang('labelDispatch')}</a>
                         );

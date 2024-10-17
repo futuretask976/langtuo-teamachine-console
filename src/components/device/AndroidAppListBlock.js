@@ -87,7 +87,7 @@ const AndroidAppListBlock = (props) => {
                             <a key={action + '_' + version} onClick={(e) => onClickDelete(e, version)}>{applyLang('labelDel')}</a>
                         );
                     }
-                    if (action == 'dispatch') {
+                    if (action === 'dispatch') {
                         return (
                             <a key={action + '_' + version} onClick={(e) => onClickDispatch(e, version)}>{applyLang('labelDispatch')}</a>
                         );

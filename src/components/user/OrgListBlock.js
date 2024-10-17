@@ -116,7 +116,7 @@ const OrgListBlock = (props) => {
             render: (_, { orgName, actions }) => (
                 <Space size="middle">
                 {actions.map((action) => {
-                    if (orgName == '总公司') {
+                    if (orgName === '总公司') {
                         return;
                     } else {
                         if (action === 'edit') {

@@ -87,7 +87,7 @@ const AuthenticatedOnlyRoute = () => {
 const getLocale = () => {
     let lang = getLang();
     console.log('$$$$$ App.js lang=', lang)
-    let locale = (lang == 'zh_CN') ? zhCN : enUS;
+    let locale = (lang === 'zh_CN') ? zhCN : enUS;
     return locale;
 }
 

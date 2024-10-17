@@ -75,7 +75,7 @@ const RoleListBlock = (props) => {
             dataIndex: 'sysReserved',
             key: 'sysReserved',
             width: '10%',
-            render: (sysReserved) => 1 == sysReserved ? applyLang('labelYes') : applyLang('labelNo')
+            render: (sysReserved) => 1 === sysReserved ? applyLang('labelYes') : applyLang('labelNo')
         },
         {
             title: applyLang('labelGmtCreated'),
