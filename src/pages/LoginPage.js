@@ -131,18 +131,22 @@ function LoginPage() {
 
     const findLoc = () => {
         console.log("$$$$$ loginPage|findLoc|entering");
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const longitude = position.coords.longitude;
-                const latitude = position.coords.latitude;
-                console.log("$$$$$ loginPage|findLoc|succ|" + longitude + "|" + latitude);
-                setLong(longitude);
-                setLati(latitude);
-            },
-            (error) => {
-                console.log("$$$$$ loginPage|findLoc|error|", error);
-            }
-        );
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const longitude = position.coords.longitude;
+                    const latitude = position.coords.latitude;
+                    console.log("$$$$$ loginPage|findLoc|succ|" + longitude + "|" + latitude);
+                    setLong(longitude);
+                    setLati(latitude);
+                },
+                (error) => {
+                    console.log("$$$$$ loginPage|findLoc|error|", error);
+                }
+            );
+        } else {
+            console.log("$$$$$ loginPage|geolocation|notExist");
+        }
     };
 
     return (
