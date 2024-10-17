@@ -131,22 +131,40 @@ function LoginPage() {
 
     const findLoc = () => {
         console.log("$$$$$ loginPage|findLoc|entering");
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const longitude = position.coords.longitude;
-                    const latitude = position.coords.latitude;
-                    console.log("$$$$$ loginPage|findLoc|succ|" + longitude + "|" + latitude);
-                    setLong(longitude);
-                    setLati(latitude);
-                },
-                (error) => {
-                    console.log("$$$$$ loginPage|findLoc|error|", error);
-                }
-            );
-        } else {
-            console.log("$$$$$ loginPage|geolocation|notExist");
-        }
+        let geolocation = new window.BMapGL.Geolocation();
+        // 启用SDK辅助定位
+        geolocation.enableSDKLocation();
+        // 开始定位
+        geolocation.getCurrentPosition(function onGetCurrentPosition(resp) {
+            if (this.getStatus() === window.BMAP_STATUS_SUCCESS) {
+                // 获取定位成功，设置地图中心点
+                const { lng, lat } = resp.point;
+                console.log("$$$$$ loginPage|findLocByBaidu|succ|" + lng + "|" + lat, resp.point);
+                setLong(lng);
+                setLati(lat);
+            } else {
+                // 获取定位失败
+                console.log("$$$$$ loginPage|findLocByBaidu|error|", resp);
+            }
+        }, {
+            enableHighAccuracy: true, // 是否启用高精度定位
+        });
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(
+        //         (position) => {
+        //             const longitude = position.coords.longitude;
+        //             const latitude = position.coords.latitude;
+        //             console.log("$$$$$ loginPage|findLocByH5|succ|" + longitude + "|" + latitude);
+        //             setLong(longitude);
+        //             setLati(latitude);
+        //         },
+        //         (error) => {
+        //             console.log("$$$$$ loginPage|findLocByH5|error|", error);
+        //         }
+        //     );
+        // } else {
+        //     console.log("$$$$$ loginPage|geolocation|notExist");
+        // }
     };
 
     return (
