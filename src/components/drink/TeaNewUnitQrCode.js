@@ -17,7 +17,7 @@ const TeaNewUnitQrCode = (props) => {
             centered
             open={open}
             title={applyLang('labelViewQrCode')}
-            width={500}
+            width={650}
             footer={[
                 <Button key="close" onClick={onClickClose}>
                     {applyLang('labelClose')}
