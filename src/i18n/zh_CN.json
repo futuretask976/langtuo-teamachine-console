@@ -387,5 +387,7 @@
     "msgOnlySupportXlsxFile": "仅支持 xlsx 文件！",
     "msgFileSizeLess10m": "文件尺寸必须小于 10M！",
     "promptTenant": "商户：",
-    "labelLogin": "登录"
+    "labelLogin": "登录",
+    "promptCode": "编码：",
+    "labelViewQrCode": "查看二维码"
 }

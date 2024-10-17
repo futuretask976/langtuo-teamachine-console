@@ -221,7 +221,7 @@ const TeaNewModal = (props) => {
                         <TeaNewModalSpecPane specRuleList4Edit={tea.specRuleList} specItemRuleList4Edit={tea.specItemRuleList} updateSpecRuleList={updateSpecRuleList} updateSpecItemRuleList={updateSpecItemRuleList} />
                     )}
                     {showStepPane && curStep == 4 && (
-                        <TeaNewModalAdjustRulePane toppingBaseRuleList4Edit={tea.toppingBaseRuleList} specItemRuleList4Edit={tea.specItemRuleList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />
+                        <TeaNewModalAdjustRulePane teaCode={tea.teaCode} toppingBaseRuleList4Edit={tea.toppingBaseRuleList} specItemRuleList4Edit={tea.specItemRuleList} teaUnitList4Edit={tea.teaUnitList} updateTeaUnitList={updateTeaUnitList} />
                     )}
                 </div>
                 <div style={{marginTop: 24}}>

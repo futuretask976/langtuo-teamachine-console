@@ -387,5 +387,7 @@
     "msgOnlySupportXlsxFile": "Only xlsx file！",
     "msgFileSizeLess10m": "File size need to less than 10M！",
     "promptTenant": "Tenant：",
-    "labelLogin": "Login"
+    "labelLogin": "Login",
+    "promptCode": "Code：",
+    "labelViewQrCode": "View QRCode"
 }

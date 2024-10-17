@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { InputNumber, Select, Space, Table } from 'antd';
+import { Button, InputNumber, Select, Space, Table } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
+
+import TeaNewUnitQrCode from './TeaNewUnitQrCode'
 
 import '../../css/common.css';
 import { applyLang } from '../../i18n/i18n';
@@ -21,6 +24,8 @@ const TeaNewModalAdjustRulePane = (props) => {
     });
     const [curTeaUnitCode, setCurTeaUnitCode] = useState();
     const [curToppingAdjustRuleList, setCurToppingAdjustRuleList] = useState();
+    const [openQrCode, setOpenQrCode] = useState(false);
+    const [qrCode, setQrCode] = useState();
 
     // 规格项组合初始化定义
     const genTeaUnitList = () => {
@@ -183,6 +188,7 @@ const TeaNewModalAdjustRulePane = (props) => {
             });
             return tmp;
         });
+        setQrCode(props.teaCode + '|xxxx|' + teaUnitCode.split('-').join(','));
     }
     const initTeaUnitListSelected = () => {
         // console.log('$$$$$ teaNewModalAdjustRulePane#initTeaUnitListSelected teaUnitList=', teaUnitList);
@@ -362,38 +368,54 @@ const TeaNewModalAdjustRulePane = (props) => {
         updateTeaUnitList();
     }, [curToppingAdjustRuleList]);
 
+
+    // 输入定义
+    const onClickoOpenQrCode = (e) => {
+        setOpenQrCode(true);
+    }
+    const onClickCloseQrCode = (e) => {
+        setOpenQrCode(false);
+    }
+
     return (
-        <div className="flex-col-cont" style={{height: 340, width: '100%'}}>
-            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '10%', width: '100%'}}>
-                <span style={{color: 'black', fontWeight: 'bold'}}>{applyLang('promptComposeRule')}</span>
-            </div>
-            <div className="flex-row-cont" style={{justifyContent: 'flex-start', height: '90%', width: '100%'}}>
-                <div style={{height: '100%', width: '29%', overflowY: 'auto'}}>
-                    <Space direction='vertical' size='small' style={{height: '100%', width: '100%'}}>
-                        {teaUnitList.map(teaUnit => {
-                            return (
-                                <div key={teaUnit.teaUnitCode} style={{height: 50, width: '99%', borderRadius: 5, backgroundColor: teaUnit.backgroundColor, color: teaUnit.textColor}} onClick={(e) => onClickTeaUnit(e, teaUnit.teaUnitCode)}>
-                                    <span className="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
-                                        {teaUnit.teaUnitName}
-                                    </span>
-                                </div>
-                            )
-                        })}
-                    </Space>
+        <>
+            <div className="flex-col-cont" style={{height: 340, width: '100%'}}>
+                <div className="flex-row-cont full-width" style={{justifyContent: 'space-between', height: 40}}>
+                    <span style={{color: 'black', fontWeight: 'bold'}}>{applyLang('promptComposeRule')}</span>
+                    <Button type="primary" icon={<FormOutlined />} onClick={onClickoOpenQrCode}>{applyLang('labelViewQrCode')}</Button>
                 </div>
-                <div style={{height: '100%', width: '2%'}}>&nbsp;</div>
-                <div className="flex-col-cont" style={{alignItems: 'flex-start', justifyContent: 'flex-start', height: '100%', width: '69%'}}>
-                    <Table 
-                        columns={toppingAdjustRuleCols} 
-                        dataSource={curToppingAdjustRuleList}
-                        pagination={false} 
-                        scroll={{ y: 275 }}  
-                        size='small' 
-                        style={{width: '100%'}} 
-                        rowKey={record => record.toppingCode}/>
+                <div className="flex-row-cont full-width" style={{justifyContent: 'flex-start', height: 300}}>
+                    <div className="full-height" style={{width: '29%', overflowY: 'auto'}}>
+                        <Space direction='vertical' size='small' style={{height: '100%', width: '100%'}}>
+                            {teaUnitList.map(teaUnit => {
+                                return (
+                                    <div key={teaUnit.teaUnitCode} style={{height: 50, width: '99%', borderRadius: 5, backgroundColor: teaUnit.backgroundColor, color: teaUnit.textColor}} onClick={(e) => onClickTeaUnit(e, teaUnit.teaUnitCode)}>
+                                        <span className="flex-row-cont" style={{height: '100%', lineHeight: 1.5, overflowWrap: 'break-word'}}>
+                                            {teaUnit.teaUnitName}
+                                        </span>
+                                    </div>
+                                )
+                            })}
+                        </Space>
+                    </div>
+                    <div className="full-height" style={{width: '2%'}}>&nbsp;</div>
+                    <div className="flex-col-cont full-height" style={{alignItems: 'flex-start', justifyContent: 'flex-start', width: '69%'}}>
+                        <Table 
+                            columns={toppingAdjustRuleCols} 
+                            dataSource={curToppingAdjustRuleList}
+                            pagination={false} 
+                            size='small' 
+                            style={{overflowY: 'auto', height: '100%', width: '100%'}} 
+                            rowKey={record => record.toppingCode}/>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {openQrCode && (
+                <TeaNewUnitQrCode onClose={onClickCloseQrCode} qrCode={qrCode} />
+            )}
+        </>
+        
     );
 };
 
