@@ -172,7 +172,7 @@ function LoginPage() {
                 <div className="flex-row-cont" style={{height: 60, width: '35%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
                     <Image className='flex-row-cont' src={logo} height={25} />
                 </div>
-                <div className="flex-col-cont" style={{height: 425, width: '35%', border: '1px solid #353535'}}>
+                <div className="flex-col-cont" style={{height: 475, width: '35%', border: '1px solid #353535'}}>
                     <Space direction='vertical' size={20} style={{width: '90%'}}>
                         <div className="flex-row-cont" style={{alignItems: 'center'}}>
                             <div className="flex-row-cont full-height" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
@@ -231,16 +231,18 @@ function LoginPage() {
                                 <Button type="primary" onClick={onClickLogin}>
                                     {applyLang('labelLogin')}
                                 </Button>
-                                <Button type="primary" onClick={onClickTest}>
-                                    临时测试用（请不要点击）
-                                </Button>
                             </Space>
                         </div>
-                        <div style={{height: 150, width: '100%', background: 'blue'}}>
-                            <Map style={{height: '100%', width: '100%'}} center={{lng: long, lat: lati}} zoom="10">
-                                <Marker position={{lng: long, lat: lati}} />
-                                <ZoomControl />
-                            </Map>
+                        <div className='flex-col-cont' style={{height: 180, width: '100%'}}>
+                            <div className='flex-row-cont' style={{alignItems: 'center', justifyContent: 'space-between', height: 35, width: '100%'}}>
+                                <span>您的位置（仅用于测试）：</span><Button type="primary" onClick={onClickTest}>临时测试用（请不要点击）</Button>
+                            </div>
+                            <div style={{height: 150, width: '100%'}}>
+                                <Map style={{height: '100%', width: '100%'}} center={{lng: long, lat: lati}} zoom="10">
+                                    <Marker position={{lng: long, lat: lati}} />
+                                    <ZoomControl />
+                                </Map>
+                            </div>
                         </div>
                     </Space>
                     {/* <div className="flex-col-cont" style={{height: 200, width: '30%', border: '1px solid red'}}>
