@@ -55,13 +55,13 @@ const AndroidAppListBlock = (props) => {
             title: applyLang('labelVersion'),
             dataIndex: 'version',
             key: 'version',
-            width: '20%'
+            width: '15%'
         },
         {
             title: applyLang('labelOssPath'),
             dataIndex: 'ossPath',
             key: 'ossPath',
-            width: '40%'
+            width: '45%'
         },
         {
             title: applyLang('labelGmtCreated'),
