@@ -11,6 +11,8 @@ import { getLang, isValidCode, putLoginName, putLang, putJwtToken, putTenantCode
 import { applyLang } from '../i18n/i18n';
 import { get, post } from '../js/request.js';
 import logo from '../images/logo2.png'
+import mirrographer from '../images/pexels-mirrographer-1148215.jpg'
+import minan1398 from '../images/pexels-minan1398-792991.jpg'
 
 function LoginPage() {
     // 上下文定义
@@ -168,11 +170,11 @@ function LoginPage() {
     };
 
     return (
-        <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100%'}}>
+        <div className="flex-col-cont" style={{alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100%', backgroundImage: `url(${minan1398})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
                 <div className="flex-row-cont" style={{height: 60, width: '35%', background: '#353535', color: 'white', border: '1px solid #353535'}}>
                     <Image className='flex-row-cont' src={logo} height={25} />
                 </div>
-                <div className="flex-col-cont" style={{height: 475, width: '35%', border: '1px solid #353535'}}>
+                <div className="flex-col-cont" style={{height: 475, width: '35%', background: 'white', border: '1px solid #353535'}}>
                     <Space direction='vertical' size={20} style={{width: '90%'}}>
                         <div className="flex-row-cont" style={{alignItems: 'center'}}>
                             <div className="flex-row-cont full-height" style={{alignItems: 'center', justifyContent: 'flex-end', width: '30%'}}>
